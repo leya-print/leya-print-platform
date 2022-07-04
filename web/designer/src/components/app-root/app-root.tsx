@@ -8,6 +8,7 @@ import { Component, h, Host, VNode } from '@stencil/core';
 export class AppRoot {
   getPage(): {
     contents: VNode,
+    title?: string,
     isPrintingPage?: true,
   } {
     const path = location.pathname;
@@ -16,6 +17,7 @@ export class AppRoot {
       const tplName = pathParts.groups?.['tplName'];
       return {
         contents: <designer-page tplName={tplName}></designer-page>,
+        title: 'Designer',
       };
     }
 
@@ -46,10 +48,10 @@ export class AppRoot {
   }
 
   render() {
-    const { contents, isPrintingPage } = this.getPage();
+    const { contents, title, isPrintingPage } = this.getPage();
     return isPrintingPage ? <Host>{contents}</Host> : <Host>
       <header class="app-root__header">
-        <h1><a href="/">leya print</a></h1>
+        <h1><a href="/">leya print</a>{title ? <span>{title}</span> : ''}</h1>
       </header>
       <main class="app-root__main">{contents}</main>
     </Host>
