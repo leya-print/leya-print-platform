@@ -1,0 +1,22 @@
+.app-root__header {
+    background: #5851ff;
+    color: white;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    h1 {
+        padding: 0 12px;
+    }
+    a {
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+}
+
+.app-root__main {
+    padding: 2em;
+}

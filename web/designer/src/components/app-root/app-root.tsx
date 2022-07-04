@@ -2,18 +2,27 @@ import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'app-root',
-  styleUrl: 'app-root.css',
-  shadow: true,
+  styleUrl: 'app-root.scss',
+  shadow: false,
 })
 export class AppRoot {
   render() {
     return (
       <div>
-        <header>
-          <h1>Stencil App Starter</h1>
+        <header class="app-root__header">
+          <h1><a href="/">leya print</a></h1>
         </header>
 
-        <main><app-home></app-home></main>
+        <main class="app-root__main">{(() => {
+          const path = location.pathname;
+          if (path.includes('/designer/')) {
+            const pathParts = path.match(/\/designer\/(?<tplName>[^\/]+)/);
+            const tplName = pathParts.groups?.['tplName'];
+            return <designer-page tplName={tplName}></designer-page>
+          }
+
+          return <home-page></home-page>;
+        })()}</main>
       </div>
     );
   }
