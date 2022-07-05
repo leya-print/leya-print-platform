@@ -64,10 +64,17 @@ export class PdfFactory {
         const openPage = (pagePart, actions) => this.openPage(templateId, pagePart, queryParams, actions);
         const [header, footer] = await Promise.all(
             ['header', 'footer'].map((pagePart) => openPage(pagePart, async(page) => {
+                const styles = await page.$$('style');
+                const stylesHtml = `<style>\n${(await Promise.all(styles.map(async(next) => {
+                    const styleText = await next.innerHTML();
+                    return styleText;
+                }))).join('\n\n')}\n</style>`;
                 const appRoot = page.locator('app-root');
-                const html = await appRoot.innerHTML();
+                const appRootHtml = await appRoot.innerHTML();
                 const boundingBox = await appRoot.boundingBox();
                 const boundingBoxHeight = boundingBox && boundingBox.height;
+
+                const html = stylesHtml + appRootHtml;
                 const height = boundingBoxHeight ? boundingBoxHeight + 'mm' : '3cm';
                 return { height, html };
             })),
@@ -78,6 +85,7 @@ export class PdfFactory {
             footerTemplate: footer.html,
             displayHeaderFooter: true,
             printBackground: true,
+            format: 'A4',
             margin: {
                 top: header.height,
                 bottom: footer.height,
