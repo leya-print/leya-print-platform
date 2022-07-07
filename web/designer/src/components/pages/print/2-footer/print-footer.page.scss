@@ -1,0 +1,13 @@
+$pageScaleFix__factor: calc(15.737 / 21) !default;
+print-footer-page {
+    display: block;
+    box-sizing: border-box;
+    width: 21cm;
+    transform-origin: top left;
+    transform: scale($pageScaleFix__factor);
+}
+
+#footer {
+    padding-bottom: 0;
+    display: block;
+}

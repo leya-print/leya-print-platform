@@ -7,6 +7,7 @@ import { Component, h, Host, Prop } from '@stencil/core';
 })
 export class AppHome {
   @Prop() templates = [
+    { ident: 'template-demo', title: 'demo', description: 'demo template that shows header, content and footer usage' },
     { ident: 'invoice', title: 'invoice', description: 'invoices for customers' },
     { ident: 'work-report', title: 'work report', description: 'work log of hours and tasks' },
   ];

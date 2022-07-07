@@ -57,7 +57,7 @@ export class PdfFactory {
      * creates an pdf from a template id
      * 
      * @param {string} templateId,
-     * @param {{[key: string]: string} } queryParams,
+     * @param {{[key: string]: any} } queryParams,
      */
     async create(templateId, queryParams) {
         /** @type {<R> (pagePart: string, actions: PageActions<R>) => Promise<R>} */
@@ -75,7 +75,7 @@ export class PdfFactory {
                 const boundingBoxHeight = boundingBox && boundingBox.height;
 
                 const html = stylesHtml + appRootHtml;
-                const height = boundingBoxHeight ? boundingBoxHeight + 'mm' : '3cm';
+                const height = boundingBoxHeight ? boundingBoxHeight + 'px' : '0';
                 return { height, html };
             })),
         );
@@ -91,7 +91,8 @@ export class PdfFactory {
                 bottom: footer.height,
                 left: 0,
                 right: 0,
-            }
+            },
+
         }));
 
         return pdf;

@@ -1,0 +1,9 @@
+@import 'invoice.global';
+@import 'variables';
+tpl-invoice-header {
+    display: block;
+    min-height: 3cm;
+    box-sizing: border-box;
+    border: 1mm solid purple;
+    padding: $var__page__margin;
+}
