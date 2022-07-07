@@ -10,6 +10,9 @@ export class AppHome {
 
   render() {
     return <Host>
+      <designer-ui
+        tplName={this.tplName}
+      ></designer-ui>
       <designer-stage>
         <div slot="stage-header" innerHTML={`<tpl-${this.tplName}-header></tpl-${this.tplName}-header>`}></div>
         <div slot="stage-content" innerHTML={`<tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></div>

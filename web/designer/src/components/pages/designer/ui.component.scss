@@ -1,0 +1,16 @@
+@import 'variables';
+@import 'button.mixin';
+
+designer-ui {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: $var__outerMargin;
+  border: 1px solid black;
+  padding: $var__innerPadding;
+  box-shadow: $var__boxShadow;
+
+  a.button {
+    @include button;
+  }
+}
