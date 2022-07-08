@@ -5,4 +5,12 @@ tpl-invoice-footer {
     box-sizing: border-box;
     border: 1mm solid blue;
     padding: $var__page__margin;
+    padding-top: 0;
+
+    .invoice-footer__pageNumber {
+      text-align: right;
+      margin-top: 4.23mm;
+      font-size: 10pt;
+      margin-bottom: 4.23mm;
+    }
 }

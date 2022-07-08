@@ -6,3 +6,9 @@
 body {
     @include workReportTheme;
 }
+
+@media print {
+  @page {
+    margin-left: 25mm;
+  }
+}

@@ -1,4 +1,6 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
+import type { Invoice } from '@leya-print/common-api';
+import { invoiceSamples } from './invoice-samples';
 
 @Component({
   tag: 'tpl-invoice-header',
@@ -6,7 +8,38 @@ import { Component, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class InvoiceHeaderTpl {
+  @State() invoice: Invoice = invoiceSamples['invoice-001'];
   render() {
-    return <Host>invoice header</Host>
+    const invoice = this.invoice;
+    return <Host>
+      <div class="invoice-header__address-box">
+        <div class="invoice-header__sender">
+          <tplb-address-line address={invoice.sender.address}></tplb-address-line>
+        </div>
+        <div class="invoice-header__additions"></div>
+        <div class="invoice-header__sendTo">
+          <tplb-address address={invoice.recipient.address}></tplb-address>
+        </div>
+      </div>
+      <div class="invoice-header__header-data">
+        <div class="invoice-header__company">
+          <tplb-address address={invoice.sender.address}></tplb-address>
+          <div>USt-IdNr.: {invoice.sender.vatIdent}</div>
+        </div>
+        {invoice.customerReference && <div class="invoice-header__customer-reference">
+          <h3>customer reference:</h3>
+          {invoice.customerReference.split('\n').map((l) => <div>{l}</div>)}
+        </div>}
+      </div>
+      <div class="invoice-header__headline">
+        <h2>Invoice {this.invoice.invoiceNo}</h2>
+        <div class="invoice-header__date">
+          {new Date(this.invoice.date).toLocaleDateString('en-US', { dateStyle: 'full' })}
+        </div>
+      </div>
+      <div class="invoice-header__foldmark-1">&nbsp;</div>
+      <div class="invoice-header__centermark">&nbsp;</div>
+      <div class="invoice-header__foldmark-2">&nbsp;</div>
+    </Host>
   }
 }

@@ -6,6 +6,9 @@ import { Component, h, Host } from '@stencil/core';
 })
 export class InvoiceFooterTpl {
   render() {
-    return <Host>invoice footer</Host>
+    return <Host>
+      <div class="invoice-footer__pageNumber">page <span class="pageNumber">99</span>/<span class="totalPages">99</span></div>
+      invoice footer
+    </Host>
   }
 }

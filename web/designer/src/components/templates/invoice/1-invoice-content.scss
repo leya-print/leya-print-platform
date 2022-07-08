@@ -3,8 +3,13 @@
 tpl-invoice-content {
     display: block;
     box-sizing: border-box;
-    border: 1mm solid red;
-    padding: 0 $var__page__margin;
+    padding-left: 0mm;
+    @media screen {
+      margin-left: 25mm; // print page padding
+    }
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 20mm;
 }
 
 .invoice__content-end {
