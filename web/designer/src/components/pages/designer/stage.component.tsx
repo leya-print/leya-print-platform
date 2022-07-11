@@ -37,19 +37,19 @@ export class DesignerStageComponent {
     const heigthOf = (element?: Element) => {
       if (!element) { return '0'; }
       const height = element.getBoundingClientRect().height;
-      return height ? height + 'px' : '0';
+      return height ? (Math.round(height * 1000) / 1000) + 'px' : '0';
     }
 
     const stageHeader = this.el.querySelector('[slot=stage-header]');
     const measuredHeaderHeight = heigthOf(stageHeader);
-    if (measuredHeaderHeight !== this.headerHeight) {
+    if (!isEqualSize(measuredHeaderHeight, this.headerHeight)) {
       console.log('update header height', { old: this.headerHeight, new: measuredHeaderHeight });
       this.headerHeight = measuredHeaderHeight;
     }
 
     const stageFooter = this.el.querySelector('[slot=stage-footer]');
     const measuredFooterHeight = heigthOf(stageFooter);
-    if (measuredFooterHeight !== this.footerHeight) {
+    if (!isEqualSize(measuredFooterHeight, this.footerHeight)) {
       console.log('update footer height', { old: this.footerHeight, new: measuredFooterHeight });
       this.footerHeight = measuredFooterHeight;
     }
@@ -90,4 +90,19 @@ export class DesignerStageComponent {
         <graph-paper></graph-paper><slot name="stage-content"></slot></div>
     </Host>;
   }
+}
+
+function isEqualSize(aStr: string, bStr: string) {
+  const a = parseSize(aStr);
+  const b = parseSize(bStr);
+
+  return a.unit === b.unit && Math.abs(a.num - b.num) < .01;
+}
+
+function parseSize(size: string) {
+  const num = parseFloat(size);
+  const unit = size.substring(('' + num).length);
+  return {
+    num, unit,
+  };
 }
