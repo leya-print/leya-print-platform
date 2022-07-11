@@ -10,7 +10,7 @@ tpl-invoice-header {
   display: block;
   padding: $var__page__margin;
   padding-bottom: 0;
-  font-size: 12pt;
+  font-size: 10pt;
   min-height: 88mm;
   $ensure-sender-is-readable: 3mm; // print + test shows the norm doesn't fit in most envelops
 
@@ -110,7 +110,8 @@ tpl-invoice-header {
     align-items: baseline;
 
     h2 {
-      margin-bottom: 0;
+      margin-top: 1cm;
+      margin-bottom: .5cm;
     }
   }
 

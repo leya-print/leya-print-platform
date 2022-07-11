@@ -1,4 +1,6 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
+import type { Invoice } from '@leya-print/common-api';
+import { invoiceSamples } from './invoice-samples';
 
 @Component({
   tag: 'tpl-invoice-content',
@@ -6,19 +8,56 @@ import { Component, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class InvoiceContentTpl {
+  @State() invoice: Invoice = invoiceSamples['invoice-001'];
   render() {
+    const positions = this.invoice.positions.map((pos) => {
+      const netto = pos.quantity * pos.pricePerUnit;
+      const vat = netto * pos.vatPercent;
+      const gross = netto + vat;
+      return {
+        ...pos,
+        netto, vat, gross,
+      }
+    });
+    const sums = positions.reduce(({ netto, vat, gross }, pos) => ({
+      netto: netto + pos.netto,
+      vat: vat + pos.vat,
+      gross: gross + pos.gross,
+    }), { netto: 0, vat: 0, gross: 0 });
+    const currency = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    })
     return <Host>
-      content start
-      <div class="invoice__content__spacer" style={{height: '1000px'}}>
-        spacer
-      </div>
-      {new Array(20).fill(true).map((_, i) => {
-        return <section>
-          <h3>Section {i}</h3>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-        </section>
-      })}
-      <div class="invoice__content-end">content end</div>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan={2}>Qty</th>
+            <th style={{display: 'none'}}></th>
+            <th>Product Label</th>
+            <th>Price/Unit</th>
+            <th>VAT%</th>
+            <th>VAT</th>
+            <th>Price Pos.</th>
+          </tr>
+        </thead>
+        <tbody>
+          {positions.map((pos) => <tr>
+            <td class="invoice-content--number">{ pos.quantity}</td>
+            <td>{pos.unit}</td>
+            <td>{pos.title}</td>
+            <td class="invoice-content--number">{currency.format(pos.pricePerUnit)}</td>
+            <td class="invoice-content--number">{pos.vatPercent}</td>
+            <td class="invoice-content--number">{currency.format(pos.vat)}</td>
+            <td class="invoice-content--number">{currency.format(pos.gross)}</td>
+          </tr>)}
+        </tbody>
+        <tfoot>
+          <tr><th colSpan={5}></th><th>Netto:</th><th class="invoice-content--number">{currency.format(sums.netto)}</th></tr>
+          <tr><th colSpan={5}></th><th>VAT:</th><th class="invoice-content--number">+&nbsp;{currency.format(sums.vat)}</th></tr>
+          <tr><th colSpan={5}></th><th>Gross:</th><th class="invoice-content--number">{currency.format(sums.gross)}</th></tr>
+        </tfoot>
+      </table>
     </Host>
   }
 }

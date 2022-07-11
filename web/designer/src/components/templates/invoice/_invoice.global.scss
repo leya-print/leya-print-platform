@@ -1,5 +1,5 @@
 @mixin invoiceTheme {
-    font-size: 14pt;
+    font-size: 12pt;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 //    font-family: 'Segoe UI';
 }
@@ -10,6 +10,6 @@ body {
 
 @media print {
   @page {
-    margin-left: 25mm;
+    margin-left: 20mm;
   }
 }

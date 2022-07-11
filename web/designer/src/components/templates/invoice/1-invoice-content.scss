@@ -3,13 +3,113 @@
 tpl-invoice-content {
     display: block;
     box-sizing: border-box;
-    padding-left: 0mm;
     @media screen {
-      margin-left: 25mm; // print page padding
+      margin-left: 20mm; // print page padding
     }
     padding-top: 0;
-    padding-bottom: 0;
     padding-right: 20mm;
+    padding-bottom: 0;
+    padding-left: 5mm;
+    font-size: 10pt;
+
+    $col-qty: 1;
+    $col-unit: 2;
+    $col-label: 3;
+    $col-pricePerUnit: 4;
+    $col-vatPercent: 5;
+    $col-vat: 6;
+    $col-gross: 7;
+
+    $col-spacing: 2em;
+
+    .invoice-content--number {
+      text-align: right;
+      font-family: monospace;
+      font-size: 9.5pt;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+    }
+
+    thead {
+      tr {
+        th {
+          text-align: left;
+
+          &:nth-of-type(#{$col-label}) {
+            width: 100%;
+          }
+
+          &:nth-of-type(#{$col-pricePerUnit}),
+          &:nth-of-type(#{$col-vatPercent}),
+          &:nth-of-type(#{$col-gross}) {
+            text-align: right;
+          }
+
+          &:nth-of-type(#{$col-vat}) {
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    tbody td, thead th {
+      &:nth-of-type(#{$col-unit}) {
+        padding-right: $col-spacing;
+        padding-left: .1 * $col-spacing;
+      }
+
+      &:nth-of-type(#{$col-pricePerUnit}) {
+        padding-right: .5 * $col-spacing;
+      }
+
+      &:nth-of-type(#{$col-vatPercent}) {
+        text-align: center;
+        padding-left: .5 * $col-spacing;
+        padding-right: .5 * $col-spacing;
+      }
+
+      &:nth-of-type(#{$col-vat}) {
+        padding-left: .5 * $col-spacing;
+        padding-right: 1 * $col-spacing;
+      }
+    }
+
+    tbody {
+      tr:first-of-type {
+        td {
+          border-top: 1px solid black;
+          padding-top: .5em;
+        }
+      }
+      tr:last-of-type {
+        td {
+          padding-bottom: .5em;
+        }
+      }
+    }
+
+    tfoot {
+      tr:first-of-type {
+        th {
+          border-top: 1px solid black;
+          padding-top: .5em;
+        }
+      }
+      th {
+        text-align: right;
+
+        $col-label: 2;
+        $col-value: 3;
+
+        &:nth-of-type(#{$col-label}) {
+          padding-right: $col-spacing;
+        }
+      }
+    }
 }
 
 .invoice__content-end {
