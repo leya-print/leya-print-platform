@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import 'invoice.global';
 @import 'invoice.variables';
 
@@ -5,6 +6,7 @@
 // https://upload.wikimedia.org/wikipedia/commons/6/64/DIN_5008%2C_Form_A.svg
 
 tpl-invoice-header {
+  @include invoiceTheme;
   display: block;
   padding: $var__page__margin;
   padding-bottom: 0;
@@ -64,19 +66,40 @@ tpl-invoice-header {
     }
 
     .invoice-header__customer-reference {
-      display: inline-block;
+      display: inline-flex;
+      flex-direction: column;
       $customer-referance-padding: .3em;
+
       margin-top: 2em;
       border: 1px solid red;
-      border-top-width: calc(1px + 1em + 2 * $customer-referance-padding);
-      padding: $customer-referance-padding;
+      padding: 0;
 
       h3 {
+        display: block;
         color: white;
-        padding: 0 $customer-referance-padding calc($customer-referance-padding / 2) $customer-referance-padding;
-        margin: -$customer-referance-padding;
-        margin-top: calc(-1 * calc(1px + 1em + 2 * $customer-referance-padding));
-        margin-bottom: calc($customer-referance-padding / 2);
+        margin-top: 0;
+        margin-bottom: $customer-referance-padding;
+
+        span:first-child {
+          display: block;
+          overflow: hidden;
+          width: calc(5.7cm - 2px);
+          height: calc(1em + 2.5 * $customer-referance-padding);
+          svg {
+            width: calc(5.7cm - 2px);
+            fill: red;
+            stroke: red;
+          }
+        }
+        span:last-child {
+          display: block;
+          padding: $customer-referance-padding;
+          padding-bottom: math.div($customer-referance-padding, 2);
+        }
+      }
+
+      .invoice-header__customer-reference__content {
+        padding: $customer-referance-padding;
       }
     }
   }

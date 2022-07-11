@@ -27,8 +27,13 @@ export class InvoiceHeaderTpl {
           <div>USt-IdNr.: {invoice.sender.vatIdent}</div>
         </div>
         {invoice.customerReference && <div class="invoice-header__customer-reference">
-          <h3>customer reference:</h3>
-          {invoice.customerReference.split('\n').map((l) => <div>{l}</div>)}
+          <h3><span><svg viewBox='0 0 60 10' xmlns="http://www.w3.org/2000/svg">
+            <rect x1={0} y1={0} width={60} height={10} />
+            <text x={4} y={7} fill="white" font-size={5} stroke="none">customer reference:</text>
+          </svg></span></h3>
+          <div class="invoice-header__customer-reference__content">
+            {invoice.customerReference.split('\n').map((l) => <div>{l}</div>)}
+          </div>
         </div>}
       </div>
       <div class="invoice-header__headline">
