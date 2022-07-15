@@ -22,6 +22,9 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
     res.send(pdf);
 });
 
+app.post('/tpl/:ident', (req, res) => {
+});
+
 const port = 6001;
 http.createServer(app).listen(port, undefined, undefined, () => {
     const ownUrl = process.env.GITPOD_WORKSPACE_URL

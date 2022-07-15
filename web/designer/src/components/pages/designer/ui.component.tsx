@@ -1,5 +1,4 @@
 import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
-import { invoiceSamples } from 'src/components/templates/invoice/invoice-samples';
 
 const previewPort = 6001;
 const previewUrl = window.location.href.includes('gitpod.io')
@@ -17,7 +16,7 @@ console.log('preview url: ', previewUrl);
 export class DesignerUiComponent {
   @Prop() tplName: string;
 
-  private _invoiceSample = (window as any).providedData || invoiceSamples['invoice-001'];
+  private _invoiceSample = (window as any).providedData // TODO: || invoiceSamples['invoice-001'];
   private _payload: HTMLTextAreaElement;
   private _lastUpdateTrigger = 0;
   private _lastUpdate = Date.now();
