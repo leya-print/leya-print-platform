@@ -7,6 +7,7 @@ import { Component, Fragment, h, Host, Listen, Prop, State } from '@stencil/core
 })
 export class AppHome {
   @Prop() tplName = 'invoice';
+  @Prop() tplLoader = '123';
 
   @State() reloading = false;
 
@@ -18,6 +19,12 @@ export class AppHome {
 
   render() {
     return <Host>
+      <script type="module">{`
+        import('/templates/${this.tplLoader}/loader.js').then(
+          (loader) => loader.defineCustomElements()
+        );
+      `}
+      </script>
       <designer-ui
         tplName={this.tplName}
       ></designer-ui>
