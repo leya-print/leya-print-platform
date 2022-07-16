@@ -31,19 +31,33 @@ export class PdfFactory {
      * @template R
      * @param {string} templateId 
      * @param {string} pagePart 
-     * @param {{[key: string]: string}} queryParams 
+     * @param {{[key: string]: string}} queryParams
+     * @param {string | undefined} providedData
      * @param {PageActions<R>} actions
      */
-    async openPage(templateId, pagePart, queryParams, actions) {
+    async openPage(templateId, pagePart, queryParams, providedData, actions) {
         const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
         Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
         const browser = await this.browser;
         const context = await browser.newContext();
         const page = await context.newPage();
+        if (providedData) {
+            await page.evaluate((data) => {
+                (/** @type {*} */ (window)).providedData = JSON.parse(data);
+                return Promise.resolve(true);
+            }, providedData);
+        }
         await Promise.all([
             page.goto('' + urlWithParams),
-            page.waitForNavigation(),
+            page.waitForNavigation().then(async () => {
+                if (providedData) {
+                    await page.evaluate((data) => {
+                        (/** @type {*} */ (window)).providedData = JSON.parse(data);
+                        return Promise.resolve(true);
+                    }, providedData);
+                }
+            }),
             page.waitForSelector('app-root'),
         ]);
 
@@ -58,10 +72,11 @@ export class PdfFactory {
      * 
      * @param {string} templateId,
      * @param {{[key: string]: any} } queryParams,
+     * @param {string | undefined} providedData,
      */
-    async create(templateId, queryParams) {
+    async create(templateId, queryParams, providedData) {
         /** @type {<R> (pagePart: string, actions: PageActions<R>) => Promise<R>} */
-        const openPage = (pagePart, actions) => this.openPage(templateId, pagePart, queryParams, actions);
+        const openPage = (pagePart, actions) => this.openPage(templateId, pagePart, queryParams, providedData, actions);
         const [header, footer] = await Promise.all(
             ['header', 'footer'].map((pagePart) => openPage(pagePart, async(page) => {
                 const styles = await page.$$('style');

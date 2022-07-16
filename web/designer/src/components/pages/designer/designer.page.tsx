@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, Fragment, h, Host, Listen, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'designer-page',
@@ -8,16 +8,24 @@ import { Component, h, Host, Prop } from '@stencil/core';
 export class AppHome {
   @Prop() tplName = 'invoice';
 
+  @State() reloading = false;
+
+  @Listen('designer-reload-preview')
+  reloadPreview() {
+    this.reloading = true;
+    setTimeout(() => this.reloading = false, 10);
+  }
+
   render() {
     return <Host>
       <designer-ui
         tplName={this.tplName}
       ></designer-ui>
-      <designer-stage>
+      <designer-stage>{ !this.reloading && <Fragment>
         <div slot="stage-header" innerHTML={`<tpl-${this.tplName}-header></tpl-${this.tplName}-header>`}></div>
         <div slot="stage-content" innerHTML={`<tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></div>
         <div slot="stage-footer" innerHTML={`<tpl-${this.tplName}-footer></tpl-${this.tplName}-footer>`}></div>
-      </designer-stage>
+      </Fragment>}</designer-stage>
     </Host>;
   }
 }

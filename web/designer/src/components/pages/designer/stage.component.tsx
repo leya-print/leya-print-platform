@@ -11,6 +11,7 @@ export class DesignerStageComponent {
 
   @State() headerHeight = '5cm';
   @State() footerHeight = '3cm';
+  @State() isVisible = false;
 
   @Element() el: HTMLElement;
 
@@ -53,11 +54,14 @@ export class DesignerStageComponent {
       console.log('update footer height', { old: this.footerHeight, new: measuredFooterHeight });
       this.footerHeight = measuredFooterHeight;
     }
+
+    this.isVisible = true;
   }
 
   render() {
     const contentHeight = `calc(${this.pageHeight} - ${this.headerHeight} - ${this.footerHeight})`;
     return <Host style={{
+      visibility: this.isVisible ? 'visible' : 'collapse',
       width: this.pageWidth,
       height: contentHeight,
       paddingTop: this.headerHeight,

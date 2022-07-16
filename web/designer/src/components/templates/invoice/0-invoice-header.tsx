@@ -1,5 +1,5 @@
-import { Component, h, Host, State } from '@stencil/core';
 import type { Invoice } from '@leya-print/common-api';
+import { Component, h, Host, State } from '@stencil/core';
 import { invoiceSamples } from './invoice-samples';
 
 @Component({
@@ -8,7 +8,7 @@ import { invoiceSamples } from './invoice-samples';
   shadow: false,
 })
 export class InvoiceHeaderTpl {
-  @State() invoice: Invoice = invoiceSamples['invoice-001'];
+  @State() invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
   render() {
     const invoice = this.invoice;
     return <Host>
