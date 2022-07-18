@@ -1,6 +1,3 @@
-// @ts-check
-'use strict';
-
 import cluster from 'node:cluster';
 import { cpus } from 'node:os';
 const numCPUs = cpus().length;
