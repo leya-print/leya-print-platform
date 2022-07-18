@@ -1,24 +1,13 @@
-// @ts-check
-/// <reference types="mocha" />
-"use strict";
-
-/**
- * @typedef {import('./persistent-item.service').PersistentItem<number>} PersistentNumber
- * @typedef {import('./storage.service').StorageService } StorageService
- */
-
-const { expect } = require("chai");
-const { MockedStorageService } = require("./mocked-storage.service");
-const { PersistentItemService } = require("./persistent-item.service");
+import { expect } from 'chai';
+import { MockedStorageService } from './mocked-storage.service';
+import { PersistentItemService } from './persistent-item.service';
+import { StorageService } from './storage.service';
 
 const defaultNumber = -1;
 
 describe('persistent item', () => {
-  /** @type {PersistentNumber} */
-  let persistentNumber;
-
-  /** @type {StorageService} */
-  let storage;
+  let persistentNumber: PersistentItemService<number>;
+  let storage: StorageService;
 
   function createInstance() {
     return new PersistentItemService(
@@ -46,10 +35,9 @@ describe('persistent item', () => {
 
   describe('after set', () => {
     const settedValue = 2
-    /** @type {number} */
-    let savedValue;
+
     beforeEach(async () => {
-      savedValue = await persistentNumber.save(settedValue);
+      await persistentNumber.save(settedValue);
     })
     it('should return setted value', async () => {
       const loadedValue = await persistentNumber.load();
@@ -57,8 +45,7 @@ describe('persistent item', () => {
     });
 
     describe('another instance', () => {
-      /** @type {PersistentNumber} */
-      let anotherInstance;
+      let anotherInstance: PersistentItemService<number>;
 
       beforeEach(() => {
         anotherInstance = createInstance();
@@ -84,8 +71,7 @@ describe('persistent item', () => {
     });
 
     describe('dropped', () => {
-      /** @type {number} */
-      let dropped;
+      let dropped: number;
 
       beforeEach(async () => {
         dropped = await persistentNumber.drop() || -1;

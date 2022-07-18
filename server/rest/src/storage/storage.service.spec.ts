@@ -1,31 +1,18 @@
-// @ts-check
-/// <reference types="mocha" />
-'use strict';
+import { expect } from 'chai'
+import { StorageItemDescription, StorageService } from './storage.service';
 
-/**
- * @typedef {import("./storage.service").StorageService} StorageService
- * @typedef { {timestamp: number } } ItemType
- * @typedef {import("./storage.service").StorageItemDescription<ItemType>} StorageItemDescription
- */
-
-const { expect } = require("chai");
+type ItemType = { timestamp: number };
 
 const defaultsTimestamp = -1;
-/** @type {ItemType} */
-const defaultValue = { timestamp: defaultsTimestamp };
+const defaultValue: ItemType = { timestamp: defaultsTimestamp };
 
-/** @type {StorageItemDescription} */
-const testItemDescriptor = {
+const testItemDescriptor: StorageItemDescription<ItemType> = {
   ident: 'known',
   createDefault: () => Promise.resolve(defaultValue),
 };
 
-/**
- * @param {() => StorageService} createStorageService 
- */
-function testStorageService(createStorageService) {
-  /** @type {StorageService} */
-  let storageService;
+export function testStorageService(createStorageService: () => StorageService) {
+  let storageService: StorageService;
 
   beforeEach(() => {
     storageService = createStorageService();
@@ -49,8 +36,7 @@ function testStorageService(createStorageService) {
     });
 
     describe('for known descriptors', () => {
-      /** @type {ItemType} */
-      let savedValue;
+      let savedValue: ItemType;
 
       beforeEach(async () => {
         savedValue = { timestamp: Date.now() };
@@ -85,8 +71,8 @@ function testStorageService(createStorageService) {
       });
 
       it('should return remove object', async () => {
-        const droppedValue = await storageService.drop(testItemDescriptor.ident);
-        expect(droppedValue.timestamp).to.equal(savedValue.timestamp);
+        const droppedValue = await storageService.drop<ItemType>(testItemDescriptor.ident);
+        expect(droppedValue?.timestamp).to.equal(savedValue.timestamp);
         expect(droppedValue === savedValue).to.be.false;
       });
 
@@ -95,7 +81,7 @@ function testStorageService(createStorageService) {
 
         const loadedValue = await storageService.load(testItemDescriptor);
         const defaultValue = await testItemDescriptor.createDefault();
-  
+
         expect(loadedValue.timestamp).not.to.equal(savedValue.timestamp);
         expect(loadedValue.timestamp).to.equal(defaultValue.timestamp);
       });
@@ -111,19 +97,19 @@ function testStorageService(createStorageService) {
     const ident = 'test-number';
     const settedNumber = 3;
     const descriptor = { ident, createDefault: () => -1 };
-    
+
     const defaultValue = await storageService.load(descriptor);
     expect(defaultValue).to.equal(-1, 'defaultValue');
     expect(typeof defaultValue).to.equal('number', 'defaultValue');
-    
+
     const savedNumber = await storageService.save(ident, settedNumber);
     expect(savedNumber).to.equal(settedNumber, 'savedNumber');
     expect(typeof savedNumber).to.equal('number', 'savedNumber');
-  
+
     const loadedNumber = await storageService.load(descriptor);
     expect(loadedNumber).to.equal(settedNumber, 'loadedNumber');
     expect(typeof loadedNumber).to.equal('number', 'loadedNumber');
-  
+
     const droppedNumber =  await storageService.drop(ident);
     expect(droppedNumber).to.equal(settedNumber, 'droppedNumber');
     expect(typeof droppedNumber).to.equal('number', 'droppedNumber');
@@ -137,11 +123,11 @@ function testStorageService(createStorageService) {
     const defaultValue = await storageService.load(descriptor);
     expect(defaultValue).to.equal('not setted string', 'defaultValue');
     expect(typeof defaultValue).to.equal('string', 'defaultValue');
-    
+
     const saved = await storageService.save(ident, settedString);
     expect(saved).to.equal(settedString, 'saved');
     expect(typeof saved).to.equal('string', 'saved');
-  
+
     const loaded = await storageService.load(descriptor);
     expect(loaded).to.equal(settedString, 'loaded');
     expect(typeof loaded).to.equal('string', 'loaded');
@@ -153,18 +139,18 @@ function testStorageService(createStorageService) {
 
   it('should be able to handle array values', async () => {
     const ident = 'test-array';
-    const defaultArray = [];
+    const defaultArray: any[] = [];
     const settedArray = ['setted string', 3, { bla: 'blubb' }];
     const descriptor = { ident, createDefault: () => defaultArray };
 
     const defaultValue = await storageService.load(descriptor);
     expect(defaultValue).to.deep.equal(defaultArray, 'defaultValue');
     expect(typeof defaultValue).to.equal('object', 'defaultValue');
-    
+
     const saved = await storageService.save(ident, settedArray);
     expect(saved).to.deep.equal(settedArray, 'saved');
     expect(typeof saved).to.equal('object', 'saved');
-  
+
     const loaded = await storageService.load(descriptor);
     expect(loaded).to.deep.equal(settedArray, 'loaded');
     expect(typeof loaded).to.equal('object', 'loaded');

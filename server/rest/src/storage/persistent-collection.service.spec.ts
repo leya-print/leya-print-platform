@@ -1,15 +1,6 @@
-// @ts-check
-/// <reference types="mocha" />
-"use strict";
-
-const { expect } = require('chai');
-const { MockedStorageService } = require('./mocked-storage.service');
-const { PersistentCollectionService } = require('./persistent-collection.service');
-
-/**
- * @typedef {import('./persistent-collection.service').PersistentCollection<number> } PersistentNumberCollection
- * @typedef {import('../storage/storage.service').StorageService} StorageService
- */
+import { expect } from 'chai';
+import { MockedStorageService } from './mocked-storage.service';
+import { PersistentCollectionService } from './persistent-collection.service';
 
 let nextNumber = 1;
 function nextUnusedNumber() {
@@ -17,16 +8,13 @@ function nextUnusedNumber() {
 }
 
 describe('storage persistent collection service', () => {
-  /** @type {PersistentNumberCollection} */
-  let persistentCollection;
-
-  /** @type {MockedStorageService} */
-  let mockedStorageService;
+  let persistentCollection: PersistentCollectionService<number>;
+  let mockedStorageService: MockedStorageService;
 
   function createInstance() {
     return new PersistentCollectionService(mockedStorageService, 'test-collection', 1);
   }
-  
+
   beforeEach(async () => {
     mockedStorageService = new MockedStorageService;
     persistentCollection = createInstance();
