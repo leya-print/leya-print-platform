@@ -1,63 +1,40 @@
-// @ts-check
-'use strict';
+import { PersistentItemService } from './persistent-item.service';
+import { Indexed, StorageService } from './storage.service';
+import { v4 as createUuid } from 'uuid';
 
-const { PersistentItemService } = require('./persistent-item.service');
-
-/**
- * @typedef {import('./storage.service').StorageService} StorageService
- */
-
-const createUuid = require('uuid').v4;
-
-/**
- * simple crud service for simple types
- * 
- * @template {string | number} T
- */
-class SimpleCrudService {
+export class SimpleCrudService<T extends string | number> {
   /**
    * @typedef {import('./storage.service').Indexed<T>} IndexedT
    * @typedef {import('./persistent-item.service').PersistentItem<IndexedT>} PersistentIndexedT
    * @typedef {import('./storage.service').StorageItemDescription<IndexedT>} StorageItemDescription
    */
 
-  /**
-   * @readonly
-   * @type {PersistentIndexedT}
-   *
-   */
-  _storage;
+  private _storage: PersistentItemService<Indexed<T>>;
 
   /**
    * reload data from storage
-   * 
-   * @returns {Promise<IndexedT>}
    */
-  reloadData() {
+  reloadData(): Promise<Indexed<T>> {
     return this._storage.reloadItem();
   }
 
-  /**
-   * @returns {Promise<IndexedT>}
-   */
-  _data() {
+  private _data(): Promise<Indexed<T>> {
     return this._storage.load();
   }
 
   /**
-   * 
-   * @param {StorageService} storage 
+   *
+   * @param {StorageService} storage
    * @param {string} ident
    */
-  constructor(storage, ident) {
+  constructor(
+    storage: StorageService,
+    ident: string,
+  ) {
     this._storage = new PersistentItemService(storage, ident, () => ({}));
   }
 
-  /**
-   * @param {T} value
-   * @returns {Promise<string>} created id
-   */
-  async create(value) {
+  async create(value: T): Promise<string> {
     const data = await this._data();
     let id = createUuid();
     while(data[id]) {
@@ -69,12 +46,7 @@ class SimpleCrudService {
     return id;
   }
 
-  /**
-   * @param {string} itemId 
-   * @returns {Promise<T>}
-   * @throws item not found
-   */
-  async read(itemId) {
+  async read(itemId: string): Promise<T> {
     const item = await this.exists(itemId);
     if (item) {
       return item
@@ -83,30 +55,16 @@ class SimpleCrudService {
     }
   }
 
-  /**
-   * @param {string} itemId 
-   * @returns {Error}
-   */
-  _itemNotFound(itemId) {
+  _itemNotFound(itemId: string): Error {
     return new Error(`item with id '${itemId}' not found!`);
   }
 
-  /**
-   * @param {IndexedT} data
-   * @returns {Promise<IndexedT>}
-   */
-  async _backupData(data) {
+  async _backupData(data: Indexed<T>): Promise<Indexed<T>> {
     await this._storage.save(data);
     return await this.reloadData();
   }
 
-  /**
-   * @param {string} id
-   * @param {T} value 
-   * @returns {Promise<T>}
-   * @throws item not found
-   */
-  async update(id, value) {
+  async update(id: string, value: T): Promise<T> {
     const data = await this._data();
     const existingItem = data[id];
     if (!existingItem) {
@@ -118,12 +76,7 @@ class SimpleCrudService {
     return loadedData;
   }
 
-  /**
-   * @param {string} id
-   * @returns {Promise<T>}
-   * @throws item not found
-   */
-  async delete(id) {
+  async delete(id: string): Promise<T> {
     const data = await this._data();
     const existingItem = data[id];
     if (!existingItem) {
@@ -135,28 +88,13 @@ class SimpleCrudService {
     return existingItem;
   }
 
-  /**
-   * @param {string} itemId
-   * @returns {Promise<T | false>}
-   */
-  async exists(itemId) {
+  async exists(itemId: string): Promise<T | false> {
     const data = await this._data();
     return data[itemId] || false;
   }
 
-  /**
-   * @returns {Promise<T[]>}
-   */
-  async list() {
+  async list(): Promise<T[]> {
     const data = await this._data();
     return Object.values(data);
   }
 }
-
-
-/**
- * @template {string | number} T type of result
- * @typedef {SimpleCrudService<T>} SimpleCrudServiceType
- */
-
-module.exports = {SimpleCrudService: SimpleCrudService};

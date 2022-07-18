@@ -1,11 +1,6 @@
-// @ts-check
-/// <reference types="mocha" />
-"use strict";
-
-const { expect } = require('chai');
-
-const { SimpleCrudService } = require('./simple-crud.service');
-const { MockedStorageService } = require('./mocked-storage.service');
+import { expect } from 'chai';
+import { SimpleCrudService } from './simple-crud.service';
+import { MockedStorageService } from './mocked-storage.service';
 
 let nextNumber = 1;
 function nextUnusedNumber() {
@@ -13,28 +8,21 @@ function nextUnusedNumber() {
 }
 
 describe('storage simple crud service', () => {
-  /** @type {SimpleCrudService<number>} */
-  let crudService;
-
-  /** @type {MockedStorageService} */
-  let mockedStorageService;
+  let crudService: SimpleCrudService<number>;
+  let mockedStorageService: MockedStorageService;
 
   beforeEach(() => {
     mockedStorageService = new MockedStorageService();
     crudService = createServiceInstance();
   });
 
-  /**
-   * @returns {SimpleCrudService<number>}
-   */
   function createServiceInstance() {
-    return new SimpleCrudService(mockedStorageService, 'test-object-type');
+    return new SimpleCrudService<number>(mockedStorageService, 'test-object-type');
   }
 
   describe('create', () => {
     const createdNumber = nextUnusedNumber();
-    /** @type {string} */
-    let createdNumberId;
+    let createdNumberId: string;
 
     beforeEach(async () => {
       createdNumberId = await crudService.create(createdNumber);
@@ -57,8 +45,7 @@ describe('storage simple crud service', () => {
   describe('read', () => {
     describe('existing number', () => {
       const existingNumber = nextUnusedNumber();
-      /** @type {string} */
-      let existingNumberId;
+      let existingNumberId: string;
 
       beforeEach(async () => {
         existingNumberId =  await crudService.create(existingNumber);
@@ -87,13 +74,10 @@ describe('storage simple crud service', () => {
   describe('updated', () => {
     describe('with known id', () => {
       const origNumber = nextUnusedNumber();
-      /** @type {string} */
-      let origNumberId;
+      let origNumberId: string;
 
-      /** @type {number} */
       const updatedNumber = nextUnusedNumber();
-      /** @type {number} */
-      let savedNumber;
+      let savedNumber: number;
 
       beforeEach(async () => {
         origNumberId = await crudService.create(origNumber);
@@ -129,17 +113,14 @@ describe('storage simple crud service', () => {
     describe('with known id', () => {
       const origNumber = nextUnusedNumber();
 
-      /** @type {string} */
-      let origNumberId;
-
-      /** @type {number} */
-      let deletedNumber;
+      let origNumberId: string;
+      let deletedNumber: number;
 
       beforeEach(async () => {
         origNumberId = await crudService.create(origNumber);
         deletedNumber = await crudService.delete(origNumberId);
       });
-      
+
       it('should return deleted number', async () => {
         expect(deletedNumber).to.equal(origNumber);
       });
@@ -200,9 +181,7 @@ describe('storage simple crud service', () => {
 
     describe('after creating a number', () => {
       const origNumber = nextUnusedNumber();
-
-      /** @type {string} */
-      let origNumberId;
+      let origNumberId: string;
 
       beforeEach(async () => {
         origNumberId = await crudService.create(origNumber);
@@ -216,8 +195,7 @@ describe('storage simple crud service', () => {
 
       describe('after adding another number', () => {
         const anotherNumber = nextUnusedNumber();
-        /** @type {string} */
-        let anotherNumberId;
+        let anotherNumberId: string;
 
         beforeEach(async () => {
           anotherNumberId = await crudService.create(anotherNumber);
@@ -228,6 +206,10 @@ describe('storage simple crud service', () => {
           expect(list.length).to.equal(2);
           expect(list[0]).to.equal(origNumber);
           expect(list[1]).to.equal(anotherNumber);
+        });
+
+        it('should give different ids', () => {
+          expect(origNumberId).not.to.equal(anotherNumberId);
         });
       })
     });

@@ -41,7 +41,7 @@ describe('storage crud service', () => {
    */
   function createServiceInstance() {
     /**
-     * 
+     *
      * @param {string} id
      * @param {string} title
      * @returns {Promise<SampleItemType>}
@@ -169,7 +169,7 @@ describe('storage crud service', () => {
         origItem = await crudService.create('orig item');
         deletedItem = await crudService.delete(origItem.id);
       });
-      
+
       it('should return deleted item', async () => {
         expect(deletedItem.id).to.equal(origItem.id);
         expect(deletedItem.deep.nested.title).to.equal(origItem.deep.nested.title);
