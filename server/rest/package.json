@@ -4,7 +4,7 @@
     "description": "rest endpoint that prints a pdf",
     "main": "index.js",
     "scripts": {
-        "single": "node server.js",
+        "dev": "ts-node src/server.ts",
         "prestart": "npm run build",
         "start": "node dist/server/rest/src/launch.js",
         "build": "tsc",
