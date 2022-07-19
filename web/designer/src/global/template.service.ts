@@ -1,0 +1,41 @@
+import type { TemplatePackage } from '@leya-print/common-api';
+import { BehaviorSubject, firstValueFrom, from, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+export class TemplateService {
+  private packages$b = new BehaviorSubject<TemplatePackage[] | false>(false);
+  get packages$(): Observable<TemplatePackage[]> {
+    return this._lazyInitPackages();
+  }
+
+  private _lazyInitPackages() {
+    const packages$ = this.packages$b.asObservable().pipe(
+      filter((packages): packages is TemplatePackage[] => !!packages),
+    );
+    Object.defineProperty(this, 'packages$', {
+      value: packages$,
+      writable: false,
+    });
+
+    return from(this._reloadPackages());
+  }
+
+  private async _reloadPackages(): Promise<TemplatePackage[]> {
+    this.packages$b.next(false);
+
+    const response = await fetch('http://localhost:7001/tpl');
+    const packages = await response.json();
+
+    this.packages$b.next(packages);
+    return packages;
+  }
+
+  async addPackages(templatePackage: TemplatePackage[]) {
+    const currentPackages = await firstValueFrom(this.packages$);
+    const allPackages = currentPackages.concat(...templatePackage);
+    this.packages$b.next(allPackages);
+    return allPackages;
+  }
+}
+
+export const templateService = new TemplateService();

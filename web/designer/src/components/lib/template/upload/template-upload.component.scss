@@ -1,0 +1,11 @@
+template-upload > form {
+  display: block;
+  padding: 1em;
+  border: 1px dashed darkgray;
+  text-align: center;
+  border-radius: .5em;
+
+  &.template-upload--file-over {
+    background-color: darkgray;
+  }
+}

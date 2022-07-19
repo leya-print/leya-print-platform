@@ -1,4 +1,5 @@
 import { Component, Fragment, h, Host, Listen, Prop, State } from '@stencil/core';
+import { TemplatePackage } from '@leya-print/common-api';
 
 @Component({
   tag: 'designer-page',
@@ -11,6 +12,10 @@ export class AppHome {
 
   @State() reloading = false;
 
+  sampleData?: any;
+
+  private _tplSrc: string;
+
   @Listen('designer-reload-preview')
   reloadPreview() {
     this.reloading = true;
@@ -18,26 +23,30 @@ export class AppHome {
   }
 
   async componentWillLoad() {
-    const tplBaseUrl = this.tplPackage ? `http://localhost:7001/tpl-contents/${this.tplPackage}` : `http://localhost:3333/build`;
-    const templateInfo = eval(`import {templateInfo} from '${tplBaseUrl + '/index.js'}'`);
-    console.log({ templateInfo });
+    try {
+      const tplBaseUrl = this.tplPackage ? `http://localhost:7001/tpl-contents/${this.tplPackage}` : `http://localhost:3333/build`;
+      const tplFileSuffix = this.tplPackage ? '.js' : '.esm.js';
+      this._tplSrc = this.tplPackage ? `${tplBaseUrl}/loader.js` : `${tplBaseUrl}/templates.esm.js`;
+      const templatePackage: TemplatePackage = (await import(`${tplBaseUrl}/index${tplFileSuffix}`)).templatePackage;
+      const templateInfo = templatePackage.templates.find((tplInfo) => tplInfo.ident === this.tplName);
+      this.sampleData = Object.values(templateInfo.sampleData)[0].data;
+      console.log({ templateInfo });
+    } catch (e) {
+      console.warn('could not load sample data', e);
+    }
   }
 
   render() {
-    const tplSrc = this.tplPackage ? `http://localhost:7001/tpl-contents/${this.tplPackage}/loader.js` : `http://localhost:3333/build/templates.esm.js`
-    console.log('templates', {
-      tplPackage: this.tplPackage,
-      tplSrc,
-    });
     return <Host>
       <script type="module">{`
-        import('${tplSrc}').then(
-          (loader) => loader.defineCustomElements()
+        import('${this._tplSrc}').then(
+          (loader) => loader.defineCustomElements?.()
         );
       `}
       </script>
       <designer-ui
         tplName={this.tplName}
+        sampleData={this.sampleData}
       ></designer-ui>
       <designer-stage>{ !this.reloading && <Fragment>
         <div slot="stage-header" innerHTML={`<tpl-${this.tplName}-header></tpl-${this.tplName}-header>`}></div>
