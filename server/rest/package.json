@@ -12,12 +12,12 @@
         "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome",
     },
     "watch": {
-      "test": {
-        "patterns": [
-          "src"
-        ],
-        "extensions": "ts,js"
-      }
+        "test": {
+            "patterns": [
+                "src"
+            ],
+            "extensions": "ts,js"
+        }
     },
     "repository": {
         "type": "git",
@@ -39,6 +39,7 @@
         "merge": "^2.1.1",
         "multer": "^1.4.5-lts.1",
         "playwright": "^1.23.1",
+        "recursive-copy": "^2.0.14",
         "shelljs": "^0.8.5",
         "uuid": "^8.3.2"
     },

@@ -1,13 +1,19 @@
-import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
 import multer from 'multer';
 import http from 'node:http';
-import cors from 'cors';
+import path from 'node:path';
 import { PdfFactory } from './pdf-factory';
-import { TemplateService } from './template.service';
+import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
+import { TemplateService } from './template.service';
 
 const pdfFactory = new PdfFactory('http://localhost:6002/print');
+const useJsonStorage = true;
+const storage = useJsonStorage ? new JsonStorageService(path.join(__dirname, '../../../data')) : new MockedStorageService();
+const templateService = new TemplateService(storage);
+
 const app = express();
 const corsOptions: cors.CorsOptions = {
 
@@ -25,7 +31,6 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
     res.send(pdf);
 });
 
-const templateService = new TemplateService(new MockedStorageService());
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {
     const files = req.files as Express.Multer.File[];
@@ -41,6 +46,16 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
         },
     );
 });
+app.get('/tpl', async (_req, res) => {
+  const templatePackages = await templateService.list();
+  res.send(templatePackages);
+});
+app.use('/tpl-contents/:templateId',
+  (req, res, next) => cors(corsOptions)(req, res, next),
+  (req, res, next) => {
+    return express.static(path.join(templateService.tplRoot, req.params.templateId))(req, res, next);
+  },
+);
 
 const port = 6001;
 http.createServer(app).listen(port, undefined, undefined, () => {
