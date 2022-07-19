@@ -15,8 +15,8 @@ console.log('preview url: ', previewUrl);
 })
 export class DesignerUiComponent {
   @Prop() tplName: string;
+  @Prop() sampleData?: any;
 
-  private _invoiceSample = (window as any).providedData // TODO: || invoiceSamples['invoice-001'];
   private _payload: HTMLTextAreaElement;
   private _lastUpdateTrigger = 0;
   private _lastUpdate = Date.now();
@@ -49,7 +49,7 @@ export class DesignerUiComponent {
     return <Host>
       <form method="POST" action={`${previewUrl}/${this.tplName}/test.pdf`} target='_blank'>
 
-        <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this._invoiceSample, null, 2)}</textarea>
+        <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <button class="button" type="submit">preview</button>
       </form>
     </Host>
