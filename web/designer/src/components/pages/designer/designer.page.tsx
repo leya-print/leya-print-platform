@@ -7,7 +7,7 @@ import { Component, Fragment, h, Host, Listen, Prop, State } from '@stencil/core
 })
 export class AppHome {
   @Prop() tplName = 'invoice';
-  @Prop() tplLoader = '123';
+  @Prop() tplPackage?: string;
 
   @State() reloading = false;
 
@@ -17,10 +17,21 @@ export class AppHome {
     setTimeout(() => this.reloading = false, 10);
   }
 
+  async componentWillLoad() {
+    const tplBaseUrl = this.tplPackage ? `http://localhost:7001/tpl-contents/${this.tplPackage}` : `http://localhost:3333/build`;
+    const templateInfo = eval(`import {templateInfo} from '${tplBaseUrl + '/index.js'}'`);
+    console.log({ templateInfo });
+  }
+
   render() {
+    const tplSrc = this.tplPackage ? `http://localhost:7001/tpl-contents/${this.tplPackage}/loader.js` : `http://localhost:3333/build/templates.esm.js`
+    console.log('templates', {
+      tplPackage: this.tplPackage,
+      tplSrc,
+    });
     return <Host>
       <script type="module">{`
-        import('/templates/${this.tplLoader}/loader.js').then(
+        import('${tplSrc}').then(
           (loader) => loader.defineCustomElements()
         );
       `}

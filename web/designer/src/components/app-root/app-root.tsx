@@ -13,10 +13,11 @@ export class AppRoot {
   } {
     const path = location.pathname;
     if (path.includes('/designer/')) {
-      const pathParts = path.match(/\/designer\/(?<tplName>[^\/]+)/);
+      const pathParts = path.match(/\/designer\/(?<tplName>[^\/]+)\/(?<tplPackage>[^\/]+)?/);
       const tplName = pathParts.groups?.['tplName'];
+      const tplPackage = pathParts.groups?.['tplPackage'];
       return {
-        contents: <designer-page tplName={tplName}></designer-page>,
+        contents: <designer-page tplName={tplName} tplPackage={tplPackage}></designer-page>,
         title: 'Designer',
       };
     }

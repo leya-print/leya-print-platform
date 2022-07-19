@@ -9,7 +9,7 @@
             "request": "launch",
             "runtimeArgs": [
                 "run-script",
-                "single"
+                "dev"
             ],
             "cwd": "${workspaceFolder}/server/rest",
             "runtimeExecutable": "npm",

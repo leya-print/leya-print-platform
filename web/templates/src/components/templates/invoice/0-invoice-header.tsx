@@ -30,7 +30,7 @@ export class InvoiceHeaderTpl {
         {invoice.customerReference && <div class="invoice-header__customer-reference">
           <h3><span><svg viewBox='0 0 60 10' xmlns="http://www.w3.org/2000/svg">
             <rect x1={0} y1={0} width={60} height={10} />
-            <text x={4} y={7} fill="white" font-size={5} stroke="none">customer reference:</text>
+            <text x={4} y={7} fill="white" font-size={5} stroke="none">lenas reference:</text>
           </svg></span></h3>
           <div class="invoice-header__customer-reference__content">
             {invoice.customerReference.split('\n').map((l) => <div>{l}</div>)}

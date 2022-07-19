@@ -20,7 +20,7 @@ export class PersistentItemService<T> {
    * reload data from storage
    */
   async reloadItem(): Promise<T> {
-    const item = this._storage.load(this._descriptor);
+    const item = await this._storage.load(this._descriptor);
 //    this.load = () => item;
     return item;
   }

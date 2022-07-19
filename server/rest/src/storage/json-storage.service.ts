@@ -46,7 +46,9 @@ export class JsonStorageService implements StorageService {
     if (data === undefined) {
       throw new Error(`no data (${typeof data})`);
     }
-    fs.writeFileSync(this._filenameOf(ident), JSON.stringify(data, null, 2));
+    const filename = this._filenameOf(ident);
+    fs.mkdirSync(path.dirname(filename), { recursive: true });
+    fs.writeFileSync(filename, JSON.stringify(data, null, 2));
     return this._loadExisting(ident);
   }
 
