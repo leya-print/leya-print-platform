@@ -7,7 +7,7 @@ import { invoiceSamples } from './invoice-samples';
   styleUrl: '2-invoice-footer.scss',
 })
 export class InvoiceFooterTpl {
-  @State() invoice: Invoice = invoiceSamples['invoice-001'];
+  @State() invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
   render() {
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
