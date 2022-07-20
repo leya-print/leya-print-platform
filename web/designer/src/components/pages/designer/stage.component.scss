@@ -1,0 +1,30 @@
+@import 'zIndex';
+:host {
+    border: 1px solid black;
+    position: fixed;
+    box-sizing: content-box;
+    overflow-y: scroll;
+    overflow-x: visible;
+    .designer-stage {
+        &__header {
+            position: fixed;
+            border: 1px solid blue;
+            background: white;
+            overflow: hidden;
+            z-index: $zIndex__headerFooter;
+        }
+        &__content {
+            .raster {
+                position: fixed;
+                overflow: hidden;
+            }
+        }
+        &__footer {
+            position: fixed;
+            border: 1px solid red;
+            background: white;
+            overflow: hidden;
+            z-index: $zIndex__headerFooter;
+        }
+    }
+}

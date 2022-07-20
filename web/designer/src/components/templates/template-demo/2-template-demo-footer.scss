@@ -1,0 +1,8 @@
+// @import 'template-demo.global'; // already included by the header
+@import 'template-demo.variables';
+tpl-template-demo-footer {
+    display: block;
+    box-sizing: border-box;
+    border: 1mm solid blue;
+    padding: $var__page__margin;
+}

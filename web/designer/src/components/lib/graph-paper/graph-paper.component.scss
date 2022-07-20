@@ -1,0 +1,44 @@
+@import 'zIndex';
+graph-paper {
+    pointer-events: none;
+    @media screen {
+        display: block;
+        width: 0px;
+        height: 0px;
+        overflow: visible;
+        z-index: $zIndex__raster;
+    }
+    .raster {
+        display: block;
+        @media print {
+            position: fixed;
+            max-height: 100%;
+        }
+        @media screen {
+            position: relative;
+            height: 100%;
+        }
+        overflow: hidden;
+        opacity: .2;
+        .graph-paper__lines {
+            line {
+                stroke: rgba(0, 0, 0, .25);
+                stroke-width: .2mm;
+            }
+            line:nth-child(5n) {
+                stroke: rgba(255, 0, 0, .5);
+                stroke-width: .4mm;
+            }
+            line:nth-child(10n) {
+                stroke-width: .8mm;
+                stroke: rgba(0, 0, 0, .5);
+            }
+        }
+        .graph-paper__numbers {
+            text {
+                color: rgba(0, 0, 0, .2);
+                font-size: 8mm;
+            }
+        }
+    }
+}

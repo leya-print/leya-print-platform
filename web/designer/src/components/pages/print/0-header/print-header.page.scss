@@ -1,0 +1,18 @@
+$pageScaleFix__factor: calc(15.737 / 21) !default;
+print-header-page {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    transform-origin: top left;
+    transform: scale($pageScaleFix__factor);
+}
+
+#header {
+    padding-top: 0;
+    display: block;
+}
+
+#content {
+    padding: 0;
+    margin-bottom: -.4cm
+}

@@ -1,0 +1,30 @@
+// @import 'invoice.global'; // already included by the header
+@import 'invoice.variables';
+tpl-invoice-footer {
+    display: block;
+    box-sizing: border-box;
+    padding: $var__page__margin;
+    padding-top: 0;
+
+    .invoice-footer__pageNumber {
+      text-align: right;
+      padding-top: 4.23mm;
+      font-size: 10pt;
+      margin-bottom: 4.23mm;
+    }
+    .invoice-footer__details {
+      text-align: center;
+      font-size: 7pt;
+
+      .invoice-footer__line {
+        span:not(:first-of-type)::before {
+          content: '|';
+          margin: .5em;
+        }
+
+        &:not(:first-of-type) {
+          margin-top: .2em;
+        }
+      }
+    }
+}
