@@ -20,10 +20,8 @@ export class AppHome {
 
   connectedCallback() {
     this.subscriptions.push(templateService.packages$.subscribe(
-      (packages) => {
-        this.packages = packages;
-      }
-    ))
+      (packages) => this.packages = packages,
+    ));
   }
 
   disconnectedCallback() {
