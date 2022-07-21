@@ -53,7 +53,12 @@ app.get('/tpl', async (_req, res) => {
 app.use('/tpl-contents/:templateId',
   (req, res, next) => cors(corsOptions)(req, res, next),
   (req, res, next) => {
-    return express.static(path.join(templateService.tplRoot, req.params.templateId))(req, res, next);
+    return express.static(path.join(templateService.tplRoot, req.params.templateId), {
+      fallthrough: true,
+    })(req, res, next);
+  },
+  (req, res, next) => {
+    return express.static(path.join(templateService.tplRoot, 'default'))(req, res, next);
   },
 );
 
