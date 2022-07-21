@@ -1,4 +1,5 @@
 import { Component, h, Host, Prop } from '@stencil/core';
+import { templatePackageService } from 'src/components/lib/template/template-package.service';
 
 @Component({
   tag: 'print-content-page',
@@ -6,7 +7,12 @@ import { Component, h, Host, Prop } from '@stencil/core';
   shadow: false,
 })
 export class PrintContentPage {
-  @Prop() tplName = 'invoice';
+  @Prop() tplName: string;
+  @Prop() tplPackage?: string;
+
+  async componentWillLoad() {
+    await templatePackageService.defineCustomElements(this.tplPackage);
+  }
 
   render() {
     return <Host innerHTML={`<graph-paper></graph-paper><tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></Host>

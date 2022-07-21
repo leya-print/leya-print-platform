@@ -1,5 +1,5 @@
-import { Component, Fragment, h, Host, Listen, Prop, State } from '@stencil/core';
-import { TemplatePackage } from '@leya-print/common-api';
+import { Component, Fragment, h, Host, Listen, Prop, State, VNode } from '@stencil/core';
+import { templatePackageService } from 'src/components/lib/template/template-package.service';
 
 @Component({
   tag: 'designer-page',
@@ -14,7 +14,7 @@ export class AppHome {
 
   sampleData?: any;
 
-  private _tplSrc: string;
+  private loader?: VNode;
 
   @Listen('designer-reload-preview')
   reloadPreview() {
@@ -23,27 +23,14 @@ export class AppHome {
   }
 
   async componentWillLoad() {
-    try {
-      const tplBaseUrl = this.tplPackage ? `http://localhost:7001/tpl-contents/${this.tplPackage}` : `http://localhost:3333/build`;
-      const tplFileSuffix = this.tplPackage ? '.js' : '.esm.js';
-      this._tplSrc = this.tplPackage ? `${tplBaseUrl}/loader.js` : `${tplBaseUrl}/templates.esm.js`;
-      const templatePackage: TemplatePackage = (await import(`${tplBaseUrl}/index${tplFileSuffix}`)).templatePackage;
-      const templateInfo = templatePackage.templates.find((tplInfo) => tplInfo.ident === this.tplName);
-      this.sampleData = Object.values(templateInfo.sampleData)[0].data;
-      console.log({ templateInfo });
-    } catch (e) {
-      console.warn('could not load sample data', e);
-    }
+    const templateInfo = await templatePackageService.templateInfo(this.tplPackage, this.tplName);
+    this.sampleData = Object.values(templateInfo.sampleData)[0].data;
+    await templatePackageService.defineCustomElements(this.tplPackage);
   }
 
   render() {
     return <Host>
-      <script type="module">{`
-        import('${this._tplSrc}').then(
-          (loader) => loader.defineCustomElements?.()
-        );
-      `}
-      </script>
+      {this.loader}
       <designer-ui
         tplName={this.tplName}
         sampleData={this.sampleData}

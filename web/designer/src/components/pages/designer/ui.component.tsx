@@ -47,7 +47,7 @@ export class DesignerUiComponent {
 
   render() {
     return <Host>
-      <form method="POST" action={`${previewUrl}/${this.tplName}/test.pdf`} target='_blank'>
+      <form method="POST" action={`${previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
 
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <button class="button" type="submit">preview</button>

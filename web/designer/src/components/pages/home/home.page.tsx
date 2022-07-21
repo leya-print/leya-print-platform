@@ -45,7 +45,7 @@ export class AppHome {
               <span>{templatePackage.version}</span>
               <ul>
                 {templatePackage.templates.map((template) => <li>
-                  <a href={`./designer/${template.ident}/${templatePackage.id}`}>{template.title}</a><br />{template.description}
+                  <a href={`./designer/${template.ident}?tplPackage=${templatePackage.id}`}>{template.title}</a><br />{template.description}
                 </li>)}
               </ul>
             </li>)}
