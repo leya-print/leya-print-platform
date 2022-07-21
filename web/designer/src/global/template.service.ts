@@ -1,5 +1,5 @@
 import type { TemplatePackage } from '@leya-print/common-api';
-import { BehaviorSubject, firstValueFrom, from, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 export class TemplateService {
@@ -8,7 +8,7 @@ export class TemplateService {
     return this._lazyInitPackages();
   }
 
-  private _lazyInitPackages() {
+  private _lazyInitPackages(): Observable<TemplatePackage[]> {
     const packages$ = this.packages$b.asObservable().pipe(
       filter((packages): packages is TemplatePackage[] => !!packages),
     );
@@ -17,7 +17,8 @@ export class TemplateService {
       writable: false,
     });
 
-    return from(this._reloadPackages());
+    this._reloadPackages();
+    return this.packages$;
   }
 
   private async _reloadPackages(): Promise<TemplatePackage[]> {
