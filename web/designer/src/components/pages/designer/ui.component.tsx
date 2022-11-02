@@ -1,6 +1,14 @@
 import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 import { invoiceSamples } from 'src/components/templates/invoice/invoice-samples';
 
+const previewPort = 6001;
+const previewUrl = window.location.href.includes('gitpod.io')
+    ? `${window.location.href.split('/').slice(0, 3).join('/').replace('6002', '' + previewPort)}/pdf`
+    : `http://localhost:${previewPort}/pdf`
+;
+
+console.log('preview url: ', previewUrl);
+
 @Component({
   tag: 'designer-ui',
   styleUrl: 'ui.component.scss',
@@ -40,7 +48,7 @@ export class DesignerUiComponent {
 
   render() {
     return <Host>
-      <form method="POST" action={`http://localhost:6001/pdf/${this.tplName}/test.pdf`} target='_blank'>
+      <form method="POST" action={`${previewUrl}/${this.tplName}/test.pdf`} target='_blank'>
 
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this._invoiceSample, null, 2)}</textarea>
         <button class="button" type="submit">preview</button>
