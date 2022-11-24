@@ -5,6 +5,7 @@ tasks:
   - init: |
       cd server/rest
       npm i
+      npx playwright install
       cd ../../
       cd web/designer
       npm i
