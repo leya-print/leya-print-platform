@@ -6,10 +6,7 @@ import bodyParser from 'body-parser';
 import http from 'node:http';
 import { PdfFactory } from './pdf-factory.js';
 
-const webUrl = process.env.GITPOD_WORKSPACE_URL
-    ? `https://6002-${process.env.GITPOD_WORKSPACE_URL.substring(8)}/print`
-    : 'http://localhost:6002/print'
-;
+const webUrl = 'http://localhost:6002/print';
 const pdfFactory = new PdfFactory(webUrl);
 const app = express();
 
