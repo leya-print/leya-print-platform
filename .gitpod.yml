@@ -2,10 +2,12 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: |
-      cd server/rest
-      npm i
-      npx playwright install
-      cd ../../
-      cd web/designer
-      npm i
+  - name: Rest-Server
+    before: cd server/rest
+    init: npm i & npx playwright install chrome
+    command: npm run single
+  
+  - name: Designer
+    before: cd web/designer
+    init: npm i
+    command: npm start
