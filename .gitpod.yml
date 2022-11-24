@@ -4,9 +4,7 @@ image:
 tasks:
   - name: Rest-Server
     before: cd server/rest
-    init: |
-      npm i
-      npm run install-browser
+    init: npm i
     command: npm run single
     
   - name: Designer
