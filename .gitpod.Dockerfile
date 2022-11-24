@@ -15,3 +15,6 @@ RUN sudo apt-get install -y \
         libgbm1 \
         libatspi2.0-0 \
         libwayland-client0
+
+RUN npm i -g playwright \
+ && npx playwright install chrome
