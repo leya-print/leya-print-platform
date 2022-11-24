@@ -4,9 +4,11 @@ image:
 tasks:
   - name: Rest-Server
     before: cd server/rest
-    init: npm i & npx playwright install chrome
+    init: |
+      npm i
+      npm run install-browser
     command: npm run single
-  
+    
   - name: Designer
     before: cd web/designer
     init: npm i
