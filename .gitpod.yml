@@ -13,3 +13,4 @@ tasks:
     before: cd web/designer
     init: npm i
     command: npm start
+    openMode: split-right
