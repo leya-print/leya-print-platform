@@ -5,7 +5,9 @@ tasks:
   - name: Rest-Server
     before: cd server/rest
     init: npm i
-    command: npm run single
+    command: |
+      npx playwright install
+      npm run single
     
   - name: Designer
     before: cd web/designer
