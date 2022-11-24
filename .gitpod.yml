@@ -1,0 +1,11 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: |
+      cd server/rest
+      npm i
+      cd ../../
+      cd web/designer
+      npm i
+  - command: bash start-all.sh
