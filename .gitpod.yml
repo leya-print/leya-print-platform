@@ -8,4 +8,3 @@ tasks:
       cd ../../
       cd web/designer
       npm i
-  - command: bash start-all.sh
