@@ -29,6 +29,7 @@
     "author": "emanuel.hein@code-better.it",
     "license": "UNLICENSED",
     "dependencies": {
-        "@stencil/sass": "^1.5.2"
+        "@stencil/sass": "^1.5.2",
+        "puppeteer": "^19.2.0"
     }
 }

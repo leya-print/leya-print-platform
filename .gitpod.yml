@@ -1,0 +1,16 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Rest-Server
+    before: cd server/rest
+    init: npm i
+    command: |
+      npx playwright install
+      npm run single
+    
+  - name: Designer
+    before: cd web/designer
+    init: npm i
+    command: npm start
+    openMode: split-right
