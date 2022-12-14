@@ -12,6 +12,10 @@ export class InvoiceHeaderTpl {
   render() {
     const invoice = this.invoice;
     return <Host>
+      <tplb-image-fetch></tplb-image-fetch>
+
+   
+
       <div class="invoice-header__address-box">
         <div class="invoice-header__sender">
           <tplb-address-line address={invoice.sender.address}></tplb-address-line>
