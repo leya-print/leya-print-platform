@@ -1,36 +1,27 @@
-import { Component,  h, State } from '@stencil/core';
+import { Component,  h, Prop } from '@stencil/core';
 
 @Component({
     tag: 'tplb-image-fetch',
   })
 
   export class ImageFetchTpl{
-    @State() imgSrc
+    @Prop() imgSrc: string;
+    private convertedImg: string;
 
-    renderImage() {
-        let xhr = new XMLHttpRequest();       
-        xhr.open("GET", "/assets/icons/gitlab.png", true); 
-        xhr.responseType = "blob";
-        xhr.onload = function (e) {
-                console.log(this.response);
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                var res = event.target.result;
-                console.log(res)
-                }
-                var file = this.response;
-                reader.readAsDataURL(file)      
-        };
-        xhr.send()
-        
+    constructor() {
+        this.renderImage();
+        console.log(this.convertedImg)
+
+    }
+    
+    async renderImage() {
+        const result = await fetch(this.imgSrc)
+        const data = await result.blob();
+        const re = await data.text();
+        this.convertedImg = re;
     }
 
-
     render() {
-        
-
-        
-        return <div><img src= {this.imgSrc}/></div>
-        
+        return <div><img src={this.convertedImg}/></div>
     }
 }
