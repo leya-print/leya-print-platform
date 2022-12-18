@@ -8,20 +8,39 @@ import { Component,  h, Prop } from '@stencil/core';
     @Prop() imgSrc: string;
     private convertedImg: string;
 
-    constructor() {
-        this.renderImage();
-        console.log(this.convertedImg)
-
+    async fetchImage(url: string) {
+        const response = await fetch(url, {
+            mode: 'no-cors',
+        })
+        const blob = await response.blob()
+        
+        return blob
     }
-    
-    async renderImage() {
-        const result = await fetch(this.imgSrc)
-        const data = await result.blob();
-        const re = await data.text();
-        this.convertedImg = re;
+      
+    async blobToBase64(blob: Blob): Promise<string | ArrayBuffer | FileReader> {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result)
+          reader.onerror = (err) => reject(err)
+          reader.readAsDataURL(blob)
+        })
+    }
+      
+    async loadImage(): Promise<string> {
+        const imageBlob = await this.fetchImage(this.imgSrc)
+        const imageBase64 = await this.blobToBase64(imageBlob)
+        return imageBase64 as string;
+    }
+
+
+    async componentWillRender() {
+        const convertedImg = await this.loadImage();
+        this.convertedImg = convertedImg;
     }
 
     render() {
-        return <div><img src={this.convertedImg}/></div>
+        return (<div>
+            <img src={this.convertedImg} alt="Company Logo" width={110} height={70}/> 
+        </div>)
     }
 }
