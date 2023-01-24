@@ -26,4 +26,7 @@ export const config: Config = {
       ],
     }),
   ],
+  devServer: {
+    openBrowser: false,
+  }
 };
