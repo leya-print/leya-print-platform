@@ -1,6 +1,7 @@
 import type { TemplatePackage } from '@leya-print/common-api';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { env } from './env';
 
 export class TemplateService {
   private packages$b = new BehaviorSubject<TemplatePackage[] | false>(false);
@@ -24,7 +25,7 @@ export class TemplateService {
   private async _reloadPackages(): Promise<TemplatePackage[]> {
     this.packages$b.next(false);
 
-    const response = await fetch('http://localhost:7001/tpl');
+    const response = await fetch(`${env.backendBaseUrl}/tpl`);
     const packages = await response.json();
 
     this.packages$b.next(packages);

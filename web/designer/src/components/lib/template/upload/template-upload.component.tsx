@@ -1,4 +1,5 @@
 import { Component, h, Host, State } from '@stencil/core';
+import { env } from 'src/global/env';
 import { templateService } from 'src/global/template.service';
 import { TemplatePackage } from '../../../../../../../common/api/template-package.model';
 
@@ -20,7 +21,7 @@ export class TemplateUploadComponent {
       formData.append('tplPackage', file);
     });
 
-    const response = await fetch('http://localhost:7001/tpl', {
+    const response = await fetch(`${env.backendBaseUrl}/tpl`, {
       body: formData,
       method: 'POST',
     });

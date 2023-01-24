@@ -9,7 +9,7 @@
         "start": "node dist/server/rest/src/launch.js",
         "build": "tsc",
         "test": "mocha -r ts-node/register src/storage/*.spec.{js,ts} --watch-files src/**/*.ts",
-        "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome",
+        "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome"
     },
     "watch": {
         "test": {

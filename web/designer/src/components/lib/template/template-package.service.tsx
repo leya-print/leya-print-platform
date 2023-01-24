@@ -1,4 +1,5 @@
 import { TemplateInfo, TemplatePackage } from '@leya-print/common-api';
+import { env } from '../../../global/env';
 
 export class TemplatePackageService {
   async templateInfo(tplPackage: string | undefined, tplName: string): Promise<TemplateInfo | undefined> {
@@ -19,7 +20,7 @@ export class TemplatePackageService {
   }
 
   private _tplBaseUrl(tplPackage?: string) {
-    return tplPackage ? `http://localhost:7001/tpl-contents/${tplPackage}` : `http://localhost:3333/build`;
+    return tplPackage ? `${env.backendBaseUrl}/tpl-contents/${tplPackage}` : `${env.templateBaseUrl}/build`;
   }
 }
 
