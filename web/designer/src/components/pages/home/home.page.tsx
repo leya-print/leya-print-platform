@@ -49,6 +49,7 @@ export class AppHome {
             </li>)}
           </ul> : 'loading templates...'
         }
+        <h2>live templates</h2>
         <ul>
           {this.templates.map((template) => <li><a href={`./designer/${template.ident}/`}>{template.title}</a><br />{template.description}</li>)}
         </ul>
