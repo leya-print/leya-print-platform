@@ -27,9 +27,14 @@ export class PdfFactory {
         return Promise.resolve(true);
       }, providedData);
     }
+    page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
+    page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
+    let urlStr = String(urlWithParams);
+    console.log('open: ' + urlStr);
+    console.log('data: ' + JSON.stringify(providedData, null, 2));
     await Promise.all([
-      page.goto('' + urlWithParams),
-      page.waitForNavigation().then(async () => {
+      page.goto(urlStr),
+      page.waitForURL(urlStr).then(async () => {
         if (providedData) {
           await page.evaluate((data) => {
             (window as any).providedData = JSON.parse(data);

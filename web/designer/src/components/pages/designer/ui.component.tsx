@@ -1,12 +1,5 @@
 import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
-
-const previewPort = 6001;
-const previewUrl = window.location.href.includes('gitpod.io')
-    ? `${window.location.href.split('/').slice(0, 3).join('/').replace('6002', '' + previewPort)}/pdf`
-    : `http://localhost:${previewPort}/pdf`
-;
-
-console.log('preview url: ', previewUrl);
+import { env } from 'src/global/env';
 
 @Component({
   tag: 'designer-ui',
@@ -16,6 +9,8 @@ console.log('preview url: ', previewUrl);
 export class DesignerUiComponent {
   @Prop() tplName: string;
   @Prop() sampleData?: any;
+
+  previewUrl: string;
 
   private _payload: HTMLTextAreaElement;
   private _lastUpdateTrigger = 0;
@@ -44,11 +39,13 @@ export class DesignerUiComponent {
     }, triggerDelay);
   }
 
+  async componentWillLoad() {
+    this.previewUrl = (await env).backendBaseUrl + '/pdf';
+  }
 
   render() {
     return <Host>
-      <form method="POST" action={`${previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
-
+      <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <button class="button" type="submit">preview</button>
       </form>

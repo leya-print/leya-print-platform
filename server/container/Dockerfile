@@ -1,4 +1,10 @@
-FROM mcr.microsoft.com/playwright:focal-arm64
+# syntax=docker/dockerfile:1
+
+FROM … AS server-rest
+FROM … AS web-designer
+FROM mcr.microsoft.com/playwright:focal
+
+RUN npx playwright install chromium
 
 RUN apt update && \
     apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring && \
@@ -13,13 +19,19 @@ RUN apt update && \
     apt update && \
     apt install -y nginx
 
-COPY server/container/nginx.default.conf /etc/nginx/conf.d/default.conf
+COPY --from=server-rest . /leya-print/server/rest
+RUN cd /leya-print/server/rest && npm i
 
-ADD ./server/rest/dist /leya-print/server/rest
-ADD ./web/designer/www /leya-print/web/designer/www
+COPY --from=web-designer www /leya-print/web/designer/www
+
+COPY ./root /
+RUN chmod 777 /leya-print/start-with-nginx.sh
+
+WORKDIR /leya-print/
 
 EXPOSE 8080
+EXPOSE 8090
 
 STOPSIGNAL SIGQUIT
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["./start-with-nginx.sh"]
