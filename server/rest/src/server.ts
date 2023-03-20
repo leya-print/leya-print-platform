@@ -8,11 +8,29 @@ import { PdfFactory } from './pdf-factory';
 import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
+import fs from 'node:fs';
 
-const pdfFactory = new PdfFactory('http://localhost:6002/print');
+const env: {
+  printEndpoint: string,
+  storageLocation: string,
+} = (() => {
+  try {
+    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
+  } catch (e) {
+    console.error(e);
+    return {
+      printEndpoint: 'http://localhost:6002/dev/print',
+      storageLocation: path.join(__dirname, '../../../data'),
+    };
+  }
+})();
+
+console.log('print endpoint: ' + env.printEndpoint);
+
+const pdfFactory = new PdfFactory(env.printEndpoint);
 const useJsonStorage = true;
-const storage = useJsonStorage ? new JsonStorageService(path.join(__dirname, '../../../data')) : new MockedStorageService();
-const templateService = new TemplateService(storage);
+const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : new MockedStorageService();
+const templateService = new TemplateService(storage, env.storageLocation);
 
 const app = express();
 const corsOptions: cors.CorsOptions = {
