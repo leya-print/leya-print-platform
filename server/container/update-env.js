@@ -6,7 +6,7 @@ updateEnv();
 
 async function updateEnv() {
     console.log(process.env['GITPOD_WORKSPACE_URL']);
-    const envFile = './src/assets/env.json';
+    const envFile = './config/public-env.json';
     const changed = await new Promise(resolve => {
         child_process.exec('git diff ' + envFile, {
     
@@ -27,7 +27,7 @@ async function updateEnv() {
         const createSubUrl = (port) =>
             gitpodUrl.replace('https://', `https://${port}-`);
         fs.writeFileSync(envFile, JSON.stringify({
-            backendBaseUrl: createSubUrl(6001),
+            backendBaseUrl: createSubUrl(8082) + '/rest',
             templateBaseUrl: createSubUrl(3333),
         }, null, 2));
         child_process.execSync('git update-index --assume-unchanged ' + envFile);

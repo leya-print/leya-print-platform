@@ -2,6 +2,8 @@
 PWD=`pwd`
 CONTAINER_NAME=leya-local
 
+node update-env.js
+
 # if [ container exists ]
 if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
     # if [ container is running ]
