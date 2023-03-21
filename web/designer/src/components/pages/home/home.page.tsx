@@ -35,7 +35,7 @@ export class AppHome {
         <p>
           Welcome to leya print.
         </p>
-        <h2>templates</h2>
+        <h2>deployed templates</h2>
         {
           this.packages ? <ul>
             {this.packages.map((templatePackage) => <li>

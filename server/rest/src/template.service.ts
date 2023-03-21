@@ -10,9 +10,9 @@ import { CrudService } from './storage/crud.service';
 
 type StoredTemplatePackage = TemplatePackage & Required<Pick<TemplatePackage, 'id'>>;
 export class TemplateService extends CrudService<StoredTemplatePackage, TemplatePackage> {
-  readonly tplRoot = path.resolve(__dirname, '../templates');
   constructor(
     storage: StorageService,
+    public readonly tplRoot: string,
   ) {
     super(storage, 'template-packages', (id, tpl) => ({ id, ...tpl }));
   }
