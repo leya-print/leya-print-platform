@@ -22,7 +22,7 @@ RUN apt update && \
 COPY --from=server-rest . /leya-print/server/rest
 RUN cd /leya-print/server/rest && npm i
 
-COPY --from=web-designer www /leya-print/web/designer/www
+COPY --from=web-designer www-prod /leya-print/web/designer/www
 
 COPY ./root /
 RUN chmod 777 /leya-print/start-with-nginx.sh
