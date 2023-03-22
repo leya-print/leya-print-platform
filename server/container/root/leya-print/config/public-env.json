@@ -1,0 +1,4 @@
+{
+  "backendBaseUrl": "/rest",
+  "templateBaseUrl": "http://localhost:3333"
+}
