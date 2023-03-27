@@ -50,6 +50,27 @@ build web-designer:
       - "web/designer/www-prod"
     expire_in: "7 days"
 
+build docker image (dry run):
+  image: docker:dind
+  stage: container
+  tags: ["docker"]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: on_success
+    - when: never
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    # See https://github.com/docker-library/docker/pull/166
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+  script:
+    - cd server/container
+    - sh build.sh
+
 build docker image:
   image: docker:dind
   stage: container
