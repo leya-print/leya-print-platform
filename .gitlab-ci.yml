@@ -1,0 +1,96 @@
+# See https://docs.gitlab.com/ee/ci/yaml/index.html for all available options
+
+image: node:latest
+
+stages:
+  - build
+  - container
+
+before_script:
+  - echo "Before script section"
+  # - echo "For example you might run an update here or install a build dependency"
+  # - echo "Or perhaps you might print out some debugging details"
+
+after_script:
+  - echo "After script section"
+  # - echo "For example you might do some cleanup here"
+
+variables:
+  RUN_BUILD:
+
+build rest-server:
+  stage: build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
+  script:
+    - bash ./build/scripts/build-server-rest.sh
+  artifacts:
+    name: "rest-server"
+    paths:
+      - "server/rest/dist"
+    expire_in: "7 days"
+
+build web-designer:
+  stage: build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
+  script:
+    - bash ./build/scripts/build-web-designer.sh
+  artifacts:
+    name: "web-designer"
+    paths:
+      - "web/designer/www-prod"
+    expire_in: "7 days"
+
+build docker image (dry run):
+  image: docker:dind
+  stage: container
+  tags: ["docker"]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: on_success
+    - when: never
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    # See https://github.com/docker-library/docker/pull/166
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+  script:
+    - cd server/container
+    - sh build.sh
+
+build docker image:
+  image: docker:dind
+  stage: container
+  tags: ["docker"]
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+    - when: never
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    # See https://github.com/docker-library/docker/pull/166
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+  script:
+    - cd server/container
+    - sh build.sh
+    - docker tag leya:local registry.code-better.it/leya/leya-print
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
+    - docker push registry.code-better.it/leya/leya-print

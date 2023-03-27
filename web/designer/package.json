@@ -1,7 +1,7 @@
 {
     "name": "@leya-print/web-designer",
     "private": true,
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "design and preview your printing templates online",
     "scripts": {
         "build": "stencil build --config stencil.config.prod.ts",
