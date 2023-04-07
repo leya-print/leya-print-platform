@@ -17,10 +17,17 @@ ports:
 
 tasks:
   - name: Free-Console
+
+  - name: Build
+    init: |
+      bash build-all.sh
+      gp sync-done build
   
   - name: Rest-Server
     before: cd server/rest
-    init: npm i
+    init: |
+      gp sync-await build
+      npm i
     command: |
       npx playwright install
       npm run install-browser
@@ -28,12 +35,16 @@ tasks:
     
   - name: Designer
     before: cd web/designer
-    init: npm i
+    init: |
+      gp sync-await build
+      npm i
     command: npm start
     openMode: split-right
 
   - name: templates
     before: cd web/templates
-    init: npm i
+    init: |
+      gp sync-await build
+      npm i
     command: npm start
     openMode: split-right

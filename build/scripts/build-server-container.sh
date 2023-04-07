@@ -4,4 +4,4 @@ if [ ! $LB_WORKSPACE_ROOT ]; then
 fi
 
 cd $LB_WORKSPACE_ROOT/server/container
-. build.sh
+source $LB_WORKSPACE_ROOT/server/container/build.sh
