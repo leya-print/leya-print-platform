@@ -37,6 +37,24 @@ const corsOptions: cors.CorsOptions = {
 
 };
 
+app.get('/alive', async (_req, res) => {
+  res.sendStatus(200);
+});
+
+app.get('/auth', async (req, res) => {
+  if (req.headers['x-forwarded-uri']?.includes('protected')) {
+    console.log('auth:', req.headers);
+    return res.sendStatus(401);
+  }
+
+  res.sendStatus(200);
+});
+
+app.get('/protected', async (_req, res) => {
+  // used only to test authentication
+  res.sendStatus(200);
+});
+
 app.get('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(req, res) => {
     const pdf = await pdfFactory.create(req.params.templateId, req.query, req.body?.payload);
     res.setHeader('Content-Type', 'application/pdf');
