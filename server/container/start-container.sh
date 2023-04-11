@@ -21,3 +21,5 @@ docker run \
   --mount type=bind,source=$PWD/config,target=/leya-print/config,readonly \
   --mount type=bind,source=$PWD/../../data,target=/leya-print/data \
   leya:local
+
+docker logs -f leya-local
