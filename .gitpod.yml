@@ -1,16 +1,50 @@
 image:
   file: .gitpod.Dockerfile
 
+ports:
+  - port: 3333
+    visibility: public
+    name: Templates
+    onOpen: ignore
+  - port: 6001
+    visibility: public
+    name: Backend
+    onOpen: ignore
+  - port: 6002
+    visibility: public
+    name: Designer
+    onOpen: ignore
+
 tasks:
+  - name: Free-Console
+
+  - name: Build
+    init: |
+      bash build-all.sh
+      gp sync-done build
+  
   - name: Rest-Server
     before: cd server/rest
-    init: npm i
+    init: |
+      gp sync-await build
+      npm i
     command: |
       npx playwright install
-      npm run single
+      npm run install-browser
+      npm run dev
     
   - name: Designer
     before: cd web/designer
-    init: npm i
+    init: |
+      gp sync-await build
+      npm i
+    command: npm start
+    openMode: split-right
+
+  - name: templates
+    before: cd web/templates
+    init: |
+      gp sync-await build
+      npm i
     command: npm start
     openMode: split-right

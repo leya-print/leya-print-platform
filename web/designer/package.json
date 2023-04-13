@@ -1,10 +1,11 @@
 {
     "name": "@leya-print/web-designer",
     "private": true,
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "design and preview your printing templates online",
     "scripts": {
-        "build": "stencil build",
+        "build": "stencil build --config stencil.config.prod.ts",
+        "prestart": "node update-env.js",
         "start": "stencil build --dev --watch --serve --port 6002",
         "test": "stencil test --spec --e2e",
         "test.watch": "stencil test --spec --e2e --watchAll",
@@ -30,6 +31,7 @@
     "license": "UNLICENSED",
     "dependencies": {
         "@stencil/sass": "^1.5.2",
-        "puppeteer": "^19.2.0"
+        "puppeteer": "^19.2.0",
+        "rxjs": "^7.5.6"
     }
 }

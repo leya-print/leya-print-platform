@@ -15,8 +15,9 @@ export class AppRoot {
     if (path.includes('/designer/')) {
       const pathParts = path.match(/\/designer\/(?<tplName>[^\/]+)/);
       const tplName = pathParts.groups?.['tplName'];
+      const tplPackage = new URL(location.href).searchParams.get('tplPackage');
       return {
-        contents: <designer-page tplName={tplName}></designer-page>,
+        contents: <designer-page tplName={tplName} tplPackage={tplPackage}></designer-page>,
         title: 'Designer',
       };
     }
@@ -24,17 +25,18 @@ export class AppRoot {
     if (path.includes('/print/')) {
       const pathParts = path.match(/\/print\/(?<tplName>[^\/]+)\/(?<pagePart>[^\/]+)/);
       const { tplName, pagePart } = pathParts.groups;
+      const tplPackage = new URL(location.href).searchParams.get('tplPackage');
       switch (pagePart) {
         case 'header': return {
-          contents: <print-header-page tplName={tplName}></print-header-page>,
+          contents: <print-header-page tplName={tplName} tplPackage={tplPackage}></print-header-page>,
           isPrintingPage: true,
         };
         case 'content': return {
-          contents: <print-content-page tplName={tplName}></print-content-page>,
+          contents: <print-content-page tplName={tplName} tplPackage={tplPackage}></print-content-page>,
           isPrintingPage: true,
         };
         case 'footer': return {
-          contents: <print-footer-page tplName={tplName}></print-footer-page>,
+          contents: <print-footer-page tplName={tplName} tplPackage={tplPackage}></print-footer-page>,
           isPrintingPage: true,
         };
         default:
@@ -51,7 +53,7 @@ export class AppRoot {
     const { contents, title, isPrintingPage } = this.getPage();
     return isPrintingPage ? <Host>{contents}</Host> : <Host>
       <header class="app-root__header">
-        <h1><a href="/">leya print</a>{title ? <span>{title}</span> : ''}</h1>
+        <h1><a href="/dev/">leya print</a>{title ? <span>{title}</span> : ''}</h1>
       </header>
       <main class="app-root__main">{contents}</main>
     </Host>
