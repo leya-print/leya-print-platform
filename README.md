@@ -103,13 +103,13 @@ This is the main project structure:
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Please check our [CONTRIBUTE.md](/CONTRIBUTE.md) file for instructions on how to contribute.
+Please check our [CONTRIBUTE](/CONTRIBUTE.md) file for instructions on how to contribute.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the Apache License Version 2.0, License. See [LICENSE.md](/LICENSE.md) for more information.
+Distributed under the Apache License Version 2.0, License. See [LICENSE](/LICENSE.md) for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
