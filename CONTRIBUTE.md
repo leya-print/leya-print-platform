@@ -3,8 +3,9 @@ You can also simply open an issue with the tag "enhancement".
 
 Please take into consideration the following aspects before a pull request:
 
-1. Project structure
-      Try to follow this structure for each solution in the project:
+<h4>1. Project structure: </h4>
+
+Try to follow this structure for each solution in the project:
 
 /common -> COMMON ENTITIES
       /api - shared elements between solutions
@@ -17,7 +18,7 @@ Please take into consideration the following aspects before a pull request:
       /designer - solution for user interface
       /templates - solution to process templates
 
-2. CI-pipeline:
+<h4>2. CI-pipeline: </h4>
 
 The project contains a yml file called ".gitlab-ci.yml" that defines a CI/CD pipeline that builds and deploys a Node.js REST server and a web designer app, and also builds Docker images for those apps and pushes them to a Docker registry.
 
@@ -31,8 +32,8 @@ In the "container" stage the jobs "build docker image (dry run)" and "build dock
 
 "build docker image" builds when a successful commit is done on the default branch and the docker images are pushed to a Docker registry.
 
-3. Coding and quality guidelines:
+<h4>3. Coding and quality guidelines: </h4>
 
 To be completed...
 
-Don't forget to give the project a star! Thanks again!
+<strong>Don't forget to give the project a star! Thanks again! </strong>
