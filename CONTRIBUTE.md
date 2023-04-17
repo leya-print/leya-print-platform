@@ -35,7 +35,10 @@ In the "container" stage the jobs "build docker image (dry run)" and "build dock
 "build docker image" builds when a successful commit is done on the default branch and the docker images are pushed to a Docker registry.
 
 <h4>3. Coding and quality guidelines: </h4>
+<h4>3. Coding and quality guidelines: </h4>
 
 --- Under construction ---
+
+<strong>Don't forget to give the project a star! Thanks again! </strong>
 
 <strong>Don't forget to give the project a star! Thanks again! </strong>
