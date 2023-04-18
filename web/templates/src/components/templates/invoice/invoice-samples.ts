@@ -1,4 +1,4 @@
-import { Invoice } from '@leya-print/common-api';
+import { Invoice } from '../../../models/invoice.model';
 
 const maxHardware: Invoice['sender'] = {
   address: {
