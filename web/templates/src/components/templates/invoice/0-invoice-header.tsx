@@ -1,4 +1,4 @@
-import type { Invoice } from '@leya-print/common-api';
+import type { Invoice } from '../../../models/invoice.model';
 import { Component, h, Host, State } from '@stencil/core';
 import { invoiceSamples } from './invoice-samples';
 
