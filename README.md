@@ -11,7 +11,7 @@
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
     <li>
-    <a href="#usage">Usage</a>
+    <a href="#usage">Usage </a>
      <ul>
         <li><a href="#examples">Examples</a></li>
       </ul>
@@ -28,9 +28,9 @@
 
 Leya Print is a powerful and user-friendly tool for generating PDFs from customizable templates. Leya Print is designed to make it easy for developers to create professional-looking PDF documents for a variety of purposes.
 
-One of the key components of Leya Print is the Designer project, which provides a visual interface for designing the layout and content of PDF templates. With Designer, users can easily create custom templates that meet their specific needs, whether they're creating invoices, reports, or other types of documents.
+One of the key components of Leya Print is the Designer project, which provides a visual interface for inserting content in the PDF templates. With Designer, users can easily upload custom templates that meet their specific needs, whether they're creating invoices, reports, or other types of documents.
 
-Another important component of Leya Print is the Template project, which allows users to create and manage different templates for use with Designer. This enables users to easily switch between different templates as needed, depending on the requirements of their projects.
+Another important component of Leya Print is the Templates project, which allows users to create and manage different templates for use with Designer. This enables users to easily switch between different templates as needed, depending on the requirements of their projects.
 
 Leya Print is a versatile and powerful tool that simplifies the process of generating PDFs from templates. Whether you're a developer or a non-technical user, Leya Print is a valuable resource for creating professional-looking documents quickly and easily.
 
