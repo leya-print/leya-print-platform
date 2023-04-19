@@ -29,17 +29,17 @@ export namespace Components {
     }
     interface PrintContentPage {
         "tplName": string;
-        "tplPackage"?: string;
     }
     interface PrintFooterPage {
         "tplName": string;
-        "tplPackage"?: string;
     }
     interface PrintHeaderPage {
         "tplName": string;
-        "tplPackage"?: string;
     }
     interface TemplateUpload {
+    }
+    interface TplbImageFetch {
+        "imgSrc": string;
     }
 }
 declare global {
@@ -103,6 +103,12 @@ declare global {
         prototype: HTMLTemplateUploadElement;
         new (): HTMLTemplateUploadElement;
     };
+    interface HTMLTplbImageFetchElement extends Components.TplbImageFetch, HTMLStencilElement {
+    }
+    var HTMLTplbImageFetchElement: {
+        prototype: HTMLTplbImageFetchElement;
+        new (): HTMLTplbImageFetchElement;
+    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "designer-page": HTMLDesignerPageElement;
@@ -114,6 +120,7 @@ declare global {
         "print-footer-page": HTMLPrintFooterPageElement;
         "print-header-page": HTMLPrintHeaderPageElement;
         "template-upload": HTMLTemplateUploadElement;
+        "tplb-image-fetch": HTMLTplbImageFetchElement;
     }
 }
 declare namespace LocalJSX {
@@ -141,17 +148,17 @@ declare namespace LocalJSX {
     }
     interface PrintContentPage {
         "tplName"?: string;
-        "tplPackage"?: string;
     }
     interface PrintFooterPage {
         "tplName"?: string;
-        "tplPackage"?: string;
     }
     interface PrintHeaderPage {
         "tplName"?: string;
-        "tplPackage"?: string;
     }
     interface TemplateUpload {
+    }
+    interface TplbImageFetch {
+        "imgSrc"?: string;
     }
     interface IntrinsicElements {
         "app-root": AppRoot;
@@ -164,6 +171,7 @@ declare namespace LocalJSX {
         "print-footer-page": PrintFooterPage;
         "print-header-page": PrintHeaderPage;
         "template-upload": TemplateUpload;
+        "tplb-image-fetch": TplbImageFetch;
     }
 }
 export { LocalJSX as JSX };
@@ -180,6 +188,7 @@ declare module "@stencil/core" {
             "print-footer-page": LocalJSX.PrintFooterPage & JSXBase.HTMLAttributes<HTMLPrintFooterPageElement>;
             "print-header-page": LocalJSX.PrintHeaderPage & JSXBase.HTMLAttributes<HTMLPrintHeaderPageElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
+            "tplb-image-fetch": LocalJSX.TplbImageFetch & JSXBase.HTMLAttributes<HTMLTplbImageFetchElement>;
         }
     }
 }
