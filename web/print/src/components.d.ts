@@ -8,25 +8,6 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppRoot {
     }
-    interface DesignerPage {
-        "tplName": string;
-        "tplPackage"?: string;
-    }
-    interface DesignerStage {
-        "pageHeight": string;
-        "pageWidth": string;
-    }
-    interface DesignerUi {
-        "sampleData"?: any;
-        "tplName": string;
-    }
-    interface GraphPaper {
-        "height": string;
-        "width": string;
-    }
-    interface HomePage {
-        "templates": { ident: string; title: string; description: string; }[];
-    }
     interface PrintContentPage {
         "tplName": string;
         "tplPackage"?: string;
@@ -39,8 +20,6 @@ export namespace Components {
         "tplName": string;
         "tplPackage"?: string;
     }
-    interface TemplateUpload {
-    }
 }
 declare global {
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
@@ -48,36 +27,6 @@ declare global {
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
-    };
-    interface HTMLDesignerPageElement extends Components.DesignerPage, HTMLStencilElement {
-    }
-    var HTMLDesignerPageElement: {
-        prototype: HTMLDesignerPageElement;
-        new (): HTMLDesignerPageElement;
-    };
-    interface HTMLDesignerStageElement extends Components.DesignerStage, HTMLStencilElement {
-    }
-    var HTMLDesignerStageElement: {
-        prototype: HTMLDesignerStageElement;
-        new (): HTMLDesignerStageElement;
-    };
-    interface HTMLDesignerUiElement extends Components.DesignerUi, HTMLStencilElement {
-    }
-    var HTMLDesignerUiElement: {
-        prototype: HTMLDesignerUiElement;
-        new (): HTMLDesignerUiElement;
-    };
-    interface HTMLGraphPaperElement extends Components.GraphPaper, HTMLStencilElement {
-    }
-    var HTMLGraphPaperElement: {
-        prototype: HTMLGraphPaperElement;
-        new (): HTMLGraphPaperElement;
-    };
-    interface HTMLHomePageElement extends Components.HomePage, HTMLStencilElement {
-    }
-    var HTMLHomePageElement: {
-        prototype: HTMLHomePageElement;
-        new (): HTMLHomePageElement;
     };
     interface HTMLPrintContentPageElement extends Components.PrintContentPage, HTMLStencilElement {
     }
@@ -97,47 +46,15 @@ declare global {
         prototype: HTMLPrintHeaderPageElement;
         new (): HTMLPrintHeaderPageElement;
     };
-    interface HTMLTemplateUploadElement extends Components.TemplateUpload, HTMLStencilElement {
-    }
-    var HTMLTemplateUploadElement: {
-        prototype: HTMLTemplateUploadElement;
-        new (): HTMLTemplateUploadElement;
-    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
-        "designer-page": HTMLDesignerPageElement;
-        "designer-stage": HTMLDesignerStageElement;
-        "designer-ui": HTMLDesignerUiElement;
-        "graph-paper": HTMLGraphPaperElement;
-        "home-page": HTMLHomePageElement;
         "print-content-page": HTMLPrintContentPageElement;
         "print-footer-page": HTMLPrintFooterPageElement;
         "print-header-page": HTMLPrintHeaderPageElement;
-        "template-upload": HTMLTemplateUploadElement;
     }
 }
 declare namespace LocalJSX {
     interface AppRoot {
-    }
-    interface DesignerPage {
-        "tplName"?: string;
-        "tplPackage"?: string;
-    }
-    interface DesignerStage {
-        "pageHeight"?: string;
-        "pageWidth"?: string;
-    }
-    interface DesignerUi {
-        "onDesigner-reload-preview"?: (event: CustomEvent<void>) => void;
-        "sampleData"?: any;
-        "tplName"?: string;
-    }
-    interface GraphPaper {
-        "height"?: string;
-        "width"?: string;
-    }
-    interface HomePage {
-        "templates"?: { ident: string; title: string; description: string; }[];
     }
     interface PrintContentPage {
         "tplName"?: string;
@@ -151,19 +68,11 @@ declare namespace LocalJSX {
         "tplName"?: string;
         "tplPackage"?: string;
     }
-    interface TemplateUpload {
-    }
     interface IntrinsicElements {
         "app-root": AppRoot;
-        "designer-page": DesignerPage;
-        "designer-stage": DesignerStage;
-        "designer-ui": DesignerUi;
-        "graph-paper": GraphPaper;
-        "home-page": HomePage;
         "print-content-page": PrintContentPage;
         "print-footer-page": PrintFooterPage;
         "print-header-page": PrintHeaderPage;
-        "template-upload": TemplateUpload;
     }
 }
 export { LocalJSX as JSX };
@@ -171,15 +80,9 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "designer-page": LocalJSX.DesignerPage & JSXBase.HTMLAttributes<HTMLDesignerPageElement>;
-            "designer-stage": LocalJSX.DesignerStage & JSXBase.HTMLAttributes<HTMLDesignerStageElement>;
-            "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
-            "graph-paper": LocalJSX.GraphPaper & JSXBase.HTMLAttributes<HTMLGraphPaperElement>;
-            "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "print-content-page": LocalJSX.PrintContentPage & JSXBase.HTMLAttributes<HTMLPrintContentPageElement>;
             "print-footer-page": LocalJSX.PrintFooterPage & JSXBase.HTMLAttributes<HTMLPrintFooterPageElement>;
             "print-header-page": LocalJSX.PrintHeaderPage & JSXBase.HTMLAttributes<HTMLPrintHeaderPageElement>;
-            "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
         }
     }
 }
