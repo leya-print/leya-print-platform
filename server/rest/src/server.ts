@@ -19,7 +19,7 @@ const env: {
   } catch (e) {
     console.error(e);
     return {
-      printEndpoint: 'http://localhost:6002/dev/print',
+      printEndpoint: 'http://localhost:6003/dev/print',
       storageLocation: path.join(__dirname, '../../../data'),
     };
   }

@@ -44,9 +44,9 @@ export class AppRoot {
     const { contents, title, isPrintingPage } = this.getPage();
     
     return isPrintingPage ? <Host>{contents}</Host> : <Host>
-      <header class="app-root__header">
+      {/* <header class="app-root__header">
         <h1><a href="/dev/">leya print</a>{title ? <span>{title}</span> : ''}</h1>
-      </header>
+      </header> */}
       <main class="app-root__main">{contents}</main>
     </Host>
   }
