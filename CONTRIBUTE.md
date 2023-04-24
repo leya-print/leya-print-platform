@@ -34,6 +34,6 @@ In the "container" stage the jobs "build docker image (dry run)" and "build dock
 
 <h4>3. Coding and quality guidelines: </h4>
 
-To be completed...
+--- Under construction ---
 
 <strong>Don't forget to give the project a star! Thanks again! </strong>
