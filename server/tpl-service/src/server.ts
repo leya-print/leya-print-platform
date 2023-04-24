@@ -9,26 +9,18 @@ import { TemplateService } from './template.service';
 // import { getETagHeader } from '@leya-print/common-api';
 import fs from 'node:fs';
 
-const debugLog = false;
-
 const env: {
   storageLocation: string,
-  title: string,
 } = (() => {
   try {
     return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
   } catch (e) {
     console.error(e);
-    console.log('could not read local-env.json');
-    return {
-      title: 'localhost env',
-      printEndpoint: 'http://localhost:6003/print',
+    return {      
       storageLocation: path.join(__dirname, '../../../data'),
     };
   }
 })();
-
-debugLog && console.log('local env title: ' + env.title);
 
 const useJsonStorage = true;
 const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : new MockedStorageService();
@@ -54,8 +46,12 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
     return;
   };
 
-  res.status(404)  
+// used only to test authentication
+app.get('/protected', async (_req, res) => {
+  res.sendStatus(200);
 });
+
+app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {
   
