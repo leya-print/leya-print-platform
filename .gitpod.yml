@@ -6,9 +6,13 @@ ports:
     visibility: public
     name: Templates
     onOpen: ignore
+  - port: 6000
+    visibility: public
+    name: Pdf-Service
+    onOpen: ignore
   - port: 6001
     visibility: public
-    name: Backend
+    name: Tpl-Service
     onOpen: ignore
   - port: 6002
     visibility: public
@@ -23,8 +27,18 @@ tasks:
       bash build-all.sh
       gp sync-done build
   
-  - name: Rest-Server
-    before: cd server/rest
+  - name: Pdf-Service
+    before: cd server/pdf-service
+    init: |
+      gp sync-await build
+      npm i
+    command: |
+      npx playwright install
+      npm run install-browser
+      npm run dev
+  
+  - name: Tpl-Service
+    before: cd server/tpl-service
     init: |
       gp sync-await build
       npm i

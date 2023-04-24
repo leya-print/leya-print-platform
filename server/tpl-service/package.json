@@ -1,7 +1,7 @@
 {
-    "name": "@leya-print/server-rest",
+    "name": "@leya-print/tpl-service",
     "version": "1.0.0",
-    "description": "rest endpoint that prints a pdf",
+    "description": "rest services with endpoints for templates",
     "main": "index.js",
     "scripts": {
         "dev": "ts-node src/server.ts",
