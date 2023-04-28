@@ -15,11 +15,12 @@ const env: {
   storageLocation: string,
 } = (() => {
   try {
-    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
+    return JSON.parse(fs.readFileSync('../../container/config/local-env.json', 'utf-8'));
   } catch (e) {
     console.error(e);
+    console.log('could not read local-env.json');
     return {
-      printEndpoint: 'http://localhost:6003/dev/print',
+      printEndpoint: 'http://localhost:6003/print',
       storageLocation: path.join(__dirname, '../../../data'),
     };
   }
@@ -66,6 +67,8 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
     res.setHeader('Content-Type', 'application/pdf');
     res.send(pdf);
 });
+
+
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {

@@ -1,5 +1,5 @@
 {
-  "printEndpoint": "http://127.0.0.1:8090/dev/print",
+  "printEndpoint": "http://127.0.0.1:8091/print",
   "backendBaseUrl": "http://localhost:6001",
   "storageLocation": "/leya-print/data"
 }

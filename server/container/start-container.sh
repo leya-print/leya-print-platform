@@ -17,8 +17,7 @@ fi
 docker run \
   --detach \
   --name leya-local \
-  -p 8082:8080 -p 8083:8090 \
-  --mount type=bind,source=$PWD/config,target=/leya-print/config,readonly \
+  -p 8082:8080 -p 8083:8091 -p 8084:8090 \
   --mount type=bind,source=$PWD/../../data,target=/leya-print/data \
   leya:local
 

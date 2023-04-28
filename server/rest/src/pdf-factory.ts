@@ -3,6 +3,9 @@ import { chromium } from 'playwright';
 export type PageActions<R> = (page: import('playwright').Page) => Promise<R>;
 
 export class PdfFactory {
+
+  public PRINT_URL = ``;
+
   constructor(
     private _baseUrl: string,
   ) {}
@@ -15,7 +18,9 @@ export class PdfFactory {
   }
 
   async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
+
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
+    
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
     const browser = await this.browser;
@@ -32,9 +37,12 @@ export class PdfFactory {
     let urlStr = String(urlWithParams);
     console.log('open: ' + urlStr);
     console.log('data: ' + JSON.stringify(providedData, null, 2));
+
     await Promise.all([
       page.goto(urlStr),
       page.waitForURL(urlStr).then(async () => {
+        console.log('urlStr', urlStr);
+
         if (providedData) {
           await page.evaluate((data) => {
             (window as any).providedData = JSON.parse(data);
@@ -43,6 +51,7 @@ export class PdfFactory {
         }
       }),
       page.waitForSelector('app-root'),
+      
     ]);
 
     const result = await actions(page);

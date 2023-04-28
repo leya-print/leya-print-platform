@@ -2,7 +2,7 @@
     "name": "@leya-print/print",
     "private": true,
     "version": "1.0.1",
-    "description": "solution for rendering templates online",
+    "description": "Solution for rendering templates online",
     "scripts": {
         "build": "stencil build --config stencil.config.prod.ts",
         "prestart": "node update-env.js",
