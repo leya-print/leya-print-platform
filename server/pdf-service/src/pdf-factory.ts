@@ -4,6 +4,11 @@ export type PageActions<R> = (page: import('playwright').Page) => Promise<R>;
 
 export class PdfFactory {
 
+<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
+=======
+  public PRINT_URL = ``;
+
+>>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
   constructor(
     private _baseUrl: string,
   ) {}
@@ -17,13 +22,17 @@ export class PdfFactory {
 
   async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
 
+<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
     console.log('open Page:', templateId, pagePart, queryParams, providedData);
     console.log('_baseUrl', this._baseUrl);
 
+=======
+>>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
     
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
+<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
     try {      
       const browser = await this.browser;
       const context = await browser.newContext();
@@ -42,12 +51,35 @@ export class PdfFactory {
         page.goto(urlStr),
         page.waitForURL(urlStr, { timeout: 30000}).then(async () => {  
   
+=======
+    const browser = await this.browser;
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    if (providedData) {
+      await page.evaluate((data) => {
+        (window as any).providedData = JSON.parse(data);
+        return Promise.resolve(true);
+      }, providedData);
+    }
+    page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
+    page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
+    let urlStr = String(urlWithParams);
+    console.log('open: ' + urlStr);
+    console.log('data: ' + JSON.stringify(providedData, null, 2));
+
+    await Promise.all([
+      page.goto(urlStr),
+      page.waitForURL(urlStr).then(async () => {
+        console.log('urlStr', urlStr);
+
+>>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
         if (providedData) {
           await page.evaluate((data) => {
             (window as any).providedData = JSON.parse(data);
             return Promise.resolve(true);
           }, providedData);
         }
+<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
         }),
         page.waitForSelector('app-root'),
         
@@ -55,6 +87,12 @@ export class PdfFactory {
   
       const result = await actions(page);
       await context.close();
+=======
+      }),
+      page.waitForSelector('app-root'),
+      
+    ]);
+>>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
 
       return result;
 
