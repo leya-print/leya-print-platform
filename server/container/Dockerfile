@@ -5,6 +5,11 @@ FROM … AS tpl-service
 FROM … AS auth-service
 FROM … AS web-designer
 FROM … AS web-print
+<<<<<<< HEAD
+=======
+
+FROM mcr.microsoft.com/playwright:focal
+>>>>>>> 2d5ad94 (updates to print endpoint depolyment)
 
 FROM mcr.microsoft.com/playwright:focal
 RUN npx playwright@1.33 install chromium
