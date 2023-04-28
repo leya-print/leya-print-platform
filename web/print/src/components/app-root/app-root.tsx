@@ -41,7 +41,7 @@ export class AppRoot {
   }
 
   render() {
-    const { contents, title, isPrintingPage } = this.getPage();
+    const { contents, isPrintingPage } = this.getPage();
     
     return isPrintingPage ? <Host>{contents}</Host> : <Host>
       <main class="app-root__main">{contents}</main>

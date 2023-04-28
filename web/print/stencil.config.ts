@@ -12,7 +12,7 @@ export const config: Config = {
       type: 'www',
       // comment the following line to disable service workers in production
       serviceWorker: null,
-      baseUrl: '/dev', // required for pre rendering
+      baseUrl: '/print', // required for pre rendering
     },
   ],
   plugins: [
@@ -23,6 +23,6 @@ export const config: Config = {
     }),
   ],
   devServer: {
-    basePath: '/dev/',
+    basePath: '/print/',
   },
 };
