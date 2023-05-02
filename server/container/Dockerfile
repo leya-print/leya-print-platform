@@ -5,8 +5,7 @@ FROM … AS web-designer
 FROM … AS web-print
 
 FROM mcr.microsoft.com/playwright:focal
-
-RUN npx playwright install chromium
+RUN npx playwright@1.33 install chromium
 
 RUN apt update && \
     apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring && \
