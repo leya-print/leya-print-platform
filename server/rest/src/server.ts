@@ -10,23 +10,28 @@ import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
 import fs from 'node:fs';
 
+const debugLog = false;
+
 const env: {
   printEndpoint: string,
   storageLocation: string,
+  title: string,
 } = (() => {
   try {
-    return JSON.parse(fs.readFileSync('../../container/config/local-env.json', 'utf-8'));
+    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
   } catch (e) {
     console.error(e);
     console.log('could not read local-env.json');
     return {
+      title: 'localhost env',
       printEndpoint: 'http://localhost:6003/print',
       storageLocation: path.join(__dirname, '../../../data'),
     };
   }
 })();
 
-console.log('print endpoint: ' + env.printEndpoint);
+debugLog && console.log('print endpoint: ' + env.printEndpoint); 
+debugLog && console.log('local env title: ' + env.title);
 
 const pdfFactory = new PdfFactory(env.printEndpoint);
 const useJsonStorage = true;
@@ -37,9 +42,12 @@ const app = express();
 const corsOptions: cors.CorsOptions = {
 
 };
-
+ 
 app.get('/alive', async (_req, res) => {
-  res.sendStatus(200);
+  res.setHeader("Cache-Control", "no-cache")
+  // ETag header to prevent 304 status which breaks live check. 
+  .setHeader("ETag", Date.now().toString())
+  .send("Ok");  
 });
 
 app.get('/auth', async (req, res) => {
@@ -67,8 +75,6 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
     res.setHeader('Content-Type', 'application/pdf');
     res.send(pdf);
 });
-
-
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {

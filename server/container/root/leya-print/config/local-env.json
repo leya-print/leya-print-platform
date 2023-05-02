@@ -1,14 +1,9 @@
 {
-<<<<<<< HEAD
   "title": "Server root - local env",
   "printEndpoint": "http://127.0.0.1:8091/print",
   "templateServiceBaseUrl": "http://127.0.0.1:8080/tpl",
   "pdfServiceBaseUrl": "http://127.0.0.1:8080",
   "backendBaseUrl": "http://127.0.0.1:8080",
   "authServiceBaseUrl": "http://localhost:6004/auth",
-=======
-  "printEndpoint": "http://127.0.0.1:8091/print",
-  "backendBaseUrl": "http://127.0.0.1:6001",
->>>>>>> 2d5ad94 (updates to print endpoint depolyment)
   "storageLocation": "/leya-print/data"
 }
