@@ -1,0 +1,37 @@
+{
+    "name": "@leya-print/print",
+    "private": true,
+    "version": "1.0.1",
+    "description": "Solution for rendering templates online",
+    "scripts": {
+        "build": "stencil build --config stencil.config.prod.ts",
+        "prestart": "node update-env.js",
+        "start": "stencil build --dev --watch --serve --port 6002",
+        "test": "stencil test --spec --e2e",
+        "test.watch": "stencil test --spec --e2e --watchAll",
+        "generate": "stencil generate"
+    },
+    "devDependencies": {
+        "@stencil/core": "2.13.0",
+        "@types/jest": "^27.0.3",
+        "jest": "^27.4.5",
+        "jest-cli": "^27.4.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.code-better.it/leya/leya-print"
+    },
+    "keywords": [
+        "leya",
+        "print",
+        "pdf",
+        "web"
+    ],
+    "author": "emanuel.hein@code-better.it",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@stencil/sass": "^1.5.2",
+        "puppeteer": "^19.2.0",
+        "rxjs": "^7.5.6"
+    }
+}

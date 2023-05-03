@@ -3,6 +3,7 @@ import { chromium } from 'playwright';
 export type PageActions<R> = (page: import('playwright').Page) => Promise<R>;
 
 export class PdfFactory {
+
   constructor(
     private _baseUrl: string,
   ) {}
@@ -15,40 +16,59 @@ export class PdfFactory {
   }
 
   async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
+
+    console.log('open Page:', templateId, pagePart, queryParams, providedData);
+    console.log('this._baseUrl', this._baseUrl);
+
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
+    
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
-    const browser = await this.browser;
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    if (providedData) {
-      await page.evaluate((data) => {
-        (window as any).providedData = JSON.parse(data);
-        return Promise.resolve(true);
-      }, providedData);
+    try {
+      
+      const browser = await this.browser;
+      const context = await browser.newContext();
+
+      const page = await context.newPage();
+  
+      if (providedData) {
+        await page.evaluate((data) => {
+          (window as any).providedData = JSON.parse(data);
+          return Promise.resolve(true);
+        }, providedData);
+      }
+  
+      page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
+      page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
+      let urlStr = String(urlWithParams);
+      
+      console.log('open: ' + urlStr);
+      console.log('data: ' + JSON.stringify(providedData, null, 2));
+
+      await Promise.all([
+        page.goto(urlStr),
+        page.waitForURL(urlStr).then(async () => {
+  
+          if (providedData) {
+            await page.evaluate((data) => {
+              (window as any).providedData = JSON.parse(data);
+              return Promise.resolve(true);
+            }, providedData);
+          }
+        }),
+        page.waitForSelector('app-root'),
+        
+      ]);
+  
+      const result = await actions(page);
+      await context.close();
+
+      return result;
+
+    } catch (error) {
+      console.log('error while getting page');
+      console.error(error);
     }
-    page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
-    page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
-    let urlStr = String(urlWithParams);
-    console.log('open: ' + urlStr);
-    console.log('data: ' + JSON.stringify(providedData, null, 2));
-    await Promise.all([
-      page.goto(urlStr),
-      page.waitForURL(urlStr).then(async () => {
-        if (providedData) {
-          await page.evaluate((data) => {
-            (window as any).providedData = JSON.parse(data);
-            return Promise.resolve(true);
-          }, providedData);
-        }
-      }),
-      page.waitForSelector('app-root'),
-    ]);
-
-    const result = await actions(page);
-
-    await context.close();
-    return result;
   }
 
   async create(templateId: string, queryParams: {[key: string]: any}, providedData?: string) {
@@ -70,6 +90,8 @@ export class PdfFactory {
         return { height, html };
       })),
     );
+
+    if (header === undefined || footer === undefined) return;
 
     const pdf = await openPage('content', async (page) => page.pdf({
       headerTemplate: header.html,

@@ -27,18 +27,6 @@ export namespace Components {
     interface HomePage {
         "templates": { ident: string; title: string; description: string; }[];
     }
-    interface PrintContentPage {
-        "tplName": string;
-        "tplPackage"?: string;
-    }
-    interface PrintFooterPage {
-        "tplName": string;
-        "tplPackage"?: string;
-    }
-    interface PrintHeaderPage {
-        "tplName": string;
-        "tplPackage"?: string;
-    }
     interface TemplateUpload {
     }
 }
@@ -79,24 +67,6 @@ declare global {
         prototype: HTMLHomePageElement;
         new (): HTMLHomePageElement;
     };
-    interface HTMLPrintContentPageElement extends Components.PrintContentPage, HTMLStencilElement {
-    }
-    var HTMLPrintContentPageElement: {
-        prototype: HTMLPrintContentPageElement;
-        new (): HTMLPrintContentPageElement;
-    };
-    interface HTMLPrintFooterPageElement extends Components.PrintFooterPage, HTMLStencilElement {
-    }
-    var HTMLPrintFooterPageElement: {
-        prototype: HTMLPrintFooterPageElement;
-        new (): HTMLPrintFooterPageElement;
-    };
-    interface HTMLPrintHeaderPageElement extends Components.PrintHeaderPage, HTMLStencilElement {
-    }
-    var HTMLPrintHeaderPageElement: {
-        prototype: HTMLPrintHeaderPageElement;
-        new (): HTMLPrintHeaderPageElement;
-    };
     interface HTMLTemplateUploadElement extends Components.TemplateUpload, HTMLStencilElement {
     }
     var HTMLTemplateUploadElement: {
@@ -110,9 +80,6 @@ declare global {
         "designer-ui": HTMLDesignerUiElement;
         "graph-paper": HTMLGraphPaperElement;
         "home-page": HTMLHomePageElement;
-        "print-content-page": HTMLPrintContentPageElement;
-        "print-footer-page": HTMLPrintFooterPageElement;
-        "print-header-page": HTMLPrintHeaderPageElement;
         "template-upload": HTMLTemplateUploadElement;
     }
 }
@@ -139,18 +106,6 @@ declare namespace LocalJSX {
     interface HomePage {
         "templates"?: { ident: string; title: string; description: string; }[];
     }
-    interface PrintContentPage {
-        "tplName"?: string;
-        "tplPackage"?: string;
-    }
-    interface PrintFooterPage {
-        "tplName"?: string;
-        "tplPackage"?: string;
-    }
-    interface PrintHeaderPage {
-        "tplName"?: string;
-        "tplPackage"?: string;
-    }
     interface TemplateUpload {
     }
     interface IntrinsicElements {
@@ -160,9 +115,6 @@ declare namespace LocalJSX {
         "designer-ui": DesignerUi;
         "graph-paper": GraphPaper;
         "home-page": HomePage;
-        "print-content-page": PrintContentPage;
-        "print-footer-page": PrintFooterPage;
-        "print-header-page": PrintHeaderPage;
         "template-upload": TemplateUpload;
     }
 }
@@ -176,9 +128,6 @@ declare module "@stencil/core" {
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
             "graph-paper": LocalJSX.GraphPaper & JSXBase.HTMLAttributes<HTMLGraphPaperElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
-            "print-content-page": LocalJSX.PrintContentPage & JSXBase.HTMLAttributes<HTMLPrintContentPageElement>;
-            "print-footer-page": LocalJSX.PrintFooterPage & JSXBase.HTMLAttributes<HTMLPrintFooterPageElement>;
-            "print-header-page": LocalJSX.PrintHeaderPage & JSXBase.HTMLAttributes<HTMLPrintHeaderPageElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
         }
     }

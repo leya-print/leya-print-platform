@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop } from '@stencil/core';
-import { templatePackageService } from 'src/components/lib/template/template-package.service';
+import { templatePackageService } from 'src/global/template-package.service';
 
 @Component({
   tag: 'print-content-page',

@@ -8,18 +8,26 @@ import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
 import fs from 'node:fs';
 
+const debugLog = false;
+
 const env: {
   storageLocation: string,
+  title: string,
 } = (() => {
   try {
     return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
   } catch (e) {
     console.error(e);
-    return {      
+    console.log('could not read local-env.json');
+    return {
+      title: 'localhost env',
+      printEndpoint: 'http://localhost:6003/print',
       storageLocation: path.join(__dirname, '../../../data'),
     };
   }
 })();
+
+debugLog && console.log('local env title: ' + env.title);
 
 const useJsonStorage = true;
 const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : new MockedStorageService();
@@ -27,9 +35,12 @@ const templateService = new TemplateService(storage, env.storageLocation);
 
 const app = express();
 const corsOptions: cors.CorsOptions = { };
-
+ 
 app.get('/alive', async (_req, res) => {
-  res.sendStatus(200);
+  res.setHeader("Cache-Control", "no-cache")
+  // ETag header to prevent 304 status which breaks live check. 
+  .setHeader("ETag", Date.now().toString())
+  .send("Ok");  
 });
 
 app.get('/auth', async (req, res) => {
