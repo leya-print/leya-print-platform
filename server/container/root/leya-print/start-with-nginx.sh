@@ -4,9 +4,13 @@
 # Start nginx
 nginx -g "daemon off;" &
 
-# Start rest endpoint
-cd ./server/rest
-node dist/server/rest/src/launch.js &
+# Start pdf service endpoint
+cd ./server/pdf-service
+node dist/server/pdf-service/src/launch.js &
+
+# Start template service endpoint
+cd ./server/tpl-service
+node dist/server/tpl-service/src/launch.js &
 
 # Wait for any process to exit
 wait -n

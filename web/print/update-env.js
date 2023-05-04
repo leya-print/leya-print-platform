@@ -28,7 +28,8 @@ async function updateEnv() {
         const createSubUrl = (port) =>
             gitpodUrl.replace('https://', `https://${port}-`);
         fs.writeFileSync(envFile, JSON.stringify({
-            backendBaseUrl: createSubUrl(6001),
+            pdfServiceBaseUrl: createSubUrl(6000),
+            templateServiceBaseUrl: createSubUrl(6001),
             templateBaseUrl: createSubUrl(3333),
         }, null, 2));
         child_process.execSync('git update-index --assume-unchanged ' + envFile);

@@ -67,7 +67,7 @@ tasks:
     command: npm start
     openMode: split-right
 
-  - name: templates
+  - name: Templates
     before: cd web/templates
     init: |
       gp sync-await build

@@ -25,8 +25,8 @@ export class TemplateService {
   private async _reloadPackages(): Promise<TemplatePackage[]> {
     this.packages$b.next(false);
 
-    const backendBaseUrl = (await env).backendBaseUrl;
-    const response = await fetch(`${backendBaseUrl}/tpl`);
+    const templateServiceBaseUrl = (await env).templateServiceBaseUrl;
+    const response = await fetch(`${templateServiceBaseUrl}/tpl`);
     const packages = await response.json();
 
     this.packages$b.next(packages);
