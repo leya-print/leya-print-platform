@@ -40,7 +40,7 @@ export class DesignerUiComponent {
   }
 
   async componentWillLoad() {
-    this.previewUrl = (await env).backendBaseUrl + '/pdf';
+    this.previewUrl = (await env).pdfServiceBaseUrl + '/pdf';
   }
 
   render() {

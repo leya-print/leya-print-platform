@@ -20,8 +20,8 @@ export class TemplatePackageService {
   }
 
   private async _tplBaseUrl(tplPackage?: string) {
-    const { backendBaseUrl, templateBaseUrl } = await env;
-    return tplPackage ? `${backendBaseUrl}/tpl-contents/${tplPackage}` : `${templateBaseUrl}/build`;
+    const { templateServiceBaseUrl, templateBaseUrl } = await env;
+    return tplPackage ? `${templateServiceBaseUrl}/tpl-contents/${tplPackage}` : `${templateBaseUrl}/build`;
   }
 }
 

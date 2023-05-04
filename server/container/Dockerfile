@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 
-FROM … AS server-rest
+FROM … AS pdf-service
+FROM … AS tpl-service
 FROM … AS web-designer
 FROM … AS web-print
 
@@ -20,8 +21,11 @@ RUN apt update && \
     apt update && \
     apt install -y nginx
 
-COPY --from=server-rest . /leya-print/server/rest
-RUN cd /leya-print/server/rest && npm i
+COPY --from=pdf-service . /leya-print/server/pdf-service
+RUN cd /leya-print/server/pdf-service && npm i
+
+COPY --from=tpl-service . /leya-print/server/tpl-service
+RUN cd /leya-print/server/tpl-service && npm i
 
 COPY --from=web-designer www-prod /leya-print/web/designer/www
 COPY --from=web-print www-prod /leya-print/web/print/www

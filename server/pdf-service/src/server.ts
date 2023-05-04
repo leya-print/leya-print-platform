@@ -8,11 +8,13 @@ const env: {
   printEndpoint: string,
 } = (() => {
   try {
-    return JSON.parse(fs.readFileSync('../../container/config/local-env.json', 'utf-8'));
+    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
   } catch (e) {
     console.error(e);
+    console.log('Could not read local-env.json');
     return {
-      printEndpoint: 'http://localhost:6002/dev/print',
+      title: 'localhost env',
+      printEndpoint: 'http://localhost:6003/print',
     };
   }
 })();
@@ -24,7 +26,10 @@ const pdfFactory = new PdfFactory(env.printEndpoint);
 const app = express();
 
 app.get('/alive', async (_req, res) => {
-  res.sendStatus(200);
+  res.setHeader("Cache-Control", "no-cache")
+  // ETag header to prevent 304 status which breaks live check. 
+  .setHeader("ETag", Date.now().toString())
+  .send("Ok");  
 });
 
 app.get('/auth', async (req, res) => {

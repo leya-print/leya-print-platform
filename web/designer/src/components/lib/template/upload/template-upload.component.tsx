@@ -21,8 +21,8 @@ export class TemplateUploadComponent {
       formData.append('tplPackage', file);
     });
 
-    const backendBaseUrl = (await env).backendBaseUrl;
-    const response = await fetch(`${backendBaseUrl}/tpl`, {
+    const templateServiceBaseUrl = (await env).templateServiceBaseUrl;
+    const response = await fetch(`${templateServiceBaseUrl}/tpl`, {
       body: formData,
       method: 'POST',
     });

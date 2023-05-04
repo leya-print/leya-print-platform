@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "ts-node src/server.ts",
         "prestart": "npm run build",
-        "start": "node dist/server/rest/src/launch.js",
+        "start": "node dist/server/tpl-service/src/launch.js",
         "build": "tsc",
         "test": "mocha -r ts-node/register src/storage/*.spec.{js,ts} --watch-files src/**/*.ts",
         "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome"
