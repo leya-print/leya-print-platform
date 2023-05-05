@@ -4,7 +4,7 @@ const numCPUs = cpus().length;
 
 if (cluster.isPrimary) {
     console.log(`Master ${process.pid} is running`);
-    const numWorkers = Math.min(numCPUs, 10);
+    const numWorkers = Math.min(numCPUs, 5);
 
     // Fork workers.
     for (let i = 0; i < numWorkers; i++) {

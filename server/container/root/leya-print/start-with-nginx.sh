@@ -5,11 +5,12 @@
 nginx -g "daemon off;" &
 
 # Start pdf service endpoint
-cd ./server/pdf-service
-node dist/server/pdf-service/src/launch.js &
+#!/bin/bash
+cd server/pdf-service
+node dist/launch.js &
 
 # Start template service endpoint
-cd ./server/tpl-service
+cd ../../server/tpl-service
 node dist/server/tpl-service/src/launch.js &
 
 # Wait for any process to exit
