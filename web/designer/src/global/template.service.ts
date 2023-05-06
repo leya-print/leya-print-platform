@@ -4,7 +4,9 @@ import { filter } from 'rxjs/operators';
 import { env } from './env';
 
 export class TemplateService {
+
   private packages$b = new BehaviorSubject<TemplatePackage[] | false>(false);
+
   get packages$(): Observable<TemplatePackage[]> {
     return this._lazyInitPackages();
   }
@@ -26,6 +28,9 @@ export class TemplateService {
     this.packages$b.next(false);
 
     const templateServiceBaseUrl = (await env).templateServiceBaseUrl;
+
+    console.log('got templateServiceBaseUrl', templateServiceBaseUrl);
+
     const response = await fetch(`${templateServiceBaseUrl}/tpl`);
     const packages = await response.json();
 

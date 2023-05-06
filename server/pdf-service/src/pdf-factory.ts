@@ -24,8 +24,7 @@ export class PdfFactory {
     
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
-    try {
-      
+    try {      
       const browser = await this.browser;
       const context = await browser.newContext();
 
@@ -47,7 +46,7 @@ export class PdfFactory {
 
       await Promise.all([
         page.goto(urlStr),
-        page.waitForURL(urlStr).then(async () => {
+        page.waitForURL(urlStr, { timeout: 30000}).then(async () => {
   
           if (providedData) {
             await page.evaluate((data) => {
@@ -66,7 +65,7 @@ export class PdfFactory {
       return result;
 
     } catch (error) {
-      console.log('error while getting page');
+      console.log('error while getting page: ------------');
       console.error(error);
     }
   }
