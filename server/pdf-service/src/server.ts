@@ -25,7 +25,7 @@ const pdfFactory = new PdfFactory(env.printEndpoint);
 
 const app = express();
 
-app.get('/alive', async (_req, res) => {
+app.get('/pdf/alive', async (_req, res) => {
   res.setHeader("Cache-Control", "no-cache")
   // ETag header to prevent 304 status which breaks live check. 
   .setHeader("ETag", Date.now().toString())
@@ -59,10 +59,11 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
 });
 
 const port = 6000;
+
 http.createServer(app).listen(port, undefined, undefined, () => {
     const ownUrl = process.env.GITPOD_WORKSPACE_URL
         ? `https://${port}-${process.env.GITPOD_WORKSPACE_URL.substring(8)}/pdf/invoice/invoice.pdf`
         : `http://localhost:${port}/pdf/invoice/invoice.pdf`
     ;
-    console.log(`server is listening on ${ownUrl}`);
+    console.log(`pdf service is listening on ${ownUrl}`);
 });

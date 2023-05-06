@@ -36,7 +36,7 @@ const templateService = new TemplateService(storage, env.storageLocation);
 const app = express();
 const corsOptions: cors.CorsOptions = { };
  
-app.get('/alive', async (_req, res) => {
+app.get('/tpl/alive', async (_req, res) => {
   res.setHeader("Cache-Control", "no-cache")
   // ETag header to prevent 304 status which breaks live check. 
   .setHeader("ETag", Date.now().toString())
@@ -97,5 +97,5 @@ http.createServer(app).listen(port, undefined, undefined, () => {
         ? `https://${port}-${process.env.GITPOD_WORKSPACE_URL.substring(8)}/tpl`
         : `http://localhost:${port}/tpl`
     ;
-    console.log(`server is listening on:  ${ownUrl}`);
+    console.log(`tpl service is listening on:  ${ownUrl}`);
 });
