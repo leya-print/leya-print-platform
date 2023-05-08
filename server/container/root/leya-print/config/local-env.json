@@ -1,7 +1,7 @@
 {
-  "title": "server root local env",
+  "title": "Server root - local env",
   "printEndpoint": "http://127.0.0.1:8091/print",
-  "templateServiceBaseUrl": "http://127.0.0.1:8080",
+  "templateServiceBaseUrl": "http://127.0.0.1:8080/rest/tpl",
   "pdfServiceBaseUrl": "http://127.0.0.1:8080",
   "backendBaseUrl": "http://127.0.0.1:8080",
   "storageLocation": "/leya-print/data"
