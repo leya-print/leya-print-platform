@@ -3,9 +3,12 @@ import express from 'express';
 import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import fs from 'node:fs';
+import axios from 'axios';
 
 const env: {
+  title: string,
   printEndpoint: string,
+  templateServiceBaseUrl: string,
 } = (() => {
   try {
     return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
@@ -15,21 +18,68 @@ const env: {
     return {
       title: 'localhost env',
       printEndpoint: 'http://localhost:6003/print',
+      templateServiceBaseUrl: 'http://localhost:6001/tpl',
     };
   }
 })();
 
-console.log('print endpoint: ' + env.printEndpoint);
+console.log('pdf service: print endpoint: ' + env.printEndpoint);
+console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
 
 const pdfFactory = new PdfFactory(env.printEndpoint);
+const maxRetries = 3;
+const retryDelay = 1000;
+const timeoutDuration = 5000;
 
 const app = express();
 
 app.get('/pdf/alive', async (_req, res) => {
-  res.setHeader("Cache-Control", "no-cache")
-  // ETag header to prevent 304 status which breaks live check. 
-  .setHeader("ETag", Date.now().toString())
-  .send("Ok");  
+  let retries = 0;
+
+  while (retries < maxRetries)
+  {
+    try {
+
+      const [tplServiceHealthStatus, printEnpointHealthStatus] = await Promise.all([
+        // request to auth
+        await axios.get(`${env.templateServiceBaseUrl}/alive`, {timeout: timeoutDuration})
+              .then((res: any) => { return res.statusText })
+              .catch((err: any) => 
+              {
+                console.log('error encountered: ', err);
+                return 'ERROR'
+              }),
+        await axios.get(`${env.printEndpoint}`, {timeout: timeoutDuration})
+              .then((res: any) => {return res.statusText})
+              .catch((err: any) => console.log('error encountered: ', err))
+      ]);
+    
+      console.log("healthCheckTplService", tplServiceHealthStatus);
+      console.log("healthCheckPrintEnpoint", printEnpointHealthStatus);
+      
+      if (printEnpointHealthStatus !== "OK" || tplServiceHealthStatus !== "OK")
+      {
+        res.setHeader("Cache-Control", "no-cache")
+        // ETag header to prevent 304 status which breaks live check. 
+        .setHeader("ETag", Date.now().toString())
+        .send(`Health status: PrintEnpoint: ${printEnpointHealthStatus}, Template Service: ${tplServiceHealthStatus}`)
+        return;
+      }
+    
+      res.setHeader("Cache-Control", "no-cache")
+      // ETag header to prevent 304 status which breaks live check. 
+      .setHeader("ETag", Date.now().toString())
+      .send("Ok");
+
+      return;
+      
+    } catch (error) {
+      retries++;
+      await new Promise((resolve) => setTimeout(resolve, retryDelay));
+    }
+  }
+
+  res.sendStatus(503);
 });
 
 app.get('/auth', async (req, res) => {
