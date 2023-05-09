@@ -43,20 +43,6 @@ app.get('/tpl/alive', async (_req, res) => {
   .send("Ok");  
 });
 
-app.get('/auth', async (req, res) => {
-  if (req.headers['x-forwarded-uri']?.includes('protected')) {
-    console.log('auth:', req.headers);
-    return res.sendStatus(401);
-  }
-
-  res.sendStatus(200);
-});
-
-// used only to test authentication
-app.get('/protected', async (_req, res) => {
-  res.sendStatus(200);
-});
-
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {

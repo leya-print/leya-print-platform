@@ -13,6 +13,10 @@ node dist/launch.js &
 cd ../../server/tpl-service
 node dist/server/tpl-service/src/launch.js &
 
+# Start auth service endpoint
+# cd ../../server/auth-service
+# node dist/launch.js &
+
 # Wait for any process to exit
 wait -n
 

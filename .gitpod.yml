@@ -14,6 +14,10 @@ ports:
     visibility: public
     name: Tpl-Service
     onOpen: ignore
+  - port: 6004
+    visibility: public
+    name: Auth-Service
+    onOpen: ignore
   - port: 6002
     visibility: public
     name: Designer
@@ -49,6 +53,14 @@ tasks:
     command: |
       npx playwright install
       npm run install-browser
+      npm run dev
+  
+  - name: Auth-Service
+    before: cd server/auth-service
+    init: |
+      gp sync-await build
+      npm i
+    command: |
       npm run dev
     
   - name: Designer
