@@ -22,7 +22,9 @@ console.log('auth service: auth service endpoint: ' + env.authServiceBaseUrl);
 
 const app = express();
 
-app.get('/alive', async (_req, res) => {
+app.get('/auth/alive', async (_req, res) => {
+  console.log('alive from auth called');
+  
   res.setHeader("Cache-Control", "no-cache")
   // ETag header to prevent 304 status which breaks live check. 
   .setHeader("ETag", Date.now().toString())
@@ -30,6 +32,9 @@ app.get('/alive', async (_req, res) => {
 });
 
 app.get('/auth', async (req, res) => {
+  console.log('/auth called');
+  
+
   if (req.headers['x-forwarded-uri']?.includes('protected')) {
     console.log('auth:', req.headers);
     return res.sendStatus(401);
