@@ -6,7 +6,7 @@
     "scripts": {
         "build": "stencil build --config stencil.config.prod.ts",
         "prestart": "node update-env.js",
-        "start": "stencil build --dev --watch --serve --port 6002",
+        "start": "stencil build --dev --watch --serve --port 6003",
         "test": "stencil test --spec --e2e",
         "test.watch": "stencil test --spec --e2e --watchAll",
         "generate": "stencil generate"
@@ -31,7 +31,6 @@
     "license": "UNLICENSED",
     "dependencies": {
         "@stencil/sass": "^1.5.2",
-        "puppeteer": "^19.2.0",
-        "rxjs": "^7.5.6"
+        "puppeteer": "^19.2.0"
     }
 }

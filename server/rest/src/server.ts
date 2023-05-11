@@ -77,6 +77,7 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
 });
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
+
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {
     const files = req.files as Express.Multer.File[];
     Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
