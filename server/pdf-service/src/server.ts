@@ -3,7 +3,9 @@ import express from 'express';
 import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import fs from 'node:fs';
-import axios from 'axios';
+import fetch from 'cross-fetch';
+//import { fetchWithTimeout } from '../../../../leya-print/common/api/utils';
+// import { fetchWithTimeout } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -27,37 +29,44 @@ console.log('pdf service: print endpoint: ' + env.printEndpoint);
 console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
 
 const pdfFactory = new PdfFactory(env.printEndpoint);
-const maxRetries = 3;
-const retryDelay = 1000;
-const timeoutDuration = 5000;
+
+// const minute = 60 * 1000;
+// const timeoutDuration = 5 * minute;
 
 const app = express();
 
 app.get('/pdf/alive', async (_req, res) => {
-  let retries = 0;
-
-  while (retries < maxRetries)
-  {
-    try {
-
+    
+  try {
       const [tplServiceHealthStatus, printEnpointHealthStatus] = await Promise.all([
-        // request to auth
-        await axios.get(`${env.templateServiceBaseUrl}/alive`, {timeout: timeoutDuration})
-              .then((res: any) => { return res.statusText })
-              .catch((err: any) => 
-              {
-                console.log('error encountered: ', err);
-                return 'ERROR'
-              }),
-        await axios.get(`${env.printEndpoint}`, {timeout: timeoutDuration})
-              .then((res: any) => {return res.statusText})
-              .catch((err: any) => console.log('error encountered: ', err))
+        // await fetchWithTimeout(`${env.templateServiceBaseUrl}/alive`, {timeout: timeoutDuration})
+        //       .then((res: any) => { return res.statusText })
+        //       .catch((err: any) => 
+        //       {
+        //         console.log('error encountered: ', err);
+        //         return 'ERROR'
+        //       }),
+        // await fetchWithTimeout(`${env.printEndpoint}`, {timeout: timeoutDuration})
+        //       .then((res: any) => {return res.statusText})
+        //       .catch((err: any) => console.log('error encountered: ', err))
+
+        await fetch(`${env.templateServiceBaseUrl}/alive`)
+        .then((res: any) => { return res.status })
+        .catch((err: any) => 
+        {
+          console.log('error encountered: ', err);
+          return 'ERROR'
+        }),
+
+        await fetch(`${env.printEndpoint}`)
+        .then((res: any) => {return res.status})
+        .catch((err: any) => console.log('error encountered: ', err))
       ]);
     
       console.log("healthCheckTplService", tplServiceHealthStatus);
       console.log("healthCheckPrintEnpoint", printEnpointHealthStatus);
       
-      if (printEnpointHealthStatus !== "OK" || tplServiceHealthStatus !== "OK")
+      if (printEnpointHealthStatus !== 200 || tplServiceHealthStatus !== 200)
       {
         res.setHeader("Cache-Control", "no-cache")
         // ETag header to prevent 304 status which breaks live check. 
@@ -74,12 +83,10 @@ app.get('/pdf/alive', async (_req, res) => {
       return;
       
     } catch (error) {
-      retries++;
-      await new Promise((resolve) => setTimeout(resolve, retryDelay));
+      await new Promise((resolve) => setTimeout(resolve));
     }
-  }
 
-  res.sendStatus(503);
+    res.sendStatus(503);
 });
 
 app.get('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(req, res) => {
