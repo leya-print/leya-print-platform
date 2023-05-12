@@ -18,3 +18,12 @@ export interface IEnv {
     /** Path to data folder */
     storageLocation?: string,
 }
+
+/** interface for http request options, 
+ * properties: 
+ * @property timeout
+*/
+export interface IRequestOptions {
+    /** request timeout value */
+    timeout?: number,
+}
