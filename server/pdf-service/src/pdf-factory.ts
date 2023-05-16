@@ -41,19 +41,19 @@ export class PdfFactory {
       page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
       let urlStr = String(urlWithParams);
       
-      console.log('open: ' + urlStr);
+      console.log('open urlStr: ' + urlStr);
       console.log('data: ' + JSON.stringify(providedData, null, 2));
 
       await Promise.all([
         page.goto(urlStr),
-        page.waitForURL(urlStr, { timeout: 30000}).then(async () => {
+        page.waitForURL(urlStr, { timeout: 30000}).then(async () => {  
   
-          if (providedData) {
-            await page.evaluate((data) => {
-              (window as any).providedData = JSON.parse(data);
-              return Promise.resolve(true);
-            }, providedData);
-          }
+        if (providedData) {
+          await page.evaluate((data) => {
+            (window as any).providedData = JSON.parse(data);
+            return Promise.resolve(true);
+          }, providedData);
+        }
         }),
         page.waitForSelector('app-root'),
         
@@ -65,7 +65,7 @@ export class PdfFactory {
       return result;
 
     } catch (error) {
-      console.log('error while getting page: ------------');
+      console.log('------------ error while getting page: ------------');
       console.error(error);
     }
   }

@@ -5,7 +5,6 @@ export function exists<T>(value: T | null | undefined): value is T {
 }
 
 export async function fetchWithTimeout(resource: RequestInfo, options: IRequestOptions) {
-    
     options.timeout = options.timeout ? options.timeout : 5000;
     
     const controller = new AbortController();
