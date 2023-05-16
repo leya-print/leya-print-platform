@@ -4,8 +4,6 @@ import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import fs from 'node:fs';
 import fetch from 'cross-fetch';
-//import { fetchWithTimeout } from '../../../../leya-print/common/api/utils';
-// import { fetchWithTimeout } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -51,7 +49,7 @@ app.get('/pdf/alive', async (_req, res) => {
         //       .catch((err: any) => console.log('error encountered: ', err))
 
         await fetch(`${env.templateServiceBaseUrl}/alive`)
-        .then((res: any) => { return res.status })
+        .then((res: any) => { return res.status === undefined ? "NOT FOUND" : res.status })
         .catch((err: any) => 
         {
           console.log('error encountered: ', err);
@@ -59,7 +57,7 @@ app.get('/pdf/alive', async (_req, res) => {
         }),
 
         await fetch(`${env.printEndpoint}`)
-        .then((res: any) => {return res.status})
+        .then((res: any) => {return res.status === undefined ? "NOT FOUND" : res.status})
         .catch((err: any) => console.log('error encountered: ', err))
       ]);
     
