@@ -49,7 +49,7 @@ web/print
 web/templates
 
 First command to type is "npm install" to get all necessary dependencies.
-Second command is to startup the projects, all main projects should be running:
+Second command is to startup the projects, choose which project you want to run:
 
 server/tpl-service - npm run dev
 server/pdf-service - npm run dev
@@ -57,13 +57,16 @@ web/designer - npm start
 web/print - npm start
 web/templates - npm start
 
+If you are using gitpod with the solutions running you can use the PORTS tab to open the projects in the browser.
+If you are using VS Code locally you have to open the links manually. 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-To use the tool, open the designer project url, the UI has three functionalities for users.
+To use the tool, open the designer project url (You can find the designer link in the PORTS tab of the IDK if you are using Gitpod, VS Code), the UI has three functionalities for users.
 
 deployed templates: custom template modified by users and deployed for reusability.
 
