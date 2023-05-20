@@ -44,14 +44,12 @@ export class DesignerStageComponent {
     const stageHeader = this.el.querySelector('[slot=stage-header]');
     const measuredHeaderHeight = heigthOf(stageHeader);
     if (!isEqualSize(measuredHeaderHeight, this.headerHeight)) {
-      console.log('update header height', { old: this.headerHeight, new: measuredHeaderHeight });
       this.headerHeight = measuredHeaderHeight;
     }
 
     const stageFooter = this.el.querySelector('[slot=stage-footer]');
     const measuredFooterHeight = heigthOf(stageFooter);
     if (!isEqualSize(measuredFooterHeight, this.footerHeight)) {
-      console.log('update footer height', { old: this.footerHeight, new: measuredFooterHeight });
       this.footerHeight = measuredFooterHeight;
     }
 

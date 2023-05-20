@@ -4,6 +4,8 @@ import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import fs from 'node:fs';
 import fetch from 'cross-fetch';
+// import { fetchWithTimeout } from '../../../common/api/utils';
+// import { fetchWithTimeout } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -106,5 +108,6 @@ http.createServer(app).listen(port, undefined, undefined, () => {
         ? `https://${port}-${process.env.GITPOD_WORKSPACE_URL.substring(8)}/pdf/invoice/invoice.pdf`
         : `http://localhost:${port}/pdf/invoice/invoice.pdf`
     ;
+
     console.log(`pdf service is listening on ${ownUrl}`);
 });
