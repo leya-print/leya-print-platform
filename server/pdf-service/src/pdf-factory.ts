@@ -18,7 +18,7 @@ export class PdfFactory {
   async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
 
     console.log('open Page:', templateId, pagePart, queryParams, providedData);
-    console.log('this._baseUrl', this._baseUrl);
+    console.log('_baseUrl', this._baseUrl);
 
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
     
@@ -65,7 +65,7 @@ export class PdfFactory {
       return result;
 
     } catch (error) {
-      console.log('------------ error while getting page: ------------');
+      console.log('error while getting page:');
       console.error(error);
     }
   }
