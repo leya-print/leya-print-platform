@@ -12,10 +12,12 @@ Try to follow this structure for each solution in the project:
 
 /server -> BACKEND
       /container - deployment container folder
-      /backend - solution for backend api
+      /pdf-service - backend api for pdf handling
+      /tpl-service - backend api for template handling
 
 /web -> FRONTEND
       /designer - solution for user interface
+      /print - solution for template rendering
       /templates - solution to process templates
 
 <h4>2. CI-pipeline: </h4>
@@ -24,7 +26,7 @@ The project contains a yml file called ".gitlab-ci.yml" that defines a CI/CD pip
 
 The file has two stages: build and container.
 
-In the "build" stage the jobs "build rest-server" and "build web-designer" run. These are the two jobs that will build the REST server and the web designer app, respectively. The rules field defines when the jobs should run based on the pipeline source (merge event) and commit branch (default). The script field contains the commands that will be executed to build the apps for our apps there are shell files that will run npm build commands, and the artifacts field specifies what files should be saved as build artifacts after the job is complete.
+In the "build" stage the jobs "build pdf-services", "build tpl-services", "build web-print" and "build web-designer" run. These are the four jobs that will build the REST server and the web designer app, respectively. The rules field defines when the jobs should run based on the pipeline source (merge event) and commit branch (default). The script field contains the commands that will be executed to build the apps for our apps there are shell files that will run npm build commands, and the artifacts field specifies what files should be saved as build artifacts after the job is complete.
 
 In the "container" stage the jobs "build docker image (dry run)" and "build docker image" will build the Docker images for the REST server and the web designer app, respectively.
 
