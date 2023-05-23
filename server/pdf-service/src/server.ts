@@ -4,8 +4,6 @@ import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import fs from 'node:fs';
 import fetch from 'cross-fetch';
-// import { fetchWithTimeout } from '../../../common/api/utils';
-// import { fetchWithTimeout } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -29,38 +27,24 @@ console.log('pdf service: print endpoint: ' + env.printEndpoint);
 console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
 
 const pdfFactory = new PdfFactory(env.printEndpoint);
-
-// const minute = 60 * 1000;
-// const timeoutDuration = 5 * minute;
-
 const app = express();
 
 app.get('/pdf/alive', async (_req, res) => {
-    
   try {
       const [tplServiceHealthStatus, printEnpointHealthStatus] = await Promise.all([
-        // await fetchWithTimeout(`${env.templateServiceBaseUrl}/alive`, {timeout: timeoutDuration})
-        //       .then((res: any) => { return res.statusText })
-        //       .catch((err: any) => 
-        //       {
-        //         console.log('error encountered: ', err);
-        //         return 'ERROR'
-        //       }),
-        // await fetchWithTimeout(`${env.printEndpoint}`, {timeout: timeoutDuration})
-        //       .then((res: any) => {return res.statusText})
-        //       .catch((err: any) => console.log('error encountered: ', err))
-
         await fetch(`${env.templateServiceBaseUrl}/alive`)
-        .then((res: any) => { return res.status === undefined ? "NOT FOUND" : res.status })
-        .catch((err: any) => 
-        {
-          console.log('error encountered: ', err);
-          return 'ERROR'
-        }),
-
+              .then((res: any) => { return res.status === undefined ? 'NOT FOUND' : res.status })
+              .catch((err: any) => 
+              {
+                console.log('error encountered: ', err);
+                return 'ERROR'
+              }),
         await fetch(`${env.printEndpoint}`)
-        .then((res: any) => {return res.status === undefined ? "NOT FOUND" : res.status})
-        .catch((err: any) => console.log('error encountered: ', err))
+              .then((res: any) => { return res.status === undefined ? 'NOT FOUND' : res.status })
+              .catch((err: any) =>           {
+                console.log('error encountered: ', err);
+                return 'ERROR'
+              })
       ]);
     
       console.log("healthCheckTplService", tplServiceHealthStatus);

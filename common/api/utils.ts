@@ -1,4 +1,5 @@
 import { IRequestOptions } from "./declarations";
+import fetch from 'cross-fetch';
 
 export function exists<T>(value: T | null | undefined): value is T {
     return !!value;
