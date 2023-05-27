@@ -75,9 +75,6 @@ npm start
 If you are using gitpod with the solutions running you can use the PORTS tab to open the projects in the browser.
 If you are using VS Code locally you have to open the links manually. 
 
-If you are using gitpod with the solutions running you can use the PORTS tab to open the projects in the browser.
-If you are using VS Code locally you have to open the links manually. 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
