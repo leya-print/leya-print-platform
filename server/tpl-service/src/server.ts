@@ -75,6 +75,19 @@ app.get('/tpl', async (_req, res) => {
   res.send(templatePackages);
 });
 
+app.get('/tpl/exists/:templateId', async (_req, res) => {
+  const templateExists = await templateService.exists(_req.params.templateId);
+
+  if (templateExists){
+    res.status(200)
+    res.send(true);
+    return;
+  };
+
+  res.status(200)
+  res.send(false);
+});
+
 app.use('/tpl-contents/:templateId',
   (req, res, next) => cors(corsOptions)(req, res, next),
   (req, res, next) => {
