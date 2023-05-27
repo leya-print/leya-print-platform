@@ -51,11 +51,26 @@ web/templates
 First command to type is "npm install" to get all necessary dependencies.
 Second command is to startup the projects, choose which project you want to run:
 
-server/tpl-service - npm run dev
-server/pdf-service - npm run dev
-web/designer - npm start
-web/print - npm start
-web/templates - npm start
+server/tpl-service: 
+```
+npm run dev
+```
+server/pdf-service:
+```
+npm run dev
+```
+web/designer:
+```
+npm start
+```
+web/print:
+```
+npm start
+```
+web/templates:
+```
+npm start
+```
 
 If you are using gitpod with the solutions running you can use the PORTS tab to open the projects in the browser.
 If you are using VS Code locally you have to open the links manually. 
