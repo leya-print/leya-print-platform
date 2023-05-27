@@ -52,16 +52,16 @@ app.get('/pdf/alive', async (_req, res) => {
       
       if (printEnpointHealthStatus !== 200 || tplServiceHealthStatus !== 200)
       {
-        res.setHeader("Cache-Control", "no-cache")
         // ETag header to prevent 304 status which breaks live check. 
-        .setHeader("ETag", Date.now().toString())
+        res.setHeader("Cache-Control", "no-cache")        
+        .setHeader("ETag", `"${Date.now().toString()}"`)
         .send(`Health status: PrintEnpoint: ${printEnpointHealthStatus}, Template Service: ${tplServiceHealthStatus}`)
         return;
       }
     
-      res.setHeader("Cache-Control", "no-cache")
       // ETag header to prevent 304 status which breaks live check. 
-      .setHeader("ETag", Date.now().toString())
+      res.setHeader("Cache-Control", "no-cache")
+      .setHeader("ETag", `"${Date.now().toString()}"`)
       .send("Ok");
 
       return;

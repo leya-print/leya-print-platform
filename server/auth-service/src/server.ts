@@ -1,6 +1,7 @@
 import express from 'express';
 import http from 'node:http';
 import fs from 'node:fs';
+// import { getETagHeader } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -22,10 +23,10 @@ console.log('auth service: auth service endpoint: ' + env.authServiceBaseUrl);
 
 const app = express();
 
+// ETag header to prevent 304 status which breaks live check. 
 app.get('/auth/alive', async (_req, res) => {
-  res.setHeader("Cache-Control", "no-cache")
-  // ETag header to prevent 304 status which breaks live check. 
-  .setHeader("ETag", Date.now().toString())
+  res.setHeader("Cache-Control", "no-cache")  
+  .setHeader("ETag", `"${Date.now().toString()}"`)
   .send("Ok");  
 });
 

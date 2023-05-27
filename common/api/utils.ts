@@ -20,3 +20,7 @@ export async function fetchWithTimeout(resource: RequestInfo, options: IRequestO
   
     return response;
   }
+
+export function getETagHeader() {
+    return `"${Date.now().toString()}"`;
+  }
