@@ -6,6 +6,7 @@ import path from 'node:path';
 import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
+// import { getETagHeader } from '@leya-print/common-api';
 import fs from 'node:fs';
 
 const debugLog = false;
@@ -36,10 +37,10 @@ const templateService = new TemplateService(storage, env.storageLocation);
 const app = express();
 const corsOptions: cors.CorsOptions = { };
  
+  // ETag header to prevent 304 status which breaks live check.
 app.get('/tpl/alive', async (_req, res) => {
-  res.setHeader("Cache-Control", "no-cache")
-  // ETag header to prevent 304 status which breaks live check. 
-  .setHeader("ETag", Date.now().toString())
+  res.setHeader("Cache-Control", "no-cache")   
+  .setHeader("ETag", `"${Date.now().toString()}"`)
   .send("Ok");  
 });
 
@@ -63,6 +64,19 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
 app.get('/tpl', async (_req, res) => {
   const templatePackages = await templateService.list();
   res.send(templatePackages);
+});
+
+app.get('/tpl/exists/:templateId', async (_req, res) => {
+  const templateExists = await templateService.exists(_req.params.templateId);
+
+  if (templateExists){
+    res.status(200)
+    res.send(true);
+    return;
+  };
+
+  res.status(200)
+  res.send(false);
 });
 
 app.use('/tpl-contents/:templateId',
