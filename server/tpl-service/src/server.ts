@@ -97,6 +97,21 @@ app.get('/tpl/exists/:templateId', async (_req, res) => {
   res.send(false);
 });
 
+app.post('/tpl', multer().array('tplPackage'), (req, res) => {
+  const files = req.files as Express.Multer.File[];
+  Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
+      (results) => res.send(results),
+      (error) => {
+          console.error(error);
+          res.status(500).send({
+              msg: '' + error,
+              time: new Date(),
+              details: error,
+          });
+      },
+  );
+});
+
 app.use('/tpl-contents/:templateId',
   (req, res, next) => cors(corsOptions)(req, res, next),
   (req, res, next) => {
