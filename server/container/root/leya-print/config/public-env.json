@@ -3,5 +3,5 @@
   "backendBaseUrl": "/rest",
   "templateServiceBaseUrl": "/rest",
   "pdfServiceBaseUrl": "",
-  "templateBaseUrl": "https://3333-leya-leyaprint-gnji9g4vo7a.ws-eu96b.gitpod.io"
+  "templateBaseUrl": "http://localhost:3333"
 }
