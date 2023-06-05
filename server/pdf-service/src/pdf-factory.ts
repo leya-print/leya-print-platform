@@ -30,15 +30,9 @@ export class PdfFactory {
 
       const page = await context.newPage();
   
-      if (providedData) {
-        await page.evaluate((data) => {
-          (window as any).providedData = JSON.parse(data);
-          return Promise.resolve(true);
-        }, providedData);
-      }
-  
       page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
       page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
+      
       let urlStr = String(urlWithParams);
       
       console.log('open urlStr: ' + urlStr);

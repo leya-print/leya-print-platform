@@ -65,7 +65,9 @@ app.get('/tpl/exists/:templateId', async (_req, res) => {
 });
 
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {
+  
   const files = req.files as Express.Multer.File[];
+  
   Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
       (results) => res.send(results),
       (error) => {
