@@ -30,8 +30,7 @@ async function updateEnv() {
 
         fs.writeFileSync(envFile, JSON.stringify({
             pdfServiceBaseUrl: createSubUrl(6000),
-            // templateServiceBaseUrl: createSubUrl(6001),
-            templateServiceBaseUrl: createSubUrl(8082) + '/rest',
+            templateServiceBaseUrl: createSubUrl(6001),
             templateBaseUrl: createSubUrl(3333),
         }, null, 2));
 
