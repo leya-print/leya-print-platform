@@ -36,29 +36,14 @@ const templateService = new TemplateService(storage, env.storageLocation);
 
 const app = express();
 const corsOptions: cors.CorsOptions = { };
- 
-  // ETag header to prevent 304 status which breaks live check.
+
+app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
+
+// ETag header to prevent 304 status which breaks live check.
 app.get('/tpl/alive', async (_req, res) => {
   res.setHeader("Cache-Control", "no-cache")   
   .setHeader("ETag", `"${Date.now().toString()}"`)
   .send("Ok");  
-});
-
-app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
-
-app.post('/tpl', multer().array('tplPackage'), (req, res) => {
-    const files = req.files as Express.Multer.File[];
-    Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
-        (results) => res.send(results),
-        (error) => {
-            console.error(error);
-            res.status(500).send({
-                msg: '' + error,
-                time: new Date(),
-                details: error,
-            });
-        },
-    );
 });
 
 app.get('/tpl', async (_req, res) => {
@@ -77,6 +62,21 @@ app.get('/tpl/exists/:templateId', async (_req, res) => {
 
   res.status(200)
   res.send(false);
+});
+
+app.post('/tpl', multer().array('tplPackage'), (req, res) => {
+  const files = req.files as Express.Multer.File[];
+  Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
+      (results) => res.send(results),
+      (error) => {
+          console.error(error);
+          res.status(500).send({
+              msg: '' + error,
+              time: new Date(),
+              details: error,
+          });
+      },
+  );
 });
 
 app.use('/tpl-contents/:templateId',
