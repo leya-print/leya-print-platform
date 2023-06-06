@@ -18,6 +18,7 @@ after_script:
 build pdf-service:
   stage: build
   script:
+    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-pdf-service.sh
   artifacts:
     name: "pdf-service"
@@ -28,6 +29,7 @@ build pdf-service:
 build tpl-service:
   stage: build
   script:
+    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-tpl-service.sh
   artifacts:
     name: "tpl-service"
@@ -38,6 +40,7 @@ build tpl-service:
 build web-designer:
   stage: build
   script:
+    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-web-designer.sh
   artifacts:
     name: "web-designer"
@@ -48,6 +51,7 @@ build web-designer:
 build web-print:
   stage: build
   script:
+    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-web-print.sh
   artifacts:
     name: "web-print"
