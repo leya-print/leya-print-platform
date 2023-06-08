@@ -57,41 +57,7 @@ paths:
         '503':
           description: Service unavailable
   
-  /pdf/{templateId}/*:
-    get:
-      tags:
-        - pdf-service
-      summary: Renders pdf by templateId
-      description: Template id can be provided and package name.
-      operationId: getPDFByTemplateId
-      parameters:
-        - name: templateId
-          in: path
-          description: Template Id
-          required: true
-          explode: false
-          schema:
-            type: string
-        - name: query
-          in: query
-          description: Query parameters
-          required: false
-          schema:
-            type: string
-        - name: payload
-          in: query
-          description: PDF body json
-          required: false
-          explode: true
-          schema:
-           $ref: '#/components/schemas/Invoice'
-      responses:
-        '200':
-          description: successful operation
-        '500':
-          description: internal server error
-  
-  /pdf/{templateId}/:
+  /pdf/{templateId}/{filename}:
     post:
       tags:
         - pdf-service
