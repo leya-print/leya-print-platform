@@ -1,4 +1,4 @@
-import type { Address } from '@leya-print/common-api';
+import type { Address } from '../../../models/address.model';
 import { Component, h, Host, Prop } from '@stencil/core';
 
 @Component({
