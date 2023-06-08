@@ -14,6 +14,10 @@ ports:
     visibility: public
     name: Designer
     onOpen: ignore
+  - port: 6003
+    visibility: public
+    name: Print
+    onOpen: ignore
 
 tasks:
   - name: Free-Console
@@ -35,6 +39,14 @@ tasks:
     
   - name: Designer
     before: cd web/designer
+    init: |
+      gp sync-await build
+      npm i
+    command: npm start
+    openMode: split-right
+
+  - name: Print
+    before: cd web/print
     init: |
       gp sync-await build
       npm i

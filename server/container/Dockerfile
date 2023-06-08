@@ -2,9 +2,10 @@
 
 FROM … AS server-rest
 FROM … AS web-designer
-FROM mcr.microsoft.com/playwright:focal
+FROM … AS web-print
 
-RUN npx playwright install chromium
+FROM mcr.microsoft.com/playwright:focal
+RUN npx playwright@1.33 install chromium
 
 RUN apt update && \
     apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring && \
@@ -23,6 +24,7 @@ COPY --from=server-rest . /leya-print/server/rest
 RUN cd /leya-print/server/rest && npm i
 
 COPY --from=web-designer www-prod /leya-print/web/designer/www
+COPY --from=web-print www-prod /leya-print/web/print/www
 
 COPY ./root /
 RUN chmod 777 /leya-print/start-with-nginx.sh
@@ -31,6 +33,7 @@ WORKDIR /leya-print/
 
 EXPOSE 8080
 EXPOSE 8090
+EXPOSE 8091
 
 STOPSIGNAL SIGQUIT
 
