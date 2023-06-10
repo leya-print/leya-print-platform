@@ -173,9 +173,37 @@ paths:
     post:
       tags:
         - tpl-service
-      summary: Insert template
-      description: Adds a template
+      summary: Uploads templates as a .tgz file
+      description: Uploads templates as a .tgz file
       operationId: tplPost
+      requestBody:
+        content: 
+          multipart/form-data:
+            schema:
+                  type: array
+                  items:
+                    type: object
+                    properties: 
+                      fieldname: #Field name specified in the form  
+                        type: string
+                      originalname:  #Name of the file on the user's computer
+                        type: string
+                      encoding: #Encoding type of the file
+                        type: string
+                      mimetype:	#Mime type of the file	
+                        type: string
+                      size:	#Size of the file in bytes	
+                        type: number
+                      stream: # A readable stream of this file. Only available to the `_handleFile` callback for custom `StorageEngine`s.
+                        type: Readable
+                      destination:	#The folder to which the file has been saved	
+                        type: string
+                      filename:	#The name of the file within the destination	DiskStorage
+                        type: string
+                      path:	#The full path to the uploaded file	DiskStorage
+                        type: string
+                      buffer: # `MemoryStorage` only: A Buffer containing the entire file.
+                        type: Buffer
       parameters:
         - name: files
           in: query
@@ -185,7 +213,7 @@ paths:
           schema:
             type: array
             items:
-              type: string
+              type: object
       responses:
         '200':
           description: successful operation
