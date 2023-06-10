@@ -1,0 +1,76 @@
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        firstName?:
+          type: string
+        lastName?:
+          type: string
+        company?: 
+          type: string
+        street1?: 
+          type: string
+        street2?: 
+          type: string
+        zipCode?: 
+          type: string
+        city?:
+          type: string
+        country?: 
+          type: string
+    InvoicePosition:
+      type: object
+      properties:
+        title:
+          type: number
+        quantity:
+          type: number
+        unit: 
+          type: string
+        pricePerUnit: 
+          type: number
+        vatPercent: 
+          type: number
+    Invoice:
+      type: object
+      properties:
+        sender:
+          type: object
+          properties:
+            address:
+              $ref: '#/components/schemas/Address'
+            vatIdent:
+              type: string
+            phone: 
+              type: string
+            email: 
+              type: string
+            web: 
+              type: string
+            bankDetails:
+              type: object
+              properties:
+                name: 
+                  type: string
+                iban: 
+                  type: string
+                bic: 
+                  type: string
+        recipient:
+          type: object
+          properties:
+            address:
+              $ref: '#/components/schemas/Address'
+        invoiceNo:
+          type: string
+        customerReference:
+          type: string
+        date:
+          type: string
+        positions:
+          type: array
+          items: 
+            $ref: '#/components/schemas/InvoicePosition'
+      xml:
+        name: invoice

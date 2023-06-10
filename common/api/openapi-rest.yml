@@ -28,19 +28,8 @@ servers:
 tags:
   - name: pdf-service
     description: Service for processing PDFs
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
   - name: tpl-service
     description: Service for processing templates
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
-  - name: auth-service
-    description: Authentification operations
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
 paths:
   /pdf/alive:
     get:
@@ -65,14 +54,60 @@ paths:
       description: Template id can be provided and package name.
       operationId: postPDFByTemplateId
       requestBody:
-        content:
+        content: 
           application/json:
             schema:
-              $ref: '#/components/schemas/Invoice'
+              type: object
+              example:
+                  invoiceNo: '239045001'
+                  customerReference: |-
+                    project: leya-print
+                    work-item: invoice-sample
+                  sender:
+                    address:
+                      company: Max Hardware Ltd.
+                      street1: Industry Park 128-48
+                      zipCode: '654321'
+                      city: Industry City
+                    vatIdent: TEST293401
+                    phone: +1 (636) 555-0113
+                    email: test@email.it
+                    web: https://test.net
+                    bankDetails:
+                      name: Black-List-Bank
+                      iban: TEST1234567891011
+                      bic: BIC20D1DDS
+                  recipient:
+                    address:
+                      firstName: Sample
+                      lastName: Customer
+                      street1: Mainstreet 5a
+                      zipCode: '123456'
+                      city: Small Town
+                  date: '2022-07-08T15:55:34.315Z'
+                  positions:
+                    - title: Big Hammer
+                      quantity: 1
+                      unit: pcs
+                      pricePerUnit: 99
+                      vatPercent: 8.91
+                    - title: Screws 80mm
+                      quantity: 100
+                      unit: pcs
+                      pricePerUnit: 0.02
+                      vatPercent: 8.91
+                  
       parameters:
         - name: templateId
           in: path
           description: Template Id
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: filename
+          in: path
+          description: Filename
           required: true
           explode: false
           schema:
@@ -156,91 +191,3 @@ paths:
           description: successful operation
         '500':
           description: internal server error
-  
-  /auth/alive:
-    get:
-      tags:
-        - auth-service
-      summary: Returns the service health status
-      description: Get service status
-      operationId: getAuthServiceAlive
-      responses:
-        '200':
-          description: successful operation
-
-components:
-  schemas:
-    Address:
-      type: object
-      properties:
-        firstName?:
-          type: string
-        lastName?:
-          type: string
-        company?: 
-          type: string
-        street1?: 
-          type: string
-        street2?: 
-          type: string
-        zipCode?: 
-          type: string
-        city?:
-          type: string
-        country?: 
-          type: string
-    InvoicePosition:
-      type: object
-      properties:
-        title:
-          type: number
-        quantity:
-          type: number
-        unit: 
-          type: string
-        pricePerUnit: 
-          type: number
-        vatPercent: 
-          type: number
-    Invoice:
-      type: object
-      properties:
-        sender:
-          type: object
-          properties:
-            address:
-              $ref: '#/components/schemas/Address'
-            vatIdent:
-              type: string
-            phone: 
-              type: string
-            email: 
-              type: string
-            web: 
-              type: string
-            bankDetails:
-              type: object
-              properties:
-                name: 
-                  type: string
-                iban: 
-                  type: string
-                bic: 
-                  type: string
-        recipient:
-          type: object
-          properties:
-            address:
-              $ref: '#/components/schemas/Address'
-        invoiceNo:
-          type: string
-        customerReference:
-          type: string
-        date:
-          type: string
-        positions:
-          type: array
-          items: 
-            $ref: '#/components/schemas/InvoicePosition'
-      xml:
-        name: invoice
