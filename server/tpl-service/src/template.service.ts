@@ -21,18 +21,18 @@ export class TemplateService extends CrudService<StoredTemplatePackage, Template
     const id = createUuid();
 
     return new Promise((resolve, reject) => {
-      const tmpFoler = path.join(process.cwd(), `tmp/${id}`);
-      fs.mkdirSync(tmpFoler, { recursive: true });
-      fs.writeFileSync(path.join(tmpFoler, 'packed.tgz'), buffer);
+      const tmpFolder = path.join(process.cwd(), `tmp/${id}`);
+      fs.mkdirSync(tmpFolder, { recursive: true });
+      fs.writeFileSync(path.join(tmpFolder, 'packed.tgz'), buffer);
       shelljs.exec('tar zxvf packed.tgz', {
-        cwd: tmpFoler,
+        cwd: tmpFolder,
         async: true,
       }, async (code, _stdout, stderr) => {
         try {
           if (code !== 0) return reject(stderr);
 
-          const extractedDirname = fs.readdirSync(tmpFoler)
-            .map((entry) => path.join(tmpFoler, entry))
+          const extractedDirname = fs.readdirSync(tmpFolder)
+            .map((entry) => path.join(tmpFolder, entry))
             .find((entry) => fs.statSync(entry).isDirectory())
             ;
           if (!extractedDirname) {

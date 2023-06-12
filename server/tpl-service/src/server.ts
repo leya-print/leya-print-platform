@@ -51,17 +51,15 @@ app.get('/tpl', async (_req, res) => {
   res.send(templatePackages);
 });
 
-app.get('/tpl/exists/:templateId', async (_req, res) => {
+app.get('/tpl/:templateId/exists', async (_req, res) => {
   const templateExists = await templateService.exists(_req.params.templateId);
 
   if (templateExists){
-    res.status(200)
-    res.send(true);
+    res.status(200)    
     return;
   };
 
-  res.status(200)
-  res.send(false);
+  res.status(404)  
 });
 
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {

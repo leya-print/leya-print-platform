@@ -38,6 +38,10 @@ app.get('/auth', async (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/validate', async (req, res) => {
+  res.sendStatus(200);
+});
+
 // used only to test authentication
 app.get('/protected', async (_req, res) => {
   res.sendStatus(200);
