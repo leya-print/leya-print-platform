@@ -50,7 +50,7 @@ paths:
     post:
       tags:
         - pdf-service
-      summary: Renders pdf by templateId
+      summary: Sign pdf with 
       description: Template id can be provided and package name.
       operationId: postPDFByTemplateId
       requestBody:
@@ -121,6 +121,51 @@ paths:
       responses:
         '200':
           description: successful operation
+        '500':
+          description: internal server error
+  
+  /sign/{certificateId}:
+    post:
+      tags:
+        - pdf-service
+      summary: Sign pdf with 
+      description: Template id can be provided and package name.
+      operationId: signPDFWithCertificateId
+      requestBody:
+        content: 
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+              
+      parameters:
+        - name: certificateId
+          in: path
+          description: Certificate Id
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: reason
+          in: query
+          description: Reason for signing the pdf
+          required: false
+          schema:
+            type: string
+        - name: contactInfo
+          in: query
+          description: Query parameters
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
         '500':
           description: internal server error
   
@@ -195,7 +240,7 @@ paths:
                       size:	#Size of the file in bytes	
                         type: number
                       stream: # A readable stream of this file. Only available to the `_handleFile` callback for custom `StorageEngine`s.
-                        type: Readable
+                        type: object
                       destination:	#The folder to which the file has been saved	
                         type: string
                       filename:	#The name of the file within the destination	DiskStorage
@@ -203,7 +248,7 @@ paths:
                       path:	#The full path to the uploaded file	DiskStorage
                         type: string
                       buffer: # `MemoryStorage` only: A Buffer containing the entire file.
-                        type: Buffer
+                        type: object
       parameters:
         - name: files
           in: query
