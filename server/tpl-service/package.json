@@ -1,12 +1,12 @@
 {
-    "name": "@leya-print/auth-service",
+    "name": "@leya-print/tpl-service",
     "version": "1.0.0",
-    "description": "Authentification service",
+    "description": "rest services with endpoints for templates",
     "main": "index.js",
     "scripts": {
         "dev": "ts-node src/server.ts",
         "prestart": "npm run build",
-        "start": "node dist/launch.js",
+        "start": "node dist/server/tpl-service/src/launch.js",
         "build": "tsc",
         "test": "mocha -r ts-node/register src/storage/*.spec.{js,ts} --watch-files src/**/*.ts"
     },
@@ -36,7 +36,7 @@
         "cors": "^2.8.5",
         "express": "^4.18.1",
         "merge": "^2.1.1",
-        "npm": "^9.6.5",
+        "multer": "^1.4.5-lts.1",
         "recursive-copy": "^2.0.14",
         "shelljs": "^0.8.5",
         "uuid": "^8.3.2"
