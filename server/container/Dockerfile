@@ -5,11 +5,6 @@ FROM … AS tpl-service
 FROM … AS auth-service
 FROM … AS web-designer
 FROM … AS web-print
-<<<<<<< HEAD
-=======
-
-FROM mcr.microsoft.com/playwright:focal
->>>>>>> 2d5ad94 (updates to print endpoint depolyment)
 
 FROM mcr.microsoft.com/playwright:focal
 RUN npx playwright@1.33 install chromium
@@ -26,6 +21,9 @@ RUN apt update && \
     echo "\n\n------ test ----" && cat /etc/apt/preferences.d/99nginx && echo "---- end ---\n\n" && \
     apt update && \
     apt install -y nginx
+
+COPY /leya-print/common/api . /leya-print/common/api
+RUN cd /leya-print/common/api && npm i
 
 COPY --from=pdf-service . /leya-print/server/pdf-service
 RUN cd /leya-print/server/pdf-service && npm i

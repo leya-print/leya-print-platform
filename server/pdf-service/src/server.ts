@@ -2,8 +2,14 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
+import { PdfSigner } from './pdf-signer';
 import fs from 'node:fs';
 import fetch from 'cross-fetch';
+import cors from 'cors';
+import multer from 'multer';
+// import { getETagHeader } from '@leya-print/common-api';
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const env: {
   title: string,
@@ -27,7 +33,15 @@ console.log('pdf service: print endpoint: ' + env.printEndpoint);
 console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
 
 const pdfFactory = new PdfFactory(env.printEndpoint);
+const pdfSigner = new PdfSigner();
 const app = express();
+
+const corsOptions: cors.CorsOptions = { 
+  origin: '*'
+};
+
+app.use('/pdf', (req, res, next) => cors(corsOptions)(req, res, next));
+app.use('/sign', (req, res, next) => cors(corsOptions)(req, res, next));
 
 app.get('/pdf/alive', async (_req, res) => {
   try {
@@ -77,6 +91,30 @@ app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(
     const pdf = await pdfFactory.create(req.params.templateId, req.query, req.body?.payload);
     res.setHeader('Content-Type', 'application/pdf');
     res.send(pdf);
+});
+
+app.post('/sign/:certificateId', upload.single('pdf'), async (req, res) => {
+  const certificateId = req.params.certificateId; 
+
+  console.log(req.query.reason, req.query.name, req.query.location, req.query.contactInfo);  
+
+  const reason = req.query.reason?.toString() || 'No reason provided';  
+  const location = req.query.location?.toString() || 'No contact information provided';
+
+  const name = req.query.name?.toString() || 'No contact information provided';
+  const contactInfo = req.query.contactInfo?.toString() || 'No contact information provided';    
+  
+  if (!req.file) {
+    return res.status(400).send('No PDF file provided');
+  }
+
+  const pdf = req.file;
+
+  const signedPdf = await pdfSigner.signPdf(certificateId, pdf.buffer, {reason, name, location, contactInfo});    
+
+  res.set('Content-Type', 'application/pdf');
+  res.set('Content-Disposition', `'attachment; filename=${certificateId}`);
+  res.send(signedPdf);
 });
 
 const port = 6000;

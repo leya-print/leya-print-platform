@@ -1,14 +1,13 @@
 import { chromium } from 'playwright';
+const { SignPdf } = require('node-signpdf');
+const { findByteRange, plainAddPlaceholder } = require('node-signpdf/dist/helpers')
+const fs = require('fs');
+const crypto = require('crypto');
 
 export type PageActions<R> = (page: import('playwright').Page) => Promise<R>;
 
 export class PdfFactory {
 
-<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
-=======
-  public PRINT_URL = ``;
-
->>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
   constructor(
     private _baseUrl: string,
   ) {}
@@ -22,17 +21,13 @@ export class PdfFactory {
 
   async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
 
-<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
     console.log('open Page:', templateId, pagePart, queryParams, providedData);
     console.log('_baseUrl', this._baseUrl);
 
-=======
->>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
     
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
-<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
     try {      
       const browser = await this.browser;
       const context = await browser.newContext();
@@ -51,35 +46,12 @@ export class PdfFactory {
         page.goto(urlStr),
         page.waitForURL(urlStr, { timeout: 30000}).then(async () => {  
   
-=======
-    const browser = await this.browser;
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    if (providedData) {
-      await page.evaluate((data) => {
-        (window as any).providedData = JSON.parse(data);
-        return Promise.resolve(true);
-      }, providedData);
-    }
-    page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
-    page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
-    let urlStr = String(urlWithParams);
-    console.log('open: ' + urlStr);
-    console.log('data: ' + JSON.stringify(providedData, null, 2));
-
-    await Promise.all([
-      page.goto(urlStr),
-      page.waitForURL(urlStr).then(async () => {
-        console.log('urlStr', urlStr);
-
->>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
         if (providedData) {
           await page.evaluate((data) => {
             (window as any).providedData = JSON.parse(data);
             return Promise.resolve(true);
           }, providedData);
         }
-<<<<<<< HEAD:server/pdf-service/src/pdf-factory.ts
         }),
         page.waitForSelector('app-root'),
         
@@ -87,12 +59,6 @@ export class PdfFactory {
   
       const result = await actions(page);
       await context.close();
-=======
-      }),
-      page.waitForSelector('app-root'),
-      
-    ]);
->>>>>>> 2d5ad94 (updates to print endpoint depolyment):server/rest/src/pdf-factory.ts
 
       return result;
 
@@ -141,4 +107,63 @@ export class PdfFactory {
 
     return pdf;
   }
+
+  async signPdf(pdfName: string, pdf: Buffer) {      
+    const privateKey = {
+      key: fs.readFileSync('src/key.pem', 'utf8'),
+      passphrase: '12345'
+    };
+
+    const cert = fs.readFileSync('src/cert.p12');
+
+    const serviceParams = {
+      reason: 'Ensure no further changes',
+      name: 'Max Sample',
+      location: 'Musterhausen, Germany',
+      contactInfo: 'max.sample@leya-it-solutions.de',
+    }
+  
+    const signablePdfBuffer = isSignable(pdf) ? pdf : plainAddPlaceholder({
+      pdfBuffer: pdf,
+      reason: serviceParams.reason,
+      contactInfo: serviceParams.contactInfo,
+      name: serviceParams.name,
+      location: serviceParams.location,
+    });
+  
+    const signPdf = new SignPdf();
+
+    (async () => {
+      try {
+        const privateKeyObj = await crypto.createPrivateKey(privateKey);
+       
+        const signOptions = {
+          ...serviceParams,
+          passphrase: '12345',
+          signatureLength: 8192,
+          cryptoKey: privateKeyObj,
+        };        
+     
+        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
+        fs.writeFileSync('temp/' + pdfName, signedPdf);        
+    
+        return signedPdf;
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }
 }
+
+  /**
+ * 
+ * @param {Buffer} pdf 
+ */
+  function isSignable(origPdfBuffer: any) {
+    try {
+      findByteRange(origPdfBuffer);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
