@@ -128,8 +128,8 @@ paths:
     post:
       tags:
         - pdf-service
-      summary: Sign pdf with 
-      description: Template id can be provided and package name.
+      summary: Sign pdf with certificate
+      description: Endpoint that requires a pdf and a certificate id will return the pdf signed with that certificate.
       operationId: signPDFWithCertificateId
       requestBody:
         content:
@@ -158,19 +158,19 @@ paths:
             type: string
         - name: contactInfo
           in: query
-          description: Any contact information
+          description: Contact information for signature
           required: false
           schema:
             type: string
         - name: name
           in: query
-          description: Name of the pdf
+          description: Name parameter for signature
           required: false
           schema:
             type: string
         - name: location
           in: query
-          description: location
+          description: Location parameter for signature
           required: false
           schema:
             type: string
