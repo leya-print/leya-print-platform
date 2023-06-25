@@ -51,8 +51,6 @@ tasks:
       gp sync-await build
       npm i
     command: |
-      npx playwright install
-      npm run install-browser
       npm run dev
   
   - name: Auth-Service
