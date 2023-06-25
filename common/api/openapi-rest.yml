@@ -25,6 +25,7 @@ externalDocs:
   url: http://swagger.io
 servers:
   - url: https://leya-print-demo.azurewebsites.net
+  - url: https://6000-leya-leyaprint-nlgn9n55j1t.ws-eu100.gitpod.io
 tags:
   - name: pdf-service
     description: Service for processing PDFs
@@ -46,11 +47,11 @@ paths:
         '503':
           description: Service unavailable
   
-  /pdf/{templateId}/{filename}:
+  /pdf/{templateId}:
     post:
       tags:
         - pdf-service
-      summary: Sign pdf with 
+      summary: Get pdf file 
       description: Template id can be provided and package name.
       operationId: postPDFByTemplateId
       requestBody:
@@ -105,16 +106,15 @@ paths:
           explode: false
           schema:
             type: string
-        - name: filename
-          in: path
-          description: Filename
-          required: true
-          explode: false
-          schema:
-            type: string
-        - name: query
+        - name: queryParams
           in: query
           description: Query parameters
+          required: false
+          schema:
+            type: string
+        - name: payload
+          in: query
+          description: Body pdf payload in json format
           required: false
           schema:
             type: string
@@ -132,11 +132,15 @@ paths:
       description: Template id can be provided and package name.
       operationId: signPDFWithCertificateId
       requestBody:
-        content: 
-          application/pdf:
+        content:
+          multipart/form-data:
             schema:
-              type: string
-              format: binary
+              type: object
+              properties:
+                pdf:
+                  type: string
+                  format: binary
+                  description: The PDF file to upload
               
       parameters:
         - name: certificateId
@@ -154,18 +158,28 @@ paths:
             type: string
         - name: contactInfo
           in: query
-          description: Query parameters
+          description: Any contact information
           required: false
           schema:
             type: string
+        - name: name
+          in: query
+          description: Name of the pdf
+          required: false
+          schema:
+            type: string
+        - name: location
+          in: query
+          description: location
+          required: false
+          schema:
+            type: string
+
       responses:
         '200':
           description: successful operation
           content:
-            application/pdf:
-              schema:
-                type: string
-                format: binary
+            application/pdf: {}
         '500':
           description: internal server error
   
@@ -235,17 +249,17 @@ paths:
                         type: string
                       encoding: #Encoding type of the file
                         type: string
-                      mimetype:	#Mime type of the file	
+                      mimetype:  #Mime type of the file  
                         type: string
-                      size:	#Size of the file in bytes	
+                      size:  #Size of the file in bytes  
                         type: number
                       stream: # A readable stream of this file. Only available to the `_handleFile` callback for custom `StorageEngine`s.
                         type: object
-                      destination:	#The folder to which the file has been saved	
+                      destination:  #The folder to which the file has been saved  
                         type: string
-                      filename:	#The name of the file within the destination	DiskStorage
+                      filename:  #The name of the file within the destination  DiskStorage
                         type: string
-                      path:	#The full path to the uploaded file	DiskStorage
+                      path:  #The full path to the uploaded file  DiskStorage
                         type: string
                       buffer: # `MemoryStorage` only: A Buffer containing the entire file.
                         type: object
