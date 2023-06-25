@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'node:http';
 import fs from 'node:fs';
-// import { getETagHeader } from '@leya-print/common-api';
+import { getETagHeader } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -38,7 +38,7 @@ app.get('/auth', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/validate', async (req, res) => {
+app.get('/validate', async (_req, res) => {
   res.sendStatus(200);
 });
 
