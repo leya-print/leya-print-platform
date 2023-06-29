@@ -9,12 +9,16 @@ import cors from 'cors';
 import multer from 'multer';
 // import { getETagHeader } from '@leya-print/common-api';
 
+const localCertificatePath = require.resolve('../../config/local-env.json');
 const upload = multer({ storage: multer.memoryStorage() });
+
+console.log(localCertificatePath, 'localpath');
 
 const env: {
   title: string,
   printEndpoint: string,
   templateServiceBaseUrl: string,
+  certificatesPath: string
 } = (() => {
   try {
     return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
@@ -25,6 +29,7 @@ const env: {
       title: 'localhost env',
       printEndpoint: 'http://localhost:6003/print',
       templateServiceBaseUrl: 'http://localhost:6001/tpl',
+      certificatesPath: '../certificates',
     };
   }
 })();
@@ -33,7 +38,7 @@ console.log('pdf service: print endpoint: ' + env.printEndpoint);
 console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
 
 const pdfFactory = new PdfFactory(env.printEndpoint);
-const pdfSigner = new PdfSigner();
+const pdfSigner = new PdfSigner(env.certificatesPath);
 const app = express();
 
 const corsOptions: cors.CorsOptions = { 

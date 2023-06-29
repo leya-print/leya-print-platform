@@ -1,0 +1,6 @@
+{
+    "certificateId": "cloud-test-certificate",
+    "passphrase": "12345",
+    "p12": "./cloud-test-certificate.p12",
+    "privateKey": "./cloud-test-certificate.pem"
+}
