@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Rest Endpoint",
+            "name": "Pdf Endpoint",
             "request": "launch",
             "runtimeArgs": [
                 "run-script",
                 "dev"
             ],
-            "cwd": "${workspaceFolder}/server/rest",
+            "cwd": "${workspaceFolder}/server/pdf-service",
             "runtimeExecutable": "npm",
             "skipFiles": [
                 "<node_internals>/**"
