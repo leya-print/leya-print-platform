@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 
+FROM … AS common-api
 FROM … AS pdf-service
 FROM … AS tpl-service
 FROM … AS auth-service
@@ -22,7 +23,7 @@ RUN apt update && \
     apt update && \
     apt install -y nginx
 
-COPY /leya-print/common/api . /leya-print/common/api
+COPY --from=common-api . /leya-print/common/api
 RUN cd /leya-print/common/api && npm i
 
 COPY --from=pdf-service . /leya-print/server/pdf-service

@@ -5,9 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "ts-node src/server.ts",
-        "prestart": "npm run build",
         "start": "node dist/launch.js",
-        "build": "tsc",
+        "build": "tsc -p ./tsconfig.build.json",
         "test": "mocha -r ts-node/register src/storage/*.spec.{js,ts} --watch-files src/**/*.ts",
         "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome"
     },

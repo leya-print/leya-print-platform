@@ -6,3 +6,4 @@ fi
 cd $LB_WORKSPACE_ROOT/common/api
 npm ci
 npm run build
+npm pack

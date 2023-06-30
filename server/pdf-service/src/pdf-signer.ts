@@ -2,6 +2,7 @@ const { SignPdf } = require('node-signpdf');
 const { findByteRange, plainAddPlaceholder } = require('node-signpdf/dist/helpers')
 const fs = require('fs');
 const crypto = require('crypto');
+const path = require('path');
 
 export class PdfSigner {
 
@@ -47,14 +48,19 @@ export class PdfSigner {
   
     getCertificate(certificateId: string) {                      
         // return fs.readFileSync(`src/${certificateId}.p12`);
-        console.log(this._certificatesPath + ' - ' + certificateId);
-        
-        return fs.readFileSync(`/workspace/leya-print/server/container/root/leya-print/config/certificates/${certificateId}.p12`);
+        return fs.readFileSync(`${this._certificatesPath}/${certificateId}/${certificateId}.p12`);
+    }
+
+    getCertificateInfo(certificateId: string) {      
+      // 
+      // const filePath = path.join(__dirname, '..', this._certificatesPath, certificateId, certificateId + '.json');
+      const filePath = path.join(this._certificatesPath, certificateId, certificateId + '.json');
+      return fs.readFileSync(filePath);
     }
   
     async getCertificatePrivateKey(certificateId: string) {      
       const privateKey = {
-        key: fs.readFileSync(`/workspace/leya-print/server/container/root/leya-print/config/certificates/${certificateId}_key.pem`, 'utf8'),
+        key: fs.readFileSync(`${this._certificatesPath}/${certificateId}/${certificateId}.pem`, 'utf8'),
         passphrase: this.getCertificatePassphrase(certificateId)
       };          
     
