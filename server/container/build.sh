@@ -5,6 +5,6 @@ docker buildx build \
   --build-context tpl-service=../tpl-service \
   --build-context auth-service=../auth-service \
   --build-context web-designer=../../web/designer \
-  --build-context web-print=../../web/print \  
+  --build-context web-print=../../web/print \
   -t leya:local \
   .
