@@ -6,5 +6,5 @@
   "backendBaseUrl": "http://127.0.0.1:8080",
   "authServiceBaseUrl": "http://localhost:6004/auth",
   "storageLocation": "/leya-print/data",
-  "certificatesPath": "/leya-print/server/container/root/leya-print/config/certficates"
+  "certificatesPath": "../../container/root/leya-print/config/certficates"
 }
