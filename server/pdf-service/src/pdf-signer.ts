@@ -23,19 +23,22 @@ export class PdfSigner {
     const signPdf = new SignPdf();
 
     const response = (async () => {
-      try {          
-        const cert = this.getCertificate(certificateId);    
-        const certPrivateKey = await this.getCertificatePrivateKey(certificateId);
+      try {     
+        const certInfo = this.getCertificateInfo(certificateId);  
+        
+        if(certInfo === undefined || certInfo === null) return;
+
+        const cert = this.getCertificate(certificateId, certInfo.p12);    
+        const certPrivateKey = await this.getCertificatePrivateKey(certificateId, certInfo.privateKey, certInfo.passphrase);
 
         const signOptions = {
           ...serviceParams, 
-          passphrase: this.getCertificatePassphrase(certificateId),
+          passphrase: certInfo.passphrase,
           signatureLength: 8192,
           cryptoKey: certPrivateKey,          
         };           
         
-        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
-        console.log('signedPdf -- from pdf-signer', signedPdf);      
+        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);  
     
         return signedPdf;
       } catch (error) {
@@ -46,32 +49,29 @@ export class PdfSigner {
       return await response;
     }
   
-    getCertificate(certificateId: string) {                      
-        // return fs.readFileSync(`src/${certificateId}.p12`);
-        return fs.readFileSync(`${this._certificatesPath}/${certificateId}/${certificateId}.p12`);
+    getCertificate(certificateId: string, p12Path: string) {   
+      const certPath = path.join(__dirname, this._certificatesPath, certificateId, p12Path);      
+      const cert = fs.readFileSync(certPath);
+
+      return cert;
     }
 
-    getCertificateInfo(certificateId: string) {      
-      // 
-      // const filePath = path.join(__dirname, '..', this._certificatesPath, certificateId, certificateId + '.json');
-      const filePath = path.join(this._certificatesPath, certificateId, certificateId + '.json');
-      return fs.readFileSync(filePath);
+    getCertificateInfo(certificateId: string): ICertificateInfo {   
+      const certPath = path.join(__dirname, this._certificatesPath, certificateId, certificateId + '.json');  
+      const certInfo: ICertificateInfo = JSON.parse(fs.readFileSync(certPath, 'utf8'));
+
+      return certInfo;
     }
   
-    async getCertificatePrivateKey(certificateId: string) {      
+    async getCertificatePrivateKey(certificateId: string, privateKeyPath: string, passphrase: string) {   
+      const certPath = path.join(__dirname, this._certificatesPath, certificateId, privateKeyPath);      
+      
       const privateKey = {
-        key: fs.readFileSync(`${this._certificatesPath}/${certificateId}/${certificateId}.pem`, 'utf8'),
-        passphrase: this.getCertificatePassphrase(certificateId)
+        key: fs.readFileSync(certPath, 'utf8'),
+        passphrase: passphrase
       };          
     
       return await crypto.createPrivateKey(privateKey);                
-    }
-
-    getCertificatePassphrase(certificateId: string) {      
-      // TODO: get passphrase by certificate Id from JSON file or other means of storing passphrases
-      if (certificateId === 'test') return '12345';
-    
-      return '12345';
     }
   }
 
@@ -96,5 +96,16 @@ export class PdfSigner {
     name?: string;
     location?: string;
     contactInfo?: string;
+  }
+
+  
+  /**
+   * @interface for certificate info
+   */
+  interface ICertificateInfo {
+    certificateId: string;
+    passphrase: string;
+    p12: string;
+    privateKey: string;
   }
     
