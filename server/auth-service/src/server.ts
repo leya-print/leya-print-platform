@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'node:http';
 import fs from 'node:fs';
-import { getETagHeader } from '@leya-print/common-api';
+// import { getETagHeader } from '@leya-print/common-api';
 
 const env: {
   title: string,
