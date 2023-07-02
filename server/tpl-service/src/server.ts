@@ -46,9 +46,7 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
     return;
   };
 
-// used only to test authentication
-app.get('/protected', async (_req, res) => {
-  res.sendStatus(200);
+  res.status(404);
 });
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
