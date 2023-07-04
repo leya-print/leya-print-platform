@@ -35,8 +35,8 @@ RUN cd /leya-print/server/tpl-service && npm i
 COPY --from=auth-service . /leya-print/server/auth-service
 RUN cd /leya-print/server/auth-service && npm i
 
-COPY --from=web-designer www-prod /leya-print/web/designer/www
 COPY --from=web-print www-prod /leya-print/web/print/www
+COPY --from=web-designer www-prod /leya-print/web/designer/www
 
 COPY ./root /
 RUN chmod 777 /leya-print/start-with-nginx.sh
