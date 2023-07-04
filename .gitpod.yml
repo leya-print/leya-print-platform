@@ -51,16 +51,6 @@ tasks:
       gp sync-await build
       npm i
     command: |
-      npx playwright install
-      npm run install-browser
-      npm run dev
-  
-  - name: Tpl-Service
-    before: cd server/tpl-service
-    init: |
-      gp sync-await build
-      npm i
-    command: |
       npm run dev
   
   - name: Auth-Service
