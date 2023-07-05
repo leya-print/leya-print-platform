@@ -77,7 +77,8 @@ build docker image (dry run):
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
   script:
-    - sh build-all.sh
+    - bash ./build/scripts/build-web-print.sh
+    - bash ./build/scripts/build-web-designer.sh
     - cd server/container
     - sh build.sh
 
