@@ -39,8 +39,13 @@ build tpl-service:
 
 build web-designer:
   stage: build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
   script:
-    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-web-designer.sh
   artifacts:
     name: "web-designer"
@@ -50,8 +55,13 @@ build web-designer:
 
 build web-print:
   stage: build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
   script:
-    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-web-print.sh
   artifacts:
     name: "web-print"
