@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import fetch from 'cross-fetch';
 import cors from 'cors';
 import multer from 'multer';
-// import { getETagHeader } from '@leya-print/common-api';
+import { getETagHeader } from '@leya-print/common-api';
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -77,8 +77,8 @@ app.get('/pdf/alive', async (_req, res) => {
     
       // ETag header to prevent 304 status which breaks live check. 
       res.setHeader("Cache-Control", "no-cache")
-      .setHeader("ETag", `"${Date.now().toString()}"`)
-      //.setHeader("ETag", `"${getETagHeader()}"`)    
+      //.setHeader("ETag", `"${Date.now().toString()}"`)
+      .setHeader("ETag", `"${getETagHeader()}"`)    
       .send("Ok");
 
       return;
