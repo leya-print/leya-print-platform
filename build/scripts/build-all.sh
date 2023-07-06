@@ -5,7 +5,7 @@ set -e
 LB_BUILD_SCRIPT_DIR=$LB_WORKSPACE_ROOT/build/scripts
 
 # Build web frontend and rest server in parallel
-(. $LB_BUILD_SCRIPT_DIR/build-common.sh) & \
+(. $LB_BUILD_SCRIPT_DIR/build-common-api.sh) & \
 (. $LB_BUILD_SCRIPT_DIR/build-web-print.sh) & \
 (. $LB_BUILD_SCRIPT_DIR/build-web-designer.sh) & \
 (. $LB_BUILD_SCRIPT_DIR/build-auth-service.sh) & \
