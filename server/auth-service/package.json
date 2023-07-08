@@ -4,10 +4,10 @@
     "description": "Authentification service",
     "main": "index.js",
     "scripts": {
-        "dev": "ts-node src/server.ts",
+        "dev": "ts-node -r tsconfig-paths/register src/server.ts",
         "prestart": "npm run build",
         "start": "node dist/launch.js",
-        "build": "tsc",
+        "build": "tsc -p ./tsconfig.build.json",
         "test": "mocha -r ts-node/register src/storage/*.spec.{js,ts} --watch-files src/**/*.ts"
     },
     "watch": {
@@ -31,6 +31,7 @@
     "author": "emanuel.hein@code-better.it",
     "license": "UNLICENSED",
     "dependencies": {
+        "@leya-print/common-api": "file:../../common/api/leya-print-common-api-1.0.0.tgz",
         "body-parser": "^1.20.0",
         "connect-busboy": "^1.0.0",
         "cors": "^2.8.5",
@@ -54,6 +55,7 @@
         "mocha": "^10.0.0",
         "npm-watch": "^0.11.0",
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^4.7.4"
     }
 }

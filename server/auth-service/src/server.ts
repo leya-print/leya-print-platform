@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'node:http';
 import fs from 'node:fs';
-// import { getETagHeader } from '@leya-print/common-api';
+import { getETagHeader } from '@leya-print/common-api';
 
 const env: {
   title: string,
@@ -26,11 +26,13 @@ const app = express();
 // ETag header to prevent 304 status which breaks live check. 
 app.get('/auth/alive', async (_req, res) => {
   res.setHeader("Cache-Control", "no-cache")  
-  .setHeader("ETag", `"${Date.now().toString()}"`)
+  .setHeader("ETag", `"${getETagHeader()}"`)
   .send("Ok");  
 });
 
 app.get('/auth', async (req, res) => {
+  console.log('auth request hit');
+  
   if (req.headers['x-forwarded-uri']?.includes('protected')) {
     return res.sendStatus(401);
   }
