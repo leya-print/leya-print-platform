@@ -3,11 +3,11 @@ import express from 'express';
 import multer from 'multer';
 import http from 'node:http';
 import path from 'node:path';
+import fs from 'node:fs';
 import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
-// import { getETagHeader } from '@leya-print/common-api';
-import fs from 'node:fs';
+import { getETagHeader } from '@leya-print/common-api';
 
 const env: {
   storageLocation: string,
@@ -16,7 +16,7 @@ const env: {
     return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
   } catch (e) {
     console.error(e);
-    return {      
+    return {
       storageLocation: path.join(__dirname, '../../../data'),
     };
   }
@@ -27,22 +27,22 @@ const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : n
 const templateService = new TemplateService(storage, env.storageLocation);
 
 const app = express();
-const corsOptions: cors.CorsOptions = { };
+const corsOptions: cors.CorsOptions = {};
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 
 // ETag header to prevent 304 status which breaks live check.
 app.get('/tpl/alive', async (_req, res) => {
-  res.setHeader("Cache-Control", "no-cache")   
-  .setHeader("ETag", `"${Date.now().toString()}"`)
-  .send("Ok");  
+  res.setHeader("Cache-Control", "no-cache")
+    .setHeader("ETag", `"${getETagHeader()}"`)
+    .send("Ok");
 });
 
 app.get('/tpl/:templateId/exists', async (_req, res) => {
   const templateExists = await templateService.exists(_req.params.templateId);
 
-  if (templateExists){
-    res.status(200)    
+  if (templateExists) {
+    res.status(200)
     return;
   };
 
@@ -52,19 +52,19 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {
-  
+
   const files = req.files as Express.Multer.File[];
-  
+
   Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
-      (results) => res.send(results),
-      (error) => {
-          console.error(error);
-          res.status(500).send({
-              msg: '' + error,
-              time: new Date(),
-              details: error,
-          });
-      },
+    (results) => res.send(results),
+    (error) => {
+      console.error(error);
+      res.status(500).send({
+        msg: '' + error,
+        time: new Date(),
+        details: error,
+      });
+    },
   );
 });
 
@@ -76,7 +76,7 @@ app.get('/tpl', async (_req, res) => {
 app.get('/tpl/exists/:templateId', async (_req, res) => {
   const templateExists = await templateService.exists(_req.params.templateId);
 
-  if (templateExists){
+  if (templateExists) {
     res.status(200)
     res.send(true);
     return;
@@ -100,9 +100,9 @@ app.use('/tpl-contents/:templateId',
 
 const port = 6001;
 http.createServer(app).listen(port, undefined, undefined, () => {
-    const ownUrl = process.env.GITPOD_WORKSPACE_URL
-        ? `https://${port}-${process.env.GITPOD_WORKSPACE_URL.substring(8)}/tpl`
-        : `http://localhost:${port}/tpl`
+  const ownUrl = process.env.GITPOD_WORKSPACE_URL
+    ? `https://${port}-${process.env.GITPOD_WORKSPACE_URL.substring(8)}/tpl`
+    : `http://localhost:${port}/tpl`
     ;
-    console.log(`tpl service is listening on:  ${ownUrl}`);
+  console.log(`tpl service is listening on:  ${ownUrl}`);
 });
