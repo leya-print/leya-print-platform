@@ -70,14 +70,13 @@ app.get('/pdf/alive', async (_req, res) => {
       {
         // ETag header to prevent 304 status which breaks live check. 
         res.setHeader("Cache-Control", "no-cache")        
-        .setHeader("ETag", `"${Date.now().toString()}"`)
+        .setHeader("ETag", `"${getETagHeader()}"`)
         .send(`Health status: PrintEnpoint: ${printEnpointHealthStatus}, Template Service: ${tplServiceHealthStatus}`)
         return;
       }
     
       // ETag header to prevent 304 status which breaks live check. 
-      res.setHeader("Cache-Control", "no-cache")
-      //.setHeader("ETag", `"${Date.now().toString()}"`)
+      res.setHeader("Cache-Control", "no-cache")      
       .setHeader("ETag", `"${getETagHeader()}"`)    
       .send("Ok");
 
