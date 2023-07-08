@@ -24,8 +24,7 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-  - url: https://leya-print-demo.azurewebsites.net
-  - url: https://6000-leya-leyaprint-nlgn9n55j1t.ws-eu100.gitpod.io
+  - url: https://leya-print-demo.azurewebsites.net  
 tags:
   - name: pdf-service
     description: Service for processing PDFs
