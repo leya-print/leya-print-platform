@@ -6,7 +6,7 @@
  * @property templateBaseUrl, 
  * @property storageLocation
 */
-export interface IEnv {
+export interface Env {
     /** title of the environment file */
     title?: string,
     /** Backend server service for generating PDFs */  
@@ -19,11 +19,3 @@ export interface IEnv {
     storageLocation?: string,
 }
 
-/** interface for http request options, 
- * properties: 
- * @property timeout
-*/
-export interface IRequestOptions {
-    /** request timeout value */
-    timeout?: number,
-}
