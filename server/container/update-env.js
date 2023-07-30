@@ -29,7 +29,7 @@ async function updateEnv() {
         fs.writeFileSync(envFile, JSON.stringify({
             title: "Server root - public env",        
             templateServiceBaseUrl: createSubUrl(8082),
-            templateServiceBaseUrl: "",
+            pdfServiceBaseUrl: "",
             templateBaseUrl: createSubUrl(3333),
         }, null, 2));
         child_process.execSync('git update-index --assume-unchanged ' + envFile);
