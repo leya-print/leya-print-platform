@@ -24,6 +24,7 @@ export class AppHome {
 
   async componentWillLoad() {
     const templateInfo = await templatePackageService.templateInfo(this.tplPackage, this.tplName);
+
     this.sampleData = Object.values(templateInfo.sampleData)[0].data;
     await templatePackageService.defineCustomElements(this.tplPackage);
   }

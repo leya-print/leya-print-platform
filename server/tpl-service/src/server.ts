@@ -27,9 +27,29 @@ const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : n
 const templateService = new TemplateService(storage, env.storageLocation);
 
 const app = express();
-const corsOptions: cors.CorsOptions = {};
+const corsOptions: cors.CorsOptions = { 
+  origin: '*'
+};
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
+
+app.get('/tpl', async (_req, res) => {
+  const templatePackages = await templateService.list();
+  res.send(templatePackages);
+});
+
+app.get('/tpl/exists/:templateId', async (_req, res) => {
+  const templateExists = await templateService.exists(_req.params.templateId);
+
+  if (templateExists) {
+    res.status(200)
+    res.send(true);
+    return;
+  };
+
+  res.status(200)
+  res.send(false);
+});
 
 // ETag header to prevent 304 status which breaks live check.
 app.get('/tpl/alive', async (_req, res) => {
@@ -66,24 +86,6 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
       });
     },
   );
-});
-
-app.get('/tpl', async (_req, res) => {
-  const templatePackages = await templateService.list();
-  res.send(templatePackages);
-});
-
-app.get('/tpl/exists/:templateId', async (_req, res) => {
-  const templateExists = await templateService.exists(_req.params.templateId);
-
-  if (templateExists) {
-    res.status(200)
-    res.send(true);
-    return;
-  };
-
-  res.status(200)
-  res.send(false);
 });
 
 app.use('/tpl-contents/:templateId',
