@@ -1,7 +1,6 @@
 {
   "title": "Server root - public env",
-  "backendBaseUrl": "/rest",
-  "templateServiceBaseUrl": "/tpl",
+  "templateServiceBaseUrl": "https://8082-leya-leyaprint-f7yxgh05xcl.ws-eu102.gitpod.io",
   "pdfServiceBaseUrl": "",
-  "templateBaseUrl": "http://localhost:3333"
+  "templateBaseUrl": "https://3333-leya-leyaprint-f7yxgh05xcl.ws-eu102.gitpod.io"
 }

@@ -29,7 +29,7 @@ export class TemplateService {
 
     const templateServiceBaseUrl = (await env).templateServiceBaseUrl;
 
-    const response = await fetch(`${templateServiceBaseUrl}/tpl`);
+    const response = await fetch(`${templateServiceBaseUrl}/tpl/`);
     const packages = await response.json();
 
     this.packages$b.next(packages);
