@@ -3,7 +3,6 @@
   "printEndpoint": "http://127.0.0.1:8091/print",
   "templateServiceBaseUrl": "http://127.0.0.1:8080/tpl",
   "pdfServiceBaseUrl": "http://127.0.0.1:8080",
-  "backendBaseUrl": "http://127.0.0.1:8080",
   "authServiceBaseUrl": "http://localhost:6004/auth",
   "storageLocation": "/leya-print/data",
   "certificatesPath": "../../container/root/leya-print/config/certficates"
