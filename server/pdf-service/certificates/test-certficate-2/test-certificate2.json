@@ -1,0 +1,6 @@
+{
+    "certificateId": "test-certificate",
+    "passphrase": "12345",
+    "p12": "../test-certificate/test-certificate.p12",
+    "privateKey": "./test-certificate.pem"
+}

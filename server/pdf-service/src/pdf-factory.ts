@@ -1,4 +1,8 @@
 import { chromium } from 'playwright';
+const { SignPdf } = require('node-signpdf');
+const { findByteRange, plainAddPlaceholder } = require('node-signpdf/dist/helpers')
+const fs = require('fs');
+const crypto = require('crypto');
 
 export type PageActions<R> = (page: import('playwright').Page) => Promise<R>;
 
@@ -18,43 +22,36 @@ export class PdfFactory {
   async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
 
     console.log('open Page:', templateId, pagePart, queryParams, providedData);
-    console.log('this._baseUrl', this._baseUrl);
+    console.log('_baseUrl', this._baseUrl);
 
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
     
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
-    try {
-      
+    try {      
       const browser = await this.browser;
       const context = await browser.newContext();
 
       const page = await context.newPage();
   
-      if (providedData) {
-        await page.evaluate((data) => {
-          (window as any).providedData = JSON.parse(data);
-          return Promise.resolve(true);
-        }, providedData);
-      }
-  
       page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
       page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
+      
       let urlStr = String(urlWithParams);
       
-      console.log('open: ' + urlStr);
+      console.log('open urlStr: ' + urlStr);
       console.log('data: ' + JSON.stringify(providedData, null, 2));
 
       await Promise.all([
         page.goto(urlStr),
-        page.waitForURL(urlStr).then(async () => {
+        page.waitForURL(urlStr, { timeout: 30000}).then(async () => {  
   
-          if (providedData) {
-            await page.evaluate((data) => {
-              (window as any).providedData = JSON.parse(data);
-              return Promise.resolve(true);
-            }, providedData);
-          }
+        if (providedData) {
+          await page.evaluate((data) => {
+            (window as any).providedData = JSON.parse(data);
+            return Promise.resolve(true);
+          }, providedData);
+        }
         }),
         page.waitForSelector('app-root'),
         
@@ -66,7 +63,7 @@ export class PdfFactory {
       return result;
 
     } catch (error) {
-      console.log('error while getting page');
+      console.log('error while getting page:');
       console.error(error);
     }
   }
@@ -110,4 +107,63 @@ export class PdfFactory {
 
     return pdf;
   }
+
+  async signPdf(pdfName: string, pdf: Buffer) {      
+    const privateKey = {
+      key: fs.readFileSync('src/key.pem', 'utf8'),
+      passphrase: '12345'
+    };
+
+    const cert = fs.readFileSync('src/cert.p12');
+
+    const serviceParams = {
+      reason: 'Ensure no further changes',
+      name: 'Max Sample',
+      location: 'Musterhausen, Germany',
+      contactInfo: 'max.sample@leya-it-solutions.de',
+    }
+  
+    const signablePdfBuffer = isSignable(pdf) ? pdf : plainAddPlaceholder({
+      pdfBuffer: pdf,
+      reason: serviceParams.reason,
+      contactInfo: serviceParams.contactInfo,
+      name: serviceParams.name,
+      location: serviceParams.location,
+    });
+  
+    const signPdf = new SignPdf();
+
+    (async () => {
+      try {
+        const privateKeyObj = await crypto.createPrivateKey(privateKey);
+       
+        const signOptions = {
+          ...serviceParams,
+          passphrase: '12345',
+          signatureLength: 8192,
+          cryptoKey: privateKeyObj,
+        };        
+     
+        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
+        fs.writeFileSync('temp/' + pdfName, signedPdf);        
+    
+        return signedPdf;
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }
 }
+
+  /**
+ * 
+ * @param {Buffer} pdf 
+ */
+  function isSignable(origPdfBuffer: any) {
+    try {
+      findByteRange(origPdfBuffer);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }

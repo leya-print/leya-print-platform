@@ -1,7 +1,7 @@
 import { Component, h, Host, State } from '@stencil/core';
 import { env } from 'src/global/env';
 import { templateService } from 'src/global/template.service';
-import { TemplatePackage } from '../../../../../../../common/api/template-package.model';
+import { TemplatePackage } from '@leya-print/common-api';
 
 @Component({
   tag: 'template-upload',
@@ -21,8 +21,8 @@ export class TemplateUploadComponent {
       formData.append('tplPackage', file);
     });
 
-    const backendBaseUrl = (await env).backendBaseUrl;
-    const response = await fetch(`${backendBaseUrl}/tpl`, {
+    const templateServiceBaseUrl = (await env).templateServiceBaseUrl;
+    const response = await fetch(`${templateServiceBaseUrl}/tpl`, {
       body: formData,
       method: 'POST',
     });

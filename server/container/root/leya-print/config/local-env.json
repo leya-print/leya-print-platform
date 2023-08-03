@@ -1,6 +1,9 @@
 {
-  "title": "server root local env",
+  "title": "Server root - local env",
   "printEndpoint": "http://127.0.0.1:8091/print",
-  "backendBaseUrl": "http://127.0.0.1:8080",  
-  "storageLocation": "/leya-print/data"
+  "templateServiceBaseUrl": "http://127.0.0.1:8080/tpl",
+  "pdfServiceBaseUrl": "http://127.0.0.1:8080",
+  "authServiceBaseUrl": "http://localhost:6004/auth",
+  "storageLocation": "/leya-print/data",
+  "certificatesPath": "../../container/root/leya-print/config/certficates"
 }

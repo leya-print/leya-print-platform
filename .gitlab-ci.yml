@@ -3,6 +3,7 @@
 image: node:latest
 
 stages:
+  - api-build
   - build
   - container
 
@@ -15,7 +16,24 @@ after_script:
   - echo "After script section"
   # - echo "For example you might do some cleanup here"
 
-build rest-server:
+build common-api:
+  stage: api-build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
+  script:
+    - bash ./build/scripts/prepare-build.sh
+    - bash ./build/scripts/build-common-api.sh
+  artifacts:
+    name: "common-api"
+    paths:
+      - "common/api/leya-print-common-api-1.0.0.tgz"
+    expire_in: "7 days"
+
+build pdf-service:
   stage: build
   rules:
   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
@@ -24,11 +42,29 @@ build rest-server:
     when: always
   - when: never
   script:
-    - bash ./build/scripts/build-server-rest.sh
+    - bash ./build/scripts/prepare-build.sh
+    - bash ./build/scripts/build-pdf-service.sh
   artifacts:
-    name: "rest-server"
+    name: "pdf-service"
     paths:
-      - "server/rest/dist"
+      - "server/pdf-service/dist"
+    expire_in: "7 days"
+
+build tpl-service:
+  stage: build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
+  script:
+    - bash ./build/scripts/prepare-build.sh
+    - bash ./build/scripts/build-tpl-service.sh
+  artifacts:
+    name: "tpl-service"
+    paths:
+      - "server/tpl-service/dist"
     expire_in: "7 days"
 
 build web-designer:
@@ -40,6 +76,7 @@ build web-designer:
     when: always
   - when: never
   script:
+    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-web-designer.sh
   artifacts:
     name: "web-designer"
@@ -56,6 +93,7 @@ build web-print:
     when: always
   - when: never
   script:
+    - bash ./build/scripts/prepare-build.sh
     - bash ./build/scripts/build-web-print.sh
   artifacts:
     name: "web-print"

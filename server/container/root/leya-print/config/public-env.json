@@ -1,4 +1,6 @@
 {
-  "backendBaseUrl": "/rest",
-  "templateBaseUrl": "http://localhost:3333"
+  "title": "Server root - public env",
+  "templateServiceBaseUrl": "localhost:8082",
+  "pdfServiceBaseUrl": "",
+  "templateBaseUrl": "localhost:3333"
 }

@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1
 
-FROM … AS server-rest
+FROM … AS common-api
+FROM … AS pdf-service
+FROM … AS tpl-service
+FROM … AS auth-service
 FROM … AS web-designer
 FROM … AS web-print
 
@@ -20,11 +23,20 @@ RUN apt update && \
     apt update && \
     apt install -y nginx
 
-COPY --from=server-rest . /leya-print/server/rest
-RUN cd /leya-print/server/rest && npm i
+COPY --from=common-api . /leya-print/common/api
+RUN cd /leya-print/common/api && npm i
 
-COPY --from=web-designer www-prod /leya-print/web/designer/www
+COPY --from=pdf-service . /leya-print/server/pdf-service
+RUN cd /leya-print/server/pdf-service && npm i
+
+COPY --from=tpl-service . /leya-print/server/tpl-service
+RUN cd /leya-print/server/tpl-service && npm i
+
+COPY --from=auth-service . /leya-print/server/auth-service
+RUN cd /leya-print/server/auth-service && npm i
+
 COPY --from=web-print www-prod /leya-print/web/print/www
+COPY --from=web-designer www-prod /leya-print/web/designer/www
 
 COPY ./root /
 RUN chmod 777 /leya-print/start-with-nginx.sh
