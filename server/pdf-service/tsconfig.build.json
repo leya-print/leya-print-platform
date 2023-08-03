@@ -3,7 +3,7 @@
   "compilerOptions": {
      "paths": {
       "@leya-print/common-api": [
-        "../../common/api/index.ts"
+        "../../common/api/leya-print-common-api-1.0.0.tgz"
       ]
      },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
   }
