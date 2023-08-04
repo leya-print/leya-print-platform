@@ -25,9 +25,7 @@ build common-api:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: always
   - when: never
-  script:
-    - bash ./build/scripts/prepare-build.sh
-    - bash ./build/scripts/build-common-api.sh
+  script: bash ./build/scripts/build-common-api.sh
   artifacts:
     name: "common-api"
     paths:
@@ -42,9 +40,7 @@ build auth-service:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: always
   - when: never
-  script:
-    - bash ./build/scripts/prepare-build.sh
-    - bash ./build/scripts/build-auth-service.sh
+  script: bash ./build/scripts/build-auth-service.sh
   artifacts:
     name: "auth-service"
     paths:
@@ -59,9 +55,7 @@ build pdf-service:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: on_success
   - when: never
-  script:
-    - bash ./build/scripts/prepare-build.sh
-    - bash ./build/scripts/build-pdf-service.sh
+  script: bash ./build/scripts/build-pdf-service.sh
   artifacts:
     name: "pdf-service"
     paths:
@@ -76,9 +70,7 @@ build tpl-service:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: on_success
   - when: never
-  script:
-    - bash ./build/scripts/prepare-build.sh
-    - bash ./build/scripts/build-tpl-service.sh
+  script: bash ./build/scripts/build-tpl-service.sh
   artifacts:
     name: "tpl-service"
     paths:
@@ -93,9 +85,7 @@ build web-designer:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: on_success
   - when: never
-  script:
-    - bash ./build/scripts/prepare-build.sh
-    - bash ./build/scripts/build-web-designer.sh
+  script: bash ./build/scripts/build-web-designer.sh
   artifacts:
     name: "web-designer"
     paths:
@@ -110,9 +100,7 @@ build web-print:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: on_success
   - when: never
-  script:
-    - bash ./build/scripts/prepare-build.sh
-    - bash ./build/scripts/build-web-print.sh
+  script: bash ./build/scripts/build-web-print.sh
   artifacts:
     name: "web-print"
     paths:

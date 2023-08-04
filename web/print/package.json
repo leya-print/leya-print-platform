@@ -4,7 +4,6 @@
     "version": "1.0.1",
     "description": "Solution for rendering templates online",
     "scripts": {
-        "prebuild": "node update-prod-env.js",
         "build": "stencil build --config stencil.config.prod.ts",
         "prestart": "node update-env.js",
         "start": "stencil build --dev --watch --serve --port 6003",
