@@ -12,4 +12,5 @@ export const config: Config = {
             dir: 'www-prod',          
         },
     ],
+    tsconfig: 'tsconfig.build.json',
 }

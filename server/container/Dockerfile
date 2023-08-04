@@ -44,8 +44,6 @@ RUN chmod 777 /leya-print/start-with-nginx.sh
 WORKDIR /leya-print/
 
 EXPOSE 8080
-EXPOSE 8090
-EXPOSE 8091
 
 STOPSIGNAL SIGQUIT
 
