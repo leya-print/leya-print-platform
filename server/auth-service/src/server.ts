@@ -31,7 +31,7 @@ app.get('/auth/alive', async (_req, res) => {
 });
 
 app.get('/auth', async (req, res) => {
-  console.log('auth request hit');
+  // console.log('auth request hit');
   
   if (req.headers['x-forwarded-uri']?.includes('protected')) {
     return res.sendStatus(401);
