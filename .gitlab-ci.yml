@@ -6,6 +6,7 @@ stages:
   - api-build
   - build
   - container
+  - deploy
 
 before_script:
   - echo "Before script section"
@@ -37,9 +38,9 @@ build pdf-service:
   stage: build
   rules:
   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: always
+    when: on_success
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: always
+    when: on_success
   - when: never
   script:
     - bash ./build/scripts/prepare-build.sh
@@ -54,9 +55,9 @@ build tpl-service:
   stage: build
   rules:
   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: always
+    when: on_success
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: always
+    when: on_success
   - when: never
   script:
     - bash ./build/scripts/prepare-build.sh
@@ -71,9 +72,9 @@ build web-designer:
   stage: build
   rules:
   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: always
+    when: on_success
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: always
+    when: on_success
   - when: never
   script:
     - bash ./build/scripts/prepare-build.sh
@@ -88,9 +89,9 @@ build web-print:
   stage: build
   rules:
   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: always
+    when: on_success
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: always
+    when: on_success
   - when: never
   script:
     - bash ./build/scripts/prepare-build.sh
@@ -145,3 +146,15 @@ build docker image:
     - docker tag leya:local registry.code-better.it/leya/leya-print
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
     - docker push registry.code-better.it/leya/leya-print
+
+deploy to dev:
+  stage: deploy
+  environment:
+    name: leya-print-demo
+    url: https://leya-print-demo.azurewebsites.net/
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+    - when: never
+  script:
+    - curl $triggerLeyaPrintDemoUpdate -H "" -d ""
