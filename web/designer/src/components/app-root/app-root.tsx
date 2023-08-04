@@ -1,4 +1,5 @@
 import { Component, h, Host, VNode } from '@stencil/core';
+const version = '1.0.1';
 
 @Component({
   tag: 'app-root',
@@ -6,6 +7,7 @@ import { Component, h, Host, VNode } from '@stencil/core';
   shadow: false,
 })
 export class AppRoot {
+  readonly version = version;
   getPage(): {
     contents: VNode,
     title?: string
@@ -33,6 +35,7 @@ export class AppRoot {
     return <Host>
       <header class="app-root__header">
         <h1><a href="/dev/">leya print</a>{title ? <span>{title}</span> : ''}</h1>
+        <span>version {this.version}</span>
       </header>
       <main class="app-root__main">{contents}</main>
     </Host>
