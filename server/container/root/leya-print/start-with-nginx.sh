@@ -11,7 +11,7 @@ node dist/launch.js &
 
 # Start template service endpoint
 cd ../../server/tpl-service
-node dist/aunch.js &
+node dist/launch.js &
 
 # Start auth service endpoint
 cd ../../server/auth-service
