@@ -34,6 +34,23 @@ build common-api:
       - "common/api/leya-print-common-api-1.0.0.tgz"
     expire_in: "7 days"
 
+build auth-service:
+  stage: build
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - when: never
+  script:
+    - bash ./build/scripts/prepare-build.sh
+    - bash ./build/scripts/build-auth-service.sh
+  artifacts:
+    name: "auth-service"
+    paths:
+      - "server/auth-service/dist"
+    expire_in: "7 days"
+
 build pdf-service:
   stage: build
   rules:
