@@ -1,6 +1,6 @@
 {
   "title": "Server root - public env",
-  "templateServiceBaseUrl": "localhost:8082",
+  "templateServiceBaseUrl": "",
   "pdfServiceBaseUrl": "",
-  "templateBaseUrl": "localhost:3333"
+  "templateBaseUrl": ""
 }
