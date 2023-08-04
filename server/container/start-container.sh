@@ -2,7 +2,7 @@
 PWD=`pwd`
 CONTAINER_NAME=leya-local
 
-node update-env.js
+# node update-env.js // try to use gitpod as dynamic template src
 
 # if [ container exists ]
 if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
@@ -17,7 +17,7 @@ fi
 docker run \
   --detach \
   --name leya-local \
-  -p 8082:8080 -p 8083:8091 -p 8084:8090 \
+  -p 8082:8080 \
   --mount type=bind,source=$PWD/../../data,target=/leya-print/data \
   leya:local
 
