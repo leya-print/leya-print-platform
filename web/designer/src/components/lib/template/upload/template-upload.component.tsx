@@ -22,7 +22,7 @@ export class TemplateUploadComponent {
     });
 
     const templateServiceBaseUrl = (await env).templateServiceBaseUrl;
-    const response = await fetch(`${templateServiceBaseUrl}/tpl`, {
+    const response = await fetch(`${templateServiceBaseUrl}/tpl/`, {
       body: formData,
       method: 'POST',
     });
