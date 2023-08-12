@@ -38,19 +38,6 @@ app.get('/tpl', async (_req, res) => {
   res.send(templatePackages);
 });
 
-app.get('/tpl/:templateId/exists', async (_req, res) => {
-  const templateExists = await templateService.exists(_req.params.templateId);
-
-  if (templateExists) {
-    res.status(200)
-    res.send(true);
-    return;
-  };
-
-  res.status(200)
-  res.send(false);
-});
-
 // ETag header to prevent 304 status which breaks live check.
 app.get('/tpl/alive', async (_req, res) => {
   res.setHeader("Cache-Control", "no-cache")
@@ -63,10 +50,12 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
 
   if (templateExists) {
     res.status(200)
+    res.send(true);
     return;
   };
 
-  res.status(404);
+  res.status(404)
+  res.send(false);
 });
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
