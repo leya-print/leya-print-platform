@@ -2,14 +2,14 @@ openapi: 3.0.3
 info:
   title: Leya-Print - OpenAPI 3.0
   description: |-
-    This is the Open API description of the Leya Server based on the OpenAPI 3.0 specification. 
+    This is the Open API description of the Leya Server based on the OpenAPI 3.0 specification.
     Leya Print is a powerful and user-friendly tool for generating PDFs from customizable templates. Leya Print is designed to make it easy for developers to create professional-looking PDF documents for a variety of purposes.
-    
+
     You can now help us improve the API whether it's by making changes to the definition itself or to the code.
 
     More info related to
     Swagger at [https://swagger.io](https://swagger.io).
-    
+
     Some useful links:
     - [Leya-Print repository](https://gitlab.code-better.it/leya/leya-print/-/tree/develop)
     - [The source API definition for Leya-Print](https://gitlab.code-better.it/leya/leya-print/-/blob/36-OpenApi_Definition_of_rest_server/common/api/openapi-rest.yml)
@@ -24,7 +24,7 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-  - url: https://leya-print-demo.azurewebsites.net  
+  - url: https://leya-print-demo.azurewebsites.net
 tags:
   - name: pdf-service
     description: Service for processing PDFs
@@ -45,16 +45,16 @@ paths:
           description: Service not found
         '503':
           description: Service unavailable
-  
+
   /pdf/{templateId}:
     post:
       tags:
         - pdf-service
-      summary: Get pdf file 
+      summary: Get pdf file
       description: Template id can be provided and package name.
       operationId: postPDFByTemplateId
       requestBody:
-        content: 
+        content:
           application/json:
             schema:
               type: object
@@ -96,7 +96,7 @@ paths:
                       unit: pcs
                       pricePerUnit: 0.02
                       vatPercent: 8.91
-                  
+
       parameters:
         - name: templateId
           in: path
@@ -122,7 +122,7 @@ paths:
           description: successful operation
         '500':
           description: internal server error
-  
+
   /sign/{certificateId}:
     post:
       tags:
@@ -140,7 +140,7 @@ paths:
                   type: string
                   format: binary
                   description: The PDF file to upload
-              
+
       parameters:
         - name: certificateId
           in: path
@@ -181,7 +181,7 @@ paths:
             application/pdf: {}
         '500':
           description: internal server error
-  
+
   /tpl/alive:
     get:
       tags:
@@ -194,12 +194,12 @@ paths:
           description: successful operation
         '400':
           description: bad request
-  
-  /tpl:
+
+  /tpl/:
     get:
       tags:
         - tpl-service
-      summary: Gets all templates
+      summary: Gets all templatess
       description: Gets all templates
       operationId: getTemplates
       responses:
@@ -207,7 +207,7 @@ paths:
           description: successful operation
         '500':
           description: internal server error
-  
+
   /tpl/{templateId}/exists:
     get:
       tags:
@@ -226,8 +226,8 @@ paths:
       responses:
         '200':
           description: successful operation
-          
-  /tpl/:
+
+  /tpl:
     post:
       tags:
         - tpl-service
@@ -235,33 +235,43 @@ paths:
       description: Uploads templates as a .tgz file
       operationId: tplPost
       requestBody:
-        content: 
+        content:
           multipart/form-data:
             schema:
                   type: array
                   items:
                     type: object
-                    properties: 
-                      fieldname: #Field name specified in the form  
+                    properties:
+                      fieldname: 
                         type: string
-                      originalname:  #Name of the file on the user's computer
+                        description: Field name specified in the form
+                      originalname:
                         type: string
-                      encoding: #Encoding type of the file
+                        description: Name of the file on the user's computer
+                      encoding:
                         type: string
-                      mimetype:  #Mime type of the file  
+                        description: Encoding type of the file
+                      mimetype:
                         type: string
-                      size:  #Size of the file in bytes  
+                        description: Mime type of the file
+                      size:  
                         type: number
-                      stream: # A readable stream of this file. Only available to the `_handleFile` callback for custom `StorageEngine`s.
+                        description: Size of the file in bytes
+                      stream: 
                         type: object
-                      destination:  #The folder to which the file has been saved  
+                        description: A readable stream of this file. Only available to the `_handleFile` callback for custom `StorageEngine`s.
+                      destination:  
                         type: string
-                      filename:  #The name of the file within the destination  DiskStorage
+                        description: The folder to which the file has been saved
+                      filename: 
                         type: string
-                      path:  #The full path to the uploaded file  DiskStorage
+                        description: The name of the file within the destination  DiskStorage
+                      path:  
                         type: string
-                      buffer: # `MemoryStorage` only: A Buffer containing the entire file.
+                        description: The full path to the uploaded file DiskStorage
+                      buffer:
                         type: object
+                        description: MemoryStorage only - A Buffer containing the entire file.
       parameters:
         - name: files
           in: query
