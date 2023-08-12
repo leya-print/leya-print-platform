@@ -38,7 +38,7 @@ app.get('/tpl', async (_req, res) => {
   res.send(templatePackages);
 });
 
-app.get('/tpl/exists/:templateId', async (_req, res) => {
+app.get('/tpl/:templateId/exists', async (_req, res) => {
   const templateExists = await templateService.exists(_req.params.templateId);
 
   if (templateExists) {
