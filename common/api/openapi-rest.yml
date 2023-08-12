@@ -199,7 +199,7 @@ paths:
     get:
       tags:
         - tpl-service
-      summary: Gets all templatess
+      summary: Gets all templates
       description: Gets all templates
       operationId: getTemplates
       responses:
