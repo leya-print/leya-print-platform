@@ -5,6 +5,7 @@ image: node:latest
 stages:
   - api-build
   - build
+  - test
   - container
   - deploy
 
@@ -105,6 +106,21 @@ build web-print:
     name: "web-print"
     paths:
       - "web/print/www-prod"
+    expire_in: "7 days"
+
+run tests:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+    - when: never
+  script: bash ./build/scripts/run-tests.sh
+  artifacts:
+    name: "tests"
+    paths:
+      - "test/artifacts"
     expire_in: "7 days"
 
 build docker image (dry run):
