@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('designer', () => {
-  test.beforeEach(({page}) => page.goto('https://leya-print-demo.azurewebsites.net/dev/'));
+  test.beforeEach(({page}) => page.goto('/dev/'));
 
   test('template overview', async ({page}) => {
     await page.waitForLoadState('networkidle');
@@ -24,6 +24,8 @@ test.describe('designer', () => {
       const catchPdfTabPopup = page.waitForEvent('popup');
       await page.getByRole('button', { name: 'preview' }).click();
       const pdfTab = await catchPdfTabPopup;
+      await pdfTab.waitForLoadState('networkidle');
+      await pdfTab.waitForTimeout(500);
       await pdfTab.waitForLoadState('networkidle');
       await pdfTab.waitForTimeout(500);
       await pdfTab.waitForLoadState('networkidle');

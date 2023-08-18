@@ -1,5 +1,5 @@
 import { Component, h, Host, VNode } from '@stencil/core';
-const version = '1.0.1';
+const version = '1.0.2';
 
 @Component({
   tag: 'app-root',

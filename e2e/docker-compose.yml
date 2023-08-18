@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  leya-print:
+    image: local.local/leya
+    hostname: leya-print
+    ports:
+      - 8082:8080
+
+  e2e-test:
+    image: mcr.microsoft.com/playwright:v1.37.0-jammy
+    volumes:
+      - ./:/e2e
+    working_dir: /e2e
+    environment:
+      CI: 1
+      BASE_URL: http://leya-print:8080
+    depends_on:
+      - leya-print
+    command: bash start-xvfb.sh

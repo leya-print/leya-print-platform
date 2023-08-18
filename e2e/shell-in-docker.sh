@@ -12,4 +12,4 @@ docker run \
     --network host \
     -it \
     mcr.microsoft.com/playwright:v1.37.0-jammy \
-    bash start-xvfb.sh
+    bash
