@@ -1,29 +1,34 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test("designer pdf preview", async ({ browser }) => {
-  const context = await browser.newContext();
-  const page = await context.newPage();
-  await page.goto("https://leya-print-demo.azurewebsites.net/");
+test.describe('designer', () => {
+  test.beforeEach(({page}) => page.goto('https://leya-print-demo.azurewebsites.net/dev/'));
 
-  await page.getByRole("link", { name: "/dev/" }).click();
-  await page.getByRole("link", { name: "Invoice", exact: true }).click();
+  test('template overview', async ({page}) => {
+    await page.waitForLoadState('networkidle');
+    expect(await page.screenshot()).toMatchSnapshot('template-overview.png');
+  });
 
-  const pagePromise = context.waitForEvent("page");
+  test.describe('invoice', () => {
+    test.beforeEach(async ({page}) => {
+      await page.getByRole('link', { name: 'Invoice', exact: true }).click();
+      await page.waitForURL(/\/invoice\?/);
+    });
 
-  await page.getByRole("button", { name: "preview" }).click();
-  await page.getByRole("button", { name: "preview" }).click();
+    test('preview', async ({page}) => {
+      await page.waitForLoadState('networkidle');
+      await page.getByText('Invoice 239045001').isVisible();
+      expect(await page.screenshot()).toMatchSnapshot('invoice-preview.png');
+    });
 
-  const date = new Date().toISOString();
-  await page.screenshot({ path: `screenshots/${'preview-' + date}.png` });
-
-  await page.waitForTimeout(3000);
-  const newPage = await pagePromise;
-
-  await expect(page).toHaveTitle('leya-designer');
-
-  //   const page1Promise = page.waitForEvent("popup");
-  //   const page1 = await page1Promise;
-  //   await page1.goto(
-  //     "https://leya-print-demo.azurewebsites.net/pdf/invoice/test.pdf?tplPackage=f162b3c5-302d-4dc1-a593-64855edf8ad2"
-  //   );
+    test('pdf', async ({page}) => {
+      const catchPdfTabPopup = page.waitForEvent('popup');
+      await page.getByRole('button', { name: 'preview' }).click();
+      const pdfTab = await catchPdfTabPopup;
+      await pdfTab.waitForLoadState('networkidle');
+      await pdfTab.waitForTimeout(500);
+      await pdfTab.waitForLoadState('networkidle');
+      await pdfTab.waitForTimeout(500);
+      expect(await pdfTab.screenshot()).toMatchSnapshot('invoice-pdf.png');
+    });
+  });
 });
