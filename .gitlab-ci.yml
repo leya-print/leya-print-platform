@@ -127,6 +127,14 @@ build docker image (dry run):
   script:
     - cd server/container
     - sh build.sh
+    - cd ../../e2e
+    - docker-compose run e2e-test
+  artifacts:
+    name: "playwright-report"
+    when: "always"
+    paths:
+      - "e2e/playwright-report"
+    expire_in: "7 days"
 
 build docker image:
   image: docker:dind
@@ -148,9 +156,18 @@ build docker image:
   script:
     - cd server/container
     - sh build.sh
-    - docker tag leya:local registry.code-better.it/leya/leya-print
+    - cd ../../
+    - bash build/scripts/run-tests.sh
+    - docker-compose run e2e-test
+    - docker tag local.local/leya registry.code-better.it/leya/leya-print
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
     - docker push registry.code-better.it/leya/leya-print
+  artifacts:
+    name: "playwright-report"
+    when: "always"
+    paths:
+      - "e2e/playwright-report"
+    expire_in: "7 days"
 
 deploy to dev:
   stage: deploy
