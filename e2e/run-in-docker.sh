@@ -9,6 +9,7 @@ docker run \
     --rm \
     --name e2e \
     --env LEYA_E2E_BASE_URL=$LEYA_E2E_BASE_URL \
+    --env CI=$CI \
     --network host \
     -it \
     mcr.microsoft.com/playwright:v1.37.0-jammy \
