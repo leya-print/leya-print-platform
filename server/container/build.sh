@@ -6,5 +6,5 @@ docker buildx build \
   --build-context auth-service=../auth-service \
   --build-context web-designer=../../web/designer \
   --build-context web-print=../../web/print \
-  -t leya:local \
+  -t local.local/leya \
   .
