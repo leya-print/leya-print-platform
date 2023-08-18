@@ -184,9 +184,16 @@ check-status:
   stage: check-status
   variables:
     LEYA_E2E_BASE_URL: $DEV_ENV_URL
+    CI: 1
   script:
     - cd e2e
     - bash start-xvfb.sh
   only:
     - schedules
     - manual
+  artifacts:
+    name: "playwright-report"
+    when: "always"
+    paths:
+      - "e2e/playwright-report"
+    expire_in: "7 days"
