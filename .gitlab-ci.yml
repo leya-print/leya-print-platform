@@ -7,6 +7,10 @@ stages:
   - build
   - container
   - deploy
+  - check-status
+
+variables:
+  DEV_ENV_URL: https://leya-print-demo.azurewebsites.net
 
 before_script:
   - echo "Before script section"
@@ -17,14 +21,39 @@ after_script:
   - echo "After script section"
   # - echo "For example you might do some cleanup here"
 
-build common-api:
-  stage: api-build
+.start_on_pr_and_default:
   rules:
+  - if: $CI_PIPELINE_SOURCE == 'schedule'
+    when: never
   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     when: always
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     when: always
   - when: never
+
+.start_on_pr_only:
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'schedule'
+    when: never
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: never
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+  - when: never
+
+.start_on_default_only:
+  rules:
+  - if: $CI_PIPELINE_SOURCE == 'schedule'
+    when: never
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    when: always
+  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: never
+  - when: never
+
+build common-api:
+  stage: api-build
+  extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-common-api.sh
   artifacts:
     name: "common-api"
@@ -34,12 +63,7 @@ build common-api:
 
 build auth-service:
   stage: build
-  rules:
-  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: always
-  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: always
-  - when: never
+  extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-auth-service.sh
   artifacts:
     name: "auth-service"
@@ -49,12 +73,7 @@ build auth-service:
 
 build pdf-service:
   stage: build
-  rules:
-  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: on_success
-  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: on_success
-  - when: never
+  extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-pdf-service.sh
   artifacts:
     name: "pdf-service"
@@ -64,12 +83,7 @@ build pdf-service:
 
 build tpl-service:
   stage: build
-  rules:
-  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: on_success
-  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: on_success
-  - when: never
+  extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-tpl-service.sh
   artifacts:
     name: "tpl-service"
@@ -79,12 +93,7 @@ build tpl-service:
 
 build web-designer:
   stage: build
-  rules:
-  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: on_success
-  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: on_success
-  - when: never
+  extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-web-designer.sh
   artifacts:
     name: "web-designer"
@@ -94,12 +103,7 @@ build web-designer:
 
 build web-print:
   stage: build
-  rules:
-  - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    when: on_success
-  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    when: on_success
-  - when: never
+  extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-web-print.sh
   artifacts:
     name: "web-print"
@@ -110,11 +114,7 @@ build web-print:
 build docker image (dry run):
   image: docker:dind
   stage: container
-  tags: ["docker"]
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-      when: on_success
-    - when: never
+  extends: .start_on_pr_only
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
@@ -139,11 +139,8 @@ build docker image (dry run):
 build docker image:
   image: docker:dind
   stage: container
+  extends: .start_on_default_only
   tags: ["docker"]
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
-    - when: never
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
@@ -170,13 +167,27 @@ build docker image:
 
 deploy to dev:
   stage: deploy
+  extends: .start_on_default_only
   tags: ["docker"]
   environment:
     name: leya-print-demo
-    url: https://leya-print-demo.azurewebsites.net/
+    url: $DEV_ENV_URL/
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
     - when: never
   script:
     - curl `echo $triggerLeyaPrintDemoUpdate | base64 --decode` -H "" -d ""
+
+check-status:
+  image: docker:dind
+  stage: check-status
+  tags: ["docker"]
+  variables:
+    BASE_URL: $DEV_ENV_URL
+  script:
+    - cd e2e
+    - docker-compose run e2e-test
+  only:
+    - schedules
+    - manual
