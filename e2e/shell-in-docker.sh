@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# BASE_URL=https://leya-print-demo.azurewebsites.net/
+# LEYA_E2E_BASE_URL=https://leya-print-demo.azurewebsites.net/
 
 # Run e2e specs
 docker run \
@@ -8,7 +8,7 @@ docker run \
     -w /e2e \
     --rm \
     --name e2e \
-    --env BASE_URL=$BASE_URL \
+    --env LEYA_E2E_BASE_URL=$LEYA_E2E_BASE_URL \
     --network host \
     -it \
     mcr.microsoft.com/playwright:v1.37.0-jammy \

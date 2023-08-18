@@ -14,7 +14,7 @@ services:
     working_dir: /e2e
     environment:
       CI: 1
-      BASE_URL: http://leya-print:8080
+      LEYA_E2E_BASE_URL: http://leya-print:8080
     depends_on:
       - leya-print
     command: bash start-xvfb.sh

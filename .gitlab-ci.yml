@@ -184,7 +184,7 @@ check-status:
   stage: check-status
   tags: ["docker"]
   variables:
-    BASE_URL: $DEV_ENV_URL
+    LEYA_E2E_BASE_URL: $DEV_ENV_URL
   script:
     - cd e2e
     - docker-compose run e2e-test
