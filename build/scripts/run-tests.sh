@@ -4,6 +4,4 @@ if [ ! $LB_WORKSPACE_ROOT ]; then
 fi
 
 cd $LB_WORKSPACE_ROOT/e2e/
-npm ci
-npx playwright install
-npx playwright test
+docker-compose run e2e-test
