@@ -180,14 +180,13 @@ deploy to dev:
     - curl `echo $triggerLeyaPrintDemoUpdate | base64 --decode` -H "" -d ""
 
 check-status:
-  image: docker:dind
+  image:  mcr.microsoft.com/playwright:v1.37.0-jammy
   stage: check-status
-  tags: ["docker"]
   variables:
     LEYA_E2E_BASE_URL: $DEV_ENV_URL
   script:
     - cd e2e
-    - sh run-in-docker.sh
+    - bash start-xvfb.sh
   only:
     - schedules
     - manual
