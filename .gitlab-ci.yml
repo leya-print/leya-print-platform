@@ -159,6 +159,8 @@ build docker image:
     - docker tag local.local/leya registry.code-better.it/leya/leya-print
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
     - docker push registry.code-better.it/leya/leya-print
+    - docker tag local.local/leya registry.code-better.it/leya/leya-print:${CI_COMMIT_SHA}
+    - docker push registry.code-better.it/leya/leya-print:${CI_COMMIT_SHA}
   artifacts:
     name: "playwright-report"
     when: "always"
@@ -177,7 +179,13 @@ deploy to dev:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
     - when: never
-  script:
+  script: #https://stackoverflow.com/questions/37134929/how-to-tag-image-in-docker-registry-v2/59811211#59811211
+    - "curl 'registry.code-better.it/v2/mybusybox/manifests/${CI_COMMIT_SHA}' \
+        -H 'accept: application/vnd.docker.distribution.manifest.v2+json' \
+        > manifest.json"
+    - "curl -XPUT '<registry_url>/v2/mybusybox/manifests/dev' \
+        -H 'content-type: application/vnd.docker.distribution.manifest.v2+json' \
+        -d '@manifest.json'"
     - curl `echo $triggerLeyaPrintDemoUpdate | base64 --decode` -H "" -d ""
 
 check-status:
