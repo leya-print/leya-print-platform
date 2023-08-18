@@ -156,7 +156,8 @@ build docker image:
   script:
     - cd server/container
     - sh build.sh
-    - cd ../../e2e
+    - cd ../../
+    - bash build/scripts/run-tests.sh
     - docker-compose run e2e-test
     - docker tag local.local/leya registry.code-better.it/leya/leya-print
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
