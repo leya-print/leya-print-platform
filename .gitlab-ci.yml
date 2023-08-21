@@ -169,6 +169,7 @@ build docker image:
     expire_in: "7 days"
 
 deploy to dev:
+  image: docker:dind
   stage: deploy
   extends: .start_on_default_only
   tags: ["docker"]
