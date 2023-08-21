@@ -180,10 +180,12 @@ deploy to dev:
       when: on_success
     - when: never
   script: #https://stackoverflow.com/questions/37134929/how-to-tag-image-in-docker-registry-v2/59811211#59811211
-    - "curl 'registry.code-better.it/v2/mybusybox/manifests/${CI_COMMIT_SHA}' \
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
+    - "curl 'registry.code-better.it/v2/leya/leya-print/manifests/${CI_COMMIT_SHA}' \
         -H 'accept: application/vnd.docker.distribution.manifest.v2+json' \
         > manifest.json"
-    - "curl -XPUT '<registry_url>/v2/mybusybox/manifests/dev' \
+    - cat manifest.json
+    - "curl -XPUT 'registry.code-better.it/v2/leya/leya-print/manifests/dev' \
         -H 'content-type: application/vnd.docker.distribution.manifest.v2+json' \
         -d '@manifest.json'"
     - curl `echo $triggerLeyaPrintDemoUpdate | base64 --decode` -H "" -d ""
