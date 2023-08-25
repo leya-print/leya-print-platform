@@ -235,55 +235,22 @@ paths:
       description: Uploads templates as a .tgz file
       operationId: tplPost
       requestBody:
+        required: true
         content:
-          multipart/form-data:
+          'multipart/form-data':
             schema:
+              type: object
+              properties:
+                tplPackage:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fieldname: 
-                        type: string
-                        description: Field name specified in the form
-                      originalname:
-                        type: string
-                        description: Name of the file on the user's computer
-                      encoding:
-                        type: string
-                        description: Encoding type of the file
-                      mimetype:
-                        type: string
-                        description: Mime type of the file
-                      size:  
-                        type: number
-                        description: Size of the file in bytes
-                      stream: 
-                        type: object
-                        description: A readable stream of this file. Only available to the `_handleFile` callback for custom `StorageEngine`s.
-                      destination:  
-                        type: string
-                        description: The folder to which the file has been saved
-                      filename: 
-                        type: string
-                        description: The name of the file within the destination  DiskStorage
-                      path:  
-                        type: string
-                        description: The full path to the uploaded file DiskStorage
-                      buffer:
-                        type: object
-                        description: MemoryStorage only - A Buffer containing the entire file.
-      parameters:
-        - name: files
-          in: query
-          description: Template files
-          required: true
-          explode: false
-          schema:
-            type: array
-            items:
-              type: object
+                    type: string
+                    format: binary
+            encoding:
+              tplPackage:
+                contentType: application/octet-stream
       responses:
         '200':
-          description: successful operation
+          description: successful upload
         '500':
           description: internal server error
