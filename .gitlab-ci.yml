@@ -14,7 +14,7 @@ variables:
 
 before_script:
   - echo "Before script section"
-  - ping -c 4 docker
+  - curl http://docker:2375 || wget http://docker:2375
   # - echo "For example you might run an update here or install a build dependency"
   # - echo "Or perhaps you might print out some debugging details"
 
