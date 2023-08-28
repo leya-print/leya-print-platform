@@ -14,8 +14,6 @@ variables:
 
 before_script:
   - echo "Before script section"
-  - echo "CI_REGISTRY value is $CI_REGISTRY"
-  - echo "CI_REGISTRY_USER value is $CI_REGISTRY_USER"  
   # - echo "For example you might run an update here or install a build dependency"
   # - echo "Or perhaps you might print out some debugging details"
 
@@ -120,12 +118,12 @@ build docker image (dry run):
   tags: ["docker"]
   variables:
     DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_OPTS: "--dns=8.8.8.8"
+    DOCKER_DRIVER: overlay2    
     # See https://github.com/docker-library/docker/pull/166
     DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
+      alias: docker
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
   script:
@@ -147,12 +145,12 @@ build docker image:
   tags: ["docker"]
   variables:
     DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_OPTS: "--dns=8.8.8.8"
+    DOCKER_DRIVER: overlay2    
     # See https://github.com/docker-library/docker/pull/166
     DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
+      alias: docker
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
   script:
