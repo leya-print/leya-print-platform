@@ -23,7 +23,6 @@
   </ol>
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -33,7 +32,7 @@ One of the key components of Leya Print is the Designer, which provides a visual
 
 Leya Print is a versatile and powerful tool that simplifies the process of generating PDFs from templates. Whether you're a developer or a non-technical user, Leya Print is a valuable resource for creating professional-looking documents quickly and easily.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -76,7 +75,7 @@ npm start
 If you are using gitpod with the solutions running you can use the PORTS tab to open the projects in the browser.
 If you are using VS Code locally you have to open the links manually. 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -103,12 +102,14 @@ When done the preview button will be clicked and the pdf is generated.
 
 More examples coming soon.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 <!-- Project Structure -->
 ## Project Structure
 
 This is the main project structure:
+- [common](./common/api) solution for common projects entities
+- [e2e](./e2e) solution for end-to-end test
 
 - [server](./server) backend
     - [container](./server/container/) data for deployment container
@@ -120,7 +121,7 @@ This is the main project structure:
     - [print](./web/print) solution for printing pdfs
     - [templates](./web/templates) solution that holds samples for templates
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 <!-- END TO END TESTS -->
 ## End-to-end-tests
@@ -164,6 +165,8 @@ The user is for current user's instance tests and in ci are the ones from the pi
 For testing flexibility in ci-cd pipelines the tests are also present in a docker container, the container can be started and the tests can be ran locally as well.
 The run-in-docker.sh script runs the tests in docker and shell-in-docker opens a bash terminal for any additional needs in the container.
 
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -171,11 +174,11 @@ Contributions are what make the open source community such an amazing place to l
 
 Please check our [CONTRIBUTE](/CONTRIBUTE.md) file for instructions on how to contribute.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License
 
 Distributed under the Apache License Version 2.0, License. See [LICENSE](/LICENSE.md) for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
