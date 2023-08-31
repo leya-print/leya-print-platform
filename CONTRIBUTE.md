@@ -22,17 +22,27 @@ Try to follow this structure for each solution in the project:
 
 <h4>2. CI-pipeline: </h4>
 
-The project contains a yml file called ".gitlab-ci.yml" that defines a CI/CD pipeline that builds and deploys a Node.js REST server and a web designer app, and also builds Docker images for those apps and pushes them to a Docker registry.
+The project contains a yml file called ".gitlab-ci.yml" that defines a CI/CD pipeline using GitLab CI. It covers multiple stages such as building APIs, services, and container images, as well as deploying to a development environment.
 
-The file has two stages: build and container.
+The file has the following stages: 
+      api-build,
+      build,
+      container,
+      deploy,
+      check-status
 
-In the "build" stage the jobs "build pdf-services", "build tpl-services", "build web-print" and "build web-designer" run. These are the four jobs that will build the REST server and the web designer app, respectively. The rules field defines when the jobs should run based on the pipeline source (merge event) and commit branch (default). The script field contains the commands that will be executed to build the apps for our apps there are shell files that will run npm build commands, and the artifacts field specifies what files should be saved as build artifacts after the job is complete.
+The "api-build" and "build" stages compile different services, "api-build" is for the common elements of the other services while the "build" stage compiles the rest of services: auth-service, pdf-services, tpl-services, web-print and web-designer. 
+
+The conditions .start_on_pr_and_default, .start_on_pr_only, and .start_on_default_only define conditional rules for pipeline stages. They allow you to specify when each job should run based on the pipeline source and branch.
 
 In the "container" stage the jobs "build docker image (dry run)" and "build docker image" will build the Docker images for the REST server and the web designer app, respectively.
 
 "build docker image (dry run)" builds when a merge request is successful.  
-
 "build docker image" builds when a successful commit is done on the default branch and the docker images are pushed to a Docker registry.
+
+The "deploy" stage has the job "deploy to dev" which deploys the Docker image to a development environment, specified by DEV_ENV_URL. Conditional logic ensures it only runs on successful builds on the default branch.
+
+The "check-status" stage has a job that uses end-to-end testing (Playwright) it is triggered via a schedule once per day.
 
 <h4>3. Coding and quality guidelines: </h4>
 
