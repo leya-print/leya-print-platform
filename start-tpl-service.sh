@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 
-cd server/rest
+cd server/tpl-service
 npm i
 npm start
