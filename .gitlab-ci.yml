@@ -123,7 +123,6 @@ build docker image (dry run):
     DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
-      alias: docker
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
   script:
@@ -150,7 +149,6 @@ build docker image:
     DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
-      alias: docker
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
   script:
@@ -175,6 +173,15 @@ deploy to dev:
   stage: deploy
   extends: .start_on_default_only
   tags: ["docker"]
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2    
+    # See https://github.com/docker-library/docker/pull/166
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
   environment:
     name: leya-print-demo
     url: $DEV_ENV_URL/
