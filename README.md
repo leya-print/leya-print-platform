@@ -32,8 +32,6 @@ One of the key components of Leya Print is the Designer, which provides a visual
 
 Leya Print is a versatile and powerful tool that simplifies the process of generating PDFs from templates. Whether you're a developer or a non-technical user, Leya Print is a valuable resource for creating professional-looking documents quickly and easily.
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -148,11 +146,13 @@ The tests might fail at first because there are no other snapshots to compare to
 
 Running the tests on Gitpod is a little different since they cannot run with --headed one test will always fail because without the option active a snapshot cannot be taken of a newly opened tab.
 
+The script run-in-docker.sh can be executed to run the tests with --headed in a docker container, don't forget to change the LEYA_E2E_BASE_URL variable in the shell script.
+
 Execute the command:
 
 e2e/:
 ```
-npx playwright test
+sh run-in-docker.sh
 ```
 
 **Snapshosts:**
