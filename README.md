@@ -79,16 +79,16 @@ If you are using VS Code locally you have to open the links manually.
 
 ## Usage
 
-To use the tool, open the designer project url (You can find the designer link in the PORTS tab of the IDK if you are using Gitpod, VS Code), the UI has three functionalities for users.
+To use the tool, open the designer project URL (You can find the designer link in the PORTS tab of the IDK if you are using Gitpod, VS Code), the UI has three functionalities for users.
 
 deployed templates: custom template modified by users and deployed for reusability.
 
 live templates: a collection of default available template for use, such as invoices, work reports, cost tables.
 
-upload template: drag and drop a tgz file with a new template after re-build the rest app the template will appear in the UI as a deployed template.
+upload template: drag and drop a .TGZ file with a new template after re-build the rest app the template will appear in the UI as a deployed template.
 
-Clicking on a template name the user can see the template and on the right the json code to modify the fields.
-After modifing the fields to the user's liking there is a preview button to generate the PDF file and if needed it can be saved from there.
+Clicking on a template name the user can see the template and, on the right, the json code to modify the fields.
+After modifying the fields to the user's liking there is a preview button to generate the PDF file and if needed it can be saved from there.
 
 Please check our [INSTRUCTIONS](/INSTRUCTIONS.md) file for instructions.
 
@@ -170,7 +170,7 @@ The run-in-docker.sh script runs the tests in docker and shell-in-docker opens a
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 Please check our [CONTRIBUTE](/CONTRIBUTE.md) file for instructions on how to contribute.
 
@@ -179,6 +179,6 @@ Please check our [CONTRIBUTE](/CONTRIBUTE.md) file for instructions on how to co
 <!-- LICENSE -->
 ## License
 
-Distributed under the Apache License Version 2.0, License. See [LICENSE](/LICENSE.md) for more information.
+Distributed under the Apache License Version 2.0, License. See [LICENSE](/LICENSE) for more information.
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
