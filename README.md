@@ -85,7 +85,8 @@ deployed templates: custom templates modified by users and deployed for reusabil
 
 live templates: a collection of default available templates for use, such as invoices, work reports, cost tables, etc.
 
-upload templates: a drop zone discernible by borders with a button in the middle, in this area we can drag and drop a .TGZ file with one or more new templates after the projects are re-built the templates will appear in the UI as deployed template.
+upload templates: a drop zone discernible by borders with a button in the middle, in this area we can drag and drop a .TGZ file with one or more new templates.
+After dropping the items, they will appear in the UI as deployed templates.
 
 Clicking on a template name the user can see the template and, on the right, the json code to modify the fields of the template as required.
 After modifying the fields to the user's liking there is a preview button to generate the PDF file and if needed it can be saved from there.
@@ -95,7 +96,7 @@ Please check our [INSTRUCTIONS](/INSTRUCTIONS.md) file for instructions.
 ### Examples
 
 From the designer UI go to a user might click on the "invoice" template from the "live template" category.
-From the upper-right box the json data will be modified to the user's liking.
+From the upper-right box the json data will be modified to the user's needs.
 When done the preview button will be clicked and the pdf is generated.
 
 More examples coming soon.
