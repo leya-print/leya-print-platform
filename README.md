@@ -81,13 +81,13 @@ If you are using VS Code locally you have to open the links manually.
 
 To use the tool, open the designer project URL (You can find the designer link in the PORTS tab of the IDK if you are using Gitpod, VS Code), the UI has three functionalities for users.
 
-deployed templates: custom template modified by users and deployed for reusability.
+deployed templates: custom templates modified by users and deployed for reusability.
 
-live templates: a collection of default available template for use, such as invoices, work reports, cost tables.
+live templates: a collection of default available templates for use, such as invoices, work reports, cost tables, etc.
 
-upload template: drag and drop a .TGZ file with a new template after re-build the rest app the template will appear in the UI as a deployed template.
+upload templates: a drop zone discernible by borders with a button in the middle, in this area we can drag and drop a .TGZ file with one or more new templates after the projects are re-built the templates will appear in the UI as deployed template.
 
-Clicking on a template name the user can see the template and, on the right, the json code to modify the fields.
+Clicking on a template name the user can see the template and, on the right, the json code to modify the fields of the template as required.
 After modifying the fields to the user's liking there is a preview button to generate the PDF file and if needed it can be saved from there.
 
 Please check our [INSTRUCTIONS](/INSTRUCTIONS.md) file for instructions.
@@ -124,7 +124,7 @@ This is the main project structure:
 <!-- END TO END TESTS -->
 ## End-to-end-tests
 
-To ensure that the application's golden path is working correctly from a user's perspective we introduced end-to-end tests.
+To validate that all components of the system are functioning together as intended we introduced end-to-end tests.
 In theory, end-to-end testing (E2E testing) is the process of testing a piece of software from start to finish as it will be used by the actual users.
  
 The specs (tests) can be found under the e2e/tests folder.
