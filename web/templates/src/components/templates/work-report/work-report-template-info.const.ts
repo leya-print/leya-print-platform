@@ -1,4 +1,4 @@
-import { TemplateInfo } from '@leya-print/common-api';
+import { TemplateInfo } from '@leya-print/template-api';
 
 export const workReportTemplateInfo: TemplateInfo = {
   ident: 'work-report',
