@@ -1,0 +1,26 @@
+{
+  "name": "@leya-print/template-api",
+  "version": "0.0.2",
+  "description": "Schema and typings for Leya Print template packages.",
+  "types": "types/index.d.ts",
+  "private": false,
+  "scripts": {
+    "test": "echo 'only typedefs'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.code-better.it/leya/leya-print.git"
+  },
+  "keywords": [
+    "leya-print",
+    "PDF",
+    "templates"
+  ],
+  "author": "emanuel.hein@leya-it-solutions.de",
+  "license": "Apache-2.0",
+  "homepage": "https://leya-print.de/",
+  "devDependencies": {
+    "@types/node": "^20.6.4",
+    "yaml": "^2.3.2"
+  }
+}
