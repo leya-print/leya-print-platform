@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+test('alive', async ({page}) => {
+  await page.goto('/alive');
+  expect(await page.textContent('body')).toEqual('Ok');
+});
+
+
 test.describe('designer', () => {
   test.beforeEach(({page}) => page.goto('/dev/'));
 
