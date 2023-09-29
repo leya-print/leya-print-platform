@@ -1,4 +1,4 @@
-import { TemplateInfo, TemplatePackage } from '@leya-print/common-api';
+import { TemplateInfo, TemplatePackage } from '@leya-print/template-api';
 import { env } from '../../../global/env';
 
 export class TemplatePackageService {

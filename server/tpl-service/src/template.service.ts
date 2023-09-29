@@ -1,12 +1,12 @@
+import type { TemplatePackage } from '@leya-print/template-api';
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import shelljs from 'shelljs';
 import copy from 'recursive-copy';
+import shelljs from 'shelljs';
 import { v4 as createUuid } from 'uuid';
-import type { TemplatePackage } from '@leya-print/common-api';
-import { StorageService } from './storage/storage.service';
 import { CrudService } from './storage/crud.service';
+import { StorageService } from './storage/storage.service';
 
 type StoredTemplatePackage = TemplatePackage & Required<Pick<TemplatePackage, 'id'>>;
 export class TemplateService extends CrudService<StoredTemplatePackage, TemplatePackage> {

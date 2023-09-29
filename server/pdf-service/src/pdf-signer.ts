@@ -1,10 +1,11 @@
-import { CertificateInfo, ServiceParams } from "@leya-print/common-api";
+import { CertificateInfo } from "./certificate-info.model";
+import { ServiceParams } from "./service-params.model";
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
 
-const { SignPdf } = require('node-signpdf');
-const { findByteRange, plainAddPlaceholder } = require('node-signpdf/dist/helpers')
-const fs = require('fs');
-const crypto = require('crypto');
-const path = require('path');
+import { SignPdf } from 'node-signpdf';
+import { findByteRange, plainAddPlaceholder } from 'node-signpdf/dist/helpers';
 
 export class PdfSigner {
 

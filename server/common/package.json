@@ -1,0 +1,38 @@
+{
+    "name": "@leya-print/server-common",
+    "version": "1.0.0",
+    "description": "logic and utilities used by serveral services",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc -p ./tsconfig.build.json",
+        "test": "mocha -r ts-node/register src/**/*.spec.{js,ts}",
+        "test:watch": "npm run test -- --watch-files src/**/*.ts --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.code-better.it/leya/leya-print"
+    },
+    "keywords": [
+        "leya",
+        "print",
+        "rest",
+        "pdf"
+    ],
+    "author": "emanuel.hein@code-better.it",
+    "license": "Apache-2.0",
+    "devDependencies": {
+        "@types/chai": "^4.3.6",
+        "@types/mocha": "^10.0.2",
+        "@types/node": "^20.7.1",
+        "chai": "^4.3.10",
+        "cross-fetch": "^4.0.0",
+        "mocha": "^10.2.0",
+        "ts-node": "^10.9.1"
+    },
+    "peerDependencies": {
+        "cross-fetch": "^4.0.0"
+    },
+    "files": [
+        "dist"
+    ]
+}

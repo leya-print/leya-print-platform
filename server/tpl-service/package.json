@@ -5,14 +5,16 @@
     "main": "index.js",
     "scripts": {
         "dev": "ts-node -r tsconfig-paths/register src/server.ts",
+        "dev:watch": "nodemon --exec npm run dev",
         "start": "node dist/launch.js",
         "build": "tsc -p ./tsconfig.build.json",
-        "test": "mocha -r ts-node/register src/storage/*.spec.{js,ts} --watch-files src/**/*.ts"
+        "test": "mocha -r ts-node/register src/**/*.spec.{js,ts}",
+        "test:watch": "npm run test -- --watch-files src/**/*.ts --watch"
     },
     "watch": {
-        "test": {
+        "dev": {
             "patterns": [
-                "src"
+                "src/**/*"
             ],
             "extensions": "ts,js"
         }
@@ -30,9 +32,9 @@
     "author": "emanuel.hein@code-better.it",
     "license": "UNLICENSED",
     "dependencies": {
-        "@leya-print/common-api": "file:../../common/api/leya-print-common-api-1.0.0.tgz",
+        "@leya-print/server-common": "file:../common/leya-print-server-common-1.0.0.tgz",
+        "@leya-print/template-api": "^0.0.2",
         "body-parser": "^1.20.0",
-        "connect-busboy": "^1.0.0",
         "cors": "^2.8.5",
         "express": "^4.18.1",
         "merge": "^2.1.1",
@@ -52,7 +54,7 @@
         "@types/uuid": "^8.3.4",
         "chai": "^4.3.6",
         "mocha": "^10.0.0",
-        "npm-watch": "^0.11.0",
+        "nodemon": "^3.0.1",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.2.0",
         "typescript": "^4.7.4"

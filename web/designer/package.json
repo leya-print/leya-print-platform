@@ -31,6 +31,7 @@
     "license": "UNLICENSED",
     "dependencies": {
         "@leya-print/common-api": "file:../../common/api/leya-print-common-api-1.0.0.tgz",
+        "@leya-print/template-api": "^0.0.2",
         "@stencil/sass": "^1.5.2",
         "puppeteer": "^19.2.0",
         "rxjs": "^7.5.6"
