@@ -1,7 +1,7 @@
+import { TemplatePackage } from '@leya-print/template-api';
 import { Component, h, Host, State } from '@stencil/core';
 import { env } from 'src/global/env';
 import { templateService } from 'src/global/template.service';
-import { TemplatePackage } from '@leya-print/common-api';
 
 @Component({
   tag: 'template-upload',

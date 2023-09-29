@@ -1,7 +1,7 @@
 import fetch from 'cross-fetch';
 
 export function exists<T>(value: T | null | undefined): value is T {
-    return !!value;
+    return value !== null && value !== undefined;
 }
 
 export async function fetchWithTimeout(resource: RequestInfo, options: FetchTimeoutOptions) {

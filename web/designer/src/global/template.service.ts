@@ -1,4 +1,4 @@
-import type { TemplatePackage } from '@leya-print/common-api';
+import type { TemplatePackage } from '@leya-print/template-api';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { env } from './env';

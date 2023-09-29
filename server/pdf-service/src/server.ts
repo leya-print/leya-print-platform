@@ -1,35 +1,21 @@
+import { getETagHeader, getEnv } from '@leya-print/server-common';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import fetch from 'cross-fetch';
 import express from 'express';
+import multer from 'multer';
 import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import { PdfSigner } from './pdf-signer';
-import fs from 'node:fs';
-import fetch from 'cross-fetch';
-import cors from 'cors';
-import multer from 'multer';
-import { getETagHeader } from '@leya-print/common-api';
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-const env: {
-  title: string,
-  printEndpoint: string,
-  templateServiceBaseUrl: string,
-  certificatesPath: string
-} = (() => {
-  try {
-    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
-  } catch (e) {
-    console.error(e);
-    console.log('Could not read local-env.json');
-    return {
-      title: 'localhost env',
-      printEndpoint: 'http://localhost:6003/print',
-      templateServiceBaseUrl: 'http://localhost:6001/tpl',
-      certificatesPath: '../certificates',
-    };
-  }
-})();
+const env = getEnv({
+  title: 'localhost env',
+  printEndpoint: 'http://localhost:6003/print',
+  templateServiceBaseUrl: 'http://localhost:6001/tpl',
+  certificatesPath: '../certificates',
+});
 
 console.log('pdf service: print endpoint: ' + env.printEndpoint);
 console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
