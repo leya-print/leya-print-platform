@@ -21,6 +21,7 @@ if [ ! $LB_WORKSPACE_ROOT ]; then
   DIR_BEFORE_SEARCH=`pwd`
 
   getWorkspaceRoot
+  export LB_BUILD_SCRIPT_DIR=$LB_WORKSPACE_ROOT/build/scripts
 
   cd $DIR_BEFORE_SEARCH
 

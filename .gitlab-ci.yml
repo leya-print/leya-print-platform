@@ -3,7 +3,7 @@
 image: node:latest
 
 stages:
-  - api-build
+  - build-base
   - build
   - container
   - deploy
@@ -51,18 +51,20 @@ after_script:
     when: never
   - when: never
 
-build common-api:
-  stage: api-build
+build server-common:
+  stage: build-base
   extends: .start_on_pr_and_default
-  script: bash ./build/scripts/build-common-api.sh
+  script: bash ./build/scripts/build-server-common.sh
   artifacts:
-    name: "common-api"
+    name: "server-common"
     paths:
-      - "common/api/leya-print-common-api-1.0.0.tgz"
+      - "server/common/leya-print-server-common-1.0.0.tgz"
     expire_in: "7 days"
 
 build auth-service:
   stage: build
+  needs:
+    - build server-common
   extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-auth-service.sh
   artifacts:
@@ -73,6 +75,8 @@ build auth-service:
 
 build pdf-service:
   stage: build
+  needs:
+    - build server-common
   extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-pdf-service.sh
   artifacts:
@@ -83,6 +87,8 @@ build pdf-service:
 
 build tpl-service:
   stage: build
+  needs:
+    - build server-common
   extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-tpl-service.sh
   artifacts:
@@ -91,8 +97,20 @@ build tpl-service:
       - "server/tpl-service/dist"
     expire_in: "7 days"
 
+build web-common:
+  stage: build-base
+  extends: .start_on_pr_and_default
+  script: bash ./build/scripts/build-web-common.sh
+  artifacts:
+    name: "web-common"
+    paths:
+      - "web/common/leya-print-web-common-1.0.0.tgz"
+    expire_in: "7 days"
+
 build web-designer:
   stage: build
+  needs:
+    - build web-common
   extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-web-designer.sh
   artifacts:
@@ -103,6 +121,8 @@ build web-designer:
 
 build web-print:
   stage: build
+  needs:
+    - build web-common
   extends: .start_on_pr_and_default
   script: bash ./build/scripts/build-web-print.sh
   artifacts:
