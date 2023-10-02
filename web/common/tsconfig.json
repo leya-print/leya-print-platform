@@ -3,7 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "baseUrl": ".",
-    "declaration": false,
+    "declaration": true,
+    "sourceMap": true,
     "experimentalDecorators": true,
     "lib": [
       "dom",
@@ -11,18 +12,20 @@
     ],
     "paths": {
     },
+    "outDir": "dist",
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "jsx": "react",
     "jsxFactory": "h",
     "skipLibCheck": true
   },
   "include": [
     "src"
-, "src/components/print"  ],
+  ],
   "exclude": [
     "node_modules"
   ]
