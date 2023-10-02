@@ -1,9 +1,10 @@
 # syntax=docker/dockerfile:1
 
-FROM … AS common-api
+FROM … AS server-common
 FROM … AS pdf-service
 FROM … AS tpl-service
 FROM … AS auth-service
+FROM … AS web-common
 FROM … AS web-designer
 FROM … AS web-print
 
@@ -23,9 +24,7 @@ RUN apt update && \
     apt update && \
     apt install -y nginx
 
-COPY --from=common-api . /leya-print/common/api
-RUN cd /leya-print/common/api && npm i
-
+COPY --from=server-common . /leya-print/server/common
 COPY --from=pdf-service . /leya-print/server/pdf-service
 RUN cd /leya-print/server/pdf-service && npm i
 
@@ -35,6 +34,7 @@ RUN cd /leya-print/server/tpl-service && npm i
 COPY --from=auth-service . /leya-print/server/auth-service
 RUN cd /leya-print/server/auth-service && npm i
 
+COPY --from=web-common . /leya-print/web/common
 COPY --from=web-print www-prod /leya-print/web/print/www
 COPY --from=web-designer www-prod /leya-print/web/designer/www
 

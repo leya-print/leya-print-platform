@@ -3,7 +3,7 @@ if [ ! $LB_WORKSPACE_ROOT ]; then
     . "$(dirname $0)/env.sh"
 fi
 
-cd $LB_WORKSPACE_ROOT/common/api
+cd $LB_WORKSPACE_ROOT/server/common
 npm ci
 npm run build
 npm pack
