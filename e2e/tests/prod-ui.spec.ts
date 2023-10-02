@@ -30,12 +30,10 @@ test.describe('designer', () => {
       const catchPdfTabPopup = page.waitForEvent('popup');
       await page.getByRole('button', { name: 'preview' }).click();
       const pdfTab = await catchPdfTabPopup;
-      await pdfTab.waitForLoadState('networkidle');
-      await pdfTab.waitForTimeout(500);
-      await pdfTab.waitForLoadState('networkidle');
-      await pdfTab.waitForTimeout(500);
-      await pdfTab.waitForLoadState('networkidle');
-      await pdfTab.waitForTimeout(500);
+      for (let i = 0; i < 5; i++) {
+        await pdfTab.waitForLoadState('networkidle');
+        await pdfTab.waitForTimeout(500);
+      }
       expect(await pdfTab.screenshot()).toMatchSnapshot('invoice-pdf.png');
     });
   });
