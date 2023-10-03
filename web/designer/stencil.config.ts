@@ -19,6 +19,7 @@ export const config: Config = {
     sass({
       includePaths: [
         'src/theme',
+        '../common/src/theme',
       ],
     }),
   ],
