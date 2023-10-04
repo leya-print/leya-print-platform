@@ -72,7 +72,7 @@ export class DesignerStageComponent {
           width: this.pageWidth,
           transform: `translateX(-1px) translateY(calc(-${this.headerHeight} - 1px))`,
         }}
-      ><graph-paper></graph-paper><slot name="stage-header"></slot></div>
+      ><leya-print-graph-paper></leya-print-graph-paper><slot name="stage-header"></slot></div>
       <div
         class="designer-stage__footer"
         style={{
@@ -80,7 +80,7 @@ export class DesignerStageComponent {
           width: this.pageWidth,
           transform: `translateX(-1px) translateY(calc(${this.pageHeight} - ${this.headerHeight} - ${this.footerHeight} - 1px))`,
         }}
-      ><graph-paper></graph-paper><slot name="stage-footer"></slot></div>
+      ><leya-print-graph-paper></leya-print-graph-paper><slot name="stage-footer"></slot></div>
       <div
         class="designer-stage__content"
       >
@@ -89,7 +89,7 @@ export class DesignerStageComponent {
             height: ${contentHeight} !important;
           }
         `}</style>
-        <graph-paper></graph-paper><slot name="stage-content"></slot></div>
+        <leya-print-graph-paper></leya-print-graph-paper><slot name="stage-content"></slot></div>
     </Host>;
   }
 }
