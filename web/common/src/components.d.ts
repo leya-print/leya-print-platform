@@ -6,36 +6,49 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface GraphPaper {
+    interface LeyaPrintGraphPaper {
         "height": string;
         "width": string;
     }
+    interface LeyaPrintWatermark {
+    }
 }
 declare global {
-    interface HTMLGraphPaperElement extends Components.GraphPaper, HTMLStencilElement {
+    interface HTMLLeyaPrintGraphPaperElement extends Components.LeyaPrintGraphPaper, HTMLStencilElement {
     }
-    var HTMLGraphPaperElement: {
-        prototype: HTMLGraphPaperElement;
-        new (): HTMLGraphPaperElement;
+    var HTMLLeyaPrintGraphPaperElement: {
+        prototype: HTMLLeyaPrintGraphPaperElement;
+        new (): HTMLLeyaPrintGraphPaperElement;
+    };
+    interface HTMLLeyaPrintWatermarkElement extends Components.LeyaPrintWatermark, HTMLStencilElement {
+    }
+    var HTMLLeyaPrintWatermarkElement: {
+        prototype: HTMLLeyaPrintWatermarkElement;
+        new (): HTMLLeyaPrintWatermarkElement;
     };
     interface HTMLElementTagNameMap {
-        "graph-paper": HTMLGraphPaperElement;
+        "leya-print-graph-paper": HTMLLeyaPrintGraphPaperElement;
+        "leya-print-watermark": HTMLLeyaPrintWatermarkElement;
     }
 }
 declare namespace LocalJSX {
-    interface GraphPaper {
+    interface LeyaPrintGraphPaper {
         "height"?: string;
         "width"?: string;
     }
+    interface LeyaPrintWatermark {
+    }
     interface IntrinsicElements {
-        "graph-paper": GraphPaper;
+        "leya-print-graph-paper": LeyaPrintGraphPaper;
+        "leya-print-watermark": LeyaPrintWatermark;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "graph-paper": LocalJSX.GraphPaper & JSXBase.HTMLAttributes<HTMLGraphPaperElement>;
+            "leya-print-graph-paper": LocalJSX.LeyaPrintGraphPaper & JSXBase.HTMLAttributes<HTMLLeyaPrintGraphPaperElement>;
+            "leya-print-watermark": LocalJSX.LeyaPrintWatermark & JSXBase.HTMLAttributes<HTMLLeyaPrintWatermarkElement>;
         }
     }
 }

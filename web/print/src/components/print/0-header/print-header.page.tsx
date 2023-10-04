@@ -19,7 +19,7 @@ export class PrintHeader {
       style={{
         width: '21cm',
       }}
-      innerHTML={`<graph-paper></graph-paper><tpl-${this.tplName}-header></tpl-${this.tplName}-header>`}
+      innerHTML={`<leya-print-graph-paper></leya-print-graph-paper><tpl-${this.tplName}-header></tpl-${this.tplName}-header>`}
     ></Host>
   }
 }

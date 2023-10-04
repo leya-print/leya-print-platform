@@ -10,7 +10,7 @@ export class DesignerUiComponent {
   @Prop() tplName: string;
   @Prop() sampleData?: any;
   @State() raster: boolean;
-  @State() watermark?: string;
+  @State() leyaPrintWatermark?: string;
 
   previewUrl: string;
 
@@ -44,24 +44,24 @@ export class DesignerUiComponent {
   async componentWillLoad() {
     const url = new URL(window.location.href);
     this.raster = !!url.searchParams.get('raster');
-    this.watermark = url.searchParams.get('watermark') || undefined;
+    this.leyaPrintWatermark = url.searchParams.get('leyaPrintWatermark') || undefined;
     this.previewUrl = (await env).pdfServiceBaseUrl + '/pdf';
   }
 
-  private readonly updateWatermark = (event: Event) => {
+  private readonly updateLeyaPrintWatermark = (event: Event) => {
     const input = event.target as HTMLInputElement;
-    const watermark = input.value;
+    const leyaPrintWatermark = input.value;
     const url = new URL(location.href);
-    if (watermark) {
-      url.searchParams.set('watermark', watermark);
-      this.watermark = watermark;
+    if (leyaPrintWatermark) {
+      url.searchParams.set('leyaPrintWatermark', leyaPrintWatermark);
+      this.leyaPrintWatermark = leyaPrintWatermark;
     } else {
-      url.searchParams.delete('watermark');
-      delete this.watermark;
+      url.searchParams.delete('leyaPrintWatermark');
+      delete this.leyaPrintWatermark;
     }
     history.replaceState(null, '', url.toString());
 
-    console.log({ watermark: input.value });
+    console.log({ leyaPrintWatermark: input.value });
   }
   
   private readonly toggleRaster = (event: Event) => {
@@ -82,7 +82,7 @@ export class DesignerUiComponent {
       <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div>
-        <div>watermark: <input onKeyUp={this.updateWatermark} value={this.watermark} /></div>
+        <div>leyaPrintWatermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>
         <button class="button" type="submit">preview</button>
       </form>
     </Host>
