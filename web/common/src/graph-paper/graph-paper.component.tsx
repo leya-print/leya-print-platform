@@ -2,7 +2,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 @Component({
   tag: 'leya-print-graph-paper',
-  styleUrl: 'leya-print-graph-paper.component.scss',
+  styleUrl: 'graph-paper.component.scss',
   shadow: false,
 })
 export class GraphPaperComponent {
