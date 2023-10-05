@@ -1,5 +1,6 @@
 import { Component, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
 import { env } from 'src/global/env';
+import { rasterService } from '../../../../../common/src/graph-paper/raster.service';
 
 @Component({
   tag: 'designer-ui',
@@ -9,7 +10,8 @@ import { env } from 'src/global/env';
 export class DesignerUiComponent {
   @Prop() tplName: string;
   @Prop() sampleData?: any;
-  @State() raster: boolean;
+  @State() rasterIsActive = false;
+  //@State() raster: boolean;
   @State() leyaPrintWatermark?: string;
 
   previewUrl: string;
@@ -17,6 +19,16 @@ export class DesignerUiComponent {
   private _payload: HTMLTextAreaElement;
   private _lastUpdateTrigger = 0;
   private _lastUpdate = Date.now();
+
+  connectedCallback() {
+    rasterService.registerListener(this._syncRaster);
+  }
+
+  private _syncRaster = (isActive) => this.rasterIsActive = isActive;
+
+  disconnectedCallback() {
+    rasterService.unregisterListener(this._syncRaster);
+  }
 
   @Event({ eventName: 'designer-reload-preview' }) reloadPreview: EventEmitter<void>;
   updatePreview = () => {
@@ -43,7 +55,7 @@ export class DesignerUiComponent {
 
   async componentWillLoad() {
     const url = new URL(window.location.href);
-    this.raster = !!url.searchParams.get('raster');
+   // this.raster = !!url.searchParams.get('raster');
     this.leyaPrintWatermark = url.searchParams.get('leyaPrintWatermark') || undefined;
     this.previewUrl = (await env).pdfServiceBaseUrl + '/pdf';
   }
@@ -64,24 +76,27 @@ export class DesignerUiComponent {
     console.log({ leyaPrintWatermark: input.value });
   }
   
-  private readonly toggleRaster = (event: Event) => {
-    this.raster = !this.raster;
-    const url = new URL(location.href);
-    if (this.raster) {
-      url.searchParams.set('raster', 'true');
-    } else {
-      url.searchParams.delete('raster');
-    }
-    history.replaceState(null, '', url.toString());
+  // private readonly toggleRaster = (event: Event) => {
+  //   this.raster = !this.raster;
+  //   const url = new URL(location.href);
+  //   if (this.raster) {
+  //     url.searchParams.set('raster', 'true');
+  //   } else {
+  //     url.searchParams.delete('raster');
+  //   }
+  //   history.replaceState(null, '', url.toString());
 
-    console.log({ toggleRaster: event });
-  }
+  //   console.log({ toggleRaster: event });
+  // }
 
   render() {
     return <Host>
       <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
-        <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div>
+        <div onClick={() => rasterService.toggle()}>
+          <input name="raster" type="checkbox" checked={this.rasterIsActive} /><label>raster</label>
+        </div>
+        {/* <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div> */}
         <div>leyaPrintWatermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>
         <button class="button" type="submit">preview</button>
       </form>

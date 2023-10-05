@@ -72,7 +72,7 @@ export class DesignerStageComponent {
           width: this.pageWidth,
           transform: `translateX(-1px) translateY(calc(-${this.headerHeight} - 1px))`,
         }}
-      ><leya-print-graph-paper></leya-print-graph-paper><slot name="stage-header"></slot></div>
+      ><leya-print-graph-paper></leya-print-graph-paper><div><slot name="stage-header"></slot></div></div>
       <div
         class="designer-stage__footer"
         style={{
