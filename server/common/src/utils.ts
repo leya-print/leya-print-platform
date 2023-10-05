@@ -1,4 +1,6 @@
 import fetch from 'cross-fetch';
+import { v4 as createUuid } from 'uuid';
+import type express from 'express';
 
 export function exists<T>(value: T | null | undefined): value is T {
     return value !== null && value !== undefined;
@@ -32,3 +34,29 @@ export interface FetchTimeoutOptions {
     /** request timeout value */
     timeout?: number,
 }
+
+export function sendError(
+    res: express.Response,
+    statusCode: number,
+    type: string,
+    title: string,
+    detail: string,
+    additional: any = {},
+    logLevel?: 'info' | 'warn' | 'error',
+  ) {
+    const error = {
+      type: `https://leya-print.de/errors/${type}`,
+      title,
+      status: statusCode,
+      instance: createUuid(),
+      detail,
+      ...additional,
+    };
+    res
+      .contentType('application/problem+json')
+      .status(statusCode)
+      .send(error)
+    ;
+    if (logLevel) { console[logLevel](error); }
+  }
+  
