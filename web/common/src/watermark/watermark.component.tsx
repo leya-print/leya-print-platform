@@ -2,7 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'leya-print-watermark',
-  styleUrl: 'leya-print-watermark.component.scss',
+  styleUrl: 'watermark.component.scss',
   shadow: false,
 })
 export class LeyaPrintWatermark {
