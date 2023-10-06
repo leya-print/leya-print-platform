@@ -1,4 +1,4 @@
-import { getETagHeader, getEnv } from '@leya-print/server-common';
+import { getETagHeader, getEnv, sendError } from '@leya-print/server-common';
 import cors from 'cors';
 import express from 'express';
 import multer from 'multer';
@@ -58,11 +58,7 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
     (results) => res.send(results),
     (error) => {
       console.error(error);
-      res.status(500).send({
-        msg: '' + error,
-        time: new Date(),
-        details: error,
-      });
+      sendError(res, 500, error?.type, 'Tpl add templates error', error);      
     },
   );
 });
