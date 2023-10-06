@@ -1,12 +1,12 @@
-import { getETagHeader, getEnv } from '@leya-print/server-common';
+import { getETagHeader, getEnv, sendError } from '@leya-print/server-common';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import fetch from 'cross-fetch';
 import express from 'express';
 import multer from 'multer';
 import http from 'node:http';
 import { PdfFactory } from './pdf-factory';
 import { PdfSigner } from './pdf-signer';
+import { PdfService } from './pdf.service';
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -20,6 +20,7 @@ const env = getEnv({
 console.log('pdf service: print endpoint: ' + env.printEndpoint);
 console.log('pdf service: template service endpoint: ' + env.templateServiceBaseUrl);
 
+const pdfService = new PdfService();
 const pdfFactory = new PdfFactory(env.printEndpoint);
 const pdfSigner = new PdfSigner(env.certificatesPath);
 const app = express();
@@ -33,62 +34,42 @@ app.use('/sign', (req, res, next) => cors(corsOptions)(req, res, next));
 
 app.get('/pdf/alive', async (_req, res) => {
   try {
-      const [tplServiceHealthStatus, printEnpointHealthStatus] = await Promise.all([
-        await fetch(`${env.templateServiceBaseUrl}/alive`)
-              .then((res: any) => { return res.status === undefined ? 'NOT FOUND' : res.status })
-              .catch((err: any) => 
-              {
-                console.log('error encountered: ', err);
-                return 'ERROR'
-              }),
-        await fetch(`${env.printEndpoint}`)
-              .then((res: any) => { return res.status === undefined ? 'NOT FOUND' : res.status })
-              .catch((err: any) =>           {
-                console.log('error encountered: ', err);
-                return 'ERROR'
-              })
-      ]);
-    
-      console.log("healthCheckTplService", tplServiceHealthStatus);
-      console.log("healthCheckPrintEnpoint", printEnpointHealthStatus);
-      
-      if (printEnpointHealthStatus !== 200 || tplServiceHealthStatus !== 200)
+    const response: any = await pdfService.checkSystemsAlive(env);
+
+    if (response?.printEndpointHealthStatus !== 200 || response?.tplServiceHealthStatus !== 200)
       {
-        // ETag header to prevent 304 status which breaks live check. 
-        res.setHeader("Cache-Control", "no-cache")        
+        // ETag header to prevent 304 status which breaks live check.
+        res.setHeader("Cache-Control", "no-cache")
         .setHeader("ETag", `"${getETagHeader()}"`)
-        .send(`Health status: PrintEnpoint: ${printEnpointHealthStatus}, Template Service: ${tplServiceHealthStatus}`)
-        return;
+        .send(`Health status: PrintEnpoint: ${response?.printEndpointHealthStatus}, Template Service: ${response?.tplServiceHealthStatus}`)              
+        return
       }
-    
-      // ETag header to prevent 304 status which breaks live check. 
-      res.setHeader("Cache-Control", "no-cache")      
-      .setHeader("ETag", `"${getETagHeader()}"`)    
-      .send("Ok");
 
-      return;
-      
-    } catch (error) {
-      await new Promise((resolve) => setTimeout(resolve));
-    }
+  // ETag header to prevent 304 status which breaks live check. 
+  res.setHeader("Cache-Control", "no-cache")      
+  .setHeader("ETag", `"${getETagHeader()}"`)
+  .send("Ok");  
 
-    res.sendStatus(503);
+  } catch (error: any) {        
+    sendError(res, 503, error?.type, 'Service availability error', error?.code);
+  }
 });
 
 app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(req, res) => {
+  try {
     const pdf = await pdfFactory.create(req.params.templateId, req.query, req.body?.payload);
     res.setHeader('Content-Type', 'application/pdf');
-    res.send(pdf);
+    res.send(pdf); 
+  } catch (error: any) {
+    sendError(res, 503, error?.type, 'PDF creation error', error?.code);
+  }
 });
 
 app.post('/sign/:certificateId', upload.single('pdf'), async (req, res) => {
   const certificateId = req.params.certificateId; 
 
-  console.log(req.query.reason, req.query.name, req.query.location, req.query.contactInfo);  
-
   const reason = req.query.reason?.toString() || 'No reason provided';  
   const location = req.query.location?.toString() || 'No contact information provided';
-
   const name = req.query.name?.toString() || 'No contact information provided';
   const contactInfo = req.query.contactInfo?.toString() || 'No contact information provided';    
   
@@ -98,11 +79,15 @@ app.post('/sign/:certificateId', upload.single('pdf'), async (req, res) => {
 
   const pdf = req.file;
 
-  const signedPdf = await pdfSigner.signPdf(certificateId, pdf.buffer, {reason, name, location, contactInfo});    
+  try {
+    const signedPdf = await pdfSigner.signPdf(certificateId, pdf.buffer, {reason, name, location, contactInfo});    
 
-  res.set('Content-Type', 'application/pdf');
-  res.set('Content-Disposition', `'attachment; filename=${certificateId}`);
-  res.send(signedPdf);
+    res.set('Content-Type', 'application/pdf');
+    res.set('Content-Disposition', `'attachment; filename=${certificateId}`);
+    res.send(signedPdf);
+  } catch (error: any) {
+    sendError(res, 503, error?.type, 'PDF signing error', error?.code);
+  }
 });
 
 const port = 6000;
