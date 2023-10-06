@@ -26,27 +26,23 @@ export class PdfSigner {
     const signPdf = new SignPdf();
 
     const response = (async () => {
-      try {
-        const certInfo = this.getCertificateInfo(certificateId);
+      const certInfo = this.getCertificateInfo(certificateId);
 
-        if (certInfo === undefined || certInfo === null) return;
+      if (certInfo === undefined || certInfo === null) return;
 
-        const cert = this.getCertificate(certificateId, certInfo.p12);
-        const certPrivateKey = await this.getCertificatePrivateKey(certificateId, certInfo.privateKey, certInfo.passphrase);
+      const cert = this.getCertificate(certificateId, certInfo.p12);
+      const certPrivateKey = await this.getCertificatePrivateKey(certificateId, certInfo.privateKey, certInfo.passphrase);
 
-        const signOptions = {
-          ...serviceParams,
-          passphrase: certInfo.passphrase,
-          signatureLength: 8192,
-          cryptoKey: certPrivateKey,
-        };
+      const signOptions = {
+        ...serviceParams,
+        passphrase: certInfo.passphrase,
+        signatureLength: 8192,
+        cryptoKey: certPrivateKey,
+      };
 
-        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
+      const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
 
-        return signedPdf;
-      } catch (error) {
-        console.error(error);
-      }
+      return signedPdf;
     })();
 
     return await response;

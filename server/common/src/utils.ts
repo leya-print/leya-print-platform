@@ -35,6 +35,16 @@ export interface FetchTimeoutOptions {
     timeout?: number,
 }
 
+/** interface for available services with status, 
+* properties: 
+* @property tplServiceHealthStatus
+* @property printEndpointHealthStatus
+*/
+export interface ServiceStatuses {
+  tplServiceHealthStatus: number | String,
+  printEndpointHealthStatus: number | String    
+}
+
 export function sendError(
     res: express.Response,
     statusCode: number,
