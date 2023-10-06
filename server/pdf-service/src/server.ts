@@ -74,7 +74,7 @@ app.post('/sign/:certificateId', upload.single('pdf'), async (req, res) => {
   const contactInfo = req.query.contactInfo?.toString() || 'No contact information provided';    
   
   if (!req.file) {    
-    sendError(res, 503, 'system', 'Pdf Service no file', 'No PDF file provided');
+    sendError(res, 500, 'system', 'Pdf Service no file', 'No PDF file provided');
     return
   }
 
