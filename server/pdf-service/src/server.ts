@@ -45,14 +45,14 @@ app.get('/pdf/alive', async (_req, res) => {
         return
       }
 
-  // ETag header to prevent 304 status which breaks live check. 
-  res.setHeader("Cache-Control", "no-cache")      
-  .setHeader("ETag", `"${getETagHeader()}"`)
-  .send("Ok");  
+    // ETag header to prevent 304 status which breaks live check. 
+    res.setHeader("Cache-Control", "no-cache")      
+    .setHeader("ETag", `"${getETagHeader()}"`)
+    .send("Ok");  
 
-  } catch (error: any) {        
-    sendError(res, 503, error?.type, 'Service availability error', error?.code);
-  }
+    } catch (error: any) {        
+      sendError(res, 503, error?.type, 'Service availability error', error?.code);
+    }
 });
 
 app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(req, res) => {
@@ -73,8 +73,9 @@ app.post('/sign/:certificateId', upload.single('pdf'), async (req, res) => {
   const name = req.query.name?.toString() || 'No contact information provided';
   const contactInfo = req.query.contactInfo?.toString() || 'No contact information provided';    
   
-  if (!req.file) {
-    return res.status(400).send('No PDF file provided');
+  if (!req.file) {    
+    sendError(res, 503, 'system', 'Pdf Service no file', 'No PDF file provided');
+    return
   }
 
   const pdf = req.file;
