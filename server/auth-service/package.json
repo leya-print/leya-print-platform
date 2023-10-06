@@ -26,7 +26,8 @@
     "dependencies": {
         "@leya-print/server-common": "file:../common/leya-print-server-common-1.0.0.tgz",
         "cors": "^2.8.5",
-        "express": "^4.18.1"
+        "express": "^4.18.1",
+        "uuid": "^9.0.1"
     },
     "devDependencies": {
         "@types/chai": "^4.3.1",
