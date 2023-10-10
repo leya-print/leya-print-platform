@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'leya-print-watermark',
+  tag: 'leya-designer-watermark',
   styleUrl: 'watermark.component.scss',
   shadow: false,
 })
-export class LeyaPrintWatermark {
+export class LeyaDesignerWatermark {
 
   render() {
     const leyaPrintWatermark = new URL(window.location.href).searchParams.get('watermark');
