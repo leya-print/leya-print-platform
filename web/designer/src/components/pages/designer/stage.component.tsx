@@ -89,7 +89,8 @@ export class DesignerStageComponent {
             height: ${contentHeight} !important;
           }
         `}</style>
-        <leya-print-graph-paper></leya-print-graph-paper><slot name="stage-content"></slot></div>
+        <leya-print-graph-paper></leya-print-graph-paper>
+        <leya-print-watermark></leya-print-watermark><slot name="stage-content"></slot></div>
     </Host>;
   }
 }

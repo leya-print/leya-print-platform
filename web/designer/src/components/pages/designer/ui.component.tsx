@@ -56,7 +56,7 @@ export class DesignerUiComponent {
   async componentWillLoad() {
     const url = new URL(window.location.href);
    // this.raster = !!url.searchParams.get('raster');
-    this.leyaPrintWatermark = url.searchParams.get('leyaPrintWatermark') || undefined;
+    this.leyaPrintWatermark = url.searchParams.get('watermark') || undefined;
     this.previewUrl = (await env).pdfServiceBaseUrl + '/pdf';
   }
 
@@ -65,10 +65,10 @@ export class DesignerUiComponent {
     const leyaPrintWatermark = input.value;
     const url = new URL(location.href);
     if (leyaPrintWatermark) {
-      url.searchParams.set('leyaPrintWatermark', leyaPrintWatermark);
+      url.searchParams.set('watermark', leyaPrintWatermark);
       this.leyaPrintWatermark = leyaPrintWatermark;
     } else {
-      url.searchParams.delete('leyaPrintWatermark');
+      url.searchParams.delete('watermark');
       delete this.leyaPrintWatermark;
     }
     history.replaceState(null, '', url.toString());
