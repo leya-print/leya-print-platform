@@ -23,6 +23,8 @@ export namespace Components {
     interface HomePage {
         "templates": { ident: string; title: string; description: string; }[];
     }
+    interface LeyaDesignerWatermark {
+    }
     interface PrintContentPage {
         "tplName": string;
     }
@@ -69,6 +71,12 @@ declare global {
         prototype: HTMLHomePageElement;
         new (): HTMLHomePageElement;
     };
+    interface HTMLLeyaDesignerWatermarkElement extends Components.LeyaDesignerWatermark, HTMLStencilElement {
+    }
+    var HTMLLeyaDesignerWatermarkElement: {
+        prototype: HTMLLeyaDesignerWatermarkElement;
+        new (): HTMLLeyaDesignerWatermarkElement;
+    };
     interface HTMLPrintContentPageElement extends Components.PrintContentPage, HTMLStencilElement {
     }
     var HTMLPrintContentPageElement: {
@@ -105,6 +113,7 @@ declare global {
         "designer-stage": HTMLDesignerStageElement;
         "designer-ui": HTMLDesignerUiElement;
         "home-page": HTMLHomePageElement;
+        "leya-designer-watermark": HTMLLeyaDesignerWatermarkElement;
         "print-content-page": HTMLPrintContentPageElement;
         "print-footer-page": HTMLPrintFooterPageElement;
         "print-header-page": HTMLPrintHeaderPageElement;
@@ -131,6 +140,8 @@ declare namespace LocalJSX {
     interface HomePage {
         "templates"?: { ident: string; title: string; description: string; }[];
     }
+    interface LeyaDesignerWatermark {
+    }
     interface PrintContentPage {
         "tplName"?: string;
     }
@@ -151,6 +162,7 @@ declare namespace LocalJSX {
         "designer-stage": DesignerStage;
         "designer-ui": DesignerUi;
         "home-page": HomePage;
+        "leya-designer-watermark": LeyaDesignerWatermark;
         "print-content-page": PrintContentPage;
         "print-footer-page": PrintFooterPage;
         "print-header-page": PrintHeaderPage;
@@ -167,6 +179,7 @@ declare module "@stencil/core" {
             "designer-stage": LocalJSX.DesignerStage & JSXBase.HTMLAttributes<HTMLDesignerStageElement>;
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
+            "leya-designer-watermark": LocalJSX.LeyaDesignerWatermark & JSXBase.HTMLAttributes<HTMLLeyaDesignerWatermarkElement>;
             "print-content-page": LocalJSX.PrintContentPage & JSXBase.HTMLAttributes<HTMLPrintContentPageElement>;
             "print-footer-page": LocalJSX.PrintFooterPage & JSXBase.HTMLAttributes<HTMLPrintFooterPageElement>;
             "print-header-page": LocalJSX.PrintHeaderPage & JSXBase.HTMLAttributes<HTMLPrintHeaderPageElement>;
