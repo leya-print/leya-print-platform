@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
 import { env } from 'src/global/env';
-import { rasterService } from '../../../../../common/src/graph-paper/raster.service';
+import { rasterService } from '@leya-print/web-common';
 
 @Component({
   tag: 'designer-ui',
@@ -75,19 +75,6 @@ export class DesignerUiComponent {
 
     console.log({ leyaPrintWatermark: input.value });
   }
-  
-  // private readonly toggleRaster = (event: Event) => {
-  //   this.raster = !this.raster;
-  //   const url = new URL(location.href);
-  //   if (this.raster) {
-  //     url.searchParams.set('raster', 'true');
-  //   } else {
-  //     url.searchParams.delete('raster');
-  //   }
-  //   history.replaceState(null, '', url.toString());
-
-  //   console.log({ toggleRaster: event });
-  // }
 
   render() {
     return <Host>
