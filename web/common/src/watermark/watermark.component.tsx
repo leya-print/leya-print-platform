@@ -1,7 +1,7 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'leya-common-watermark',
+  tag: 'leya-watermark',
   styleUrl: 'watermark.component.scss',
   shadow: false,
 })
