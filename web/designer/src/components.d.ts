@@ -23,8 +23,6 @@ export namespace Components {
     interface HomePage {
         "templates": { ident: string; title: string; description: string; }[];
     }
-    interface LeyaDesignerWatermark {
-    }
     interface TemplateUpload {
     }
 }
@@ -59,12 +57,6 @@ declare global {
         prototype: HTMLHomePageElement;
         new (): HTMLHomePageElement;
     };
-    interface HTMLLeyaDesignerWatermarkElement extends Components.LeyaDesignerWatermark, HTMLStencilElement {
-    }
-    var HTMLLeyaDesignerWatermarkElement: {
-        prototype: HTMLLeyaDesignerWatermarkElement;
-        new (): HTMLLeyaDesignerWatermarkElement;
-    };
     interface HTMLTemplateUploadElement extends Components.TemplateUpload, HTMLStencilElement {
     }
     var HTMLTemplateUploadElement: {
@@ -77,7 +69,6 @@ declare global {
         "designer-stage": HTMLDesignerStageElement;
         "designer-ui": HTMLDesignerUiElement;
         "home-page": HTMLHomePageElement;
-        "leya-designer-watermark": HTMLLeyaDesignerWatermarkElement;
         "template-upload": HTMLTemplateUploadElement;
     }
 }
@@ -100,8 +91,6 @@ declare namespace LocalJSX {
     interface HomePage {
         "templates"?: { ident: string; title: string; description: string; }[];
     }
-    interface LeyaDesignerWatermark {
-    }
     interface TemplateUpload {
     }
     interface IntrinsicElements {
@@ -110,7 +99,6 @@ declare namespace LocalJSX {
         "designer-stage": DesignerStage;
         "designer-ui": DesignerUi;
         "home-page": HomePage;
-        "leya-designer-watermark": LeyaDesignerWatermark;
         "template-upload": TemplateUpload;
     }
 }
@@ -123,7 +111,6 @@ declare module "@stencil/core" {
             "designer-stage": LocalJSX.DesignerStage & JSXBase.HTMLAttributes<HTMLDesignerStageElement>;
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
-            "leya-designer-watermark": LocalJSX.LeyaDesignerWatermark & JSXBase.HTMLAttributes<HTMLLeyaDesignerWatermarkElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
         }
     }
