@@ -13,7 +13,8 @@ class RasterServiceImpl {
   
     #syncRasterToUrl = (raster) => {
       const url = new URL(window.location.href);
-      const isActive = this.#isRasterActiveInUrl();
+      const isActive = this.#isRasterActiveInUrl();      
+
       if (raster === isActive) { return; }
   
       if (raster) {
