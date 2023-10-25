@@ -5,29 +5,65 @@ test('alive', async ({page}) => {
   expect(await page.textContent('body')).toEqual('Ok');
 });
 
-
 test.describe('designer', () => {
   test.beforeEach(({page}) => page.goto('/dev/'));
 
-  test('template overview', async ({page}) => {
+  test('template overview', async ({ page }) => {
     await page.waitForLoadState('networkidle');
     expect(await page.screenshot()).toMatchSnapshot('template-overview.png');
   });
 
   test.describe('invoice', () => {
-    test.beforeEach(async ({page}) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByRole('link', { name: 'Invoice', exact: true }).click();
       await page.waitForURL(/\/invoice\?/);
     });
 
-    test('preview', async ({page}) => {
+    test('preview', async ({ page }) => {
       await page.waitForLoadState('networkidle');
       await page.getByText('Invoice 239045001').isVisible();
+      await page.getByRole('checkbox').check();
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .click();
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .fill('test');
       expect(await page.screenshot()).toMatchSnapshot('invoice-preview.png');
     });
 
-    test('pdf', async ({page}) => {
+    test('pdf', async ({ page }) => {
       const catchPdfTabPopup = page.waitForEvent('popup');
+      await page.getByRole('checkbox').check();
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .click();
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .fill('t');
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .fill('te');
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .fill('tes');
+      await page
+        .locator('div')
+        .filter({ hasText: 'leyaPrintWatermark:' })
+        .getByRole('textbox')
+        .fill('test');
       await page.getByRole('button', { name: 'preview' }).click();
       const pdfTab = await catchPdfTabPopup;
       for (let i = 0; i < 5; i++) {
