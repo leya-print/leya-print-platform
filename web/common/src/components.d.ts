@@ -10,7 +10,7 @@ export namespace Components {
         "height": string;
         "width": string;
     }
-    interface LeyaWatermark {
+    interface LeyaPrintWatermark {
     }
 }
 declare global {
@@ -20,15 +20,15 @@ declare global {
         prototype: HTMLLeyaPrintGraphPaperElement;
         new (): HTMLLeyaPrintGraphPaperElement;
     };
-    interface HTMLLeyaWatermarkElement extends Components.LeyaWatermark, HTMLStencilElement {
+    interface HTMLLeyaPrintWatermarkElement extends Components.LeyaPrintWatermark, HTMLStencilElement {
     }
-    var HTMLLeyaWatermarkElement: {
-        prototype: HTMLLeyaWatermarkElement;
-        new (): HTMLLeyaWatermarkElement;
+    var HTMLLeyaPrintWatermarkElement: {
+        prototype: HTMLLeyaPrintWatermarkElement;
+        new (): HTMLLeyaPrintWatermarkElement;
     };
     interface HTMLElementTagNameMap {
         "leya-print-graph-paper": HTMLLeyaPrintGraphPaperElement;
-        "leya-watermark": HTMLLeyaWatermarkElement;
+        "leya-print-watermark": HTMLLeyaPrintWatermarkElement;
     }
 }
 declare namespace LocalJSX {
@@ -36,11 +36,11 @@ declare namespace LocalJSX {
         "height"?: string;
         "width"?: string;
     }
-    interface LeyaWatermark {
+    interface LeyaPrintWatermark {
     }
     interface IntrinsicElements {
         "leya-print-graph-paper": LeyaPrintGraphPaper;
-        "leya-watermark": LeyaWatermark;
+        "leya-print-watermark": LeyaPrintWatermark;
     }
 }
 export { LocalJSX as JSX };
@@ -48,7 +48,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "leya-print-graph-paper": LocalJSX.LeyaPrintGraphPaper & JSXBase.HTMLAttributes<HTMLLeyaPrintGraphPaperElement>;
-            "leya-watermark": LocalJSX.LeyaWatermark & JSXBase.HTMLAttributes<HTMLLeyaWatermarkElement>;
+            "leya-print-watermark": LocalJSX.LeyaPrintWatermark & JSXBase.HTMLAttributes<HTMLLeyaPrintWatermarkElement>;
         }
     }
 }

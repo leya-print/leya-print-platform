@@ -1,6 +1,6 @@
 class RasterServiceImpl {
     #listeners: ((active: boolean) => void)[] = [];
-    #isActive = false;
+    #isActive = true;
   
     constructor() {
       this.#isActive = this.#isRasterActiveInUrl();

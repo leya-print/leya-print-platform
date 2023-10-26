@@ -1,5 +1,3 @@
-import { defineCustomElements } from '@leya-print/web-common/loader';
-
 export default async () => {
   /**
    * The code to be executed should be placed within a default function that is
@@ -7,5 +5,4 @@ export default async () => {
    * is wrapped in the function() that is exported.
    */
 
-  defineCustomElements();
 };
