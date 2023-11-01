@@ -8,8 +8,6 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppRoot {
     }
-    interface LeyaPrintWatermark {
-    }
     interface PrintContentPage {
         "tplName": string;
         "tplPackage"?: string;
@@ -29,12 +27,6 @@ declare global {
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
-    };
-    interface HTMLLeyaPrintWatermarkElement extends Components.LeyaPrintWatermark, HTMLStencilElement {
-    }
-    var HTMLLeyaPrintWatermarkElement: {
-        prototype: HTMLLeyaPrintWatermarkElement;
-        new (): HTMLLeyaPrintWatermarkElement;
     };
     interface HTMLPrintContentPageElement extends Components.PrintContentPage, HTMLStencilElement {
     }
@@ -56,7 +48,6 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
-        "leya-print-watermark": HTMLLeyaPrintWatermarkElement;
         "print-content-page": HTMLPrintContentPageElement;
         "print-footer-page": HTMLPrintFooterPageElement;
         "print-header-page": HTMLPrintHeaderPageElement;
@@ -64,8 +55,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AppRoot {
-    }
-    interface LeyaPrintWatermark {
     }
     interface PrintContentPage {
         "tplName"?: string;
@@ -81,7 +70,6 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-root": AppRoot;
-        "leya-print-watermark": LeyaPrintWatermark;
         "print-content-page": PrintContentPage;
         "print-footer-page": PrintFooterPage;
         "print-header-page": PrintHeaderPage;
@@ -92,7 +80,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "leya-print-watermark": LocalJSX.LeyaPrintWatermark & JSXBase.HTMLAttributes<HTMLLeyaPrintWatermarkElement>;
             "print-content-page": LocalJSX.PrintContentPage & JSXBase.HTMLAttributes<HTMLPrintContentPageElement>;
             "print-footer-page": LocalJSX.PrintFooterPage & JSXBase.HTMLAttributes<HTMLPrintFooterPageElement>;
             "print-header-page": LocalJSX.PrintHeaderPage & JSXBase.HTMLAttributes<HTMLPrintHeaderPageElement>;

@@ -10,7 +10,7 @@
       "es2015"
     ],
     "paths": {
-      "@leya-print/web-common": ["../common/src"]
+      "@leya-print/web-common": ["../common/dist"]
     },
     "moduleResolution": "node",
     "module": "esnext",
