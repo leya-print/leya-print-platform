@@ -16,8 +16,8 @@ export class PrintContentPage {
 
   render() {
     return <Host>
-      <leya-print-watermark></leya-print-watermark>
       <leya-print-graph-paper></leya-print-graph-paper>
+      <leya-print-watermark></leya-print-watermark>
       <div innerHTML={`<tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></div>
     </Host>
   }
