@@ -1,11 +1,15 @@
-Leya Print
+# Leya Print
 =============
-Leya print is a frontend web solution to support the rendering of templates.
+Leya Print is a frontend web solution to support the rendering of templates.
 
-Getting started
----------------
-### in development mode
-currently it is not needed to start anything else before
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Technical description](#technical-description)
+- [Using Stencil components within Stencil](#using-stencil-components-within-stencil)
+- [Contact](#contact)
+
+## Getting Started
+Currently it is not needed to start anything else before
 
 ```sh
 npm i
@@ -31,7 +35,7 @@ To run the unit tests and watch for file changes during development, run:
 npm run test.watch
 ```
 
-Technical description
+## Technical description
 ---------------------
 Leya Print is a project based on stencil.
 
@@ -42,3 +46,19 @@ Stencil combines the best concepts of the most popular frontend frameworks into 
 Stencil components are just Web Components, so they work in any major framework or with no framework at all. In many cases, Stencil can be used as a drop in replacement for traditional frontend frameworks given the capabilities now available in the browser, though using it as such is certainly not required.
 
 Stencil also enables a number of key capabilities on top of Web Components, in particular Server Side Rendering (SSR) without the need to run a headless browser, pre-rendering, and objects-as-properties (instead of just strings).
+
+## Using Stencil components within Stencil
+Print has integrated other Stencil components for use such as the watermark that can appear on templates.
+The other common Stencil components are usually stored in the web/common solution.
+
+To use them they need to be imported in the app root: src/components/app-root/app-root.tsx
+    import '@leya-print/web-common/dist/components/leya-print-watermark'
+
+There is no need to reference the components in src/app.ts
+Add a path in the tsconfig.json file to the common solution: 
+    "paths": {
+      "@leya-print/web-common/dist/*": ["../common/"]
+    }
+
+## Contact
+For further queries, contact us at info@leya-it-solutions.de.
