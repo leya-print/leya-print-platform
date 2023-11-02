@@ -1,6 +1,4 @@
 import { Component, h, Host, VNode } from '@stencil/core';
-import '@leya-print/web-common/dist/components/leya-print-graph-paper'
-import '@leya-print/web-common/dist/components/leya-print-watermark'
 
 @Component({
   tag: 'app-root',
