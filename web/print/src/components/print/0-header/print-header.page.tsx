@@ -1,5 +1,6 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 import { templatePackageService } from 'src/global/template-package.service';
+import '@leya-print/web-common/dist/components/leya-print-graph-paper';
 
 @Component({
   tag: 'print-header-page',
