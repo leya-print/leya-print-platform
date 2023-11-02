@@ -55,10 +55,6 @@ To use them they need to be imported in the app root: src/components/app-root/ap
     import '@leya-print/web-common/dist/components/leya-print-watermark'
 
 There is no need to reference the components in src/app.ts
-Add a path in the tsconfig.json file to the common solution: 
-    "paths": {
-      "@leya-print/web-common/dist/*": ["../common/"]
-    }
 
 ## Contact
 For further queries, contact us at info@leya-it-solutions.de.
