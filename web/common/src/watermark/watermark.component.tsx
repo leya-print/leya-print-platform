@@ -8,7 +8,7 @@ import { Component, Host, h } from '@stencil/core';
 export class LeyaCommonWatermark {
 
   render() {
-    const leyaPrintWatermark = new URL(window.location.href).searchParams.get('watermark');
-    return <Host>{leyaPrintWatermark && <div class="leya-print-watermark">{leyaPrintWatermark}</div>}</Host>
+    const leyaPrintWatermark = new URL(window.location.href).searchParams.get('watermark') || '';
+    return <Host>{leyaPrintWatermark}</Host>
   }
 }
