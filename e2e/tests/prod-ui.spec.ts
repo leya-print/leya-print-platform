@@ -17,53 +17,28 @@ test.describe('designer', () => {
     test.beforeEach(async ({ page }) => {
       await page.getByRole('link', { name: 'Invoice', exact: true }).click();
       await page.waitForURL(/\/invoice\?/);
-    });
-
-    test('preview', async ({ page }) => {
       await page.waitForLoadState('networkidle');
       await page.getByText('Invoice 239045001').isVisible();
       await page.getByRole('checkbox').check();
+
       await page
         .locator('div')
         .filter({ hasText: 'leyaPrintWatermark:' })
         .getByRole('textbox')
-        .click();
-      await page
-        .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
-        .getByRole('textbox')
-        .fill('test');
+        .type('test', { delay: 100 });
+        
+      await page.waitForTimeout(200);
+    });
+
+    test('preview', async ({ page }) => {
+      await page.reload();
+      await page.waitForLoadState('networkidle');
       expect(await page.screenshot()).toMatchSnapshot('invoice-preview.png');
     });
 
     test('pdf', async ({ page }) => {
       const catchPdfTabPopup = page.waitForEvent('popup');
-      await page.getByRole('checkbox').check();
-      await page
-        .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
-        .getByRole('textbox')
-        .click();
-      await page
-        .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
-        .getByRole('textbox')
-        .fill('t');
-      await page
-        .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
-        .getByRole('textbox')
-        .fill('te');
-      await page
-        .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
-        .getByRole('textbox')
-        .fill('tes');
-      await page
-        .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
-        .getByRole('textbox')
-        .fill('test');
+
       await page.getByRole('button', { name: 'preview' }).click();
       const pdfTab = await catchPdfTabPopup;
       for (let i = 0; i < 5; i++) {
