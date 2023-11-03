@@ -1,33 +1,27 @@
 import { Component, h, Prop } from '@stencil/core';
 
-const defaultWidth = '21cm';
-const defaultHeight = '29.7cm';
-
 @Component({
   tag: 'leya-print-graph-paper',
   styleUrl: 'graph-paper.component.scss',
   shadow: false,
 })
 export class GraphPaperComponent {
-  @Prop() width: string;
-  @Prop() height: string;
+  @Prop() width: string = '21cm';
+  @Prop() height: string = '29.7cm';
 
   render() {
     const url = new URL(location.href);
 
-    const paperWidth = this.width || defaultWidth;
-    const paperHeight = this.height || defaultHeight;
-
     if (url.searchParams.get('raster')) {
-      const cmWidth = parseFloat(paperWidth);
-      const cmHeight = parseFloat(paperHeight);
+      const cmWidth = parseFloat(this.width);
+      const cmHeight = parseFloat(this.height);
       const mmWidth = Math.round(cmWidth * 10);
       const mmHeight = Math.round(cmHeight * 10);
       const scale = 10;
       const width = mmWidth * scale;
       const height = mmHeight * scale;
-      return <div class="raster" style={{ width: paperWidth, height: paperHeight }}>
-        <svg width={paperWidth} height={paperHeight} viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
+      return <div class="raster" style={{ width: this.width, height: this.height }}>
+        <svg width={this.width} height={this.height} viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
           <g class="leya-print-graph-paper__lines">
 
             <g class="leya-print-graph-paper__column-lines">{new Array(mmWidth - 1).fill(true).map((_, i) => {

@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `height` | `height`  |             | `string` | `undefined` |
-| `width`  | `width`   |             | `string` | `undefined` |
+| Property | Attribute | Description | Type     | Default    |
+| -------- | --------- | ----------- | -------- | ---------- |
+| `height` | `height`  |             | `string` | `'29.7cm'` |
+| `width`  | `width`   |             | `string` | `'21cm'`   |
 
 
 ----------------------------------------------
