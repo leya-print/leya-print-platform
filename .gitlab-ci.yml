@@ -211,13 +211,7 @@ deploy to dev:
     - when: never
   script: #https://stackoverflow.com/questions/37134929/how-to-tag-image-in-docker-registry-v2/59811211#59811211
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
-    - "curl 'registry.code-better.it/v2/leya/leya-print/manifests/${CI_COMMIT_SHA}' \
-        -H 'accept: application/vnd.docker.distribution.manifest.v2+json' \
-        > manifest.json"
-    - cat manifest.json
-    - "curl -XPUT 'registry.code-better.it/v2/leya/leya-print/manifests/dev' \
-        -H 'content-type: application/vnd.docker.distribution.manifest.v2+json' \
-        -d '@manifest.json'"
+    - docker tag registry.code-better.it/leya/leya-print:${CI_COMMIT_SHA} registry.code-better.it/leya/leya-print:dev
     - curl `echo $triggerLeyaPrintDemoUpdate | base64 --decode` -H "" -d ""
 
 check-status:
