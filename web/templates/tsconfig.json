@@ -10,11 +10,6 @@
     ],
     "moduleResolution": "node",
     "module": "esnext",
-    "paths": {
-      "@leya-print/common-api": [
-        "../../common/api/index.ts"
-      ]
-    },
     "target": "es2017",
     "noUnusedLocals": true,
     "noUnusedParameters": true,

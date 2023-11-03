@@ -1,7 +1,7 @@
+import type { TemplatePackage } from '@leya-print/template-api';
 import { Component, h, Host, Prop, State } from '@stencil/core';
 import { Subscription } from 'rxjs';
 import { templateService } from 'src/global/template.service';
-import type { TemplatePackage } from '@leya-print/common-api';
 
 @Component({
   tag: 'home-page',

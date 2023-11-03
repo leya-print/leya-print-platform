@@ -1,5 +1,6 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 import { templatePackageService } from 'src/global/template-package.service';
+import '@leya-print/web-common/dist/components/leya-print-graph-paper';
 
 @Component({
   tag: 'print-footer-page',
@@ -14,6 +15,6 @@ export class PrintFooter {
   }
 
   render() {
-    return <Host innerHTML={`<graph-paper></graph-paper><tpl-${this.tplName}-footer></tpl-${this.tplName}-footer>`}></Host>
+    return <Host innerHTML={`<leya-print-graph-paper></leya-print-graph-paper><tpl-${this.tplName}-footer></tpl-${this.tplName}-footer>`}></Host>
   }
 }

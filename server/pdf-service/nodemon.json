@@ -1,0 +1,8 @@
+{
+    "watch": [
+        "package.json",
+        "src",
+        "../common/src"
+    ],
+    "ext": "js,ts,json"
+}

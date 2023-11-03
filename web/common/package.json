@@ -1,0 +1,43 @@
+{
+  "name": "@leya-print/web-common",
+  "version": "1.0.0",
+  "description": "Common Leya Print Web Components",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.js",
+  "es2017": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/test/test.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.code-better.it/leya/leya-print"
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --config stencil.config.prod.ts --docs",
+    "prestart": "node update-env.js",
+    "start": "stencil build --dev --watch --serve --port 6002",
+    "test": "stencil test --spec --e2e",
+    "test:watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "keywords": [],
+  "author": "emanuel.hein@code-better.it",
+  "dependencies": {
+    "@stencil/core": "^4.3.0"
+  },
+  "devDependencies": {
+    "@stencil/sass": "^3.0.5",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.0",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "puppeteer": "^21.3.6"
+  },
+  "license": "Apache-2.0"
+}

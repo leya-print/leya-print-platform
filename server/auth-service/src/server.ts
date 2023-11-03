@@ -1,25 +1,6 @@
 import express from 'express';
 import http from 'node:http';
-import fs from 'node:fs';
-import { getETagHeader } from '@leya-print/common-api';
-
-const env: {
-  title: string,
-  authServiceBaseUrl: string,
-} = (() => {
-  try {
-    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
-  } catch (e) {
-    console.error(e);
-    console.log('Could not read local-env.json');
-    return {
-      title: 'localhost env',
-      authServiceBaseUrl: 'http://localhost:6004/auth',
-    };
-  }
-})();
-
-console.log('auth service: auth service endpoint: ' + env.authServiceBaseUrl);
+import { getETagHeader } from '@leya-print/server-common';
 
 const app = express();
 
@@ -27,7 +8,7 @@ const app = express();
 app.get('/auth/alive', async (_req, res) => {
   res.setHeader("Cache-Control", "no-cache")  
   .setHeader("ETag", `"${getETagHeader()}"`)
-  .send("Ok");  
+  .send("Ok");
 });
 
 app.get('/auth', async (req, res) => {

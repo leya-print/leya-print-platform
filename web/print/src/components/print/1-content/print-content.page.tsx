@@ -1,5 +1,7 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 import { templatePackageService } from 'src/global/template-package.service';
+import '@leya-print/web-common/dist/components/leya-print-graph-paper';
+import '@leya-print/web-common/dist/components/leya-print-watermark';
 
 @Component({
   tag: 'print-content-page',
@@ -15,6 +17,10 @@ export class PrintContentPage {
   }
 
   render() {
-    return <Host innerHTML={`<graph-paper></graph-paper><tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></Host>
+    return <Host>
+      <leya-print-graph-paper></leya-print-graph-paper>
+      <leya-print-watermark></leya-print-watermark>
+      <div innerHTML={`<tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></div>
+    </Host>
   }
 }

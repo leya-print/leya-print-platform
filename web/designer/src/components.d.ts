@@ -20,10 +20,6 @@ export namespace Components {
         "sampleData"?: any;
         "tplName": string;
     }
-    interface GraphPaper {
-        "height": string;
-        "width": string;
-    }
     interface HomePage {
         "templates": { ident: string; title: string; description: string; }[];
     }
@@ -55,12 +51,6 @@ declare global {
         prototype: HTMLDesignerUiElement;
         new (): HTMLDesignerUiElement;
     };
-    interface HTMLGraphPaperElement extends Components.GraphPaper, HTMLStencilElement {
-    }
-    var HTMLGraphPaperElement: {
-        prototype: HTMLGraphPaperElement;
-        new (): HTMLGraphPaperElement;
-    };
     interface HTMLHomePageElement extends Components.HomePage, HTMLStencilElement {
     }
     var HTMLHomePageElement: {
@@ -78,7 +68,6 @@ declare global {
         "designer-page": HTMLDesignerPageElement;
         "designer-stage": HTMLDesignerStageElement;
         "designer-ui": HTMLDesignerUiElement;
-        "graph-paper": HTMLGraphPaperElement;
         "home-page": HTMLHomePageElement;
         "template-upload": HTMLTemplateUploadElement;
     }
@@ -99,10 +88,6 @@ declare namespace LocalJSX {
         "sampleData"?: any;
         "tplName"?: string;
     }
-    interface GraphPaper {
-        "height"?: string;
-        "width"?: string;
-    }
     interface HomePage {
         "templates"?: { ident: string; title: string; description: string; }[];
     }
@@ -113,7 +98,6 @@ declare namespace LocalJSX {
         "designer-page": DesignerPage;
         "designer-stage": DesignerStage;
         "designer-ui": DesignerUi;
-        "graph-paper": GraphPaper;
         "home-page": HomePage;
         "template-upload": TemplateUpload;
     }
@@ -126,7 +110,6 @@ declare module "@stencil/core" {
             "designer-page": LocalJSX.DesignerPage & JSXBase.HTMLAttributes<HTMLDesignerPageElement>;
             "designer-stage": LocalJSX.DesignerStage & JSXBase.HTMLAttributes<HTMLDesignerStageElement>;
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
-            "graph-paper": LocalJSX.GraphPaper & JSXBase.HTMLAttributes<HTMLGraphPaperElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
         }

@@ -9,7 +9,8 @@
         "start": "stencil build --dev --watch --serve --port 6002",
         "test": "stencil test --spec --e2e",
         "test.watch": "stencil test --spec --e2e --watchAll",
-        "generate": "stencil generate"
+        "generate": "stencil generate",
+        "remove-integrity": "node remove-integrity.js 'node_modules/@leya-print/web-common' 'node_modules/@leya-print/web-common/node_modules/@stencil/core' '@leya-print/web-common'"
     },
     "devDependencies": {
         "@stencil/core": "2.13.0",
@@ -30,7 +31,8 @@
     "author": "emanuel.hein@code-better.it",
     "license": "UNLICENSED",
     "dependencies": {
-        "@leya-print/common-api": "file:../../common/api/leya-print-common-api-1.0.0.tgz",
+        "@leya-print/template-api": "^0.0.2",
+        "@leya-print/web-common": "file:../common/leya-print-web-common-1.0.0.tgz",
         "@stencil/sass": "^1.5.2",
         "puppeteer": "^19.2.0",
         "rxjs": "^7.5.6"

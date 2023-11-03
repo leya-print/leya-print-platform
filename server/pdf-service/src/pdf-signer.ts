@@ -1,10 +1,11 @@
-import { CertificateInfo, ServiceParams } from "@leya-print/common-api";
+import { CertificateInfo } from "./certificate-info.model";
+import { ServiceParams } from "./service-params.model";
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
 
-const { SignPdf } = require('node-signpdf');
-const { findByteRange, plainAddPlaceholder } = require('node-signpdf/dist/helpers')
-const fs = require('fs');
-const crypto = require('crypto');
-const path = require('path');
+import { SignPdf } from 'node-signpdf';
+import { findByteRange, plainAddPlaceholder } from 'node-signpdf/dist/helpers';
 
 export class PdfSigner {
 
@@ -25,27 +26,23 @@ export class PdfSigner {
     const signPdf = new SignPdf();
 
     const response = (async () => {
-      try {
-        const certInfo = this.getCertificateInfo(certificateId);
+      const certInfo = this.getCertificateInfo(certificateId);
 
-        if (certInfo === undefined || certInfo === null) return;
+      if (certInfo === undefined || certInfo === null) return;
 
-        const cert = this.getCertificate(certificateId, certInfo.p12);
-        const certPrivateKey = await this.getCertificatePrivateKey(certificateId, certInfo.privateKey, certInfo.passphrase);
+      const cert = this.getCertificate(certificateId, certInfo.p12);
+      const certPrivateKey = await this.getCertificatePrivateKey(certificateId, certInfo.privateKey, certInfo.passphrase);
 
-        const signOptions = {
-          ...serviceParams,
-          passphrase: certInfo.passphrase,
-          signatureLength: 8192,
-          cryptoKey: certPrivateKey,
-        };
+      const signOptions = {
+        ...serviceParams,
+        passphrase: certInfo.passphrase,
+        signatureLength: 8192,
+        cryptoKey: certPrivateKey,
+      };
 
-        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
+      const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
 
-        return signedPdf;
-      } catch (error) {
-        console.error(error);
-      }
+      return signedPdf;
     })();
 
     return await response;

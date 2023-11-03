@@ -1,8 +1,4 @@
 import { chromium } from 'playwright';
-const { SignPdf } = require('node-signpdf');
-const { findByteRange, plainAddPlaceholder } = require('node-signpdf/dist/helpers')
-const fs = require('fs');
-const crypto = require('crypto');
 
 export type PageActions<R> = (page: import('playwright').Page) => Promise<R>;
 
@@ -107,63 +103,4 @@ export class PdfFactory {
 
     return pdf;
   }
-
-  async signPdf(pdfName: string, pdf: Buffer) {      
-    const privateKey = {
-      key: fs.readFileSync('src/key.pem', 'utf8'),
-      passphrase: '12345'
-    };
-
-    const cert = fs.readFileSync('src/cert.p12');
-
-    const serviceParams = {
-      reason: 'Ensure no further changes',
-      name: 'Max Sample',
-      location: 'Musterhausen, Germany',
-      contactInfo: 'max.sample@leya-it-solutions.de',
-    }
-  
-    const signablePdfBuffer = isSignable(pdf) ? pdf : plainAddPlaceholder({
-      pdfBuffer: pdf,
-      reason: serviceParams.reason,
-      contactInfo: serviceParams.contactInfo,
-      name: serviceParams.name,
-      location: serviceParams.location,
-    });
-  
-    const signPdf = new SignPdf();
-
-    (async () => {
-      try {
-        const privateKeyObj = await crypto.createPrivateKey(privateKey);
-       
-        const signOptions = {
-          ...serviceParams,
-          passphrase: '12345',
-          signatureLength: 8192,
-          cryptoKey: privateKeyObj,
-        };        
-     
-        const signedPdf = signPdf.sign(signablePdfBuffer, cert, signOptions);
-        fs.writeFileSync('temp/' + pdfName, signedPdf);        
-    
-        return signedPdf;
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }
 }
-
-  /**
- * 
- * @param {Buffer} pdf 
- */
-  function isSignable(origPdfBuffer: any) {
-    try {
-      findByteRange(origPdfBuffer);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }

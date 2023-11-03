@@ -4,4 +4,5 @@ export default async () => {
    * exported by the global script. Ensure all of the code in the global script
    * is wrapped in the function() that is exported.
    */
+
 };

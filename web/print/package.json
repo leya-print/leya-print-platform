@@ -30,7 +30,8 @@
     "author": "emanuel.hein@code-better.it",
     "license": "UNLICENSED",
     "dependencies": {
-        "@leya-print/common-api": "file:../../common/api/leya-print-common-api-1.0.0.tgz",
+        "@leya-print/template-api": "^0.0.2",
+        "@leya-print/web-common": "file:../common/leya-print-web-common-1.0.0.tgz",
         "@stencil/sass": "^1.5.2",
         "puppeteer": "^19.2.0"
     }

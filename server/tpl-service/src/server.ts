@@ -1,26 +1,16 @@
+import { getETagHeader, getEnv, sendError } from '@leya-print/server-common';
 import cors from 'cors';
 import express from 'express';
 import multer from 'multer';
 import http from 'node:http';
 import path from 'node:path';
-import fs from 'node:fs';
 import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
-import { getETagHeader } from '@leya-print/common-api';
 
-const env: {
-  storageLocation: string,
-} = (() => {
-  try {
-    return JSON.parse(fs.readFileSync('../../config/local-env.json', 'utf-8'));
-  } catch (e) {
-    console.error(e);
-    return {
-      storageLocation: path.join(__dirname, '../../../data'),
-    };
-  }
-})();
+const env = getEnv({
+  storageLocation: path.join(__dirname, '../../../data'),
+});
 
 const useJsonStorage = true;
 const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : new MockedStorageService();
@@ -68,11 +58,7 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
     (results) => res.send(results),
     (error) => {
       console.error(error);
-      res.status(500).send({
-        msg: '' + error,
-        time: new Date(),
-        details: error,
-      });
+      sendError(res, 500, error?.type, 'Tpl add templates error', error);      
     },
   );
 });
