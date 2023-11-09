@@ -214,7 +214,7 @@ deploy to dev:
     - docker pull registry.code-better.it/leya/leya-print:${CI_COMMIT_SHA}
     - docker tag registry.code-better.it/leya/leya-print:${CI_COMMIT_SHA} registry.code-better.it/leya/leya-print:dev
     - docker push registry.code-better.it/leya/leya-print:dev
-    - wget --post-data '' `echo $triggerLeyaPrintDemoUpdate | base64 --decode`
+    - wget --post-data '' `echo $triggerLeyaPrintDemoUpdate | base64 --d`
 
 check-status:
   image:  mcr.microsoft.com/playwright:v1.37.0-jammy
