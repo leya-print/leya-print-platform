@@ -23,17 +23,6 @@ export namespace Components {
     interface HomePage {
         "templates": { ident: string; title: string; description: string; }[];
     }
-    interface LeyaDesignerWatermark {
-    }
-    interface PrintContentPage {
-        "tplName": string;
-    }
-    interface PrintFooterPage {
-        "tplName": string;
-    }
-    interface PrintHeaderPage {
-        "tplName": string;
-    }
     interface TemplateUpload {
     }
     interface TplbImageFetch {
@@ -71,30 +60,6 @@ declare global {
         prototype: HTMLHomePageElement;
         new (): HTMLHomePageElement;
     };
-    interface HTMLLeyaDesignerWatermarkElement extends Components.LeyaDesignerWatermark, HTMLStencilElement {
-    }
-    var HTMLLeyaDesignerWatermarkElement: {
-        prototype: HTMLLeyaDesignerWatermarkElement;
-        new (): HTMLLeyaDesignerWatermarkElement;
-    };
-    interface HTMLPrintContentPageElement extends Components.PrintContentPage, HTMLStencilElement {
-    }
-    var HTMLPrintContentPageElement: {
-        prototype: HTMLPrintContentPageElement;
-        new (): HTMLPrintContentPageElement;
-    };
-    interface HTMLPrintFooterPageElement extends Components.PrintFooterPage, HTMLStencilElement {
-    }
-    var HTMLPrintFooterPageElement: {
-        prototype: HTMLPrintFooterPageElement;
-        new (): HTMLPrintFooterPageElement;
-    };
-    interface HTMLPrintHeaderPageElement extends Components.PrintHeaderPage, HTMLStencilElement {
-    }
-    var HTMLPrintHeaderPageElement: {
-        prototype: HTMLPrintHeaderPageElement;
-        new (): HTMLPrintHeaderPageElement;
-    };
     interface HTMLTemplateUploadElement extends Components.TemplateUpload, HTMLStencilElement {
     }
     var HTMLTemplateUploadElement: {
@@ -113,10 +78,6 @@ declare global {
         "designer-stage": HTMLDesignerStageElement;
         "designer-ui": HTMLDesignerUiElement;
         "home-page": HTMLHomePageElement;
-        "leya-designer-watermark": HTMLLeyaDesignerWatermarkElement;
-        "print-content-page": HTMLPrintContentPageElement;
-        "print-footer-page": HTMLPrintFooterPageElement;
-        "print-header-page": HTMLPrintHeaderPageElement;
         "template-upload": HTMLTemplateUploadElement;
         "tplb-image-fetch": HTMLTplbImageFetchElement;
     }
@@ -140,17 +101,6 @@ declare namespace LocalJSX {
     interface HomePage {
         "templates"?: { ident: string; title: string; description: string; }[];
     }
-    interface LeyaDesignerWatermark {
-    }
-    interface PrintContentPage {
-        "tplName"?: string;
-    }
-    interface PrintFooterPage {
-        "tplName"?: string;
-    }
-    interface PrintHeaderPage {
-        "tplName"?: string;
-    }
     interface TemplateUpload {
     }
     interface TplbImageFetch {
@@ -162,10 +112,6 @@ declare namespace LocalJSX {
         "designer-stage": DesignerStage;
         "designer-ui": DesignerUi;
         "home-page": HomePage;
-        "leya-designer-watermark": LeyaDesignerWatermark;
-        "print-content-page": PrintContentPage;
-        "print-footer-page": PrintFooterPage;
-        "print-header-page": PrintHeaderPage;
         "template-upload": TemplateUpload;
         "tplb-image-fetch": TplbImageFetch;
     }
@@ -179,10 +125,6 @@ declare module "@stencil/core" {
             "designer-stage": LocalJSX.DesignerStage & JSXBase.HTMLAttributes<HTMLDesignerStageElement>;
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
-            "leya-designer-watermark": LocalJSX.LeyaDesignerWatermark & JSXBase.HTMLAttributes<HTMLLeyaDesignerWatermarkElement>;
-            "print-content-page": LocalJSX.PrintContentPage & JSXBase.HTMLAttributes<HTMLPrintContentPageElement>;
-            "print-footer-page": LocalJSX.PrintFooterPage & JSXBase.HTMLAttributes<HTMLPrintFooterPageElement>;
-            "print-header-page": LocalJSX.PrintHeaderPage & JSXBase.HTMLAttributes<HTMLPrintHeaderPageElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
             "tplb-image-fetch": LocalJSX.TplbImageFetch & JSXBase.HTMLAttributes<HTMLTplbImageFetchElement>;
         }
