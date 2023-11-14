@@ -1,7 +1,7 @@
 import { Component,  h, Prop } from '@stencil/core';
 
 @Component({
-    tag: 'tplb-image-fetch',
+    tag: 'leya-print-image-fetch',
   })
 
   export class ImageFetchTpl{

@@ -25,9 +25,6 @@ export namespace Components {
     }
     interface TemplateUpload {
     }
-    interface TplbImageFetch {
-        "imgSrc": string;
-    }
 }
 declare global {
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
@@ -66,12 +63,6 @@ declare global {
         prototype: HTMLTemplateUploadElement;
         new (): HTMLTemplateUploadElement;
     };
-    interface HTMLTplbImageFetchElement extends Components.TplbImageFetch, HTMLStencilElement {
-    }
-    var HTMLTplbImageFetchElement: {
-        prototype: HTMLTplbImageFetchElement;
-        new (): HTMLTplbImageFetchElement;
-    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "designer-page": HTMLDesignerPageElement;
@@ -79,7 +70,6 @@ declare global {
         "designer-ui": HTMLDesignerUiElement;
         "home-page": HTMLHomePageElement;
         "template-upload": HTMLTemplateUploadElement;
-        "tplb-image-fetch": HTMLTplbImageFetchElement;
     }
 }
 declare namespace LocalJSX {
@@ -103,9 +93,6 @@ declare namespace LocalJSX {
     }
     interface TemplateUpload {
     }
-    interface TplbImageFetch {
-        "imgSrc"?: string;
-    }
     interface IntrinsicElements {
         "app-root": AppRoot;
         "designer-page": DesignerPage;
@@ -113,7 +100,6 @@ declare namespace LocalJSX {
         "designer-ui": DesignerUi;
         "home-page": HomePage;
         "template-upload": TemplateUpload;
-        "tplb-image-fetch": TplbImageFetch;
     }
 }
 export { LocalJSX as JSX };
@@ -126,7 +112,6 @@ declare module "@stencil/core" {
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
-            "tplb-image-fetch": LocalJSX.TplbImageFetch & JSXBase.HTMLAttributes<HTMLTplbImageFetchElement>;
         }
     }
 }
