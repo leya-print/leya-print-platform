@@ -18,11 +18,15 @@ const invoiceTemplateInfo = {
   },
 };
 
+// import { templateDemoTemplateInfo } from './components/templates/template-demo/template-demo-template-info.const';
+// import { workReportTemplateInfo } from './components/templates/work-report/work-report-template-info.const';
 const templatePackage = {
   ident: 'max-hardware-templates',
   version: '1.0.0',
   templates: [
+    // templateDemoTemplateInfo,
     invoiceTemplateInfo,
+    // workReportTemplateInfo,
   ],
 };
 
