@@ -2,7 +2,7 @@ import { ServiceStatuses } from '@leya-print/server-common';
 import fetch from 'cross-fetch';
 
 export class PdfService {
-    async checkSystemsAlive(env: any) {                      
+    async checkSystemsAlive(env: any) {                    
           const [tplServiceHealthStatus, printEndpointHealthStatus] = await Promise.all([
             await fetch(`${env.templateServiceBaseUrl}/alive`)
                   .then((res: any) => { return res.status === undefined ? 'NOT FOUND' : res.status })
@@ -24,7 +24,7 @@ export class PdfService {
               printEndpointHealthStatus: printEndpointHealthStatus,
               tplServiceHealthStatus: tplServiceHealthStatus
           };
-        
+          
           console.log("healthCheckTplService", serviceStatuses.tplServiceHealthStatus);
           console.log("healthCheckPrintEnpoint", serviceStatuses.printEndpointHealthStatus);
 

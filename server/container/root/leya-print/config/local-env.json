@@ -1,6 +1,6 @@
 {
-  "title": "Server root - local env",
-  "printEndpoint": "http://127.0.0.1:8091/print",
+  "title": "Server root - local env",  
+  "printEndpoint": "http://127.0.0.1:6003/print",
   "templateServiceBaseUrl": "http://127.0.0.1:8080",
   "pdfServiceBaseUrl": "http://127.0.0.1:8080",
   "authServiceBaseUrl": "http://localhost:6004/auth",
