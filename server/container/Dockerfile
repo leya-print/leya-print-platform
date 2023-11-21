@@ -7,6 +7,7 @@ FROM … AS auth-service
 FROM … AS web-common
 FROM … AS web-designer
 FROM … AS web-print
+FROM … AS sample-data
 
 FROM mcr.microsoft.com/playwright:focal
 RUN npx playwright@1.33 install chromium
@@ -37,6 +38,8 @@ RUN cd /leya-print/server/auth-service && npm i
 COPY --from=web-common . /leya-print/web/common
 COPY --from=web-print www-prod /leya-print/web/print/www
 COPY --from=web-designer www-prod /leya-print/web/designer/www
+
+COPY --from=sample-data . /leya-print/data
 
 COPY ./root /
 RUN chmod 777 /leya-print/start-with-nginx.sh

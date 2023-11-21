@@ -9,9 +9,11 @@ const InvoiceFooterTpl = class {
     this.invoice = window.providedData || invoiceSamples['invoice-001'];
   }
   render() {
+    const imagePath = '/assets/icon/leya.png';
+    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
-    return h(Host, null, h("div", { class: "invoice-footer__pageNumber" }, "Page ", h("span", { class: "pageNumber" }, "99"), "/", h("span", { class: "totalPages" }, "99")), h("div", { class: "invoice-footer__details" }, h("div", { class: "invoice-footer__line invoice-footer__name" }, sender.address.company), [
+    return h(Host, null, h("leya-print-image-fetch", { imgSrc: url, position: "right" }), h("div", { class: "invoice-footer__pageNumber" }, "Page ", h("span", { class: "pageNumber" }, "99"), "/", h("span", { class: "totalPages" }, "99")), h("div", { class: "invoice-footer__details" }, h("div", { class: "invoice-footer__line invoice-footer__name" }, sender.address.company), [
       line(['Phone', sender.phone], ['Mail', sender.email], ['Web', sender.web]),
     ], h("div", { class: "invoice-footer__line invoice-footer__line__bank-details" }, "Bank details: ", bank.name, " IBAN: ", bank.iban, " BIC: ", bank.bic, h("br", null))));
   }

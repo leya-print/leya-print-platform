@@ -8,5 +8,6 @@ docker buildx build \
   --build-context web-common=../../web/common \
   --build-context web-designer=../../web/designer \
   --build-context web-print=../../web/print \
+  --build-context sample-data=../../data \
   -t local.local/leya \
   .

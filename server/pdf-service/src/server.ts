@@ -11,8 +11,8 @@ import { PdfService } from './pdf.service';
 const upload = multer({ storage: multer.memoryStorage() });
 
 const env = getEnv({
-  title: 'localhost env',
-  printEndpoint: 'http://localhost:6003/print',
+  title: 'localhost env',  
+  printEndpoint: 'http://127.0.0.1:6003/print',
   templateServiceBaseUrl: 'http://localhost:6001/tpl',
   certificatesPath: '../certificates',
 });
