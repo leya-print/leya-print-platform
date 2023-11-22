@@ -21,7 +21,7 @@ export namespace Components {
         "tplName": string;
     }
     interface HomePage {
-        "templates": { ident: string; title: string; description: string; }[];
+        "templates": any[];
     }
     interface TemplateUpload {
     }
@@ -89,7 +89,7 @@ declare namespace LocalJSX {
         "tplName"?: string;
     }
     interface HomePage {
-        "templates"?: { ident: string; title: string; description: string; }[];
+        "templates"?: any[];
     }
     interface TemplateUpload {
     }

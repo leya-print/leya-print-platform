@@ -24,6 +24,8 @@ export class TemplatePackageService {
   private async _tplBaseUrl(tplPackage?: string) {
     const { templateServiceBaseUrl, templateBaseUrl } = await env;
 
+    if (tplPackage != null && tplPackage.startsWith('http')) return tplPackage;
+
     return tplPackage ? `${templateServiceBaseUrl}/tpl-contents/${tplPackage}` : `${templateBaseUrl}/build`;
   }
 }

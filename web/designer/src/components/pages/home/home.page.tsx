@@ -9,12 +9,10 @@ import { templateService } from 'src/global/template.service';
   shadow: false,
 })
 export class AppHome {
-  @Prop() templates = [
-    { ident: 'template-demo', title: 'demo', description: 'demo template that shows header, content and footer usage' },
-    { ident: 'invoice', title: 'invoice', description: 'invoices for customers' },
-    { ident: 'work-report', title: 'work report', description: 'work log of hours and tasks' },
-  ];
+  @Prop() templates = [];
+
   @State() packages?: TemplatePackage[];
+  @State() templateUrl? : string = ""
 
   private subscriptions = [] as Subscription[];
 
@@ -28,14 +26,26 @@ export class AppHome {
     let subscription: Subscription | undefined;
     while(subscription = this.subscriptions.pop()) subscription.unsubscribe();
   }
+  private updateTemplateUrl = (event: Event) => {
+    const input = event.target as HTMLInputElement;    
+    this.templateUrl = input.value;
+  }
+
+  async loadTemplates(){        
+    if (this.templateUrl == "") return;    
+    const externalPackage = await import (this.templateUrl);    
+
+    const templatePackage: TemplatePackage = externalPackage.templatePackage;
+    this.templates = templatePackage.templates;    
+  }
 
   render() {
     return (
       <Host>
         <p>
-          Welcome to leya print.
+          Welcome to Leya Print!
         </p>
-        <h2>deployed templates</h2>
+        <h2>Deployed templates</h2>
         {
           this.packages ? <ul>
             {this.packages.map((templatePackage) => <li>
@@ -49,7 +59,9 @@ export class AppHome {
             </li>)}
           </ul> : 'loading templates...'
         }
-        <h2>live templates</h2>
+        <h2>Live templates</h2>
+        <input id="live_template_url" onFocusout={this.updateTemplateUrl} value={this.templateUrl}/>
+        <input id="live_template_upload_btn" type='button' onClick={() => { this.loadTemplates(); }} value="Upload" />
         <ul>
           {this.templates.map((template) => <li><a href={`./designer/${template.ident}/`}>{template.title}</a><br />{template.description}</li>)}
         </ul>

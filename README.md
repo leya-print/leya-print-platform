@@ -81,11 +81,12 @@ If you are using VS Code locally you have to open the links manually.
 
 To use the tool, open the designer project URL (You can find the designer link in the PORTS tab of the IDK if you are using Gitpod, VS Code), the UI has three functionalities for users.
 
-deployed templates: custom templates modified by users and deployed for reusability.
+Deployed templates: custom templates modified by users and deployed for reusability.
 
-live templates: a collection of default available templates for use, such as invoices, work reports, cost tables, etc.
+Live templates: is a way to upload templates dynamically via a link. After the link is provided and button pressed the templates from the link wil appear.
+A default collection is provided from the Templates project, to use it, start the project with npm start and past the link https://3333-{GITPOD-URL}/build/index.esm.js to the url textbox, remember to replace GITPOD-URL with the local url.
 
-upload templates: a drop zone discernible by borders with a button in the middle, in this area we can drag and drop a .TGZ file with one or more new templates.
+Upload templates: a drop zone discernible by borders with a button in the middle, in this area we can drag and drop a .TGZ file with one or more new templates.
 After dropping the items, they will appear in the UI as deployed templates.
 
 Clicking on a template name the user can see the template and, on the right, the json code to modify the fields of the template as required.
@@ -95,7 +96,13 @@ Please check our [INSTRUCTIONS](/INSTRUCTIONS.md) file for instructions.
 
 ### Examples
 
-From the designer UI go to a user might click on the "invoice" template from the "live template" category.
+## Use live templates and modify a invoice template
+
+To use the live templates and modify a template the first step is to go to the Designer UI.
+From the designer UI, a user might want to use the "live templates", first we need to pass a link to some templates.
+Default templates can be found in the Templates project, use the link https://3333-{LOCAL-URL}/build/index.esm.js, replace the LOCAL-URL with the gitpod url or local system url.
+Press the button next to the URL textbox to display the templates.
+Click on the "invoice" template from the "live templates" category.
 From the upper-right box the json data will be modified to the user's needs.
 When done the preview button will be clicked and the pdf is generated.
 

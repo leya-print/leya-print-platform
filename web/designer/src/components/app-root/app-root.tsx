@@ -36,7 +36,7 @@ export class AppRoot {
     
     return <Host>
       <header class="app-root__header">
-        <h1><a href="/dev/">leya print</a>{title ? <span>{title}</span> : ''}</h1>
+        <h1><a href="/dev/">Leya Print</a>{title ? <span>{title}</span> : ''}</h1>
         <span>version {this.version}</span>
       </header>
       <main class="app-root__main">{contents}</main>
