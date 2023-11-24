@@ -9,11 +9,7 @@ import { templateService } from 'src/global/template.service';
   shadow: false,
 })
 export class AppHome {
-  @Prop() templates = [
-    { ident: 'template-demo', title: 'demo', description: 'demo template that shows header, content and footer usage' },
-    { ident: 'invoice', title: 'invoice', description: 'invoices for customers' },
-    { ident: 'work-report', title: 'work report', description: 'work log of hours and tasks' },
-  ];
+  @Prop() templates = [];
   @State() packages?: TemplatePackage[];
 
   private subscriptions = [] as Subscription[];
@@ -33,9 +29,9 @@ export class AppHome {
     return (
       <Host>
         <p>
-          Welcome to leya print.
+          Welcome to Leya Print!
         </p>
-        <h2>deployed templates</h2>
+        <h2>Deployed templates</h2>
         {
           this.packages ? <ul>
             {this.packages.map((templatePackage) => <li>
@@ -49,10 +45,8 @@ export class AppHome {
             </li>)}
           </ul> : 'loading templates...'
         }
-        <h2>live templates</h2>
-        <ul>
-          {this.templates.map((template) => <li><a href={`./designer/${template.ident}/`}>{template.title}</a><br />{template.description}</li>)}
-        </ul>
+        <h2>Live templates</h2>
+        <template-live templates={this.templates}></template-live>
         <template-upload></template-upload>
       </Host>
     );

@@ -21,7 +21,10 @@ export namespace Components {
         "tplName": string;
     }
     interface HomePage {
-        "templates": { ident: string; title: string; description: string; }[];
+        "templates": any[];
+    }
+    interface TemplateLive {
+        "templates": any[];
     }
     interface TemplateUpload {
     }
@@ -57,6 +60,12 @@ declare global {
         prototype: HTMLHomePageElement;
         new (): HTMLHomePageElement;
     };
+    interface HTMLTemplateLiveElement extends Components.TemplateLive, HTMLStencilElement {
+    }
+    var HTMLTemplateLiveElement: {
+        prototype: HTMLTemplateLiveElement;
+        new (): HTMLTemplateLiveElement;
+    };
     interface HTMLTemplateUploadElement extends Components.TemplateUpload, HTMLStencilElement {
     }
     var HTMLTemplateUploadElement: {
@@ -69,6 +78,7 @@ declare global {
         "designer-stage": HTMLDesignerStageElement;
         "designer-ui": HTMLDesignerUiElement;
         "home-page": HTMLHomePageElement;
+        "template-live": HTMLTemplateLiveElement;
         "template-upload": HTMLTemplateUploadElement;
     }
 }
@@ -89,7 +99,10 @@ declare namespace LocalJSX {
         "tplName"?: string;
     }
     interface HomePage {
-        "templates"?: { ident: string; title: string; description: string; }[];
+        "templates"?: any[];
+    }
+    interface TemplateLive {
+        "templates"?: any[];
     }
     interface TemplateUpload {
     }
@@ -99,6 +112,7 @@ declare namespace LocalJSX {
         "designer-stage": DesignerStage;
         "designer-ui": DesignerUi;
         "home-page": HomePage;
+        "template-live": TemplateLive;
         "template-upload": TemplateUpload;
     }
 }
@@ -111,6 +125,7 @@ declare module "@stencil/core" {
             "designer-stage": LocalJSX.DesignerStage & JSXBase.HTMLAttributes<HTMLDesignerStageElement>;
             "designer-ui": LocalJSX.DesignerUi & JSXBase.HTMLAttributes<HTMLDesignerUiElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
+            "template-live": LocalJSX.TemplateLive & JSXBase.HTMLAttributes<HTMLTemplateLiveElement>;
             "template-upload": LocalJSX.TemplateUpload & JSXBase.HTMLAttributes<HTMLTemplateUploadElement>;
         }
     }
