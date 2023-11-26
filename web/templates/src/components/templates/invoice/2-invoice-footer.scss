@@ -13,13 +13,17 @@ tpl-invoice-footer {
       margin-bottom: 4.23mm;
     }
 
-    .invoice-footer__img{
-      justify-content: right;
+    .invoice-footer__img{      
       display: flex;
       justify-content: end;
       padding-bottom: 0.2cm;
       padding-right: 2cm;
       padding-left: 2cm;
+    }
+
+    .invoice-footer__img-size{
+      width: 110px;
+      height: 70px;
     }
 
     .invoice-footer__details {

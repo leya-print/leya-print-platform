@@ -11,9 +11,7 @@ import { Component,  h, Prop } from '@stencil/core';
     private convertedImg: string;
 
     async fetchImage(url: string) {
-        const response = await fetch(url, {
-            mode: 'no-cors',
-        });
+        const response = await fetch(url);
         const blob = await response.blob();
         
         return blob;
@@ -40,8 +38,8 @@ import { Component,  h, Prop } from '@stencil/core';
     }    
 
     render() {        
-        return (<div>
-            <img src={this.convertedImg} alt="Company Logo" width={110} height={70}/> 
+        return (<div class="prefetch-img-parent-size">
+            <img src={this.convertedImg} alt="Company Logo" class="prefetch-img-size"/> 
         </div>)
     }
 }

@@ -145,12 +145,16 @@ tpl-invoice-header {
   }
 
   .invoice-header__img{
-    justify-content: right;
     display: flex;
     justify-content: end;
     padding-bottom: 0.2cm;
     padding-right: 2cm;
     padding-left: 2cm;
+  }
+
+  .invoice-header__img-size{
+    width: 110px;
+    height: 70px;
   }
   
 }
