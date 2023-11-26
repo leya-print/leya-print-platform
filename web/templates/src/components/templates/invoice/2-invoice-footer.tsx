@@ -9,12 +9,12 @@ import { invoiceSamples } from './invoice-samples';
 export class InvoiceFooterTpl {
   @State() invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
   render() {
-    const imagePath = '/assets/icon/leya.png'
-    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`
+    const imagePath = '/assets/icon/leya.png';
+    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
     return <Host>
-      <leya-print-image-fetch imgSrc={url} position="right"/>
+      <leya-print-image-fetch imgSrc={url}/>
       <div class="invoice-footer__pageNumber">Page <span class="pageNumber">99</span>/<span class="totalPages">99</span></div>
       <div class="invoice-footer__details">
         <div class="invoice-footer__line invoice-footer__name">

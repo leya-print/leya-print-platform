@@ -7,7 +7,7 @@ import { Component, h, Host, Prop, State } from '@stencil/core';
 })
 export class TemplateLiveComponent {
   @Prop() templates = [];  
-  @State() templateUrl? : string = ""
+  @State() templateUrl? : string = "";
 
   private updateTemplateUrl = (event: Event) => {
     const input = event.target as HTMLInputElement;    
