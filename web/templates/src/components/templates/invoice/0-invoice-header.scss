@@ -143,5 +143,14 @@ tpl-invoice-header {
     overflow: hidden;
     border-bottom: .2mm solid black;
   }
+
+  .invoice-header__img{
+    justify-content: right;
+    display: flex;
+    justify-content: end;
+    padding-bottom: 0.2cm;
+    padding-right: 2cm;
+    padding-left: 2cm;
+  }
   
 }

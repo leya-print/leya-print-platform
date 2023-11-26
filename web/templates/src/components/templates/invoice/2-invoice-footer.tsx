@@ -14,7 +14,7 @@ export class InvoiceFooterTpl {
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
     return <Host>
-      <leya-print-image-fetch imgSrc={url}/>
+      <div class="invoice-footer__img"><leya-print-image-fetch imgSrc={url}/></div>
       <div class="invoice-footer__pageNumber">Page <span class="pageNumber">99</span>/<span class="totalPages">99</span></div>
       <div class="invoice-footer__details">
         <div class="invoice-footer__line invoice-footer__name">
