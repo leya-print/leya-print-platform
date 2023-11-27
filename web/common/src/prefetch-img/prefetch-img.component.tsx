@@ -38,7 +38,7 @@ import { Component,  h, Prop } from '@stencil/core';
     }    
 
     render() {        
-        return (<div class="prefetch-img-parent-size">
+        return (<div class="prefetch-img-size">
             <img src={this.convertedImg} alt="Company Logo" class="prefetch-img-size"/> 
         </div>)
     }
