@@ -1,7 +1,9 @@
-.leya-print-prefetch-img-div {
-    display: flex; 
-    justify-content: end;
-    padding-bottom: 0.2cm;     
-    padding-right: 2cm;
-    padding-left: 2cm;
+leya-print-image-fetch {
+    width: inherit;
+    height: inherit;
+
+    .prefetch-img-size{    
+        width: inherit;
+        height: inherit;
+    }    
 }

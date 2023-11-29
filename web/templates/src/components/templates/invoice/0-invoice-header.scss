@@ -46,7 +46,6 @@ tpl-invoice-header {
     }
   }
 
-
   .invoice-header__header-data {
     min-height: 40mm + 32mm - 10mm;
     margin-left: 115mm;
@@ -144,4 +143,18 @@ tpl-invoice-header {
     overflow: hidden;
     border-bottom: .2mm solid black;
   }
+
+  .invoice-header__img{
+    display: flex;
+    justify-content: end;
+    padding-bottom: 0.2cm;
+    padding-right: 2cm;
+    padding-left: 2cm;
+  }
+
+  .invoice-header__img-size{
+    width: 110px;
+    height: 70px;
+  }
+  
 }
