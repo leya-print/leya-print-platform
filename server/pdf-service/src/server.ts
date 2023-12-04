@@ -55,7 +55,7 @@ app.get('/pdf/alive', async (_req, res) => {
     }
 });
 
-app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true }), async(req, res) => {
+app.post('/pdf/:templateId/*', bodyParser.urlencoded({ extended: true, limit: '50mb' }), async(req, res) => {
   try {
     const pdf = await pdfFactory.create(req.params.templateId, req.query, req.body?.payload);
     res.setHeader('Content-Type', 'application/pdf');
