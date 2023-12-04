@@ -9,7 +9,8 @@
         "start": "node dist/launch.js",
         "build": "tsc -p ./tsconfig.build.json",
         "test": "mocha -r ts-node/register src/**/*.spec.{js,ts}",
-        "test:watch": "npm run test -- --watch-files src/**/*.ts --watch"
+        "test:watch": "npm run test -- --watch-files src/**/*.ts --watch",
+        "remove-integrity": "node remove-integrity.js '@leya-print/template-api' 'node_modules/@leya-print/template-api' '@leya-print/server-common' 'node_modules/@leya-print/server-common'"
     },
     "watch": {
         "dev": {

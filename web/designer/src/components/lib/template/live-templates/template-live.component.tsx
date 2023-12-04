@@ -25,7 +25,7 @@ export class TemplateLiveComponent {
   render() {
     return <Host>
         <input id="live_template_url" onFocusout={this.updateTemplateUrl} value={this.templateUrl}/>
-        <input id="live_template_upload_btn" type='button' onClick={() => { this.loadTemplates(); }} value="Upload" />
+        <input id="live_template_connect_btn" type='button' onClick={() => { this.loadTemplates(); }} value="Connect" />
         <ul>
           {this.templates.map((template) => <li><a href={`./designer/${template.ident}?tplPackage=${this.templateUrl}`}>{template.title}</a><br />{template.description}</li>)}
         </ul>
