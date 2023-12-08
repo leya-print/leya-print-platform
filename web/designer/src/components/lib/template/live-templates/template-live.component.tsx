@@ -2,21 +2,29 @@ import { TemplatePackage } from '@leya-print/template-api';
 import { Component, h, Host, Prop, State } from '@stencil/core';
 import { uiStateService } from '../../ui-state/index'
 
+interface LiveTemplateUIState {
+  templateURL?: string
+}
+
 @Component({
   tag: 'template-live',
   styleUrl: 'template-live.component.scss',
 })
 export class TemplateLiveComponent {
   @Prop({mutable: true}) templates = [];  
-  @State() templateUrl? : string = "";
+  @State() templateUrl? : string = "";  
+  uiState: LiveTemplateUIState;
 
   async componentWillLoad() {         
-    const stateTemplateURL = uiStateService.getExisting<string>('templateURL');    
+    this.uiState = uiStateService.get({
+      ident: "liveTemplates",
+      initialize: () => ({})
+    });
 
-    if(!!stateTemplateURL){
-      this.templateUrl = stateTemplateURL
+    if(!!this.uiState.templateURL){
+      this.templateUrl = this.uiState.templateURL
       await this.loadTemplates()
-    }    
+    }
   }
 
   private updateTemplateUrl = (event: Event) => {
@@ -28,11 +36,8 @@ export class TemplateLiveComponent {
     if (this.templateUrl == "") return;
 
     try {
-      const externalPackage = await import (this.templateUrl);      
-
-      uiStateService.clean();
-      uiStateService.create<string>('templateURL', this.templateUrl);
-      uiStateService.backup();
+      const externalPackage = await import (this.templateUrl);
+      this.uiState.templateURL = this.templateUrl
       
       const templatePackage: TemplatePackage = externalPackage.templatePackage;
       this.templates = templatePackage.templates;

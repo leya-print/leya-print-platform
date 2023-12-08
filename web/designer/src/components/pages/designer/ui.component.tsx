@@ -81,10 +81,10 @@ export class DesignerUiComponent {
       <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <div onClick={() => rasterService.toggle()}>
-          <input name="raster" type="checkbox" checked={this.rasterIsActive} /><label>raster</label>
+          <label>Raster:</label><input name="raster" type="checkbox" checked={this.rasterIsActive} />
         </div>
         {/* <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div> */}
-        <div>leyaPrintWatermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>
+        <div>Watermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>
         <button class="button" type="submit">preview</button>
       </form>
     </Host>
