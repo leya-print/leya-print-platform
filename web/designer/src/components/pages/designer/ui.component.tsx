@@ -77,6 +77,8 @@ export class DesignerUiComponent {
   }
 
   render() {
+    const url = new URL(location.href);    
+
     return <Host>
       <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
@@ -85,7 +87,9 @@ export class DesignerUiComponent {
         </div>
         {/* <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div> */}
         <div>Watermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>
-        <button class="button" type="submit">preview</button>
+        {
+          url.searchParams?.get("tplPackage")?.includes("http") ?  <div class={"alert-text"}>Preview is not available for live templates</div> : <button class="button" type="submit">preview</button>
+        }
       </form>
     </Host>
   }
