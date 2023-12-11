@@ -59,7 +59,7 @@ export class DesignerUiComponent {
     this.leyaPrintWatermark = url.searchParams.get('watermark') || undefined;
     this.previewUrl = (await env).pdfServiceBaseUrl + '/pdf';
   }
-
+  
   private readonly updateLeyaPrintWatermark = (event: Event) => {
     const input = event.target as HTMLInputElement;
     const leyaPrintWatermark = input.value;
@@ -72,8 +72,17 @@ export class DesignerUiComponent {
       delete this.leyaPrintWatermark;
     }
     history.replaceState(null, '', url.toString());
-
     console.log({ leyaPrintWatermark: input.value });
+    this.updatePageGraphics();
+  }
+
+  private readonly changeRaster = () => {
+    this.updatePageGraphics();
+  }
+
+  @Event({ eventName: 'designer-reload' }) reloadPage: EventEmitter<void>;
+  private readonly updatePageGraphics = () => {
+    this.reloadPage.emit();
   }
 
   render() {
@@ -83,7 +92,7 @@ export class DesignerUiComponent {
       <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <div onClick={() => rasterService.toggle()}>
-          <label>Raster:</label><input name="raster" type="checkbox" checked={this.rasterIsActive} />
+          <label>Graph-Paper:</label><input name="raster" type="checkbox" checked={this.rasterIsActive} onChange={this.changeRaster} />
         </div>
         {/* <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div> */}
         <div>Watermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>

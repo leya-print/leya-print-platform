@@ -15,6 +15,7 @@ export namespace Components {
     interface DesignerStage {
         "pageHeight": string;
         "pageWidth": string;
+        "reloading": boolean;
     }
     interface DesignerUi {
         "sampleData"?: any;
@@ -92,8 +93,10 @@ declare namespace LocalJSX {
     interface DesignerStage {
         "pageHeight"?: string;
         "pageWidth"?: string;
+        "reloading"?: boolean;
     }
     interface DesignerUi {
+        "onDesigner-reload"?: (event: CustomEvent<void>) => void;
         "onDesigner-reload-preview"?: (event: CustomEvent<void>) => void;
         "sampleData"?: any;
         "tplName"?: string;

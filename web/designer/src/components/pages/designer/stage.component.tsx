@@ -1,6 +1,5 @@
 import { Component, Element, h, Host, Prop, State } from '@stencil/core';
 
-
 @Component({
   tag: 'designer-stage',
   styleUrl: 'stage.component.scss',
@@ -9,6 +8,7 @@ import { Component, Element, h, Host, Prop, State } from '@stencil/core';
 export class DesignerStageComponent {
   @Prop() pageWidth = '21cm';
   @Prop() pageHeight = '29.7cm';
+  @Prop() reloading = false;
 
   @State() headerHeight = '5cm';
   @State() footerHeight = '3cm';
@@ -64,8 +64,9 @@ export class DesignerStageComponent {
       width: this.pageWidth,
       height: contentHeight,
       paddingTop: this.headerHeight,
-      paddingBottom: this.footerHeight,
-    }}>
+      paddingBottom: this.footerHeight,            
+    }}>      
+      {!this.reloading && <div></div>}
       <div
         class="designer-stage__header"
         style={{
@@ -73,7 +74,10 @@ export class DesignerStageComponent {
           width: this.pageWidth,
           transform: `translateX(-1px) translateY(calc(-${this.headerHeight} - 1px))`,
         }}
-      ><leya-print-graph-paper></leya-print-graph-paper><div><slot name="stage-header"></slot></div></div>
+      >
+      <leya-print-graph-paper></leya-print-graph-paper>
+      <slot name="stage-header"></slot>
+      </div>
       <div
         class="designer-stage__footer"
         style={{
@@ -81,10 +85,10 @@ export class DesignerStageComponent {
           width: this.pageWidth,
           transform: `translateX(-1px) translateY(calc(${this.pageHeight} - ${this.headerHeight} - ${this.footerHeight} - 1px))`,
         }}
-      ><leya-print-graph-paper></leya-print-graph-paper><slot name="stage-footer"></slot></div>
-      <div
-        class="designer-stage__content"
       >
+      <leya-print-graph-paper></leya-print-graph-paper><slot name="stage-footer"></slot>
+      </div>
+      <div class="designer-stage__content">
         <style>{`
           .designer-stage__content .raster {
             height: ${contentHeight} !important;
@@ -92,7 +96,8 @@ export class DesignerStageComponent {
         `}</style>
         <leya-print-graph-paper></leya-print-graph-paper>
         <leya-print-watermark></leya-print-watermark>
-        <slot name="stage-content"></slot></div>
+        <slot name="stage-content"></slot>
+      </div>                
     </Host>;
   }
 }

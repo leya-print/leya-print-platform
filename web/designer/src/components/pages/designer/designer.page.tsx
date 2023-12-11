@@ -11,15 +11,22 @@ export class AppHome {
   @Prop() tplPackage?: string;
 
   @State() reloading = false;
+  @State() reloadingStage = false;
 
   sampleData?: any;
 
   private loader?: VNode;
 
-  @Listen('designer-reload-preview')
-  reloadPreview() {
+  @Listen('designer-reload-preview')  
+  reloadPreview() {        
     this.reloading = true;
     setTimeout(() => this.reloading = false, 10);
+  }
+
+  @Listen('designer-reload')
+  reloadStage() {        
+    this.reloadingStage = true;
+    setTimeout(() => this.reloadingStage = false, 0);
   }
 
   async componentWillLoad() {
@@ -36,7 +43,7 @@ export class AppHome {
         tplName={this.tplName}
         sampleData={this.sampleData}
       ></designer-ui>
-      <designer-stage>{ !this.reloading && <Fragment>
+      <designer-stage reloading={this.reloadingStage}>{ !this.reloading && <Fragment>
         <div slot="stage-header" innerHTML={`<tpl-${this.tplName}-header></tpl-${this.tplName}-header>`}></div>
         <div slot="stage-content" innerHTML={`<tpl-${this.tplName}-content></tpl-${this.tplName}-content>`}></div>
         <div slot="stage-footer" innerHTML={`<tpl-${this.tplName}-footer></tpl-${this.tplName}-footer>`}></div>
