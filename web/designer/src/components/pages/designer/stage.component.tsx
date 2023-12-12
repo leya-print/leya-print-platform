@@ -66,7 +66,7 @@ export class DesignerStageComponent {
       paddingTop: this.headerHeight,
       paddingBottom: this.footerHeight,            
     }}>      
-      {!this.reloading && <div></div>}
+      {!!this.reloading && <div></div>}
       <div
         class="designer-stage__header"
         style={{
