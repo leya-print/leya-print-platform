@@ -12,6 +12,6 @@ fs.readFile('package-lock.json', 'utf8', (err, data) => {
 
   fs.writeFile('package-lock.json', modifiedData, 'utf8', (err) => {
     if (err) throw err;
-    console.log('integrity values removed for specified packages');
+    console.log('integrity values removed for specified packages', packagesToRemoveIntegrity);
   });
 });

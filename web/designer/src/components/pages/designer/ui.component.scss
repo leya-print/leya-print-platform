@@ -18,6 +18,10 @@ designer-ui > form {
     font-size: 8pt;
   }
 
+  .alert-text {
+    color:red
+  }
+
   button.button {
     @include button;
   }

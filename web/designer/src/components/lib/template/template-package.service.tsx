@@ -33,8 +33,8 @@ export class TemplatePackageService {
     const tplBaseUrl = await this._tplBaseUrl(tplPackage);
     const loader = tplPackage.startsWith('http')
       ? await import(tplPackage.replace('index.esm.js', 'templates.esm.js'))
-      : await import(tplPackage ? `${tplBaseUrl}/loader.js` : `${tplBaseUrl}/templates.esm.js`)
-    ;
+      : await import(tplPackage ? `${tplBaseUrl}/loader.js` : `${tplBaseUrl}/templates.esm.js`);
+
     loader.defineCustomElements?.();
   }
 

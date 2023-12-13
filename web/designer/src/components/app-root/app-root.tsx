@@ -1,5 +1,5 @@
 import { Component, h, Host, VNode } from '@stencil/core';
-const version = '1.0.2';
+const version = '1.0.3';
 import '@leya-print/web-common/dist/components/leya-print-graph-paper';
 import '@leya-print/web-common/dist/components/leya-print-watermark';
 
@@ -37,7 +37,7 @@ export class AppRoot {
     return <Host>
       <header class="app-root__header">
         <h1><a href="/dev/">Leya Print</a>{title ? <span>{title}</span> : ''}</h1>
-        <span>version {this.version}</span>
+        <span>Version: {this.version}</span>
       </header>
       <main class="app-root__main">{contents}</main>
     </Host>

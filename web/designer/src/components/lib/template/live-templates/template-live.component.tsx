@@ -1,13 +1,31 @@
 import { TemplatePackage } from '@leya-print/template-api';
 import { Component, h, Host, Prop, State } from '@stencil/core';
+import { uiStateService } from '../../ui-state/index'
+
+interface LiveTemplateUIState {
+  templateURL?: string
+}
 
 @Component({
   tag: 'template-live',
   styleUrl: 'template-live.component.scss',
 })
 export class TemplateLiveComponent {
-  @Prop() templates = [];  
-  @State() templateUrl? : string = "";
+  @Prop({mutable: true}) templates = [];  
+  @State() templateUrl? : string = "";  
+  uiState: LiveTemplateUIState;
+
+  async componentWillLoad() {         
+    this.uiState = uiStateService.get({
+      ident: "liveTemplates",
+      initialize: () => ({})
+    });
+
+    if(!!this.uiState.templateURL){
+      this.templateUrl = this.uiState.templateURL
+      await this.loadTemplates()
+    }
+  }
 
   private updateTemplateUrl = (event: Event) => {
     const input = event.target as HTMLInputElement;    
@@ -15,17 +33,24 @@ export class TemplateLiveComponent {
   }
 
   async loadTemplates(){        
-    if (this.templateUrl == "") return;    
-    const externalPackage = await import (this.templateUrl);    
+    if (this.templateUrl == "") return;
 
-    const templatePackage: TemplatePackage = externalPackage.templatePackage;
-    this.templates = templatePackage.templates;    
+    try {
+      const externalPackage = await import (this.templateUrl);
+      this.uiState.templateURL = this.templateUrl
+      
+      const templatePackage: TemplatePackage = externalPackage.templatePackage;
+      this.templates = templatePackage.templates;
+    } catch (error) {
+      console.log(error);
+      this.templates = [];
+    };
   }
 
   render() {
     return <Host>
         <input id="live_template_url" onFocusout={this.updateTemplateUrl} value={this.templateUrl}/>
-        <input id="live_template_upload_btn" type='button' onClick={() => { this.loadTemplates(); }} value="Upload" />
+        <input id="live_template_connect_btn" type='button' onClick={() => { this.loadTemplates(); }} value="Connect" />
         <ul>
           {this.templates.map((template) => <li><a href={`./designer/${template.ident}?tplPackage=${this.templateUrl}`}>{template.title}</a><br />{template.description}</li>)}
         </ul>

@@ -10,7 +10,7 @@
         "test": "stencil test --spec --e2e",
         "test.watch": "stencil test --spec --e2e --watchAll",
         "generate": "stencil generate",
-        "remove-integrity": "node remove-integrity.js 'node_modules/@leya-print/web-common' 'node_modules/@leya-print/web-common/node_modules/@stencil/core' '@leya-print/web-common'"
+        "remove-integrity": "node remove-integrity.js 'node_modules/@leya-print/web-common' 'node_modules/@leya-print/web-common/node_modules/@stencil/core' '@leya-print/web-common' 'node_modules/@leya-print/template-api' '@leya-print/template-api'"
     },
     "devDependencies": {
         "@stencil/core": "2.13.0",

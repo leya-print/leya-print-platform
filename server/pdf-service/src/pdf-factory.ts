@@ -9,7 +9,7 @@ export class PdfFactory {
   ) {}
 
   get browser() {
-    const browserPromise = chromium.launch();
+    const browserPromise = chromium.launch({ args: [ '--disable-web-security' ]});
     Object.defineProperty(this, 'browser', { value: browserPromise, writable: false });
 
     return browserPromise;

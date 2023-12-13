@@ -10,7 +10,8 @@
         "build": "tsc -p ./tsconfig.build.json",
         "test": "mocha -r ts-node/register src/**/*.spec.{js,ts} --watch-files src/**/*.ts",
         "test:watch": "npm run test -- --watch-files src/**/*.ts --watch",
-        "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome"
+        "install-browser": "PLAYWRIGHT_BROWSERS_PATH=./browsers playwright install chrome",
+        "remove-integrity": "node remove-integrity.js 'node_modules/@leya-print/server-common' '@leya-print/server-common'"
     },
     "watch": {
         "dev": {
