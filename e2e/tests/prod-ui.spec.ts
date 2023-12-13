@@ -23,7 +23,7 @@ test.describe('designer', () => {
 
       await page
         .locator('div')
-        .filter({ hasText: 'leyaPrintWatermark:' })
+        .filter({ hasText: 'Watermark:' })
         .getByRole('textbox')
         .type('test', { delay: 100 });
         
