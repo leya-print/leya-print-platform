@@ -78,7 +78,7 @@ tasks:
     openMode: split-right
 
   - name: Templates
-    before: cd web/templates
+    before: cd web/templates/templates-stencil
     init: |
       gp sync-await build
       npm i

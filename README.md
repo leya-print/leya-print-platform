@@ -44,7 +44,7 @@ server/tpl-service
 server/pdf-service
 web/designer
 web/print
-web/templates
+web/templates/templates-stencil
 
 First command to type is "npm install" to get all necessary dependencies.
 Second command is to startup the projects, choose which project you want to run:
@@ -65,7 +65,7 @@ web/print:
 ```
 npm start
 ```
-web/templates:
+web/templates/templates-stencil:
 ```
 npm start
 ```
