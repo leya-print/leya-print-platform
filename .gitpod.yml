@@ -4,7 +4,11 @@ image:
 ports:
   - port: 3333
     visibility: public
-    name: Templates
+    name: Templates-Stencil
+    onOpen: ignore
+  - port: 3334
+    visibility: public
+    name: Templates-Lit
     onOpen: ignore
   - port: 6000
     visibility: public
@@ -77,7 +81,7 @@ tasks:
     command: npm start
     openMode: split-right
 
-  - name: Templates
+  - name: Templates-Stencil
     before: cd web/templates/templates-stencil
     init: |
       gp sync-await build
