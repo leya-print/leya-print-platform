@@ -1,8 +1,8 @@
 {
-  "name": "@lit/lit-starter-ts",
+  "name": "lit-templates",
   "private": true,
   "version": "2.0.0",
-  "description": "A simple web component",
+  "description": "templates made with lit elements",
   "main": "my-element.js",
   "module": "my-element.js",
   "type": "module",
@@ -24,7 +24,8 @@
     "test:watch": "wtr --watch",
     "test:prod": "MODE=prod wtr",
     "test:prod:watch": "MODE=prod wtr --watch",
-    "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js"
+    "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js",
+    "rollup": "rollup -c ;"
   },
   "keywords": [
     "web-components",
@@ -32,8 +33,8 @@
     "typescript",
     "lit"
   ],
-  "author": "Google LLC",
-  "license": "BSD-3-Clause",
+  "author": "Leya",
+  "license": "Apache",
   "dependencies": {
     "@leya-print/template-api": "^0.0.2",
     "lit": "^3.0.0"
@@ -43,8 +44,10 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@open-wc/testing": "^3.1.5",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-typescript": "^11.1.5",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "@web/dev-server": "^0.1.31",

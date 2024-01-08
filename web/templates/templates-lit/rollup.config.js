@@ -8,13 +8,15 @@ import summary from 'rollup-plugin-summary';
 import {terser} from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript'
 
 export default {
-  input: 'my-element.js',
+  input: 'src/index.ts',
   output: {    
-    dir: 'dist',
-    file: 'my-element.bundled.js',
+    file: 'dist/index.esm.js',
     format: 'esm',
+    sourcemap: true,
   },
   onwarn(warning) {
     if (warning.code !== 'THIS_IS_UNDEFINED') {
@@ -22,8 +24,13 @@ export default {
     }
   },
   plugins: [
-    replace({'Reflect.decorate': 'undefined'}),
+    replace({'Reflect.decorate': 'undefined', preventAssignment: true}),
     resolve(),
+    typescript(),
+    commonjs({
+      include: /\/node_modules\//,
+      transformMixedEsModules: true, // Add this option to address compatibility issues
+    }),
     /**
      * This minification setup serves the static site generation.
      * For bundling and minification, check the README.md file.
