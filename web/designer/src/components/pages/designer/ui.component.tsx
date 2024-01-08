@@ -71,8 +71,7 @@ export class DesignerUiComponent {
       url.searchParams.delete('watermark');
       delete this.leyaPrintWatermark;
     }
-    history.replaceState(null, '', url.toString());
-    console.log({ leyaPrintWatermark: input.value });
+    history.replaceState(null, '', url.toString());    
     this.updatePageGraphics();
   }
 

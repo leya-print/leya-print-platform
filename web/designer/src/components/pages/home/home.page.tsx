@@ -8,7 +8,7 @@ import { templateService } from 'src/global/template.service';
   styleUrl: 'home.page.scss',
   shadow: false,
 })
-export class AppHome {
+export class HomePage {
   @Prop() templates = [];
   @State() packages?: TemplatePackage[];
 

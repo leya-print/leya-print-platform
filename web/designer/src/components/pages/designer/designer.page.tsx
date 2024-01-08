@@ -6,7 +6,7 @@ import { templatePackageService } from 'src/components/lib/template/template-pac
   styleUrl: 'designer.page.scss',
   shadow: true,
 })
-export class AppHome {
+export class DesignerPage {
   @Prop() tplName = 'invoice';
   @Prop() tplPackage?: string;
 
