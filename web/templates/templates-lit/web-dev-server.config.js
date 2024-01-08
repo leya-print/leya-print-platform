@@ -13,6 +13,14 @@ if (!['dev', 'prod'].includes(mode)) {
 
 export default {
   nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
+  port: 3334,
+  middleware: [
+    async (context, next) => {      
+      context.set('Access-Control-Allow-Origin', '*');            
+      
+      await next();
+    },
+  ],
   preserveSymlinks: true,
   plugins: [
     legacyPlugin({

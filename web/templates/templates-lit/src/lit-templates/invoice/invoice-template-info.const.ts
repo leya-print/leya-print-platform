@@ -4,7 +4,7 @@ import { invoiceSamples } from './invoice-samples';
 export const invoiceTemplateInfo: TemplateInfo = {
   ident: 'invoice',
   title: 'Invoice',
-  description: 'invoices for customers',
+  description: 'template - invoice for customers using lit elements',
   components: {
     header: 'tpl-invoice-header',
     content: 'tpl-invoice-content',
