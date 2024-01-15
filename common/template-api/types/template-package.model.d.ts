@@ -18,6 +18,9 @@ export interface TemplatePackage {
     /** Version string for the template package. Semantic versioning is recommended. */
     version?: string;
 
+    /** Path to where the templates can be found from the linked application. The path is the file path where the template info can be found*/
+    templatesFilePath?: string;
+
     /** Array of templates included in this package. */
     templates: TemplateInfo[];
 }

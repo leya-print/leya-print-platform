@@ -10,10 +10,11 @@ export class AddressComponent extends LitElement {
 
   override render() {
     const a = this.address;
+    console.log(this.address);
+    
 
-    return html`
-    <div>${[
-      line('test', a.city ?? ''),
+    return html`    
+    <Host>${[      
       line('name', a.firstName ?? '', a.lastName ?? ''),
       line('company', a.company ?? ''),
       line('street', a.street1 ?? ''),
@@ -22,15 +23,15 @@ export class AddressComponent extends LitElement {
       line('country', a.country ?? ''),
     ]
     .filter((l) => !!l)
-    .map((l) => `<div>${l}</div>`)}
-    </div>
+    .map((l) => html`<div>${l}</div>`)}
+    </Host>
     `;
   }
 }
 
 function line(part: string | undefined, ...words: string[]) {
   const content = words.filter((w) => !!w).join(' ');
-  return content && html`<div class=${`tplb-address-${part}`}>{content}</div>`;
+  return content && html`<div class=${`tplb-address-${part}`}>${content}</div>`;
 }
 
 declare global {

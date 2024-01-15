@@ -1,57 +1,37 @@
-import {LitElement, html, css} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+// import {LitElement, html, css} from 'lit';
+import {LitElement, html} from 'lit';
+import {customElement} from 'lit/decorators.js';
+
+import './lit-templates/invoice/0-invoice-header'
+import './lit-templates/invoice/1-invoice-content'
+import './lit-templates/invoice/2-invoice-footer'
 
 /**
- * An example element.
- *
- * @fires count-changed - Indicates when the count changes
- * @slot - This element has a slot
- * @csspart button - The button
+ * Component to display testing templates.
+ * 
  */
 @customElement('my-element')
 export class MyElement extends LitElement {
-  static override styles = css`
-    :host {
-      display: block;
-      border: solid 1px gray;
-      padding: 16px;
-      max-width: 800px;
-    }
-  `;
+  // static override styles = css`
+  //   :host {
+  //     display: block;
+  //     border: solid 1px gray;
+  //     margin: 2px
+  //     padding: 16px;
+  //     max-width: 800px;
+  //   }
+  // `;
 
-  /**
-   * The name to say "Hello" to.
-   */
-  @property()
-  name = 'World';
-
-  /**
-   * The number of times the button has been clicked.
-   */
-  @property({type: Number})
-  count = 0;
-
-  override render() {
+  override render() {    
     return html`
-      <h1>${this.sayHello(this.name)}!</h1>
-      <button @click=${this._onClick} part="button">
-        Click Count: ${this.count}
-      </button>
+    <h1> Templates view: </h1>
+    <div>
+      <tpl-invoice-header></tpl-invoice-header>
+      <tpl-invoice-content></tpl-invoice-content>
+      <tpl-invoice-footer></tpl-invoice-footer>
+    </div>            
       <slot></slot>
     `;
-  }
-
-  private _onClick() {
-    this.count++;
-    this.dispatchEvent(new CustomEvent('count-changed'));
-  }
-
-  /**
-   * Formats a greeting
-   * @param name The name to say "Hello" to
-   */
-  sayHello(name: string): string {
-    return `Hello, ${name}`;
   }
 }
 

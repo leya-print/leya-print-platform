@@ -1,5 +1,5 @@
 import { Component, h, Host, VNode } from '@stencil/core';
-const version = '1.0.3';
+const version = '1.0.4';
 import '@leya-print/web-common/dist/components/leya-print-graph-paper';
 import '@leya-print/web-common/dist/components/leya-print-watermark';
 

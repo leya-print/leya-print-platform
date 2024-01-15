@@ -31,7 +31,8 @@ export class DesignerPage {
 
   async componentWillLoad() {
     const templateInfo = await templatePackageService.templateInfo(this.tplPackage, this.tplName);
-
+    console.log('templateInfo in willload in designer page', templateInfo);
+    
     this.sampleData = Object.values(templateInfo.sampleData)[0].data;
     await templatePackageService.defineCustomElements(this.tplPackage);
   }
@@ -39,6 +40,7 @@ export class DesignerPage {
   render() {
     return <Host>
       {this.loader}
+      {console.log('this.loader', this.loader)}
       <designer-ui
         tplName={this.tplName}
         sampleData={this.sampleData}

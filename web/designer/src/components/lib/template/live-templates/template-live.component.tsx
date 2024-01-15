@@ -1,4 +1,5 @@
-import { TemplatePackage } from '@leya-print/template-api';
+// import { TemplatePackage } from '@leya-print/template-api';
+import { TemplatePackage } from '/workspace/leya-print/common/template-api/types';
 import { Component, h, Host, Prop, State } from '@stencil/core';
 import { uiStateService } from '../../ui-state/index'
 
@@ -36,10 +37,16 @@ export class TemplateLiveComponent {
     if (this.templateUrl == "") return;
 
     try {
+      console.log('this.templateUrl', this.templateUrl);
+      
       const externalPackage = await import (this.templateUrl);
       this.uiState.templateURL = this.templateUrl
       
+      console.log('this.externalPackage', externalPackage);
+
       const templatePackage: TemplatePackage = externalPackage.templatePackage;
+      console.log('templatePackage --> ', templatePackage);
+      
       this.templates = templatePackage.templates;
     } catch (error) {
       console.log(error);

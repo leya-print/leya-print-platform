@@ -4,7 +4,7 @@
     "module": "es2020",
     "lib": ["es2021", "DOM", "DOM.Iterable"],
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": true,    
     "sourceMap": true,
     "inlineSources": true,
     "outDir": "./dist",
@@ -29,6 +29,6 @@
     ],
     "types": ["mocha"]
   },
-  "include": ["src/**/*.ts", "src/my-element.ts"],
+  "include": ["src/**/*.ts", "src/my-element-index.ts"],
   "exclude": []
 }

@@ -9,23 +9,26 @@ export class AddressComponent extends LitElement {
   address!: Address;
 
   override render() {
-    const a = this.address;
+    const a: Address = this.address;
 
-    return html`<Host innerHTML={
+    return html`<Host>${
       [
-        ${line(a.firstName ?? '', a.lastName ?? '')},
-        ${line(a.company ?? '')},
-        ${line(a.street1 ?? '')},
-        ${line(a.street2 ?? '')},
-        ${line(a.zipCode ?? '', a.city ?? '')},
-        ${line(a.country ?? '')},
+        this.line(a.firstName ?? '', a.lastName ?? ''),
+        this.line(a.company ?? ''),
+        this.line(a.street1 ?? ''),
+        this.line(a.street2 ?? ''),
+        this.line(a.zipCode ?? '', a.city ?? ''),
+        this.line(a.country ?? ''),
       ].filter((p) => !!p).join(', ')
-    }></Host>
+    }</Host>
 `  }
-}
 
-function line(...words: string[]) {  
-  return words.filter((w) => !!w).join(' ');
+  line(...words: string[]) {  
+    console.log(words);
+    
+    return words.filter((w) => !!w).join(' ');
+  }
+
 }
 
 declare global {

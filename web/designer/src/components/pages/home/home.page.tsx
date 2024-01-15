@@ -1,4 +1,5 @@
-import type { TemplatePackage } from '@leya-print/template-api';
+// import type { TemplatePackage } from '@leya-print/template-api';
+import type { TemplatePackage } from '/workspace/leya-print/common/template-api/types';
 import { Component, h, Host, Prop, State } from '@stencil/core';
 import { Subscription } from 'rxjs';
 import { templateService } from 'src/global/template.service';

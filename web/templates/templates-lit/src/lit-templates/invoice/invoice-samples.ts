@@ -30,22 +30,22 @@ const customer: Invoice['recipient'] = {
 
 export const invoiceSamples: { [id: string]: Invoice } = {
   'invoice-001': {
-    invoiceNo: '239045001',
+    invoiceNo: '239045003',
     customerReference: 'project: leya-print\nwork-item: invoice-sample',
     sender: litHardware,
     recipient: customer,
     date: '2022-07-08T15:55:34.315Z',
     positions: [
       {
-        title: 'Big Hammer',
-        quantity: 1,
+        title: 'Big Lit Hammer',
+        quantity: 3,
         unit: 'pcs',
         pricePerUnit: 99,
         vatPercent: 8.91,
       },
       {
-        title: 'Screws 80mm',
-        quantity: 100,
+        title: 'Screws Lit 80mm',
+        quantity: 200,
         unit: 'pcs',
         pricePerUnit: .02,
         vatPercent: 8.91,
