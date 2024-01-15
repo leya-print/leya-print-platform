@@ -9,7 +9,7 @@ export class WorkReportContentTpl {
   render() {
     return <Host>
       content start
-      <div class="work-report__content__spacer" style={{height: '1000px'}}>
+      <div class="work-report__content__spacer" style={{ height: '1000px' }}>
         spacer
       </div>
       {new Array(20).fill(true).map((_, i) => {

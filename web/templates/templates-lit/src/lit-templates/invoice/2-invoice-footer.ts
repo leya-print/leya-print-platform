@@ -69,7 +69,7 @@ export class InvoiceFooterTpl extends LitElement {
 
   override render() {
     const imagePath = '/assets/icon/leya.png';
-    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;        
+    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
 

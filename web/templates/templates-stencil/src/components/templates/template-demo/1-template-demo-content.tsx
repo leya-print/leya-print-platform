@@ -9,7 +9,7 @@ export class TemplateDemoContentTpl {
   render() {
     return <Host>
       content start
-      <div class="template-demo__content__spacer" style={{height: '1000px'}}>
+      <div class="template-demo__content__spacer" style={{ height: '1000px' }}>
         spacer
       </div>
       {new Array(20).fill(true).map((_, i) => {

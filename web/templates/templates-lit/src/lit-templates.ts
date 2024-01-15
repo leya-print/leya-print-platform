@@ -18,8 +18,7 @@ export class LitTemplates extends LitElement {
       <tpl-invoice-header></tpl-invoice-header>
       <tpl-invoice-content></tpl-invoice-content>
       <tpl-invoice-footer></tpl-invoice-footer>
-    </div>            
-      <slot></slot>
+    </div>
     `;
   }
 }

@@ -10,13 +10,13 @@ export class AddressComponent {
   render() {
     const a = this.address;
     return <Host>{[
-        line('name', a.firstName, a.lastName),
-        line('company', a.company),
-        line('street', a.street1),
-        line('street', a.street2),
-        line('city', a.zipCode, a.city),
-        line('country', a.country),
-      ]
+      line('name', a.firstName, a.lastName),
+      line('company', a.company),
+      line('street', a.street1),
+      line('street', a.street2),
+      line('city', a.zipCode, a.city),
+      line('country', a.country),
+    ]
       .filter((l) => !!l)
       .map((l) => <div>{l}</div>)}</Host>
   }

@@ -1,5 +1,5 @@
-import {LitElement, html, css} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { Invoice } from '../../models/invoice.model';
 import { invoiceSamples } from './invoice-samples';
 
@@ -148,10 +148,10 @@ export class InvoiceContentTpl extends LitElement {
   }
   `;
 
-  @property() 
-  invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];  
-  
-  @property({type: Number})
+  @property()
+  invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
+
+  @property({ type: Number })
   count = 0;
 
   override render() {

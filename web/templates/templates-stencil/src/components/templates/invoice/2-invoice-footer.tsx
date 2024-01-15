@@ -15,7 +15,7 @@ export class InvoiceFooterTpl {
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
     return <Host>
-      <div class="invoice-footer__img"><div class="invoice-footer__img-size"><leya-print-image-fetch imgSrc={url}/></div></div>
+      <div class="invoice-footer__img"><div class="invoice-footer__img-size"><leya-print-image-fetch imgSrc={url} /></div></div>
       <div class="invoice-footer__pageNumber">Page <span class="pageNumber">99</span>/<span class="totalPages">99</span></div>
       <div class="invoice-footer__details">
         <div class="invoice-footer__line invoice-footer__name">
@@ -36,7 +36,7 @@ export class InvoiceFooterTpl {
   }
 }
 
-function line(...items: [ label: string, value: any ][]) {
+function line(...items: [label: string, value: any][]) {
   return <div class="invoice-footer__line">{items
     .filter(([_, value]) => !!value)
     .map(([label, value]) => <span><label>{label}:</label> {value}</span>)

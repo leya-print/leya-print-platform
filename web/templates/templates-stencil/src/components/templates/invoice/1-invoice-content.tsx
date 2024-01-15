@@ -33,7 +33,7 @@ export class InvoiceContentTpl {
         <thead>
           <tr>
             <th colSpan={2}>Qty</th>
-            <th style={{display: 'none'}}></th>
+            <th style={{ display: 'none' }}></th>
             <th>Product Label</th>
             <th>Price/Unit</th>
             <th>VAT%</th>
@@ -43,7 +43,7 @@ export class InvoiceContentTpl {
         </thead>
         <tbody>
           {positions.map((pos) => <tr>
-            <td class="invoice-content--number">{ pos.quantity}</td>
+            <td class="invoice-content--number">{pos.quantity}</td>
             <td>{pos.unit}</td>
             <td>{pos.title}</td>
             <td class="invoice-content--number">{currency.format(pos.pricePerUnit)}</td>
