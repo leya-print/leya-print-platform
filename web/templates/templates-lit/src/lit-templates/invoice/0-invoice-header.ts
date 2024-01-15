@@ -1,14 +1,12 @@
-import {LitElement, html, css} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { invoiceSamples } from './invoice-samples';
 import { Invoice } from '../../models/invoice.model';
 import '../template-blocks/address/address-line.component'
 import '../template-blocks/address/address.component'
-// import './0-invoice-header.scss';
 
 @customElement('tpl-invoice-header')
-export class InvoiceHeaderTpl extends LitElement {  
-  // static override styles = css`@import './0-invoice-header.scss';`;
+export class InvoiceHeaderTpl extends LitElement {
 
   static override styles = css`
     $var__page__margin: 1cm 2cm 1cm 25mm;
@@ -69,12 +67,11 @@ export class InvoiceHeaderTpl extends LitElement {
       margin-bottom: 8.46mm;
       margin-right: -10mm;
       max-width: 75mm;
-  
-    .invoice-header__company {
-      tplb-address {
-        display: block;
-        margin-bottom: 1em;             
-      }
+    }
+
+    tplb-address {
+      display: block;
+      margin-bottom: 1em;             
     }
 
     .invoice-header__customer-reference {
@@ -85,34 +82,34 @@ export class InvoiceHeaderTpl extends LitElement {
       margin-top: 2em;
       border: 1px solid red;
       padding: 0;
-  
-        h3 {
-          display: block;
-          color: white;
-          margin-top: 0;
-          margin-bottom: $customer-referance-padding;
+    }
 
-          span:first-child {
-            display: block;
-            overflow: hidden;
-            width: calc(5.7cm - 2px);
-            height: calc(1em + 2.5 * $customer-referance-padding);
-            svg {
-              width: calc(5.7cm - 2px);
-              fill: red;
-              stroke: red;
-            }
-          }
-          span:last-child {
-            display: block;
-            padding: $customer-referance-padding;
-            padding-bottom: math.div($customer-referance-padding, 2);
-          }
-        }
+    .invoice-header__customer-reference__content {
+      padding: $customer-referance-padding;
+    }
 
-        .invoice-header__customer-reference__content {
-          padding: $customer-referance-padding;
+    h3 {
+      display: block;
+      color: white;
+      margin-top: 0;
+      margin-bottom: $customer-referance-padding;
+
+      span:first-child {
+        display: block;
+        overflow: hidden;
+        width: calc(5.7cm - 2px);
+        height: calc(1em + 2.5 * $customer-referance-padding);
+        svg {
+          width: calc(5.7cm - 2px);
+          fill: red;
+          stroke: red;
         }
+      }
+      
+      span:last-child {
+        display: block;
+        padding: $customer-referance-padding;
+        padding-bottom: math.div($customer-referance-padding, 2);
       }
     }
   
@@ -120,11 +117,11 @@ export class InvoiceHeaderTpl extends LitElement {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-  
-      h2 {
-        margin-top: 1cm;
-        margin-bottom: .5cm;
-      }
+    }
+
+    h2 {
+      margin-top: 1cm;
+      margin-bottom: .5cm;
     }
   
     .invoice-header__foldmark-1 {
@@ -169,16 +166,14 @@ export class InvoiceHeaderTpl extends LitElement {
       width: 110px;
       height: 70px;
     }
-    }
-  `;  
+  `;
 
   @property()
   invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
 
   override render() {
     const invoice = this.invoice;
-    console.log('this.invoice', this.invoice.sender.address);
-    
+
     return html`
     <div class="invoice-header__address-box">
       <div class="invoice-header__sender">
@@ -203,7 +198,7 @@ export class InvoiceHeaderTpl extends LitElement {
           ${invoice.customerReference?.split('\n').map((l) => html`<div>${l}</div>`)}
         </div>
       </div>`
-    }    
+      }    
     </div>
     <div class="invoice-header__headline">
       <h2>Invoice ${this.invoice.invoiceNo}</h2>

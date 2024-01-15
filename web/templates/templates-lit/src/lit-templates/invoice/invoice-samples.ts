@@ -44,7 +44,7 @@ export const invoiceSamples: { [id: string]: Invoice } = {
         vatPercent: 8.91,
       },
       {
-        title: 'Screws Lit 80mm',
+        title: 'Lit Screws 80mm',
         quantity: 200,
         unit: 'pcs',
         pricePerUnit: .02,

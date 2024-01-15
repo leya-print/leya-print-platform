@@ -5,17 +5,16 @@
  */
 
 import summary from 'rollup-plugin-summary';
-import {terser} from 'rollup-plugin-terser';
+import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-import scss from 'rollup-plugin-scss';
 
 export default [
-  {  
+  {
     input: 'src/index.ts',
-    output: {    
+    output: {
       file: 'dist/index.esm.js',
       format: 'esm',
       sourcemap: true,
@@ -26,10 +25,9 @@ export default [
       }
     },
     plugins: [
-      replace({'Reflect.decorate': 'undefined', preventAssignment: true}),
-      scss(),
+      replace({ 'Reflect.decorate': 'undefined', preventAssignment: true }),
       resolve(),
-      typescript(),      
+      typescript(),
       commonjs({
         include: /\/node_modules\//,
         transformMixedEsModules: true, // Add this option to address compatibility issues
@@ -51,10 +49,10 @@ export default [
       summary(),
     ],
   },
-  {  
-    input: 'src/my-element.ts',
-    output: {    
-      file: 'dist/templates.esm.js',
+  {
+    input: 'src/lit-templates.ts',
+    output: {
+      file: 'dist/lit-templates.esm.js',
       format: 'esm',
       sourcemap: true,
     },
@@ -64,8 +62,7 @@ export default [
       }
     },
     plugins: [
-      replace({'Reflect.decorate': 'undefined', preventAssignment: true}),
-      scss(),
+      replace({ 'Reflect.decorate': 'undefined', preventAssignment: true }),
       resolve(),
       typescript(),
       commonjs({
