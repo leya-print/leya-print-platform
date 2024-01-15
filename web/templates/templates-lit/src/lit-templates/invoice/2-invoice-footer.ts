@@ -69,14 +69,13 @@ export class InvoiceFooterTpl extends LitElement {
 
   override render() {
     const imagePath = '/assets/icon/leya.png';
-    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
-
+    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;        
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
 
     return html`
     <Host>
-      <div class="invoice-footer__img"><div class="invoice-footer__img-size"><leya-print-image-fetch imgSrc=${url}/></div></div>
+      <div class="invoice-footer__img"><div class="invoice-footer__img-size"><leya-print-image-fetch .imgSrc=${url}/></div></div>
       <div class="invoice-footer__pageNumber">Page <span class="pageNumber">99</span>/<span class="totalPages">99</span></div>
       <div class="invoice-footer__details">
         <div class="invoice-footer__line invoice-footer__name">

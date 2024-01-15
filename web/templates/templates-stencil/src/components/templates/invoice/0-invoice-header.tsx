@@ -12,7 +12,7 @@ export class InvoiceHeaderTpl {
   render() {
     const invoice = this.invoice;
     
-    const imagePath = '/assets/icon/leya.png';    
+    const imagePath = '/assets/icon/leya.png';
     const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
 
     return <Host>

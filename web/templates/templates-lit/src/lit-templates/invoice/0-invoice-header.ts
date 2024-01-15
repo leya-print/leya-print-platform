@@ -173,8 +173,11 @@ export class InvoiceHeaderTpl extends LitElement {
 
   override render() {
     const invoice = this.invoice;
+    const imagePath = '/assets/icon/leya.png';
+    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
 
     return html`
+    <div class="invoice-header__img"><div class="invoice-header__img-size"><leya-print-image-fetch .imgSrc=${url}/></div></div>
     <div class="invoice-header__address-box">
       <div class="invoice-header__sender">
         <tplb-address-line .address=${invoice.sender.address}></tplb-address-line>
