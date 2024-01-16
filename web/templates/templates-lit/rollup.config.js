@@ -5,7 +5,6 @@
  */
 
 import summary from 'rollup-plugin-summary';
-import {terser} from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
@@ -32,20 +31,6 @@ export default [
         include: /\/node_modules\//,
         transformMixedEsModules: true, // Add this option to address compatibility issues
       }),
-      /**
-       * This minification setup serves the static site generation.
-       * For bundling and minification, check the README.md file.
-       */
-      terser({
-        ecma: 2021,
-        module: true,
-        warnings: true,
-        mangle: {
-          properties: {
-            regex: /^__/,
-          },
-        },
-      }),
       summary(),
     ],
   },
@@ -68,20 +53,6 @@ export default [
       commonjs({
         include: /\/node_modules\//,
         transformMixedEsModules: true, // Add this option to address compatibility issues
-      }),
-      /**
-       * This minification setup serves the static site generation.
-       * For bundling and minification, check the README.md file.
-       */
-      terser({
-        ecma: 2021,
-        module: true,
-        warnings: true,
-        mangle: {
-          properties: {
-            regex: /^__/,
-          },
-        },
       }),
       summary(),
     ],
