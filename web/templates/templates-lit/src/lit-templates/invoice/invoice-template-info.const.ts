@@ -1,5 +1,5 @@
-import { TemplateInfo } from '@leya-print/template-api';
-import { invoiceSamples } from './invoice-samples';
+import {TemplateInfo} from '@leya-print/template-api';
+import {invoiceSamples} from './invoice-samples';
 
 export const invoiceTemplateInfo: TemplateInfo = {
   ident: 'invoice',

@@ -1,95 +1,96 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { Invoice } from '../../models/invoice.model';
-import { invoiceSamples } from './invoice-samples';
+import {LitElement, html, css} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import {Invoice} from '../../models/invoice.model';
+import {invoiceSamples} from './invoice-samples';
 
 @customElement('tpl-invoice-content')
 export class InvoiceContentTpl extends LitElement {
   // static override styles = css`@import '1-invoice-content.scss';`;
   static override styles = css`
-  body {
-    font-size: 12pt;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-    display: block;
-    padding: $var__page__margin;
-    padding-bottom: 0;
-    font-size: 10pt;
-    min-height: 88mm;
-  }
-  
-  $var__page__margin: 1cm 2cm 1cm 25mm;
-  $var__innerPadding: .5cm;
+    body {
+      font-size: 12pt;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+        'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+      display: block;
+      padding: $var__page__margin;
+      padding-bottom: 0;
+      font-size: 10pt;
+      min-height: 88mm;
+    }
 
-  .invoice__content-end {
-    background: red;
-    color: white;
-    text-align: center;
-    border: 1px solid white;
-  }
+    $var__page__margin: 1cm 2cm 1cm 25mm;
+    $var__innerPadding: 0.5cm;
 
-  .invoice__content__spacer {
+    .invoice__content-end {
+      background: red;
+      color: white;
+      text-align: center;
+      border: 1px solid white;
+    }
+
+    .invoice__content__spacer {
       margin: $var__innerPadding 0;
       padding: $var__innerPadding;
       border: 1px solid green;
-  }
+    }
 
-  .invoice-content--number {
-    text-align: right;
-    font-family: monospace;
-    font-size: 9.5pt;
-  }
+    .invoice-content--number {
+      text-align: right;
+      font-family: monospace;
+      font-size: 9.5pt;
+    }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-  }
+    thead {
+      tr {
+        th {
+          text-align: left;
 
-  thead {
-    tr {
-      th {
-        text-align: left;
+          &:nth-of-type(#{$col-label}) {
+            width: 100%;
+          }
 
-        &:nth-of-type(#{$col-label}) {
-          width: 100%;
-        }
+          &:nth-of-type(#{$col-pricePerUnit}),
+          &:nth-of-type(#{$col-vatPercent}),
+          &:nth-of-type(#{$col-gross}) {
+            text-align: right;
+          }
 
-        &:nth-of-type(#{$col-pricePerUnit}),
-        &:nth-of-type(#{$col-vatPercent}),
-        &:nth-of-type(#{$col-gross}) {
-          text-align: right;
-        }
-
-        &:nth-of-type(#{$col-vat}) {
-          text-align: center;
+          &:nth-of-type(#{$col-vat}) {
+            text-align: center;
+          }
         }
       }
     }
-  }
 
-  tbody td, thead th {
-    &:nth-of-type(#{$col-unit}) {
-      padding-right: $col-spacing;
-      padding-left: .1 * $col-spacing;
+    tbody td,
+    thead th {
+      &:nth-of-type(#{$col-unit}) {
+        padding-right: $col-spacing;
+        padding-left: 0.1 * $col-spacing;
+      }
+
+      &:nth-of-type(#{$col-pricePerUnit}) {
+        padding-right: 0.5 * $col-spacing;
+      }
+
+      &:nth-of-type(#{$col-vatPercent}) {
+        text-align: center;
+        padding-left: 0.5 * $col-spacing;
+        padding-right: 0.5 * $col-spacing;
+      }
+
+      &:nth-of-type(#{$col-vat}) {
+        padding-left: 0.5 * $col-spacing;
+        padding-right: 1 * $col-spacing;
+      }
     }
 
-    &:nth-of-type(#{$col-pricePerUnit}) {
-      padding-right: .5 * $col-spacing;
-    }
-
-    &:nth-of-type(#{$col-vatPercent}) {
-      text-align: center;
-      padding-left: .5 * $col-spacing;
-      padding-right: .5 * $col-spacing;
-    }
-
-    &:nth-of-type(#{$col-vat}) {
-      padding-left: .5 * $col-spacing;
-      padding-right: 1 * $col-spacing;
-    }
-  }
-
-  .tpl-invoice-content {
+    .tpl-invoice-content {
       display: block;
       box-sizing: border-box;
 
@@ -111,18 +112,18 @@ export class InvoiceContentTpl extends LitElement {
       $col-vat: 6;
       $col-gross: 7;
 
-      $col-spacing: 2em;      
+      $col-spacing: 2em;
 
       tbody {
         tr:first-of-type {
           td {
             border-top: 1px solid black;
-            padding-top: .5em;
+            padding-top: 0.5em;
           }
         }
         tr:last-of-type {
           td {
-            padding-bottom: .5em;
+            padding-bottom: 0.5em;
           }
         }
       }
@@ -131,7 +132,7 @@ export class InvoiceContentTpl extends LitElement {
         tr:first-of-type {
           th {
             border-top: 1px solid black;
-            padding-top: .5em;
+            padding-top: 0.5em;
           }
         }
         th {
@@ -145,13 +146,14 @@ export class InvoiceContentTpl extends LitElement {
           }
         }
       }
-  }
+    }
   `;
 
   @property()
-  invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
+  invoice: Invoice =
+    (window as any).providedData || invoiceSamples['invoice-001'];
 
-  @property({ type: Number })
+  @property({type: Number})
   count = 0;
 
   override render() {
@@ -161,19 +163,24 @@ export class InvoiceContentTpl extends LitElement {
       const gross = netto + vat;
       return {
         ...pos,
-        netto, vat, gross,
-      }
+        netto,
+        vat,
+        gross,
+      };
     });
-    const sums = positions.reduce(({ netto, vat, gross }, pos) => ({
-      netto: netto + pos.netto,
-      vat: vat + pos.vat,
-      gross: gross + pos.gross,
-    }), { netto: 0, vat: 0, gross: 0 });
+    const sums = positions.reduce(
+      ({netto, vat, gross}, pos) => ({
+        netto: netto + pos.netto,
+        vat: vat + pos.vat,
+        gross: gross + pos.gross,
+      }),
+      {netto: 0, vat: 0, gross: 0}
+    );
 
     const currency = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    })
+    });
 
     return html`    
     <Host>
@@ -190,20 +197,34 @@ export class InvoiceContentTpl extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${positions.map((pos) => html`<tr>
-            <td class="invoice-content--number">${pos.quantity}</td>
-            <td>${pos.unit}</td>
-            <td>${pos.title}</td>
-            <td class="invoice-content--number">${currency.format(pos.pricePerUnit)}</td>
-            <td class="invoice-content--number">${pos.vatPercent}</td>
-            <td class="invoice-content--number">${currency.format(pos.vat)}</td>
-            <td class="invoice-content--number">${currency.format(pos.gross)}</td>
-          </tr>`)}
+          ${positions.map(
+            (pos) => html`<tr>
+              <td class="invoice-content--number">${pos.quantity}</td>
+              <td>${pos.unit}</td>
+              <td>${pos.title}</td>
+              <td class="invoice-content--number">
+                ${currency.format(pos.pricePerUnit)}
+              </td>
+              <td class="invoice-content--number">${pos.vatPercent}</td>
+              <td class="invoice-content--number">
+                ${currency.format(pos.vat)}
+              </td>
+              <td class="invoice-content--number">
+                ${currency.format(pos.gross)}
+              </td>
+            </tr>`
+          )}
         </tbody>
         <tfoot>
-          <tr><th colSpan={5}></th><th>Netto:</th><th class="invoice-content--number">${currency.format(sums.netto)}</th></tr>
-          <tr><th colSpan={5}></th><th>VAT:</th><th class="invoice-content--number">+&nbsp;${currency.format(sums.vat)}</th></tr>
-          <tr><th colSpan={5}></th><th>Gross:</th><th class="invoice-content--number">${currency.format(sums.gross)}</th></tr>
+          <tr><th colSpan={5}></th><th>Netto:</th><th class="invoice-content--number">${currency.format(
+            sums.netto
+          )}</th></tr>
+          <tr><th colSpan={5}></th><th>VAT:</th><th class="invoice-content--number">+&nbsp;${currency.format(
+            sums.vat
+          )}</th></tr>
+          <tr><th colSpan={5}></th><th>Gross:</th><th class="invoice-content--number">${currency.format(
+            sums.gross
+          )}</th></tr>
         </tfoot>
       </table>
     </Host>

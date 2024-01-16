@@ -5,7 +5,7 @@
  */
 
 import summary from 'rollup-plugin-summary';
-import { terser } from 'rollup-plugin-terser';
+import {terser} from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
@@ -25,7 +25,7 @@ export default [
       }
     },
     plugins: [
-      replace({ 'Reflect.decorate': 'undefined', preventAssignment: true }),
+      replace({'Reflect.decorate': 'undefined', preventAssignment: true}),
       resolve(),
       typescript(),
       commonjs({
@@ -62,7 +62,7 @@ export default [
       }
     },
     plugins: [
-      replace({ 'Reflect.decorate': 'undefined', preventAssignment: true }),
+      replace({'Reflect.decorate': 'undefined', preventAssignment: true}),
       resolve(),
       typescript(),
       commonjs({
@@ -85,5 +85,5 @@ export default [
       }),
       summary(),
     ],
-  }
+  },
 ];

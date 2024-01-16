@@ -1,10 +1,11 @@
-# LitElement TypeScript starter
+# LitElement Templates
 
-This project includes a sample component using LitElement with TypeScript.
+This project has the purpose of showcasing how to use litElement to create templates for Leya.
+Sample components using LitElement with TypeScript can be found in the /src/lit-templates folder.
+The .scss files are not used, the files are there to show how the manual css from each component can be translated from css.
 
 This template is generated from the `lit-starter-ts` package in [the main Lit
-repo](https://github.com/lit/lit). Issues and PRs for this template should be
-filed in that repo.
+repo](https://github.com/lit/lit). Issues and PRs for this template should be filed in that repo.
 
 ## About this release
 
@@ -32,8 +33,7 @@ npm i
 
 ## Build
 
-This sample uses the TypeScript compiler to produce JavaScript that runs in modern browsers.
-
+This project uses the TypeScript compiler to produce JavaScript that runs in modern browsers.
 To build the JavaScript version of your component:
 
 ```bash
@@ -47,6 +47,30 @@ npm run build:watch
 ```
 
 Both the TypeScript compiler and lit-analyzer are configured to be very strict. You may want to change `tsconfig.json` to make them less strict.
+The project uses Rollup to crate the project distributables.
+
+Two components are build:
+`index.ts` and `lit-templates.ts` with the format .esm.js. The index file is used to export the templates package definitions, the lit-templates files are the content of the templates.
+In the /src folder a component called lit-templates.ts can be found, all usable components must be inserted in this component, lit-templates.ts is the root.
+
+When Leya links to the template solution, it can use the index.esm.js to retrieve information on what templates are available and the lit-templates.esm.js file to get the templates data.
+
+## Project Structure
+
+/dev/ -> index.html - folder that holds start html file when serving the project locally using in development environment, this file is used for testing, add components here to be rendered on serve.
+index.html -> html file server for running in production environment.
+.eslinttrc.json -> lint configuration.
+.prettierrc.json -> prettier configuration.
+rollup.config.js -> file to setup configuration for building project.
+web-dev-server.config.js -> file to setup configuration for building web server.
+
+/src/ ->
+    lit-templates -> folder to hold templates
+    models -> models used in components
+    index.ts -> file that has template-package information.
+    lit-templates.ts -> root component that should hold all template components.
+    my-element-index.ts -> test component element, use for reference has no other use.
+    template-package.const.ts -> file to setup templates package that will be available for use when linked to Leya.
 
 ## Testing
 
@@ -81,6 +105,19 @@ npm run serve
 
 There is a development HTML file located at `/dev/index.html` that you can view at http://localhost:8000/dev/index.html. Note that this command will serve your code using Lit's development mode (with more verbose errors). To serve your code against Lit's production mode, use `npm run serve:prod`.
 
+## CORS
+
+To setup CORS for the web-server, update the web-dev-server.config.js file, we added a middleware to pass allowed origins, for this test everything is allowed.
+
+  middleware: [
+    async (context, next) => {      
+      context.set('Access-Control-Allow-Origin', '*');            
+      
+      await next();
+    },
+  ],
+
+
 ## Editing
 
 If you use VS Code, we highly recommend the [lit-plugin extension](https://marketplace.visualstudio.com/items?itemName=runem.lit-plugin), which enables some extremely useful features for lit-html templates:
@@ -112,32 +149,6 @@ npm run lint
 [Prettier](https://prettier.io/) is used for code formatting. It has been pre-configured according to the Lit's style. You can change this in `.prettierrc.json`.
 
 Prettier has not been configured to run when committing files, but this can be added with Husky and `pretty-quick`. See the [prettier.io](https://prettier.io/) site for instructions.
-
-## Static Site
-
-This project includes a simple website generated with the [eleventy](https://11ty.dev) static site generator and the templates and pages in `/docs-src`. The site is generated to `/docs` and intended to be checked in so that GitHub pages can serve the site [from `/docs` on the master branch](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
-
-To enable the site go to the GitHub settings and change the GitHub Pages &quot;Source&quot; setting to &quot;master branch /docs folder&quot;.</p>
-
-To build the site, run:
-
-```bash
-npm run docs
-```
-
-To serve the site locally, run:
-
-```bash
-npm run docs:serve
-```
-
-To watch the site files, and re-build automatically, run:
-
-```bash
-npm run docs:watch
-```
-
-The site will usually be served at http://localhost:8000.
 
 **Note**: The project uses Rollup to bundle and minify the source code for the docs site and not to publish to NPM. For bundling and minification, check the [Bundling and minification](#bundling-and-minification) section.
 

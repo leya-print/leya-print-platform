@@ -1,4 +1,4 @@
-import { Invoice } from '../../models/invoice.model';
+import {Invoice} from '../../models/invoice.model';
 
 const litHardware: Invoice['sender'] = {
   address: {
@@ -15,8 +15,8 @@ const litHardware: Invoice['sender'] = {
     name: 'Black-List-Bank',
     iban: 'GB78BARCO0201530093459',
     bic: 'BLCKUS203DS',
-  }
-}
+  },
+};
 
 const customer: Invoice['recipient'] = {
   address: {
@@ -26,9 +26,9 @@ const customer: Invoice['recipient'] = {
     zipCode: '123456',
     city: 'Small Town',
   },
-}
+};
 
-export const invoiceSamples: { [id: string]: Invoice } = {
+export const invoiceSamples: {[id: string]: Invoice} = {
   'invoice-001': {
     invoiceNo: '239045003',
     customerReference: 'project: leya-print\nwork-item: invoice-sample',
@@ -47,9 +47,9 @@ export const invoiceSamples: { [id: string]: Invoice } = {
         title: 'Lit Screws 80mm',
         quantity: 200,
         unit: 'pcs',
-        pricePerUnit: .02,
+        pricePerUnit: 0.02,
         vatPercent: 8.91,
       },
     ],
   },
-}
+};
