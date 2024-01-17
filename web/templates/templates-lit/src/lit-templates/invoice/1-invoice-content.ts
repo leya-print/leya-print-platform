@@ -5,21 +5,18 @@ import {invoiceSamples} from './invoice-samples';
 
 @customElement('tpl-invoice-content')
 export class InvoiceContentTpl extends LitElement {
-  // static override styles = css`@import '1-invoice-content.scss';`;
+
   static override styles = css`
     body {
       font-size: 12pt;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
         'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
       display: block;
-      padding: $var__page__margin;
+      padding: 1cm 2cm 1cm 25mm;
       padding-bottom: 0;
       font-size: 10pt;
       min-height: 88mm;
-    }
-
-    $var__page__margin: 1cm 2cm 1cm 25mm;
-    $var__innerPadding: 0.5cm;
+    }        
 
     .invoice__content-end {
       background: red;
@@ -29,8 +26,8 @@ export class InvoiceContentTpl extends LitElement {
     }
 
     .invoice__content__spacer {
-      margin: $var__innerPadding 0;
-      padding: $var__innerPadding;
+      margin: 0.5cm 0;
+      padding: 0.5cm;
       border: 1px solid green;
     }
 
@@ -45,24 +42,34 @@ export class InvoiceContentTpl extends LitElement {
       border-collapse: collapse;
     }
 
-    thead {
-      tr {
-        th {
-          text-align: left;
+    th {
+      text-align: left;
 
-          &:nth-of-type(#{$col-label}) {
-            width: 100%;
-          }
+      &:nth-of-type(#{$col-label}) {
+        width: 100%;
+      }
 
-          &:nth-of-type(#{$col-pricePerUnit}),
-          &:nth-of-type(#{$col-vatPercent}),
-          &:nth-of-type(#{$col-gross}) {
-            text-align: right;
-          }
+      &:nth-of-type(#{$col-pricePerUnit}),
+      &:nth-of-type(#{$col-vatPercent}),
+      &:nth-of-type(#{$col-gross}) {
+        text-align: right;
+      }
 
-          &:nth-of-type(#{$col-vat}) {
-            text-align: center;
-          }
+      &:nth-of-type(#{$col-vat}) {
+        text-align: center;
+      }
+    }
+
+    tbody {
+      tr:first-of-type {
+        td {
+          border-top: 1px solid black;
+          padding-top: 0.5em;
+        }
+      }
+      tr:last-of-type {
+        td {
+          padding-bottom: 0.5em;
         }
       }
     }
@@ -112,39 +119,26 @@ export class InvoiceContentTpl extends LitElement {
       $col-vat: 6;
       $col-gross: 7;
 
-      $col-spacing: 2em;
+      $col-spacing: 2em;    
+    }
 
-      tbody {
-        tr:first-of-type {
-          td {
-            border-top: 1px solid black;
-            padding-top: 0.5em;
-          }
-        }
-        tr:last-of-type {
-          td {
-            padding-bottom: 0.5em;
-          }
-        }
-      }
-
-      tfoot {
-        tr:first-of-type {
-          th {
-            border-top: 1px solid black;
-            padding-top: 0.5em;
-          }
-        }
+    tfoot {
+      tr:first-of-type {
         th {
-          text-align: right;
-
-          $col-label: 2;
-          $col-value: 3;
-
-          &:nth-of-type(#{$col-label}) {
-            padding-right: $col-spacing;
-          }
+          border-top: 1px solid black;
+          padding-top: 0.5em;
         }
+      }      
+    }
+
+    th {
+      text-align: right;
+
+      $col-label: 2;
+      $col-value: 3;
+
+      &:nth-of-type(#{$col-label}) {
+        padding-right: $col-spacing;
       }
     }
   `;
@@ -183,7 +177,7 @@ export class InvoiceContentTpl extends LitElement {
     });
 
     return html`    
-    <Host>
+    <Host class="tpl-invoice-content">
       <table>
         <thead>
           <tr>

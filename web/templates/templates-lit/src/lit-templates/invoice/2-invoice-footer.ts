@@ -36,10 +36,11 @@ export class InvoiceFooterTpl extends LitElement {
 
     .invoice-footer__img {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       padding-bottom: 0.2cm;
       padding-right: 2cm;
       padding-left: 2cm;
+      padding-top: 1cm;
     }
 
     .invoice-footer__img-size {
