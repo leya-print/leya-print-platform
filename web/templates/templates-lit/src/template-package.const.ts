@@ -4,7 +4,7 @@ import {invoiceTemplateInfo} from './lit-templates/invoice/invoice-template-info
 
 export const templatePackage: TemplatePackage = {
   ident: 'lit-templates',
-  templatesFilePath: 'lit-templates.esm.js',
+  templatesLoaderPath: 'lit-templates.esm.js',
   version: '1.0.0',
   templates: [invoiceTemplateInfo],
 };

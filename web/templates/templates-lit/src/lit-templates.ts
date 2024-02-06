@@ -21,6 +21,13 @@ export class LitTemplates extends LitElement {
       </div>
     `;
   }
+
+  /* Switch to Light DOM
+  By default LIT renders components to shadow DOM which cannot be rendered in the Designer
+  */
+  override createRenderRoot() {
+    return this;
+  }
 }
 
 declare global {

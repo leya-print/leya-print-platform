@@ -3,9 +3,11 @@
   "private": true,
   "version": "2.0.0",
   "description": "templates made with lit elements",
-  "main": "my-element.js",
-  "module": "my-element.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
   "type": "module",
+  "es2015": "dist/esm/index.esm.js",
+  "es2017": "dist/esm/index.esm.js",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",

@@ -59,13 +59,20 @@ export class TemplatePackageService {
       const templatePackage: TemplatePackage = await this.templatePackageInfo(tplPackage)
 
       const loader = tplPackage.startsWith('http')
-        ? await import(tplPackage.replace('index.esm.js', templatePackage.templatesFilePath))
+        ? await import(tplPackage.replace('index.esm.js', await this.getLoaderPath(templatePackage.templatesLoaderPath)))
         : await import(tplPackage ? `${tplBaseUrl}/loader.js` : `${tplBaseUrl}/templates.esm.js`);
 
     loader.defineCustomElements?.();
     } catch (e) {
       console.warn('could not load template package info', e);
     }
+  }
+
+  // Returns templates specified loader path if not null else the default loader path.
+  async getLoaderPath(path: string | null){
+    if (path == null) return 'templates.esm.js';
+
+    return path;
   }
 
   private async _tplBaseUrl(tplPackage?: string) {

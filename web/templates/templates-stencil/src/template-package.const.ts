@@ -5,8 +5,7 @@ import { templateDemoTemplateInfo } from './components/templates/template-demo/t
 import { workReportTemplateInfo } from './components/templates/work-report/work-report-template-info.const';
 
 export const templatePackage: TemplatePackage = {
-  ident: 'max-hardware-templates',
-  templatesFilePath: 'templates.esm.js',
+  ident: 'max-hardware-templates',  
   version: '1.0.1',
   templates: [
     templateDemoTemplateInfo,

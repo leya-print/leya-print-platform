@@ -1,73 +1,21 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {Invoice} from '../../models/invoice.model';
 import {invoiceSamples} from './invoice-samples';
 
 @customElement('tpl-invoice-footer')
 export class InvoiceFooterTpl extends LitElement {
-  static override styles = css`
-    $var__page__margin: 1cm 2cm 1cm 25mm;
-    $var__innerPadding: 0.5cm;
-
-    body {
-      font-size: 12pt;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-        'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-      display: block;
-      padding: $var__page__margin;
-      padding-bottom: 0;
-      font-size: 10pt;
-      min-height: 88mm;
-    }
-
-    .tpl-invoice-footer {
-      display: block;
-      box-sizing: border-box;
-      padding: $var__page__margin;
-      padding-top: 0;
-    }
-
-    .invoice-footer__pageNumber {
-      text-align: right;
-      padding-top: 4.23mm;
-      font-size: 10pt;
-      margin-bottom: 4.23mm;
-    }
-
-    .invoice-footer__img {
-      display: flex;
-      justify-content: flex-end;
-      padding-bottom: 0.2cm;
-      padding-right: 2cm;
-      padding-left: 2cm;
-      padding-top: 1cm;
-    }
-
-    .invoice-footer__img-size {
-      width: 110px;
-      height: 70px;
-    }
-
-    .invoice-footer__details {
-      text-align: center;
-      font-size: 7pt;
-    }
-
-    .invoice-footer__line {
-      span:not(:first-of-type)::before {
-        content: '|';
-        margin: 0.5em;
-      }
-
-      &:not(:first-of-type) {
-        margin-top: 0.2em;
-      }
-    }
-  `;
-
   @property()
   invoice: Invoice =
     (window as any).providedData || invoiceSamples['invoice-001'];
+  
+  /* Switch to Light DOM
+  By default LIT renders components to shadow DOM which cannot be rendered by the Leya Printing Service.
+  The component should render using Light DOM to work.
+  */
+  override createRenderRoot() {
+    return this;
+  }
 
   override render() {
     const imagePath = '/assets/icon/leya.png';
@@ -77,7 +25,67 @@ export class InvoiceFooterTpl extends LitElement {
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
 
-    return html` <Host>
+    return html`
+    <style>
+      $var__page__margin: 1cm 2cm 1cm 25mm;
+      $var__innerPadding: 0.5cm;
+
+      body {
+        font-size: 12pt;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+          'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+        display: block;
+        padding: $var__page__margin;
+        padding-bottom: 0;
+        font-size: 10pt;
+        min-height: 88mm;
+      }
+
+      .tpl-invoice-footer {
+        display: block;
+        box-sizing: border-box;
+        padding: $var__page__margin;
+        padding-top: 0;
+      }
+
+      .invoice-footer__pageNumber {
+        text-align: right;
+        padding-top: 4.23mm;
+        font-size: 10pt;
+        margin-bottom: 4.23mm;
+      }
+
+      .invoice-footer__img {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 0.2cm;
+        padding-right: 2cm;
+        padding-left: 2cm;
+        padding-top: 1cm;
+      }
+
+      .invoice-footer__img-size {
+        width: 110px;
+        height: 70px;
+      }
+
+      .invoice-footer__details {
+        text-align: center;
+        font-size: 7pt;
+      }
+
+      .invoice-footer__line {
+        span:not(:first-of-type)::before {
+          content: '|';
+          margin: 0.5em;
+        }
+
+        &:not(:first-of-type) {
+          margin-top: 0.2em;
+        }
+      }
+    </style>
+    <Host>
       <div class="invoice-footer__img">
         <div class="invoice-footer__img-size">
           <leya-print-image-fetch .imgSrc=${url} />
