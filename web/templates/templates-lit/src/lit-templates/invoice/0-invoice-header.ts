@@ -31,10 +31,8 @@ export class InvoiceHeaderTpl extends LitElement {
       body {
         font-size: 12pt;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-        display: block;
-        padding: 1cm 2cm 1cm 25mm;
+        display: block;        
         padding-bottom: 0;
-        font-size: 10pt;
         min-height: 88mm;
       }
       
@@ -102,11 +100,12 @@ export class InvoiceHeaderTpl extends LitElement {
         overflow: hidden;
         width: calc(5.7cm - 2px);
         height: calc(1em + 2.5 * .3em);
-        svg {
-          width: calc(5.7cm - 2px);
-          fill: red;
-          stroke: red;
-        }
+      }
+
+      svg {
+        width: calc(5.7cm - 2px);
+        fill: red;
+        stroke: red;
       }
     
       span:last-child {

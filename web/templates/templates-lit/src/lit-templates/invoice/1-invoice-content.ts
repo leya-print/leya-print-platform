@@ -45,15 +45,29 @@ export class InvoiceContentTpl extends LitElement {
 
     return html`    
     <style>
-      body {
+      $col-qty: 1;
+      $col-unit: 2;
+      $col-label: 3;
+      $col-pricePerUnit: 4;
+      $col-vatPercent: 5;
+      $col-vat: 6;
+      $col-gross: 7;
+
+      $col-spacing: 2em;  
+
+      Host {
         font-size: 12pt;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
           'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
         display: block;
         padding: 1cm 2cm 1cm 25mm;
-        padding-bottom: 0;
-        font-size: 10pt;
+        padding-bottom: 0;        
         min-height: 88mm;
+        box-sizing: border-box;
+
+        @media screen {
+          margin-left: 20mm; // print page padding
+        }     
       }        
 
       .invoice__content-end {
@@ -135,31 +149,6 @@ export class InvoiceContentTpl extends LitElement {
         }
       }
 
-      .tpl-invoice-content {
-        display: block;
-        box-sizing: border-box;
-
-        @media screen {
-          margin-left: 20mm; // print page padding
-        }
-
-        padding-top: 0;
-        padding-right: 20mm;
-        padding-bottom: 0;
-        padding-left: 5mm;
-        font-size: 10pt;
-
-        $col-qty: 1;
-        $col-unit: 2;
-        $col-label: 3;
-        $col-pricePerUnit: 4;
-        $col-vatPercent: 5;
-        $col-vat: 6;
-        $col-gross: 7;
-
-        $col-spacing: 2em;    
-      }
-
       tfoot {
         tr:first-of-type {
           th {
@@ -180,7 +169,7 @@ export class InvoiceContentTpl extends LitElement {
         }
       }
     </style>
-    <Host class="tpl-invoice-content">
+    <Host>
       <table>
         <thead>
           <tr>

@@ -30,22 +30,14 @@ export class InvoiceFooterTpl extends LitElement {
       $var__page__margin: 1cm 2cm 1cm 25mm;
       $var__innerPadding: 0.5cm;
 
-      body {
+      .invoice-footer__body {
         font-size: 12pt;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
           'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
         display: block;
         padding: $var__page__margin;
-        padding-bottom: 0;
-        font-size: 10pt;
+        padding-bottom: 0;        
         min-height: 88mm;
-      }
-
-      .tpl-invoice-footer {
-        display: block;
-        box-sizing: border-box;
-        padding: $var__page__margin;
-        padding-top: 0;
       }
 
       .invoice-footer__pageNumber {
@@ -85,7 +77,7 @@ export class InvoiceFooterTpl extends LitElement {
         }
       }
     </style>
-    <Host>
+    <Host class="invoice-footer__body">
       <div class="invoice-footer__img">
         <div class="invoice-footer__img-size">
           <leya-print-image-fetch .imgSrc=${url} />
