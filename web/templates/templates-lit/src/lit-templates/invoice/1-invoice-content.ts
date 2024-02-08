@@ -55,7 +55,7 @@ export class InvoiceContentTpl extends LitElement {
 
       $col-spacing: 2em;  
 
-      Host {
+      .invoice__content-body {
         font-size: 12pt;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
           'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
@@ -169,7 +169,7 @@ export class InvoiceContentTpl extends LitElement {
         }
       }
     </style>
-    <Host>
+    <Host class="invoice__content-body">
       <table>
         <thead>
           <tr>

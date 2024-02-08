@@ -26,22 +26,21 @@ export class InvoiceFooterTpl extends LitElement {
     const bank = sender.bankDetails;
 
     return html`
-    <style>
-      $var__page__margin: 1cm 2cm 1cm 25mm;
-      $var__innerPadding: 0.5cm;
-
+    <style>            
       .invoice-footer__body {
         font-size: 12pt;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
           'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
         display: block;
-        padding: $var__page__margin;
-        padding-bottom: 0;        
+        padding: 1cm 2cm 1cm 25mm;
+        padding-bottom: 0;
         min-height: 88mm;
       }
 
       .invoice-footer__pageNumber {
         text-align: right;
+        display: inline-flex;
+        align-items: baseline;
         padding-top: 4.23mm;
         font-size: 10pt;
         margin-bottom: 4.23mm;
@@ -84,9 +83,7 @@ export class InvoiceFooterTpl extends LitElement {
         </div>
       </div>
       <div class="invoice-footer__pageNumber">
-        Page <span class="pageNumber">99</span>/<span class="totalPages"
-          >99</span
-        >
+        Page <span>99</span>/<span>99</span>
       </div>
       <div class="invoice-footer__details">
         <div class="invoice-footer__line invoice-footer__name">

@@ -28,7 +28,7 @@ export class InvoiceHeaderTpl extends LitElement {
 
     return html`
     <style>
-      body {
+    .invoice__header-body {
         font-size: 12pt;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
         display: block;        
@@ -188,7 +188,7 @@ export class InvoiceHeaderTpl extends LitElement {
         height: 70px;
       }
   </style>
-    <Host>
+    <Host class="invoice__header-body">
       <div class="invoice-header__img">
         <div class="invoice-header__img-size">
           <leya-print-image-fetch .imgSrc=${url} />
