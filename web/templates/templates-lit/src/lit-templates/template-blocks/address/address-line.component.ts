@@ -7,6 +7,14 @@ export class AddressComponent extends LitElement {
   @property()
   address!: Address;
 
+   /* Switch to Light DOM
+  By default LIT renders components to shadow DOM which cannot be rendered by the Leya Printing Service.
+  The component should render using Light DOM to work.
+  */
+  override createRenderRoot() {
+    return this;
+  }
+
   override render() {
     const a: Address = this.address;
 
