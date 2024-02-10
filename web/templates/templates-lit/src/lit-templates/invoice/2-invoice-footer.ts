@@ -27,54 +27,40 @@ export class InvoiceFooterTpl extends LitElement {
 
     return html`
     <style>            
-      .invoice-footer__body {
-        font-size: 12pt;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-          'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-        display: block;
-        padding: 1cm 2cm 1cm 25mm;
-        padding-bottom: 0;
-        min-height: 88mm;
-      }
-
-      .invoice-footer__pageNumber {
-        text-align: right;
-        display: inline-flex;
-        align-items: baseline;
-        padding-top: 4.23mm;
-        font-size: 10pt;
-        margin-bottom: 4.23mm;
-      }
-
-      .invoice-footer__img {
-        display: flex;
-        justify-content: flex-end;
-        padding-bottom: 0.2cm;
-        padding-right: 2cm;
-        padding-left: 2cm;
-        padding-top: 1cm;
-      }
-
-      .invoice-footer__img-size {
-        width: 110px;
-        height: 70px;
-      }
-
-      .invoice-footer__details {
-        text-align: center;
-        font-size: 7pt;
-      }
-
-      .invoice-footer__line {
-        span:not(:first-of-type)::before {
-          content: '|';
-          margin: 0.5em;
-        }
-
-        &:not(:first-of-type) {
-          margin-top: 0.2em;
-        }
-      }
+    tpl-invoice-footer {
+      display: block;
+      box-sizing: border-box;
+      padding: 1cm 2cm 1cm 25mm;
+      padding-top: 0;
+    }
+    tpl-invoice-footer .invoice-footer__pageNumber {
+      text-align: right;
+      padding-top: 4.23mm;
+      font-size: 10pt;
+      margin-bottom: 4.23mm;
+    }
+    tpl-invoice-footer .invoice-footer__img {
+      display: flex;
+      justify-content: end;
+      padding-bottom: 0.2cm;
+      padding-right: 2cm;
+      padding-left: 2cm;
+    }
+    tpl-invoice-footer .invoice-footer__img-size {
+      width: 110px;
+      height: 70px;
+    }
+    tpl-invoice-footer .invoice-footer__details {
+      text-align: center;
+      font-size: 7pt;
+    }
+    tpl-invoice-footer .invoice-footer__details .invoice-footer__line span:not(:first-of-type)::before {
+      content: "|";
+      margin: 0.5em;
+    }
+    tpl-invoice-footer .invoice-footer__details .invoice-footer__line:not(:first-of-type) {
+      margin-top: 0.2em;
+    }    
     </style>
     <Host class="invoice-footer__body">
       <div class="invoice-footer__img">

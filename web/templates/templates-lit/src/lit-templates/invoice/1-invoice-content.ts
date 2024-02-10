@@ -7,7 +7,7 @@ import {invoiceSamples} from './invoice-samples';
 export class InvoiceContentTpl extends LitElement {
   @property()
   invoice: Invoice =
-    (window as any).providedData || invoiceSamples['invoice-001'];  
+    (window as any).providedData || invoiceSamples['invoice-001'];
   
   /* Switch to Light DOM
   By default LIT renders components to shadow DOM which cannot be rendered by the Leya Printing Service.
@@ -45,129 +45,97 @@ export class InvoiceContentTpl extends LitElement {
 
     return html`    
     <style>
-      $col-qty: 1;
-      $col-unit: 2;
-      $col-label: 3;
-      $col-pricePerUnit: 4;
-      $col-vatPercent: 5;
-      $col-vat: 6;
-      $col-gross: 7;
-
-      $col-spacing: 2em;  
-
-      .invoice__content-body {
+      body {
         font-size: 12pt;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-          'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
+      }
+      
+      @media print {
+        @page {
+          margin-left: 20mm;
+        }
+      }
+      tpl-invoice-content {
         display: block;
-        padding: 1cm 2cm 1cm 25mm;
-        padding-bottom: 0;        
-        min-height: 88mm;
         box-sizing: border-box;
-
-        @media screen {
-          margin-left: 20mm; // print page padding
-        }     
-      }        
-
+        padding-top: 0;
+        padding-right: 20mm;
+        padding-bottom: 0;
+        padding-left: 5mm;
+        font-size: 10pt;
+      }
+      @media screen {
+        tpl-invoice-content {
+          margin-left: 20mm;
+        }
+      }
+      tpl-invoice-content .invoice-content--number {
+        text-align: right;
+        font-family: monospace;
+        font-size: 9.5pt;
+      }
+      tpl-invoice-content table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      tpl-invoice-content thead tr th {
+        text-align: left;
+      }
+      tpl-invoice-content thead tr th:nth-of-type(3) {
+        width: 100%;
+      }
+      tpl-invoice-content thead tr th:nth-of-type(4), tpl-invoice-content thead tr th:nth-of-type(5), tpl-invoice-content thead tr th:nth-of-type(7) {
+        text-align: right;
+      }
+      tpl-invoice-content thead tr th:nth-of-type(6) {
+        text-align: center;
+      }
+      tpl-invoice-content tbody td:nth-of-type(2), tpl-invoice-content thead th:nth-of-type(2) {
+        padding-right: 2em;
+        padding-left: 0.2em;
+      }
+      tpl-invoice-content tbody td:nth-of-type(4), tpl-invoice-content thead th:nth-of-type(4) {
+        padding-right: 1em;
+      }
+      tpl-invoice-content tbody td:nth-of-type(5), tpl-invoice-content thead th:nth-of-type(5) {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+      tpl-invoice-content tbody td:nth-of-type(6), tpl-invoice-content thead th:nth-of-type(6) {
+        padding-left: 1em;
+        padding-right: 2em;
+      }
+      tpl-invoice-content tbody tr:first-of-type td {
+        border-top: 1px solid black;
+        padding-top: 0.5em;
+      }
+      tpl-invoice-content tbody tr:last-of-type td {
+        padding-bottom: 0.5em;
+      }
+      tpl-invoice-content tfoot tr:first-of-type th {
+        border-top: 1px solid black;
+        padding-top: 0.5em;
+      }
+      tpl-invoice-content tfoot th {
+        text-align: right;
+      }
+      tpl-invoice-content tfoot th:nth-of-type(2) {
+        padding-right: 2em;
+      }
+      
       .invoice__content-end {
         background: red;
         color: white;
         text-align: center;
         border: 1px solid white;
       }
-
+      
       .invoice__content__spacer {
         margin: 0.5cm 0;
         padding: 0.5cm;
         border: 1px solid green;
-      }
-
-      .invoice-content--number {
-        text-align: right;
-        font-family: monospace;
-        font-size: 9.5pt;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      th {
-        text-align: left;
-
-        &:nth-of-type(#{$col-label}) {
-          width: 100%;
-        }
-
-        &:nth-of-type(#{$col-pricePerUnit}),
-        &:nth-of-type(#{$col-vatPercent}),
-        &:nth-of-type(#{$col-gross}) {
-          text-align: right;
-        }
-
-        &:nth-of-type(#{$col-vat}) {
-          text-align: center;
-        }
-      }
-
-      tbody {
-        tr:first-of-type {
-          td {
-            border-top: 1px solid black;
-            padding-top: 0.5em;
-          }
-        }
-        tr:last-of-type {
-          td {
-            padding-bottom: 0.5em;
-          }
-        }
-      }
-
-      tbody td,
-      thead th {
-        &:nth-of-type(#{$col-unit}) {
-          padding-right: $col-spacing;
-          padding-left: 0.1 * $col-spacing;
-        }
-
-        &:nth-of-type(#{$col-pricePerUnit}) {
-          padding-right: 0.5 * $col-spacing;
-        }
-
-        &:nth-of-type(#{$col-vatPercent}) {
-          text-align: center;
-          padding-left: 0.5 * $col-spacing;
-          padding-right: 0.5 * $col-spacing;
-        }
-
-        &:nth-of-type(#{$col-vat}) {
-          padding-left: 0.5 * $col-spacing;
-          padding-right: 1 * $col-spacing;
-        }
-      }
-
-      tfoot {
-        tr:first-of-type {
-          th {
-            border-top: 1px solid black;
-            padding-top: 0.5em;
-          }
-        }      
-      }
-
-      th {
-        text-align: right;
-
-        $col-label: 2;
-        $col-value: 3;
-
-        &:nth-of-type(#{$col-label}) {
-          padding-right: $col-spacing;
-        }
-      }
+      }    
     </style>
     <Host class="invoice__content-body">
       <table>
