@@ -88,7 +88,7 @@ export class DesignerUiComponent {
     const url = new URL(location.href);    
 
     return <Host>
-      <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>
+      <form method="POST" action={`${this.previewUrl}/${this.tplName}/response.pdf${location.search}`} target='_blank'>
         <textarea name="payload" onKeyUp={this.enqueueUpdate} onChange={this.updatePreview} ref={(el) => this._payload = el}>{JSON.stringify(this.sampleData, null, 2)}</textarea>
         <div onClick={() => rasterService.toggle()}>
           <label>Graph-Paper:</label><input name="raster" type="checkbox" checked={this.rasterIsActive} onChange={this.changeRaster} />
