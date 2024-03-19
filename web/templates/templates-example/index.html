@@ -6,10 +6,15 @@
     <title>Lit-Templates View</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="./dist/components/my-element.js"></script>
+    <script type="module" src="../dist/lit-templates.js"></script>
+    <style>
+      p {
+        border: solid 1px blue;
+        padding: 8px;
+      }
+    </style>
   </head>
-  <body>
-    <h2>Test</h2>
-    <my-element></my-element>
+  <body>    
+    <lit-templates></lit-templates>
   </body>
 </html>
