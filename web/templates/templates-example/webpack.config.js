@@ -13,13 +13,23 @@ module.exports = [
           exclude: /node_modules/,
         },
         {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
+          test: /\.(s?)css$/,
+          use: [
+            // to inject the result into the DOM as a style block
+            { loader: "to-string-loader" }, 
+            {
+              loader: "css-loader",
+            },
+            {
+             // to convert SASS to CSS
+              loader: "sass-loader",
+            },
+          ],
+        },        
       ],
     },
     resolve: {
-      extensions: ['.ts', '.js'],
+      extensions: [".ts", ".js", ".scss", ".css"],
     },
     output: {
       filename: 'index.esm.js',
@@ -51,13 +61,23 @@ module.exports = [
           exclude: /node_modules/,
         },
         {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
+          test: /\.(s?)css$/,
+          use: [
+            // to inject the result into the DOM as a style block
+            { loader: "to-string-loader" }, 
+            {
+              loader: "css-loader",
+            },
+            {
+             // to convert SASS to CSS
+              loader: "sass-loader",
+            },
+          ],
+        }
       ],
     },
     resolve: {
-      extensions: ['.ts', '.js'],
+      extensions: [".ts", ".js", ".scss", ".css"],
     },
     output: {
       filename: 'lit-templates.esm.js',

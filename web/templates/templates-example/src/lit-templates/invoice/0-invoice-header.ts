@@ -1,4 +1,4 @@
-import { LitElement, html, unsafeCSS } from 'lit';
+import { LitElement, html, unsafeCSS, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { invoiceSamples } from './invoice-samples';
 import { Invoice } from '../../models/invoice.model';
@@ -10,14 +10,6 @@ export class InvoiceHeaderTpl extends LitElement {
   @property()
   invoice: Invoice =
     (window as any).providedData || invoiceSamples['invoice-001'];
-
-  // customStyleCSS = unsafeCSS(`./0-invoice-header.css`);
-  // customStyleCSS = unsafeCSS(require(`./0-invoice-header.scss`).default)
-
-  // import('./0-invoice-header.scss').then(module => {
-  //   // Access the default export (assuming your SCSS file exports default)
-  //   customStyleCSS = unsafeCSS(module.default);
-  // });
 
   /* Switch to Light DOM
   By default LIT renders components to shadow DOM which cannot be rendered by the Leya Printing Service.
@@ -32,9 +24,12 @@ export class InvoiceHeaderTpl extends LitElement {
     const imagePath = '/assets/icon/leya.png';
     const url = window.location.href.toString().includes('/dev/')
       ? `/dev${imagePath}`
-      : `/print${imagePath}`;    
+      : `/print${imagePath}`;
 
     return html`
+    <style>
+      ${unsafeCSS(require("./0-invoice-header.scss"))}
+    </style>
     <Host class="invoice__header-body">
       <div class="invoice-header__img">
         <div class="invoice-header__img-size">

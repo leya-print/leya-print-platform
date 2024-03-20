@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, unsafeCSS} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {Invoice} from '../../models/invoice.model';
 import {invoiceSamples} from './invoice-samples';
@@ -26,41 +26,8 @@ export class InvoiceFooterTpl extends LitElement {
     const bank = sender.bankDetails;
 
     return html`
-    <style>            
-    tpl-invoice-footer {
-      display: block;
-      box-sizing: border-box;
-      padding: 1cm 2cm 1cm 25mm;
-      padding-top: 0;
-    }
-    tpl-invoice-footer .invoice-footer__pageNumber {
-      text-align: right;
-      padding-top: 4.23mm;
-      font-size: 10pt;
-      margin-bottom: 4.23mm;
-    }
-    tpl-invoice-footer .invoice-footer__img {
-      display: flex;
-      justify-content: end;
-      padding-bottom: 0.2cm;
-      padding-right: 2cm;
-      padding-left: 2cm;
-    }
-    tpl-invoice-footer .invoice-footer__img-size {
-      width: 110px;
-      height: 70px;
-    }
-    tpl-invoice-footer .invoice-footer__details {
-      text-align: center;
-      font-size: 7pt;
-    }
-    tpl-invoice-footer .invoice-footer__details .invoice-footer__line span:not(:first-of-type)::before {
-      content: "|";
-      margin: 0.5em;
-    }
-    tpl-invoice-footer .invoice-footer__details .invoice-footer__line:not(:first-of-type) {
-      margin-top: 0.2em;
-    }    
+    <style>
+      ${unsafeCSS(require("./2-invoice-footer.scss"))}
     </style>
     <Host class="invoice-footer__body">
       <div class="invoice-footer__img">
