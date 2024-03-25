@@ -1,16 +1,17 @@
-# LitElement Templates
+# Lit Element Templates
 
-This project has the purpose of showcasing how to use litElement to create templates for Leya.
-Sample components using LitElement with TypeScript can be found in the /src/lit-templates folder.
-The .scss files are not used, the files are there to show how the manual css from each component can be translated from css.
+This project has the purpose of showcasing how to use LitElement to create templates for Leya.
+Sample components using LitElement with TypeScript can be found in the /src/templates-lit folder.
 
 This template is generated from the `lit-starter-ts` package in [the main Lit
 repo](https://github.com/lit/lit). Issues and PRs for this template should be filed in that repo.
+The repo codebase has a number of improvements that could be used to create a more robust solution which are not present in this example solution, this example is kept on purpose to be a minimal example.
+Some of the extra features available in repo are Linting, Formatting, Analyzer, environment handeling and more.
+If any of the feature are needed please check the repo mentioned above.
 
-## About this release
+## About this version of Lit release
 
 This is a pre-release of Lit 3.0, the next major version of Lit.
-
 Lit 3.0 has very few breaking changes from Lit 2.0:
 
 - Drops support for IE11
@@ -40,14 +41,8 @@ To build the JavaScript version of your component:
 npm run build
 ```
 
-To watch files and rebuild when the files are modified, run the following command in a separate shell:
-
-```bash
-npm run build:watch
-```
-
 Both the TypeScript compiler and lit-analyzer are configured to be very strict. You may want to change `tsconfig.json` to make them less strict.
-The project uses Rollup to crate the project distributables.
+The project uses Rollup to create the project distributables.
 
 Two components are build:
 `index.ts` and `lit-templates.ts` with the format .esm.js. The index file is used to export the templates package definitions, the lit-templates files are the content of the templates.
@@ -57,12 +52,15 @@ When Leya links to the template solution, it can use the index.esm.js to retriev
 
 ## Project Structure
 
-/dev/ -> index.html - folder that holds start html file when serving the project locally using in development environment, this file is used for testing, add components here to be rendered on serve.
-index.html -> html file server for running in production environment.
-.eslinttrc.json -> lint configuration.
-.prettierrc.json -> prettier configuration.
+index.html - the start html file when serving the project locally using in development environment, this file is used for testing, add components here to be rendered on serve.
+
+The best practice would be to link the template as soon as possible with LEYA because LEYA has a few styling rules that might override the template's styles creating differences between the local and LEYA environment.
+Please use the index.html only to start and orient a little before linking to LEYA.
+
 rollup.config.js -> file to setup configuration for building project.
 web-dev-server.config.js -> file to setup configuration for building web server.
+
+The .scss files are not used, the files are there to show how the manual css from each component can be translated from css.
 
 /src/ ->
     lit-templates -> folder to hold templates
@@ -71,27 +69,6 @@ web-dev-server.config.js -> file to setup configuration for building web server.
     lit-templates.ts -> root component that should hold all template components.
     my-element-index.ts -> test component element, use for reference has no other use.
     template-package.const.ts -> file to setup templates package that will be available for use when linked to Leya.
-
-## Testing
-
-This sample uses modern-web.dev's
-[@web/test-runner](https://www.npmjs.com/package/@web/test-runner) for testing. See the
-[modern-web.dev testing documentation](https://modern-web.dev/docs/test-runner/overview) for
-more information.
-
-Tests can be run with the `test` script, which will run your tests against Lit's development mode (with more verbose errors) as well as against Lit's production mode:
-
-```bash
-npm test
-```
-
-For local testing during development, the `test:dev:watch` command will run your tests in Lit's development mode (with verbose errors) on every change to your source files:
-
-```bash
-npm test:watch
-```
-
-Alternatively the `test:prod` and `test:prod:watch` commands will run your tests in Lit's production mode.
 
 ## Dev Server
 
@@ -132,29 +109,22 @@ If you use VS Code, we highly recommend the [lit-plugin extension](https://marke
 
 The project is setup to recommend lit-plugin to VS Code users if they don't already have it installed.
 
-## Linting
-
-Linting of TypeScript files is provided by [ESLint](eslint.org) and [TypeScript ESLint](https://github.com/typescript-eslint/typescript-eslint). In addition, [lit-analyzer](https://www.npmjs.com/package/lit-analyzer) is used to type-check and lint lit-html templates with the same engine and rules as lit-plugin.
-
-The rules are mostly the recommended rules from each project, but some have been turned off to make LitElement usage easier. The recommended rules are pretty strict, so you may want to relax them by editing `.eslintrc.json` and `tsconfig.json`.
-
-To lint the project run:
-
-```bash
-npm run lint
-```
-
-## Formatting
-
-[Prettier](https://prettier.io/) is used for code formatting. It has been pre-configured according to the Lit's style. You can change this in `.prettierrc.json`.
-
-Prettier has not been configured to run when committing files, but this can be added with Husky and `pretty-quick`. See the [prettier.io](https://prettier.io/) site for instructions.
-
-**Note**: The project uses Rollup to bundle and minify the source code for the docs site and not to publish to NPM. For bundling and minification, check the [Bundling and minification](#bundling-and-minification) section.
-
 ## Bundling and minification
 
-As stated in the [static site generation](#static-site) section, the bundling and minification setup in the Rollup configuration in this project is there specifically for the docs generation.
+When running the task "npm run build" both building using the typescript compiler and the bundling will be done.
+
+``
+
+  "build": "tsc; rollup -c",
+
+``
+
+rollup.config.js file contains the configuration for bundling.
+Two files are used as input for bundling: 'src/index.ts' and 'src/lit-templates.ts'.
+The Index file is used by Leya to link the templates and to read the templates available.
+The Templates file is used to create the proper templates themselves into a format that Leya can read and store on upload.
+
+For more info on how to use the templates please check the CREATE-TEMPLATE-GUIDE.md
 
 We recommend publishing components as unoptimized JavaScript modules and performing build-time optimizations at the application level. This gives build tools the best chance to deduplicate code, remove dead code, and so on.
 

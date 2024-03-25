@@ -23,7 +23,7 @@
 <!-- ABOUT THE GUIDE -->
 ## About The Guide
 
-This guide's purpose is to provide a easy step-by-step way to create a template for the Leya Print system using Lit. The guide includes instructions on how to setup a template project, setup all necessary parts to interact with Leya, create/edit/extend the components and building the project.
+This guide's purpose is to provide a easy step-by-step way to create a template for the Leya Print System using Lit. The guide includes instructions on how to setup a template project, setup all necessary parts to interact with Leya, create/edit/extend the components and building the project.
 
 More resources such as Starter Templates, Tutorials, Extensions, Tools and many more can be found at the following repo: https://github.com/web-padawan/awesome-lit
 
@@ -47,7 +47,7 @@ Firstly with a starter kit most essentials packages are already added and a stru
 
 In this guide we will start from scratch by creating a project, adding lit and so forth.
 
-1st Step: 
+1st Step:
 Create an empty project folder, the name is irelevant.
 
 2nd Step:
@@ -138,12 +138,9 @@ The "devDependencies" section in a package.json file lists packages that are onl
 
 Eleventy: Static site generator for building websites.
 Custom Elements Manifest Analyzer: Analyzes Custom Elements usage in a project.
-Open-wc Testing: Testing utilities for web components.
 Rollup Plugins: Various plugins for Rollup, a module bundler.
 TypeScript ESLint: ESLint plugin and parser for TypeScript.
 Web Dev Server: Development server optimized for web development.
-Web Test Runner: Test runner for web projects.
-
 
 The scripts section of the file provides some usefull commands during the development of the templates.
 
