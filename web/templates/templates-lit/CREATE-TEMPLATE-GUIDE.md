@@ -48,21 +48,20 @@ Firstly with a starter kit most essentials packages are already added and a stru
 In this guide we will start from scratch by creating a project, adding lit and so forth.
 
 1st Step:
-Create an empty project folder, the name is irelevant.
+Create an empty project folder, name the folder as per project requirement.
 
 2nd Step:
 We need node modules and packages to start.
-Open or go to a terminal and use the command `npm init` or `yard init` this will generate the files package.json, package-lock.json and node_modules folder.
-We need to add some configuration files, however first we need to update the package file with our script commands and packages that we will use to develop our workflow:
-
-Copy the script from below into the package.json file and run `npm i`.
+Open or go to a terminal go to the folder location and use the command `npm init` or `yard init` this will generate the files package.json, package-lock.json and node_modules folder.
+Init will ask a few questions about the project to generate the package file, here is an example on how it should look, this can be used to override the generated file content:
 Fields such as name, version, description, etc can be modified per project as required.
 
 ``
-{
+
+   {
     "name": "example-templates",
     "private": true,
-    "version": "2.0.0",
+    "version": "1.0.0",
     "description": "templates made with lit elements",
     "main": "dist/index.cjs",
     "module": "dist/index.esm.js",
@@ -71,19 +70,8 @@ Fields such as name, version, description, etc can be modified per project as re
     "es2017": "dist/esm/index.esm.js",
     "scripts": {
       "build": "tsc",
-      "build:watch": "tsc --watch",
-      "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
-      "lint:eslint": "eslint 'src/**/*.ts'",
-      "lint:lit-analyzer": "lit-analyzer",
-      "format": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.eslintignore --write",
-      "analyze": "cem analyze --litelement --globs \"src/**/*.ts\"",
-      "analyze:watch": "cem analyze --litelement --globs \"src/**/*.ts\" --watch",
       "serve": "wds --watch",
-      "start": "wds --dev --watch --serve --port 3335",
-      "serve:prod": "MODE=prod npm run serve",
-      "rollup": "rollup -c ;",
-      "clean": "rimraf my-element.{d.ts,d.ts.map,js,js.map} test/my-element.{d.ts,d.ts.map,js,js.map} test/my-element_test.{d.ts,d.ts.map,js,js.map}",
-      "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js"
+      "start": "wds --dev --watch --serve --port 3335"
     },
     "keywords": [
       "web-components",
@@ -91,39 +79,25 @@ Fields such as name, version, description, etc can be modified per project as re
       "typescript",
       "lit"
     ],
-    "author": "Leya",
-    "license": "Apache",
-    "dependencies": {
-      "@leya-print/template-api": "^0.0.2",
-      "lit": "^3.1.2"
-    },
-    "devDependencies": {
-      "@11ty/eleventy": "^1.0.1",
-      "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
-      "@custom-elements-manifest/analyzer": "^0.6.3",
-      "@open-wc/testing": "^3.1.5",
-      "@rollup/plugin-commonjs": "^25.0.7",
-      "@rollup/plugin-node-resolve": "^13.3.0",
-      "@rollup/plugin-replace": "^5.0.2",
-      "@rollup/plugin-typescript": "^11.1.5",
-      "@typescript-eslint/eslint-plugin": "^5.25.0",
-      "@typescript-eslint/parser": "^5.25.0",
-      "@web/dev-server": "^0.1.31",
-      "@web/dev-server-legacy": "^1.0.0",
-      "@web/test-runner": "^0.15.0",
-      "@web/test-runner-playwright": "^0.9.0",
-      "@webcomponents/webcomponentsjs": "^2.8.0",
-      "eslint": "^8.15.0",
-      "lit-analyzer": "^1.2.1",
-      "prettier": "^2.6.2",
-      "rimraf": "^3.0.2",
-      "rollup": "^2.79.1",
-      "rollup-plugin-summary": "^1.4.3",
-      "rollup-plugin-terser": "^7.0.2",
-      "typescript": "~5.2.0"
-    },
-    "customElements": "custom-elements.json"
+    "author": "",
+    "license": "Apache"
   }
+
+``
+
+We need to install our dependencies now, our core dependencies are from Leya and Lit.
+
+
+``
+npm i @leya-print/template-api lit@3.1.2
+
+``
+
+Now we need to install our development dependencies, laters we will go over them to understand what is their purpose.
+
+``
+npm i @11ty/eleventy@1.0.1 @11ty/eleventy-plugin-syntaxhighlight@4.0.0 @custom-elements-manifest/analyzer@0.6.3 @rollup/plugin-commonjs@25.0.7 @rollup/plugin-node-resolve@13.3.0 @rollup/plugin-replace@5.0.2 @rollup/plugin-typescript@11.1.5 @web/dev-server@0.1.31 @web/dev-server-legacy@1.0.0 @web/test-runner@0.15.0 @web/test-runner-playwright@0.9.0 @webcomponents/webcomponentsjs@2.8.0 lit-analyzer@1.2.1 rimraf@3.0.2 rollup@2.79.1 rollup-plugin-summary@1.4.3 rollup-plugin-terser@7.0.2 tslib typescript --save-dev
+
 ``
 
 The "dependencies" section contains only lit and our very own template-api from Leya which provides types and interfaces for our template definition.
@@ -137,44 +111,24 @@ We will use this dependency later.
 The "devDependencies" section in a package.json file lists packages that are only needed for development purposes. These packages are not required for the production runtime of the application but are essential during development, such as testing, linting, and building: 
 
 Eleventy: Static site generator for building websites.
-Custom Elements Manifest Analyzer: Analyzes Custom Elements usage in a project.
 Rollup Plugins: Various plugins for Rollup, a module bundler.
 TypeScript ESLint: ESLint plugin and parser for TypeScript.
 Web Dev Server: Development server optimized for web development.
 
-The scripts section of the file provides some usefull commands during the development of the templates.
+The scripts section of the file provides some useful commands during the development of the templates.
 
 ``
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
-    "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint:lit-analyzer": "lit-analyzer",
-    "format": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.eslintignore --write",
-    "analyze": "cem analyze --litelement --globs \"src/**/*.ts\"",
-    "analyze:watch": "cem analyze --litelement --globs \"src/**/*.ts\" --watch",
+    "build": "tsc; rollup -c",
     "serve": "wds --watch",
-    "start": "wds --dev --watch --serve --port 3335",
-    "serve:prod": "MODE=prod npm run serve",
-    "rollup": "rollup -c ;"
+    "start": "wds --dev --watch --serve --port 3334"
   },
+
 ``
 
-build: Runs the TypeScript compiler (tsc) to build the project.
-build:watch: Runs the TypeScript compiler (tsc) in watch mode to continuously build the project.
-lint: Runs linting using both Lit Analyzer and ESLint for TypeScript files.
-lint:eslint: Runs ESLint for TypeScript files located in the src directory.
-lint:lit-analyzer: Runs Lit Analyzer for TypeScript files.
-format: Formats specified file types using Prettier with custom ignore rules.
-analyze: Analyzes TypeScript files using Custom Elements Manifest Analyzer.
-analyze:watch: Analyzes TypeScript files in watch mode using Custom Elements Manifest Analyzer.
+build: Runs the TypeScript compiler (tsc) to build the project and executes Rollup to bundle files using the default configuration file.
 serve: Starts the web dev server (wds) in watch mode.
 start: Starts the development web server with hot reloading and on port 3335.
-serve:prod: Sets the environment to production and starts the production server.
-rollup: Executes Rollup to bundle files using the default configuration file.
-clean: Deletes specified TypeScript declaration, JavaScript, and source map files associated with the "my-element" component and its tests.
-checksize: Builds the project using Rollup, then calculates the compressed size of the generated JavaScript bundle file for the "my-element" component, and finally removes the bundle file.
 
 The main and module sections of the file are very important, this paths are used by Leya as a entry point to this template's components. Instructions on how we configure them correctly later.
 
@@ -186,7 +140,12 @@ Configuration files for our devDependencies packages should be created, we creat
 
 Create the following files in root of the project and paste the content:
 
-tsconfig.json
+--------------------------------------------------------------------
+
+File: tsconfig.json
+The following content should be added:
+
+``
 
 {
   "compilerOptions": {
@@ -223,7 +182,14 @@ tsconfig.json
   "exclude": []
 }
 
-rollup.config.js
+``
+
+--------------------------------------------------------------------
+
+File: rollup.config.js
+Add the following content:
+
+``
 
 import summary from 'rollup-plugin-summary';
 import resolve from '@rollup/plugin-node-resolve';
@@ -301,7 +267,14 @@ export default [
   },
 ];
 
-web-dev-server-config.js
+``
+
+--------------------------------------------------------------------
+
+File: web-dev-server-config.js
+Add the following content:
+
+``
 
 import {legacyPlugin} from '@web/dev-server-legacy';
 
@@ -331,9 +304,36 @@ export default {
   ],
 };
 
-4th Step:
-If we want to use some of the optional dev features such as linting, code formatting, etc. we should create the configuration files for them, if not we can remove their respective scripts from package.json file.
-Here are some default values:
+``
+
+4th Step (OPTIONAL):
+If we want to use some of the optional dev features such as linting, code formatting, etc. we should install the packages and create the configuration files for them.
+
+This is how the script section could be configured:
+
+  "scripts": {
+    "build": "tsc; rollup -c",        
+    "build:watch": "tsc --watch",
+    "clean": "rimraf my-element.{d.ts,d.ts.map,js,js.map} test/my-element.{d.ts,d.ts.map,js,js.map} test/my-element_test.{d.ts,d.ts.map,js,js.map}",
+    "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
+    "lint:eslint": "eslint 'src/**/*.ts'",
+    "lint:lit-analyzer": "lit-analyzer",
+    "format": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.eslintignore --write",
+    "analyze": "cem analyze --litelement --globs \"src/**/*.ts\"",
+    "analyze:watch": "cem analyze --litelement --globs \"src/**/*.ts\" --watch",
+    "serve": "wds --watch",
+    "start": "wds --dev --watch --serve --port 3334",
+    "serve:prod": "MODE=prod npm run serve",
+    "test": "npm run test:dev && npm run test:prod",
+    "test:dev": "wtr",
+    "test:watch": "wtr --watch",
+    "test:prod": "MODE=prod wtr",
+    "test:prod:watch": "MODE=prod wtr --watch",
+    "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js",
+    "rollup": "rollup -c"
+  },
+
+Here are some default values for the config files:
 
 .eslintignore
 
@@ -342,6 +342,8 @@ node_modules/*
 rollup-config.js
 web-dev-server.config.js
 ``
+
+--------------------------------------------------------------------
 
 .eslintrc.json
 
@@ -399,6 +401,8 @@ web-dev-server.config.js
 }
 ``
 
+--------------------------------------------------------------------
+
 .prettierrc.json
 
 ``
@@ -410,6 +414,8 @@ web-dev-server.config.js
   "arrowParens": "always"
 }
 ``
+
+--------------------------------------------------------------------
 
 5th Step:
 With everything in place we can start creating our first component.
