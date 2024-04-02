@@ -1,8 +1,8 @@
 {
-  "b536fe5a-79e6-45d2-a1b8-1c2586b8daf5": {
-    "id": "b536fe5a-79e6-45d2-a1b8-1c2586b8daf5",
+  "b1b58757-04d1-4746-8624-4150db363e41": {
+    "id": "b1b58757-04d1-4746-8624-4150db363e41",
     "ident": "max-hardware-templates",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "templates": [
       {
         "ident": "invoice",

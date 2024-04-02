@@ -18,10 +18,7 @@ export class InvoiceFooterTpl extends LitElement {
   }
 
   override render() {
-    const imagePath = '/assets/icon/leya.png';
-    const url = window.location.href.toString().includes('/dev/')
-      ? `/dev${imagePath}`
-      : `/print${imagePath}`;
+    const imagePath = 'assets/leya.png';    
     const sender = this.invoice.sender;
     const bank = sender.bankDetails;
 
@@ -65,7 +62,7 @@ export class InvoiceFooterTpl extends LitElement {
     <Host class="invoice-footer__body">
       <div class="invoice-footer__img">
         <div class="invoice-footer__img-size">
-          <leya-print-image-fetch .imgSrc=${url} />
+          <leya-print-image-fetch .imgSrc=${imagePath} />
         </div>
       </div>
       <div class="invoice-footer__pageNumber">

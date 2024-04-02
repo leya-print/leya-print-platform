@@ -54,6 +54,8 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
 
   const files = req.files as Express.Multer.File[];
 
+  // security issue
+  // 
   Promise.all(files.map((file) => templateService.addTemplate(file.buffer))).then(
     (results) => res.send(results),
     (error) => {

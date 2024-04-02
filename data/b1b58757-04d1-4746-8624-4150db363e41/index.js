@@ -22,7 +22,7 @@ const invoiceTemplateInfo = {
 // import { workReportTemplateInfo } from './components/templates/work-report/work-report-template-info.const';
 const templatePackage = {
   ident: 'max-hardware-templates',
-  version: '1.0.0',
+  version: '1.0.1',
   templates: [
     // templateDemoTemplateInfo,
     invoiceTemplateInfo,

@@ -29,7 +29,7 @@ prefetch-img:
 
     Example:
         // path to image
-        const imagePath = '/assets/icon/leya.png'
+        const imagePath = '/assets/leya.png'
         // url to service
         const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`    
         // pre-fetch component

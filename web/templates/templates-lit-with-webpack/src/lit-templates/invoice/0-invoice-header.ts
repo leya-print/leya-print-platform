@@ -21,10 +21,7 @@ export class InvoiceHeaderTpl extends LitElement {
 
   override render() {
     const invoice = this.invoice;
-    const imagePath = '/assets/icon/leya.png';
-    const url = window.location.href.toString().includes('/dev/')
-      ? `/dev${imagePath}`
-      : `/print${imagePath}`;
+    const imagePath = 'assets/leya.png';
 
     return html`
     <style>
@@ -33,7 +30,7 @@ export class InvoiceHeaderTpl extends LitElement {
     <Host class="invoice__header-body">
       <div class="invoice-header__img">
         <div class="invoice-header__img-size">
-          <leya-print-image-fetch .imgSrc=${url} />
+          <leya-print-image-fetch .imgSrc=${imagePath} />
         </div>
       </div>
       <div class="invoice-header__address-box">

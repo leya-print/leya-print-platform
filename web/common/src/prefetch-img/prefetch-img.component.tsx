@@ -1,4 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
+import { env } from '../env';
 
 @Component({
     tag: 'leya-print-image-fetch',
@@ -27,9 +28,18 @@ export class ImageFetchTpl {
     }
 
     async loadImage(): Promise<string> {
-        const imageBlob = await this.fetchImage(this.imgSrc);
+        const tplUrl = await this._tplBaseUrl()
+        const imageUrl = tplUrl + this.imgSrc
+
+        const imageBlob = await this.fetchImage(imageUrl);
         const imageBase64 = await this.blobToBase64(imageBlob);
         return imageBase64 as string;
+    }
+
+    private async _tplBaseUrl() {
+        const { templateServiceBaseUrl } = await env;
+    
+        return `${templateServiceBaseUrl}/tpl-contents/`;
     }
 
     async componentWillRender() {
