@@ -6,53 +6,64 @@ export class PdfFactory {
 
   constructor(
     private _baseUrl: string,
-  ) {}
+  ) { }
 
   get browser() {
-    const browserPromise = chromium.launch({ args: [ '--disable-web-security' ]});
+    const browserPromise = chromium.launch({ args: ['--disable-web-security'] });
     Object.defineProperty(this, 'browser', { value: browserPromise, writable: false });
 
     return browserPromise;
   }
 
-  async openPage<R>(templateId: string, pagePart: string, queryParams: {[key: string]: string}, providedData: string | undefined, actions: PageActions<R>) {
+  async openPage<R>(templateId: string, pagePart: string, queryParams: { [key: string]: string }, providedData: string | undefined, actions: PageActions<R>) {
 
     console.log('open Page:', templateId, pagePart, queryParams, providedData);
     console.log('_baseUrl', this._baseUrl);
 
     const urlWithParams = new URL(`${this._baseUrl}/${templateId}/${pagePart}`);
-    
+
     Object.entries(queryParams).forEach(([key, value]) => urlWithParams.searchParams.set(key, value));
 
-    try {      
+    try {
       const browser = await this.browser;
       const context = await browser.newContext();
 
       const page = await context.newPage();
-  
+
       page.on('console', (consoleMessage) => console.log({ type: consoleMessage.type(), text: consoleMessage.text() }));
       page.on('requestfailed', (request) => console.error('request failed: ' + request.url()));
-      
+
       let urlStr = String(urlWithParams);
-      
+
       console.log('open urlStr: ' + urlStr);
       console.log('data: ' + JSON.stringify(providedData, null, 2));
 
       await Promise.all([
         page.goto(urlStr),
-        page.waitForURL(urlStr, { timeout: 30000}).then(async () => {  
-  
-        if (providedData) {
-          await page.evaluate((data) => {
-            (window as any).providedData = JSON.parse(data);
-            return Promise.resolve(true);
-          }, providedData);
-        }
+        page.waitForURL(urlStr, { timeout: 30000 }).then(async () => {
+          if (providedData) {
+            // TODO: Use page.EvaluateAsync with async/await
+            // after migration to a newer Playwright release
+            await page.evaluate((data) => {
+              (window as any).providedData = JSON.parse(data);
+
+              const areImagesLoaded = () => [...document.images].every(image => image.complete);
+
+              const waitForImagesLoaded = (resolve: (loaded: boolean) => void) => {
+                const checkImagesLoaded = (): any => setTimeout(
+                  () => areImagesLoaded() ? resolve(true) : checkImagesLoaded(),
+                  100
+                );
+                checkImagesLoaded();
+              };
+
+              return new Promise(waitForImagesLoaded);
+            }, providedData);
+          }
         }),
         page.waitForSelector('app-root'),
-        
       ]);
-  
+
       const result = await actions(page);
       await context.close();
 
@@ -64,7 +75,7 @@ export class PdfFactory {
     }
   }
 
-  async create(templateId: string, queryParams: {[key: string]: any}, providedData?: string) {
+  async create(templateId: string, queryParams: { [key: string]: any }, providedData?: string) {
     const openPage = <R>(pagePart: string, actions: PageActions<R>) => this.openPage(templateId, pagePart, queryParams, providedData, actions);
     const [header, footer] = await Promise.all(
       ['header', 'footer'].map((pagePart) => openPage(pagePart, async (page) => {
