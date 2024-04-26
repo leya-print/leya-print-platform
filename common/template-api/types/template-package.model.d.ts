@@ -18,6 +18,16 @@ export interface TemplatePackage {
     /** Version string for the template package. Semantic versioning is recommended. */
     version?: string;
 
+    /** Relative path that points to the script file that registers the web components used as template components from the linked application.
+     *  @see TemplateInfo
+    */
+    templatesLoaderPath?: string;
+
+    /**
+     * defaults to loaded; use a cutom event type if loaded is fired too early
+     */
+    pageReadyEventType?: string;
+
     /** Array of templates included in this package. */
     templates: TemplateInfo[];
 }
