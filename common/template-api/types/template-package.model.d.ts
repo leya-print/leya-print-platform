@@ -23,6 +23,11 @@ export interface TemplatePackage {
     */
     templatesLoaderPath?: string;
 
+    /**
+     * defaults to loaded; use a cutom event type if loaded is fired too early
+     */
+    pageReadyEventType?: string;
+
     /** Array of templates included in this package. */
     templates: TemplateInfo[];
 }
