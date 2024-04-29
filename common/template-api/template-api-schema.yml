@@ -15,6 +15,12 @@ definitions:
       version:
         type: string
         description: "Version string for the template package. Semantic versioning is recommended."
+      templatesLoaderPath:
+        type: string
+        description: "Relative path that points to the script file that registers the web components used as template components from the linked application."          
+      pageReadyEventType:
+        type: string
+        description: "Defaults to loaded; use a custom event type if loaded is fired too early."
       templates:
         type: array
         description: "Array of templates included in this package."
