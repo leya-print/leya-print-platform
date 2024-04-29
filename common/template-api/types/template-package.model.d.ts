@@ -24,7 +24,7 @@ export interface TemplatePackage {
     templatesLoaderPath?: string;
 
     /**
-     * defaults to loaded; use a cutom event type if loaded is fired too early
+     * Defaults to loaded; use a custom event type if loaded is fired too early.
      */
     pageReadyEventType?: string;
 
