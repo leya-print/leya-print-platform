@@ -12,7 +12,7 @@
   "unpkg": "dist/test/test.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.code-better.it/leya/leya-print"
+    "url": "git+https://github.com/leya-print/leya-print-platform.git"
   },
   "files": [
     "dist/",

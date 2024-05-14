@@ -11,8 +11,9 @@ info:
     Swagger at [https://swagger.io](https://swagger.io).
 
     Some useful links:
-    - [Leya-Print repository](https://gitlab.code-better.it/leya/leya-print/-/tree/develop)
-    - [The source API definition for Leya-Print](https://gitlab.code-better.it/leya/leya-print/-/blob/36-OpenApi_Definition_of_rest_server/common/api/openapi-rest.yml)
+    - [Leya-Print repository](https://github.com/leya-print/leya-print-platform/tree/develop)
+    - [The source API definition for Leya-Print](https://github.com/leya-print/leya-print-platform/blob/develop/common/api/openapi-rest.yml)
+
   termsOfService: http://swagger.io/terms/
   contact:
     email: info@leya-it-solutions.de
