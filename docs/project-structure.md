@@ -51,7 +51,7 @@ and their roles within the system:
 ## Other Directories
 
 - **data/:** Used as a persistence layer during development and for deploying templates with the server.
-  Each template is uploaded in an own folder named by a generated unique id. The metadata is collected in the [template-packages.json](../data/template-packages.json). This /data folder is also used by the docker containers, so you can place templates there that get deployed along with the container.
+  Each template is uploaded in a new folder named by a generated unique id. The metadata is collected in the [template-packages.json](../data/template-packages.json). This /data folder is also used by the docker containers, so you can place templates there that get deployed along with the container.
 - **common/:** Contains the `@leya-print/template-api`, which defines the structure of metadata required
   for uploaded templates. This is a standalone npm package, available via npmjs, serving as a crucial resource for template projects.
   [Read more](../common/README.md)
@@ -68,8 +68,6 @@ the needs of both development and production environments.
 - **[CONTRIBUTE.md](../CONTRIBUTE.md):** Guidelines for contributing to the Leya Print project.
 
 ## Overview Diagram
-<!-- Project Services Diagram -->
-## Project Services Diagram
 
 ```mermaid
 flowchart TD
