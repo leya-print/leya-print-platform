@@ -1,0 +1,213 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "web/common: Install and Build",
+      "detail": "Install dependencies, build, and pack the common web module.",
+      "type": "shell",
+      "command": "npm i && npm run build && npm pack",
+      "options": {
+        "cwd": "${workspaceFolder}/web/common"
+      }
+    },
+    {
+      "label": "web/print: Install",
+      "detail": "Install web/print dependencies after building web/common.",
+      "type": "shell",
+      "command": "npm i",
+      "options": {
+        "cwd": "${workspaceFolder}/web/print"
+      },
+      "dependsOn": [
+        "web/common: Install and Build"
+      ]
+    },
+    {
+      "label": "print: Start",
+      "detail": "Start the print server, runs in the background.",
+      "type": "shell",
+      "command": "npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/web/print"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "server",
+        "reveal": "always"
+      },
+      "icon": {
+        "id": "browser"
+      }
+    },
+    {
+      "label": "server/common: Install and Build",
+      "detail": "Install and build server/common package.",
+      "type": "shell",
+      "command": "npm i && npm run build && npm pack",
+      "options": {
+        "cwd": "${workspaceFolder}/server/common"
+      }
+    },
+    {
+      "label": "server/tpl-service: Install",
+      "detail": "Install dependencies for template service after server/common is built.",
+      "type": "shell",
+      "command": "npm i",
+      "options": {
+        "cwd": "${workspaceFolder}/server/tpl-service"
+      },
+      "dependsOn": [
+        "server/common: Install and Build"
+      ]
+    },
+    {
+      "label": "tpl-service: Start",
+      "detail": "Start the template service, runs in the background.",
+      "type": "shell",
+      "command": "npm run dev:watch",
+      "options": {
+        "cwd": "${workspaceFolder}/server/tpl-service"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "server",
+        "reveal": "always"
+      },
+      "icon": {
+        "id": "database"
+      }
+    },
+    {
+      "label": "server/pdf-service: Install",
+      "detail": "Install and setup pdf service including necessary tools like Chromium.",
+      "type": "shell",
+      "command": "npm i && npx playwright install chromium",
+      "options": {
+        "cwd": "${workspaceFolder}/server/pdf-service"
+      },
+      "dependsOn": [
+        "server/common: Install and Build"
+      ]
+    },
+    {
+      "label": "pdf-service: Start",
+      "detail": "Start the PDF service, runs in the background.",
+      "type": "shell",
+      "command": "npm run dev:watch",
+      "options": {
+        "cwd": "${workspaceFolder}/server/pdf-service"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "server",
+        "reveal": "always"
+      },
+      "icon": {
+        "id": "file-pdf"
+      }
+    },
+    {
+      "label": "web/designer: Install",
+      "detail": "Install dependencies for the web designer tool.",
+      "type": "shell",
+      "command": "npm i",
+      "options": {
+        "cwd": "${workspaceFolder}/web/designer"
+      },
+      "dependsOn": [
+        "web/common: Install and Build"
+      ]
+    },
+    {
+      "label": "designer: Start",
+      "detail": "Start the web designer, includes a short delay to avoid conflicts.",
+      "type": "shell",
+      "command": "sleep 1 && npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/web/designer"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "server",
+        "reveal": "always"
+      },
+      "icon": {
+        "id": "pencil"
+      }
+    },
+    {
+      "label": "web/templates: Install",
+      "detail": "Install dependencies for the web templates project.",
+      "type": "shell",
+      "command": "npm i",
+      "options": {
+        "cwd": "${workspaceFolder}/web/templates"
+      },
+      "dependsOn": [
+        "web/common: Install and Build"
+      ]
+    },
+    {
+      "label": "templates: Start",
+      "detail": "Start the templates server, runs in the background.",
+      "type": "shell",
+      "command": "npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/web/templates"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "templates",
+        "reveal": "always"
+      },
+      "icon": {
+        "id": "layout"
+      }
+    },
+    {
+      "label": "Prepare Workspace",
+      "detail": "Execute all installation tasks to prepare the workspace.",
+      "type": "shell",
+      "command": "echo 'Preparing Workspace'",
+      "dependsOn": [
+        "web/print: Install",
+        "server/tpl-service: Install",
+        "server/pdf-service: Install",
+        "web/designer: Install",
+        "web/templates: Install"
+      ],
+    },
+    {
+      "label": "Start All Servers",
+      "detail": "Start all configured servers simultaneously.",
+      "type": "shell",
+      "command": "echo 'Starting All Servers'",
+      "dependsOn": [
+        "print: Start",
+        "tpl-service: Start",
+        "pdf-service: Start",
+        "designer: Start",
+        "templates: Start"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Prepare and Start",
+      "detail": "Fully initialize and start all components of the Leya-Print project.",
+      "type": "shell",
+      "command": "echo 'Prepare and Start Leya-Print'",
+      "dependsOn": [
+        "Prepare Workspace",
+        "Start All Servers"
+      ],
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
