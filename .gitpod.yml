@@ -28,59 +28,6 @@ ports:
     onOpen: ignore
 
 tasks:
-  - name: Free-Console
-
-  - name: Build
+  - name: Pre-Build
     init: |
       bash build-all.sh
-      gp sync-done build
-  
-  - name: Pdf-Service
-    before: cd server/pdf-service
-    init: |
-      gp sync-await build
-      npm i
-    command: |
-      npx playwright install
-      npm run install-browser
-      npm run dev
-  
-  - name: Tpl-Service
-    before: cd server/tpl-service
-    init: |
-      gp sync-await build
-      npm i
-    command: |
-      npm run dev
-  
-  - name: Auth-Service
-    before: cd server/auth-service
-    init: |
-      gp sync-await build
-      npm i
-    command: |
-      npm run dev
-    
-  - name: Designer
-    before: cd web/designer
-    init: |
-      gp sync-await build
-      npm i
-    command: npm start
-    openMode: split-right
-
-  - name: Print
-    before: cd web/print
-    init: |
-      gp sync-await build
-      npm i
-    command: npm start
-    openMode: split-right
-
-  - name: Templates
-    before: cd web/templates
-    init: |
-      gp sync-await build
-      npm i
-    command: npm start
-    openMode: split-right
