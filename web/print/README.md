@@ -1,5 +1,4 @@
 # Leya Print
-=============
 Leya Print is a frontend web solution to support the rendering of templates.
 
 ## Table of Contents

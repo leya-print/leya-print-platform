@@ -1,5 +1,4 @@
 # Leya Designer
-=============
 Leya Designer is a web-frontend solution to support the development of print templates.
 
 ## Table of Contents
