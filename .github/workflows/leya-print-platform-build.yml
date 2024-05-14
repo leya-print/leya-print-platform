@@ -1,0 +1,299 @@
+name: Leya Print Platform Build
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 66-move-to-github
+  pull_request:
+    branches:
+      - main
+      - develop
+      - 66-move-to-github
+
+jobs:
+  build-server-common:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build server-common
+        run: bash ./build/scripts/build-server-common.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-common
+          path: server/common/leya-print-server-common-1.0.0.tgz
+          retention-days: 7
+
+  build-auth-service:
+    needs: build-server-common
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download server-common artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-common
+          path: server/common
+
+      - name: Build auth-service
+        run: bash ./build/scripts/build-auth-service.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: auth-service
+          path: server/auth-service/dist
+          retention-days: 7
+
+  build-pdf-service:
+    needs: build-server-common
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download server-common artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-common
+          path: server/common
+
+      - name: Build pdf-service
+        run: bash ./build/scripts/build-pdf-service.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-service
+          path: server/pdf-service/dist
+          retention-days: 7
+
+  build-tpl-service:
+    needs: build-server-common
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download server-common artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-common
+          path: server/common
+
+      - name: Build tpl-service
+        run: bash ./build/scripts/build-tpl-service.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tpl-service
+          path: server/tpl-service/dist
+          retention-days: 7
+
+  build-web-common:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build web-common
+        run: bash ./build/scripts/build-web-common.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-common
+          path: web/common/leya-print-web-common-1.0.0.tgz
+          retention-days: 7
+
+  build-web-designer:
+    needs: build-web-common
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download web-common artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-common
+          path: web/common
+
+      - name: Build web-designer
+        run: bash ./build/scripts/build-web-designer.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-designer
+          path: web/designer/www-prod
+          retention-days: 7
+
+  build-web-print:
+    needs: build-web-common
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download web-common artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-common
+          path: web/common
+
+      - name: Build web-print
+        run: bash ./build/scripts/build-web-print.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-print
+          path: web/print/www-prod
+          retention-days: 7
+
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+    needs:
+      - build-auth-service
+      - build-pdf-service
+      - build-tpl-service
+      - build-web-designer
+      - build-web-print
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Download server-common artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-common
+          path: server/common
+
+      - name: Download auth-service
+        uses: actions/download-artifact@v4
+        with:
+          name: auth-service
+          path: server/auth-service/dist
+
+      - name: Download pdf-service
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf-service
+          path: server/pdf-service/dist
+
+      - name: Download tpl-service
+        uses: actions/download-artifact@v4
+        with:
+          name: tpl-service
+          path: server/tpl-service/dist
+
+      - name: Download web-designer
+        uses: actions/download-artifact@v4
+        with:
+          name: web-designer
+          path: web/designer/www-prod
+
+      - name: Download web-print
+        uses: actions/download-artifact@v4
+        with:
+          name: web-print
+          path: web/print/www-prod
+
+      - name: Build Docker image
+        run: |
+          cd server/container
+          sh build.sh
+
+      - name: Start Container for Tests
+        working-directory: e2e
+        run: docker-compose up -d leya-print
+
+      - name: Ensure the container is up and running
+        working-directory: e2e
+        run: |
+          docker compose exec leya-print curl http://localhost:8080/alive
+          curl http://localhost:8082/alive
+
+      - name: Run E2E Tests in Docker
+        working-directory: e2e
+        run: docker-compose run e2e-test
+
+      - name: Strop Container for Tests
+        if: always()
+        working-directory: e2e
+        run: docker-compose down
+
+      - name: Check if E2E Test Report exists
+        id: check-report
+        run: |
+          if [ -f e2e/playwright-report ]; then
+            echo "Report found"
+            echo "::set-output name=report_exists::true"
+          else
+            echo "Report not found"
+            echo "::set-output name=report_exists::false"
+            exit 1
+          fi
+
+      - name: Upload E2E Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: e2e/playwright-report
+
+      - name: Conditionally tag and push to registry
+        if: (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main') && github.event_name == 'push' && success()
+        run: |
+          docker tag local.local/leya registry.code-better.it/leya/leya-print
+          echo "${{ secrets.CI_REGISTRY_USER }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin "${{ secrets.CI_REGISTRY }}"
+          docker push registry.code-better.it/leya/leya-print
+          docker tag local.local/leya registry.code-better.it/leya/leya-print:${{ github.sha }}
+          docker push registry.code-better.it/leya/leya-print:${{ github.sha }}

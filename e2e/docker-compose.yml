@@ -5,7 +5,15 @@ services:
     image: local.local/leya
     hostname: leya-print
     ports:
-      - 8082:8080
+      - "8082:8080"
+    networks:
+      e2e-test-network:
+        ipv4_address: 10.0.0.2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/alive"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   e2e-test:
     image: mcr.microsoft.com/playwright:v1.37.0-jammy
@@ -17,4 +25,15 @@ services:
       LEYA_E2E_BASE_URL: http://leya-print:8080
     depends_on:
       - leya-print
+    networks:
+      e2e-test-network:
+        ipv4_address: 10.0.0.3
     command: bash start-xvfb.sh
+
+networks:
+  e2e-test-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24

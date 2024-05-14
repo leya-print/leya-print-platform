@@ -9,5 +9,6 @@ docker buildx build \
   --build-context web-designer=../../web/designer \
   --build-context web-print=../../web/print \
   --build-context sample-data=../../data \
+  --load \
   -t local.local/leya \
   .
