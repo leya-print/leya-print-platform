@@ -76,6 +76,8 @@ For those who prefer working in their local dev environment, we've provided a co
 - 🛡️ **Security by Design**  
   Leya Print prioritizes security by design, ensuring that no user data is permanently stored by the system. This approach minimizes data exposure and privacy risks. Additionally, Leya Print is designed to be installed within a company's own infrastructure rather than as a purely SaaS solution. This allows for greater control over security measures and aligns with corporate policies that may restrict the use of external servers for sensitive data handling.
 
+For additional insights and documentation, venture over to the [Leya Print homepage](https://leya-print.de/).
+
 ## Community and Support
 
 If you have questions or need help, the preferred way to contact us is through our [GitHub issues](https://github.com/leya-print/leya-print-platform/issues) or by [email](mailto:support@leya-it-solutions.de). For direct interaction and quicker responses, these channels are actively monitored by our development team.

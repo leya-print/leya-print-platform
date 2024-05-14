@@ -25,9 +25,10 @@ This directory contains detailed guides and operational procedures that support 
 - **Template API:** Details on the template API, which defines the metadata used for managing and processing templates.
   [View Template API Guide](../common/template-api/README.md)
 
-<!--
 ## Operational Procedures
+- [How to deploy templates to the Leya Print Platform](how-to-deploy-templates.md)
 
+<!--
 - **Deployment Guide:** Instructions for deploying Leya Print in various environments.
   [View Deployment Guide](deployment-guide.md) *(Link needs to be added once the document is created)*
 

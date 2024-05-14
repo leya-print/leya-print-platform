@@ -31,6 +31,15 @@ e2e/:
 sh run-in-docker.sh
 ```
 
+**Tests in Pipeline:**
+
+To run the tests in the same type of container as will run in the ci/cd pipeline run the command:
+
+e2e/:
+```
+docker-compose run e2e-test
+```
+
 **Snapshosts:**
 
 In the e2e folder there is a snapshots folder with the /user and /ci sub-directories that will hold snapshots of the tests done.
@@ -38,5 +47,6 @@ The user is for current user's instance tests and in ci are the ones from the pi
 
 **Docker/Scripts:**
 
-For testing flexibility in ci-cd pipelines the tests are also present in a docker container, the container can be started and the tests can be ran locally as well.
+For testing flexibility in ci-cd pipelines the tests are also present in a docker container, the container can be started and the tests can be run locally as well.
 The run-in-docker.sh script runs the tests in docker and shell-in-docker opens a bash terminal for any additional needs in the container.
+

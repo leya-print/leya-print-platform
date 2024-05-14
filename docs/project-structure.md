@@ -51,7 +51,7 @@ and their roles within the system:
 ## Other Directories
 
 - **data/:** Used as a persistence layer during development and for deploying templates with the server.
-  Stores templates and their metadata in [template-packages.json](../data/template-packages.json).
+  Each template is uploaded in an own folder named by a generated unique id. The metadata is collected in the [template-packages.json](../data/template-packages.json). This /data folder is also used by the docker containers, so you can place templates there that get deployed along with the container.
 - **common/:** Contains the `@leya-print/template-api`, which defines the structure of metadata required
   for uploaded templates. This is a standalone npm package, available via npmjs, serving as a crucial resource for template projects.
   [Read more](../common/README.md)
@@ -66,3 +66,42 @@ the needs of both development and production environments.
 
 - **[LICENSE](../LICENSE):** The licensing information for Leya Print.
 - **[CONTRIBUTE.md](../CONTRIBUTE.md):** Guidelines for contributing to the Leya Print project.
+
+## Overview Diagram
+<!-- Project Services Diagram -->
+## Project Services Diagram
+
+```mermaid
+flowchart TD
+    subgraph Leya-Print
+    subgraph Container and e2e tests
+    X[common]    
+    Y[data]
+    Y <--> |Depends|C
+    X <--> |Depends|B
+    X <--> |Depends|C    
+    subgraph Backend Services
+    A[auth-service]
+    B[pdf-service]
+    C[tpl-service]
+    D[common]    
+    D --> |Depends|A
+    D --> |Depends|B
+    D --> |Depends|C    
+    end
+    subgraph Frontend Services
+    B --> |Uses|E
+    C --> |Uses|E
+    B --> |Uses|F
+    C --> |Uses|F
+    E[designer]
+    F[print]
+    G[common]
+    H[templates]
+    G --> |Depends|E
+    G --> |Depends|F
+    E --> |Uses|H
+    end
+    end
+    end
+```
