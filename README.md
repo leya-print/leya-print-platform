@@ -1,192 +1,89 @@
-<!-- PROJECT HEADER -->
-<br />
-<div align="center">
-    <h3 align="center">Leya Print</h3>
-</div>
+# Leya Print Platform
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#getting-started">Getting Started</a></li>
-    <li>
-    <a href="#usage">Usage </a>
-     <ul>
-        <li><a href="#examples">Examples</a></li>
-      </ul>
-    </li>
-    <li><a href="#project-structure">Project Structure</a></li>
-    <li><a href="#end-to-end-tests">End-to-End Tests</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+## Layout Your PDFs Using Web Technologies! 🌐🚀🖨️
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+With the Leya Print Platform, you can harness HTML, CSS, and even TypeScript to craft 
+professionally looking PDFs directly from your data. Sure, you could link together some 
+Open-Source projects and build your own printing pipeline—as our code demonstrates, that's 
+exactly what we're doing. But how do you convince management that this approach is reliable 
+and future-proof? What about security, scalability, quality gates, and long-term support? 🙈
 
-Leya Print is a powerful and user-friendly tool for generating PDFs from customizable templates. Leya Print is designed to make it easy for developers to create professional-looking PDF documents for a variety of purposes.
+The Leya Print Platform offers a proven solution with professional support, enabling you to 
+introduce this innovative printing method within your company with confidence. 🌐 + 💼🔒 = 
+🚀🖨️
 
-One of the key components of Leya Print is the Designer, which provides a visual interface for inserting content in the PDF templates. With Designer, users can easily upload custom templates that meet their specific needs, whether they're creating invoices, reports, or other types of documents.
+## How it works
 
-Leya Print is a versatile and powerful tool that simplifies the process of generating PDFs from templates. Whether you're a developer or a non-technical user, Leya Print is a valuable resource for creating professional-looking documents quickly and easily.
+The Leya Print Platform consists of several services that can be deployed as Docker nodes
+within a Kubernetes cluster or installed on a single system, ensuring scalability and
+reliability. Here's a breakdown of the core components:
 
-<!-- GETTING STARTED -->
+- **Document Generator (pdf-service):** This is the heart of Leya Print, responsible for
+creating final PDF documents from your data, adhering to your specifications. It utilizes
+templates stored in the Template Management System and populates them with data received
+via secure HTTP endpoints.
+
+- **Template Management System (tpl-service):** Manages all templates used across your
+organization, allowing for the addition, updating, and selection of templates for document
+creation. It features customizable selection criteria for templates to meet diverse
+business scenarios.
+
+Additional services include:
+
+- **Access Control (auth-service):** Enhances security by regulating access to the Leya
+Print system through external authentication services, ideal for enterprises with their
+own user management systems.
+
+- **Remote Template Development Tool (web/designer):** Accessible via a web interface,
+this tool allows developers and administrators to preview and test template changes in
+real time before going live. It also facilitates the management of the Template Management
+System, simplifying administration and customization.
+
+With these components, Leya Print not only ensures efficient and flexible document creation
+but also aligns with modern IT infrastructure requirements, making it a robust solution for
+your business document needs.
+
+For a full description of the project structure and detailed information about each component,
+please refer to our [Project Structure Documentation](./docs/project-structure.md).
+
 ## Getting Started
+### Quick Start in Gitpod
 
-To get a local copy up and running follow these simple steps:
+Gitpod is a ready-to-code dev environment with a single click, allowing you to start coding with zero configuration. This means you can access a fully functional development environment for Leya Print directly from your browser.
 
-1. Clone the repo
-2. After cloning the repo, open a terminal for each main project: 
+Get started with Leya Print instantly using our pre-configured Gitpod environment. Just click the button below to launch Leya Print in Gitpod:
 
-server/tpl-service
-server/pdf-service
-web/designer
-web/print
-web/templates
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/leya-print/leya-print-platform)
 
-First command to type is "npm install" to get all necessary dependencies.
-Second command is to startup the projects, choose which project you want to run:
+### Launch Locally
 
-server/tpl-service: 
-```
-npm run dev
-```
-server/pdf-service:
-```
-npm run dev
-```
-web/designer:
-```
-npm start
-```
-web/print:
-```
-npm start
-```
-web/templates:
-```
-npm start
-```
+For those who prefer working in their local dev environment, we've provided a convenient VS Code configuration that makes it easy to start Leya Print on your own machine. Simply check out the repository and open it in your local VS Code installation, which should start up all the services automatically. If you want to use another IDE or if you are looking for a more detailed startup description, refer to our [startup-details.md](./docs/startup-details.md).
 
-If you are using gitpod with the solutions running you can use the PORTS tab to open the projects in the browser.
-If you are using VS Code locally you have to open the links manually. 
+## Key Benefits of Leya Print
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+- 🛠️ **Designed by Developers, for Developers**  
+  Leya Print was crafted from the ground up by developers and software architects who understand the pain points in PDF generation. The platform is optimized for ease of use, efficiency, and integration, ensuring that it addresses real-world development challenges effectively.
 
-<!-- USAGE EXAMPLES -->
+- 🔧 **Extensibility and Customization**  
+  Leya Print is designed with flexibility in mind, featuring specific extension points for authentication, template storage, and template selection logic. This allows developers to tailor the platform to their unique requirements, enhancing functionality and adaptability.
 
-## Usage
+- 🌐 **Leveraging a Larger Web Developer Community**  
+  While Leya Print is developed and maintained by Leya IT Solutions GmbH, we value contributions and suggestions from the community. The platform benefits significantly from the broader web developer community, which offers extensive support and solutions for layout-related challenges, far surpassing the support available for proprietary PDF generators.
 
-To use the tool, open the designer project URL (You can find the designer link in the PORTS tab of the IDK if you are using Gitpod, VS Code), the UI has three functionalities for users.
+- 🔓 **Open Source Transparency**  
+  As an open-source platform, Leya Print offers transparency that fosters trust and collaboration. Developers have the freedom to inspect the code, contribute improvements, and ensure that the platform meets their security and functionality standards.
 
-Deployed templates: custom templates modified by users and deployed for reusability.
+- 🛡️ **Security by Design**  
+  Leya Print prioritizes security by design, ensuring that no user data is permanently stored by the system. This approach minimizes data exposure and privacy risks. Additionally, Leya Print is designed to be installed within a company's own infrastructure rather than as a purely SaaS solution. This allows for greater control over security measures and aligns with corporate policies that may restrict the use of external servers for sensitive data handling.
 
-Live templates: is a way to upload templates dynamically via a link. After the link is provided and button pressed the templates from the link wil appear.
-A default collection is provided from the Templates project, to use it, start the project with npm start and past the link https://3333-{GITPOD-URL}/build/index.esm.js to the url textbox, remember to replace GITPOD-URL with the local url.
+## Community and Support
 
-Upload templates: a drop zone discernible by borders with a button in the middle, in this area we can drag and drop a .TGZ file with one or more new templates.
-After dropping the items, they will appear in the UI as deployed templates.
+If you have questions or need help, the preferred way to contact us is through our [GitHub issues](https://github.com/leya-print/leya-print-platform/issues) or by [email](mailto:support@leya-it-solutions.de). For direct interaction and quicker responses, these channels are actively monitored by our development team.
 
-Clicking on a template name the user can see the template and, on the right, the json code to modify the fields of the template as required.
-After modifying the fields to the user's liking there is a preview button to generate the PDF file and if needed it can be saved from there.
+For more structured support, Leya Print offers tailored support plans that include direct access to our developers, priority issue handling, and personalized assistance. These plans are designed to provide the professional support needed to integrate and utilize Leya Print effectively in your business operations. 
 
-Please check our [INSTRUCTIONS](/INSTRUCTIONS.md) file for instructions.
+Explore our support options to find the right level of service for your needs, and ensure your projects are successful with Leya Print's robust support structure.
 
-### Examples
-
-## Use live templates and modify a invoice template
-
-To use the live templates and modify a template the first step is to go to the Designer UI.
-From the designer UI, a user might want to use the "live templates", first we need to pass a link to some templates.
-Default templates can be found in the Templates project, use the link https://3333-{LOCAL-URL}/build/index.esm.js, replace the LOCAL-URL with the gitpod url or local system url.
-Press the button next to the URL textbox to display the templates.
-Click on the "invoice" template from the "live templates" category.
-From the upper-right box the json data will be modified to the user's needs.
-When done the preview button will be clicked and the pdf is generated.
-
-More examples coming soon.
-
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
-
-<!-- Project Structure -->
-## Project Structure
-
-This is the main project structure:
-- [common](./common/api) solution for common projects entities
-- [e2e](./e2e) solution for end-to-end test
-
-- [server](./server) backend
-    - [container](./server/container/) data for deployment container
-    - [tpl-service](./server/tpl-service/) REST API service for pdf templates
-    - [pdf-service](./server/pdf-service/) REST API service for printing pdf using playwright
-
-- [web](./web) frontends
-    - [designer](./web/designer) solution to upload/edit and preview printing templates
-    - [print](./web/print) solution for printing pdfs
-    - [templates](./web/templates) solution that holds samples for templates
-
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
-
-<!-- END TO END TESTS -->
-## End-to-end-tests
-
-To validate that all components of the system are functioning together as intended we introduced end-to-end tests.
-In theory, end-to-end testing (E2E testing) is the process of testing a piece of software from start to finish as it will be used by the actual users.
- 
-The specs (tests) can be found under the e2e/tests folder.
-There is a config file in the e2e folder to config which browser should be used for testing.
-
-**Test Locally:**
-
-To run the tests on a local copy of Leya, the property baseURL from the playwright.config.ts file has to be changed a valid URL (local UI service URL, deployed online version of UI).
-Execute the command:
-
-e2e/:
-```
-npm test
-```
-The command will execute the command playwright test --headed which will run the tests in an active browser.
-The tests might fail at first because there are no other snapshots to compare to, running the tests again should make them pass.
-
-**Test on Gitpod:**
-
-Running the tests on Gitpod is a little different since they cannot run with --headed one test will always fail because without the option active a snapshot cannot be taken of a newly opened tab.
-
-The script run-in-docker.sh can be executed to run the tests with --headed in a docker container, don't forget to change the LEYA_E2E_BASE_URL variable in the shell script.
-
-Execute the command:
-
-e2e/:
-```
-sh run-in-docker.sh
-```
-
-**Snapshosts:**
-
-In the e2e folder there is a snapshots folder with the /user and /ci sub-directories that will hold snapshots of the tests done.
-The user is for current user's instance tests and in ci are the ones from the pipeline.
-
-**Docker/Scripts:**
-
-For testing flexibility in ci-cd pipelines the tests are also present in a docker container, the container can be started and the tests can be ran locally as well.
-The run-in-docker.sh script runs the tests in docker and shell-in-docker opens a bash terminal for any additional needs in the container.
-
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-Please check our [CONTRIBUTE](/CONTRIBUTE.md) file for instructions on how to contribute.
-
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
-
-<!-- LICENSE -->
 ## License
 
-Distributed under the Apache License Version 2.0, License. See [LICENSE](/LICENSE) for more information.
-
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+Distributed under the Apache License Version 2.0, License. See [LICENSE](./LICENSE) for more information.
