@@ -20,11 +20,9 @@ This directory contains detailed guides and operational procedures that support 
   [View Contribution Guidelines](../CONTRIBUTE.md)
 
 ## Reference
-<!--
-- **API Documentation:** Detailed description of API endpoints and their usage.
-  [View API Documentation](api-documentation.md) *(Link needs to be added once the document is created)*
--->
-- **Template API:** Details on the template API used for managing and processing templates.
+- **Endpoint Documentation:** Detailed description of API endpoints and their usage.
+  [View API Documentation](../server/api/openapi-rest.yml)
+- **Template API:** Details on the template API, which defines the metadata used for managing and processing templates.
   [View Template API Guide](../common/template-api/README.md)
 
 <!--

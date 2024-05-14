@@ -17,6 +17,8 @@ and their roles within the system:
 
 ## Server-Side Applications
 
+- **server/api:** Contains the OpenAPI definition for all services.
+  [View API Documentation](../server/api/openapi-rest.yml)
 - **server/common:** Shared server-side logic and utilities.
   [Read more](../server/common/README.md)
 - **server/pdf-service:** The core document generation service using Chromium instances to render PDFs.
@@ -25,6 +27,14 @@ and their roles within the system:
   [Read more](../server/tpl-service/README.md)
 - **server/auth-service:** Handles authentication and access control.
   [Read more](../server/auth-service/README.md)
+
+## Containerization
+
+- **server/container:** This directory contains the necessary configurations for running Leya Print
+  within a Docker container using NGINX. It plays a critical role in simplifying the deployment
+  process by encapsulating the platform into a containerized environment, making it easy to deploy
+  across different systems and cloud platforms.
+  [Read more](../server/container/README.md)
 
 ## Utility Scripts and Configuration
 
@@ -43,8 +53,10 @@ and their roles within the system:
 - **data/:** Used as a persistence layer during development and for deploying templates with the server.
   Stores templates and their metadata in [template-packages.json](../data/template-packages.json).
 - **common/:** Contains the `@leya-print/template-api`, which defines the structure of metadata required
-  for uploaded templates. This is a standalone npm package, available via npmjs, serving as a crucial resource for template projects. [Read more](../common/README.md)
-- **e2e/:** Contains end-to-end tests and configurations. [Read more](../e2e/Readme.md)
+  for uploaded templates. This is a standalone npm package, available via npmjs, serving as a crucial resource for template projects.
+  [Read more](../common/README.md)
+- **e2e/:** Contains end-to-end tests and configurations.
+  [Read more](../e2e/README.md)
 
 For detailed information on each component or service, refer to the README.md file located in
 the respective directory. This structure is designed to be modular and scalable, accommodating
