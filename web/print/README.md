@@ -1,5 +1,4 @@
 # Leya Print
-=============
 Leya Print is a frontend web solution to support the rendering of templates.
 
 ## Table of Contents
@@ -37,15 +36,15 @@ npm run test.watch
 
 ## Technical description
 ---------------------
-Leya Print is a project based on stencil.
+Leya Print is a project based on Stencil.js with the purpose of rendering templates in PDF format.
 
 Stencil is a compiler for building fast web apps using Web Components.
+For more information: https://stenciljs.com/
 
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
+!!! Considerations: !!!
 
-Stencil components are just Web Components, so they work in any major framework or with no framework at all. In many cases, Stencil can be used as a drop in replacement for traditional frontend frameworks given the capabilities now available in the browser, though using it as such is certainly not required.
-
-Stencil also enables a number of key capabilities on top of Web Components, in particular Server Side Rendering (SSR) without the need to run a headless browser, pre-rendering, and objects-as-properties (instead of just strings).
+When rendering with the raster grid layout activated there will be a white margin on the left side of the page and some black lines will appear in the PDF.
+This white margin and black lines are by design following the standard to easily fold, envelop and archive the physical document.
 
 ## Using Stencil components within Stencil
 Print has integrated other Stencil components for use such as the watermark that can appear on templates.
@@ -55,6 +54,11 @@ To use them they need to be imported in the app root: src/components/app-root/ap
     import '@leya-print/web-common/dist/components/leya-print-watermark'
 
 There is no need to reference the components in src/app.ts
+
+!!! Considerations: !!!
+
+When adding new Stencil components in a Stencil component please make sure before hand all applications are stopped if not a error might appear when rebuilding the application saying that it expected a js module however it received a html page.
+The error indicates the incorrect page is delievered because in the server nginx config file on error the server returns a index.html page and not a .js module.
 
 ## Contact
 For further queries, contact us at info@leya-it-solutions.de.
