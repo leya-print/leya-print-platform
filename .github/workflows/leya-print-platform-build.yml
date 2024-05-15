@@ -284,10 +284,10 @@ jobs:
           path: e2e/playwright-report
 
       - name: Conditionally tag and push to registry
-        if: (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main') && github.event_name == 'push' && success()
+        if: (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/66-move-to-github') && github.event_name == 'push' && success()
         run: |
-          docker tag local.local/leya registry.code-better.it/leya/leya-print
-          echo "${{ secrets.CI_REGISTRY_USER }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin "${{ secrets.CI_REGISTRY }}"
-          docker push registry.code-better.it/leya/leya-print
-          docker tag local.local/leya registry.code-better.it/leya/leya-print:${{ github.sha }}
-          docker push registry.code-better.it/leya/leya-print:${{ github.sha }}
+          docker tag local.local/leya ${{ secrets.CI_REGISTRY }}/leya/leya-print
+          docker tag local.local/leya ${{ secrets.CI_REGISTRY }}/leya/leya-print:${{ github.sha }}
+          echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin "${{ secrets.CI_REGISTRY }}"
+          docker push ${{ secrets.CI_REGISTRY }}/leya/leya-print
+          docker push ${{ secrets.CI_REGISTRY }}/leya/leya-print:${{ github.sha }}
