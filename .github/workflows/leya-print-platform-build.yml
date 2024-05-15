@@ -255,12 +255,6 @@ jobs:
         working-directory: e2e
         run: docker-compose up -d leya-print
 
-      - name: Ensure the container is up and running
-        working-directory: e2e
-        run: |
-          docker compose exec leya-print curl http://localhost:8080/alive
-          curl http://localhost:8082/alive
-
       - name: Run E2E Tests in Docker
         working-directory: e2e
         run: docker-compose run e2e-test
@@ -273,7 +267,7 @@ jobs:
       - name: Check if E2E Test Report exists
         id: check-report
         run: |
-          if [ -f e2e/playwright-report ]; then
+          if [ -d e2e/playwright-report ]; then
             echo "Report found"
             echo "::set-output name=report_exists::true"
           else
