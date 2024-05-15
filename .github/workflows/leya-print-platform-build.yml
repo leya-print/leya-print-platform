@@ -5,12 +5,10 @@ on:
     branches:
       - main
       - develop
-      - 66-move-to-github
   pull_request:
     branches:
       - main
       - develop
-      - 66-move-to-github
 
 jobs:
   build-server-common:
@@ -284,7 +282,7 @@ jobs:
           path: e2e/playwright-report
 
       - name: Conditionally tag and push to registry
-        if: (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/66-move-to-github') && github.event_name == 'push' && success()
+        if: (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main') && github.event_name == 'push' && success()
         run: |
           docker tag local.local/leya ${{ secrets.CI_REGISTRY }}/leya/leya-print
           docker tag local.local/leya ${{ secrets.CI_REGISTRY }}/leya/leya-print:${{ github.sha }}
