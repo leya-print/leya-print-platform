@@ -1,6 +1,6 @@
 {
   "name": "@leya-print/template-api",
-  "version": "0.0.2",
+  "version": "1.0.0-beta",
   "description": "Schema and typings for Leya Print template packages.",
   "types": "types/index.d.ts",
   "private": false,
