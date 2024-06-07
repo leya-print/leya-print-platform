@@ -1,99 +1,107 @@
 {
-  "components": {
-    "schams": {
-      "TemplatePackage": {
-        "type": "object",
-        "description": "Represents a package of PDF templates as part of the leya-print system. Each package can contain multiple templates and is identified by a unique ID and a user-defined identifier (ident). The package might also have a version string.",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier for the template package, generated as a UUID by the server during deployment.",
-            "format": "uuid"
-          },
-          "ident": {
-            "type": "string",
-            "description": "URL-compatible identifier for the template package. Multiple versions of the same package could share the same 'ident'."
-          },
-          "version": {
-            "type": "string",
-            "description": "Version string for the template package. Semantic versioning is recommended."
-          },
-          "templates": {
-            "type": "array",
-            "description": "Array of templates included in this package.",
-            "items": {
-              "$ref": "/$defs/TemplateInfo"
-            }
-          }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "TemplatePackage": {
+      "type": "object",
+      "description": "Represents a package of PDF templates as part of the leya-print system. Each package can contain multiple templates and is identified by a unique ID and a user-defined identifier (ident). The package might also have a version string.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the template package, generated as a UUID by the server during deployment.",
+          "format": "uuid"
         },
-        "required": [
-          "ident",
-          "templates"
-        ]
+        "ident": {
+          "type": "string",
+          "description": "URL-compatible identifier for the template package. Multiple versions of the same package could share the same 'ident'."
+        },
+        "version": {
+          "type": "string",
+          "description": "Version string for the template package. Semantic versioning is recommended."
+        },
+        "templatesLoaderPath": {
+          "type": "string",
+          "description": "Relative path that points to the script file that registers the web components used as template components from the linked application."
+        },
+        "pageReadyEventType": {
+          "type": "string",
+          "description": "Defaults to loaded; use a custom event type if loaded is fired too early."
+        },
+        "templates": {
+          "type": "array",
+          "description": "Array of templates included in this package.",
+          "items": {
+            "$ref": "#/definitions/TemplateInfo"
+          }
+        }
       },
-      "TemplateInfo": {
-        "type": "object",
-        "description": "Represents an individual PDF template within a leya-print package. Each template has an identifier, title, and description, along with the definitions for the web components that form its content and optional header and footer. It also contains sample data sets that help in testing and demonstrating the template.",
-        "properties": {
-          "ident": {
-            "type": "string",
-            "description": "Unique, URL-compatible identifier for the template within the scope of its package."
-          },
-          "title": {
-            "type": "string",
-            "description": "A short, readable title for the template. Maximum of 80 characters."
-          },
-          "description": {
-            "type": "string",
-            "description": "Detailed description outlining the template and its intended use."
-          },
-          "components": {
-            "type": "object",
-            "description": "Definitions for web components that make up various parts of the template.",
-            "properties": {
-              "header": {
-                "type": "string",
-                "description": "Web component tag-name for a repeating page header (optional)."
-              },
-              "content": {
-                "type": "string",
-                "description": "Web component tag-name for the main content."
-              },
-              "footer": {
-                "type": "string",
-                "description": "Web component tag-name for a repeating page footer (optional)."
-              }
-            }
-          },
-          "sampleData": {
-            "type": "object",
-            "description": "Sample data for the template in the format expected by the web components. Multiple samples can be provided for a single template, allowing you to test under different data conditions.",
-            "additionalProperties": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "description": "Short descriptor of the sample."
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Optional elaboration of what the sample represents."
-                },
-                "data": {
-                  "type": "object",
-                  "description": "The actual sample data; format depends on what the template expects."
-                }
-              }
+      "required": [
+        "ident",
+        "templates"
+      ]
+    },
+    "TemplateInfo": {
+      "type": "object",
+      "description": "Represents an individual PDF template within a leya-print package. Each template has an identifier, title, and description, along with the definitions for the web components that form its content and optional header and footer. It also contains sample data sets that help in testing and demonstrating the template.",
+      "properties": {
+        "ident": {
+          "type": "string",
+          "description": "Unique, URL-compatible identifier for the template within the scope of its package."
+        },
+        "title": {
+          "type": "string",
+          "description": "A short, readable title for the template. Maximum of 80 characters."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description outlining the template and its intended use."
+        },
+        "components": {
+          "type": "object",
+          "description": "Definitions for web components that make up various parts of the template.",
+          "properties": {
+            "header": {
+              "type": "string",
+              "description": "Web component tag-name for a repeating page header (optional)."
+            },
+            "content": {
+              "type": "string",
+              "description": "Web component tag-name for the main content."
+            },
+            "footer": {
+              "type": "string",
+              "description": "Web component tag-name for a repeating page footer (optional)."
             }
           }
         },
-        "required": [
-          "ident",
-          "title",
-          "components",
-          "sampleData"
-        ]
-      }
+        "sampleData": {
+          "type": "object",
+          "description": "Sample data for the template in the format expected by the web components. Multiple samples can be provided for a single template, allowing you to test under different data conditions.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Short descriptor of the sample."
+              },
+              "description": {
+                "type": "string",
+                "description": "Optional elaboration of what the sample represents."
+              },
+              "data": {
+                "type": "object",
+                "description": "The actual sample data; format depends on what the template expects."
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "ident",
+        "title",
+        "components",
+        "sampleData"
+      ]
     }
   }
 }
