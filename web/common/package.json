@@ -29,6 +29,8 @@
   "keywords": [],
   "author": "emanuel.hein@code-better.it",
   "dependencies": {
+    "@leya-print/template-api": "^1.0.0-beta",
+    "@leya-print/web-common": "file:leya-print-web-common-1.0.0.tgz",
     "@stencil/core": "^4.3.0"
   },
   "devDependencies": {

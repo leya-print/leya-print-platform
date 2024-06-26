@@ -1,22 +1,25 @@
 import type { Invoice } from '../../../models/invoice.model';
-import { Component, h, Host, State } from '@stencil/core';
+import { Component, h, Host, State, getAssetPath } from '@stencil/core';
 import { invoiceSamples } from './invoice-samples';
 
 @Component({
   tag: 'tpl-invoice-header',
   styleUrl: '0-invoice-header.scss',
   shadow: false,
+  assetsDirs: ['assets'],
 })
 export class InvoiceHeaderTpl {
   @State() invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
   render() {
     const invoice = this.invoice;
-    
-    const imagePath = '/assets/icon/leya.png';    
-    const url = window.location.href.toString().includes('/dev/') ? `/dev${imagePath}` : `/print${imagePath}`;
+
+    const image = getAssetPath(`assets/leya.png`);
+    const url = 'https://bmp.dekra.com/portal/pics/berechnet/b78955ef9a681129c9e04ec34b2a9427.webp';
 
     return <Host>
-      <div class="invoice-header__img"><div class="invoice-header__img-size"><leya-print-image-fetch imgSrc={url}/></div></div>
+      <div class="invoice-header__img"><div class="invoice-header__img-size"><leya-print-image-fetch imgSrc={image} class="leya-print-image" imgAlt="Company Logo" /></div></div>
+      {/* <div class="invoice-header__img"><div class="invoice-header__img-size"><leya-print-image-fetch imgSrc={url} class="leya-print-image" imgAlt="Custom Image URL" /></div></div> */}
+      <div class="invoice-header__img"><img class="invoice-header__img-size" src={url} alt="Custom Image URL" /></div>
       <div class="invoice-header__address-box">
         <div class="invoice-header__sender">
           <tplb-address-line address={invoice.sender.address}></tplb-address-line>

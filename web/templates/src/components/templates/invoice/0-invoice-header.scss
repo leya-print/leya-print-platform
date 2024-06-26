@@ -38,9 +38,11 @@ tpl-invoice-header {
         font-size: 7pt;
       }
     }
+
     .invoice-header__additions {
       height: 12.7mm - $ensure-sender-is-readable;
     }
+
     .invoice-header__sendTo {
       height: 27.3mm;
     }
@@ -84,12 +86,14 @@ tpl-invoice-header {
           overflow: hidden;
           width: calc(5.7cm - 2px);
           height: calc(1em + 2.5 * $customer-referance-padding);
+
           svg {
             width: calc(5.7cm - 2px);
             fill: red;
             stroke: red;
           }
         }
+
         span:last-child {
           display: block;
           padding: $customer-referance-padding;
@@ -144,7 +148,7 @@ tpl-invoice-header {
     border-bottom: .2mm solid black;
   }
 
-  .invoice-header__img{
+  .invoice-header__img {
     display: flex;
     justify-content: end;
     padding-bottom: 0.2cm;
@@ -152,9 +156,35 @@ tpl-invoice-header {
     padding-left: 2cm;
   }
 
-  .invoice-header__img-size{
+  .invoice-header__img-size {
     width: 110px;
     height: 70px;
   }
-  
+
+  .leya-print-image {
+    width: inherit;
+    height: inherit;
+
+    .img-size {
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  .invoice-header_img_url {
+    width: 100px;
+    height: 70px;
+    align-content: end;
+  }
+
+  .leya-print-image {
+    width: inherit;
+    height: inherit;
+
+    .img-size {
+      width: inherit;
+      height: inherit;
+    }
+  }
+
 }

@@ -48,8 +48,9 @@ export class TemplateService extends CrudService<StoredTemplatePackage, Template
             throw new Error('no template package description found! Uploaded template has to export a const templatePackage of type TemplatePackage');
           }
 
-          const templatePackage = await this.create(templatePackageData);
-          const srcFolder = path.join(extractedDirname, 'dist/esm');
+          const templatePackage = await this.create(templatePackageData);          
+          // const srcFolder = path.join(extractedDirname, 'dist/esm');
+          const srcFolder = extractedDirname;
           const dstFolder = path.join(this.tplRoot, templatePackage.id);
           await copy(srcFolder, dstFolder);
 

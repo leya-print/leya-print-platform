@@ -9,6 +9,7 @@
 
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
+| `imgAlt` | `img-alt` |             | `string` | `undefined` |
 | `imgSrc` | `img-src` |             | `string` | `undefined` |
 
 
