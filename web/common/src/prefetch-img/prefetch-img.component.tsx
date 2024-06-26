@@ -77,6 +77,32 @@ export class ImageFetchTpl {
         return imageBase64 as string;
     }
 
+    async assetExists(assetName: string): Promise<boolean> {
+        try {
+            const res = await fetch(getAssetPath(assetName));            
+            
+            if (res.ok){
+                return true;
+            }
+
+            return false
+        } catch (error) {
+            return false;
+        }
+    }
+
+    private async _tplBaseUrl() {
+        const { templateServiceBaseUrl } = await env;
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const tplPackage = urlParams.get('tplPackage')        
+
+        if (tplPackage.startsWith('http')) return tplPackage;
+
+        return `${templateServiceBaseUrl}/tpl-contents/${tplPackage}`;
+    }
+
     private async _tplBaseUrl() {
         const { templateServiceBaseUrl } = await env;
 

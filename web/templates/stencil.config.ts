@@ -50,6 +50,26 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
+      copy: [
+        {
+          src: '**/*.{jpg,png}',
+          dest: 'dist/assets',
+          warn: true,
+        }
+      ]
+    },
+    {
+      type: 'dist-custom-elements',
+      copy: [
+        {
+          src: '**/*.{jpg,png}',
+          dest: 'www/build/assets',
+          warn: true,
+        }
+      ]
+    },
+    {
+      type: 'dist-custom-elements',
     },
     {
       type: 'docs-readme',
