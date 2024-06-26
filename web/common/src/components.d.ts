@@ -11,6 +11,7 @@ export namespace Components {
         "width": string;
     }
     interface LeyaPrintImageFetch {
+        "imgAlt": string;
         "imgSrc": string;
     }
     interface LeyaPrintWatermark {
@@ -47,6 +48,7 @@ declare namespace LocalJSX {
         "width"?: string;
     }
     interface LeyaPrintImageFetch {
+        "imgAlt"?: string;
         "imgSrc"?: string;
     }
     interface LeyaPrintWatermark {
