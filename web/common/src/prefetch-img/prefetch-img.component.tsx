@@ -67,6 +67,8 @@ export class ImageFetchTpl {
         }
 
         const assetPath = this.imgSrc.split('/').slice(-2);
+        console.log(assetPath);
+        
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
 
         const tplUrl = await this._tplBaseUrl()
@@ -79,7 +81,7 @@ export class ImageFetchTpl {
 
     async assetExists(assetName: string): Promise<boolean> {
         try {
-            const res = await fetch(getAssetPath(assetName));            
+            const res = await fetch(getAssetPath(assetName), {mode: 'no-cors'});
             
             if (res.ok){
                 return true;
