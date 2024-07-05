@@ -42,14 +42,16 @@ export class TemplateService extends CrudService<StoredTemplatePackage, Template
           const packageJson = JSON.parse(fs.readFileSync(path.join(extractedDirname, 'package.json'), 'utf-8'));
           const mainFilename = packageJson.main;
 
+          // create sandbox execute in sandbox
+          // get from sandbox template
           const uploadedModule = await import(path.join(extractedDirname, mainFilename));
           const templatePackageData: TemplatePackage = uploadedModule.templatePackage;
           if (!templatePackageData) {
             throw new Error('no template package description found! Uploaded template has to export a const templatePackage of type TemplatePackage');
           }
 
-          const templatePackage = await this.create(templatePackageData);          
-          // const srcFolder = path.join(extractedDirname, 'dist/esm');
+          const templatePackage = await this.create(templatePackageData);
+          // const srcFolder = path.join(extractedDirname, 'dist/esm'); // take everything not just dist/esm // look into package json to find the right index
           const srcFolder = extractedDirname;
           const dstFolder = path.join(this.tplRoot, templatePackage.id);
           await copy(srcFolder, dstFolder);

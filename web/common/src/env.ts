@@ -12,5 +12,9 @@ if (firstPathSegment === "dev"){
     protocol = 'https'
 }
 
+if (firstPathSegment === "print"){
+    protocol = 'http'
+}
+
 const url = `${protocol}://${host}${path}`;
 export const env: PromiseLike<Env> = fetch(url).then((response) => response.json());
