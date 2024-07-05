@@ -67,6 +67,8 @@ export class ImageFetchTpl {
         }
 
         const assetPath = this.imgSrc.split('/').slice(-2);
+        console.log(assetPath);
+        
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
 
         const tplUrl = await this._tplBaseUrl()

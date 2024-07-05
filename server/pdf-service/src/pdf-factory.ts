@@ -44,29 +44,44 @@ export class PdfFactory {
 
       await Promise.all([
         page.goto(urlStr),
-        page.waitForURL(urlStr, { timeout: 30000 }).then(async () => {
-          if (providedData) {
-            // TODO: Use page.EvaluateAsync with async/await
-            // after migration to a newer Playwright release
-            await page.evaluate((data) => {
-              (window as any).providedData = JSON.parse(data);
-
-              const areImagesLoaded = () => [...document.images].every(image => image.complete);
-
-              const waitForImagesLoaded = (resolve: (loaded: boolean) => void) => {
-                const checkImagesLoaded = (): any => setTimeout(
-                  () => areImagesLoaded() ? resolve(true) : checkImagesLoaded(),
-                  100
-                );
-                checkImagesLoaded();
-              };
-
-              return new Promise(waitForImagesLoaded);
-            }, providedData);
-          }
+        page.waitForURL(urlStr, { timeout: 30000}).then(async () => {  
+  
+        if (providedData) {
+          await page.evaluate((data) => {            
+            (window as any).providedData = JSON.parse(data);
+            return Promise.resolve(true);
+          }, providedData);
+        }
         }),
         page.waitForSelector('app-root'),
+        
       ]);
+
+      // await Promise.all([
+      //   page.goto(urlStr),
+      //   page.waitForURL(urlStr, { timeout: 30000 }).then(async () => {
+      //     if (providedData) {
+      //       // TODO: Use page.EvaluateAsync with async/await
+      //       // after migration to a newer Playwright release
+      //       await page.evaluate((data) => {
+      //         (window as any).providedData = JSON.parse(data);
+
+      //         const areImagesLoaded = () => [...document.images].every(image => image.complete);
+
+      //         const waitForImagesLoaded = (resolve: (loaded: boolean) => void) => {
+      //           const checkImagesLoaded = (): any => setTimeout(
+      //             () => areImagesLoaded() ? resolve(true) : checkImagesLoaded(),
+      //             100
+      //           );
+      //           checkImagesLoaded();
+      //         };
+
+      //         return new Promise(waitForImagesLoaded);
+      //       }, providedData);
+      //     }
+      //   }),
+      //   page.waitForSelector('app-root'),
+      // ]);
 
       const result = await actions(page);
       await context.close();
