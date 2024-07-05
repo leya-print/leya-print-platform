@@ -13,7 +13,7 @@ import { env } from '../env';
     private convertedImg: string;
 
     async fetchImage(url: string) {
-        const response = await fetch(url);
+        const response = await fetch(url, { mode: 'no-cors' });
         const blob = await response.blob();
         
         return blob;
@@ -29,14 +29,17 @@ import { env } from '../env';
     }
       
     async loadImage(): Promise<string> {
-        if (this.imgSrc.includes('http')) {            
-            const imageBlob = await this.fetchImage(this.imgSrc);
-            const imageBase64 = await this.blobToBase64(imageBlob);
-            return imageBase64 as string;
-        }
+        // if (this.imgSrc.includes('http')) {            
+        //     const imageBlob = await this.fetchImage(this.imgSrc);
+        //     const imageBase64 = await this.blobToBase64(imageBlob);
+        //     return imageBase64 as string;
+        // }
 
         const assetPath = this.imgSrc.split('/').slice(-2);
+        console.log(assetPath);
+        
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
+        await this.assetExists(assetPath[1])
         const tplUrl = await this._tplBaseUrl()
         const imageUrl = tplUrl + assetUrl
 
@@ -47,7 +50,7 @@ import { env } from '../env';
 
     async assetExists(assetName: string): Promise<boolean> {
         try {
-            const res = await fetch(getAssetPath(assetName));            
+            const res = await fetch(getAssetPath(assetName), {mode: 'no-cors'});
             
             if (res.ok){
                 return true;
