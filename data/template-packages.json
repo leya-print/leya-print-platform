@@ -68,5 +68,109 @@
         }
       }
     ]
+  },
+  "b3e4f316-9e3a-437b-a48d-f4bc97180b11": {
+    "id": "b3e4f316-9e3a-437b-a48d-f4bc97180b11",
+    "ident": "max-hardware-templates",
+    "version": "1.0.1",
+    "templates": [
+      {
+        "ident": "template-demo",
+        "title": "Template Demo",
+        "description": "shows the different parts of a template",
+        "components": {
+          "header": "tpl-template-demo-header",
+          "content": "tpl-template-demo-content",
+          "footer": "tpl-template-demo-footer"
+        },
+        "sampleData": {
+          "sample-contents": {
+            "title": "Simple Sample Contents",
+            "description": "simple sample contents",
+            "data": {}
+          }
+        }
+      },
+      {
+        "ident": "invoice",
+        "title": "Invoice",
+        "description": "invoices for customers",
+        "components": {
+          "header": "tpl-invoice-header",
+          "content": "tpl-invoice-content",
+          "footer": "tpl-invoice-footer"
+        },
+        "sampleData": {
+          "invoice-001": {
+            "title": "invoice 0001",
+            "description": "simple sample of an invoice",
+            "data": {
+              "invoiceNo": "239045001",
+              "customerReference": "project: leya-print\nwork-item: invoice-sample",
+              "sender": {
+                "address": {
+                  "company": "Max Hardware Ltd.",
+                  "street1": "Industry Park 128-48",
+                  "zipCode": "654321",
+                  "city": "Industry City"
+                },
+                "vatIdent": "DE293401223",
+                "phone": "+1 (636) 555-0113",
+                "email": "leya-print@code-better.it",
+                "web": "https://leya-print.net-root.de",
+                "bankDetails": {
+                  "name": "Black-List-Bank",
+                  "iban": "GB78BARCO0201530093459",
+                  "bic": "BLCKUS203DS"
+                }
+              },
+              "recipient": {
+                "address": {
+                  "firstName": "Sample",
+                  "lastName": "Customer",
+                  "street1": "Mainstreet 5a",
+                  "zipCode": "123456",
+                  "city": "Small Town"
+                }
+              },
+              "date": "2022-07-08T15:55:34.315Z",
+              "positions": [
+                {
+                  "title": "Big Hammer",
+                  "quantity": 1,
+                  "unit": "pcs",
+                  "pricePerUnit": 99,
+                  "vatPercent": 8.91
+                },
+                {
+                  "title": "Screws 80mm",
+                  "quantity": 100,
+                  "unit": "pcs",
+                  "pricePerUnit": 0.02,
+                  "vatPercent": 8.91
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ident": "work-report",
+        "title": "Work Report",
+        "description": "work log of hours and tasks",
+        "components": {
+          "header": "tpl-work-report-header",
+          "content": "tpl-work-report-content",
+          "footer": "tpl-work-report-footer"
+        },
+        "sampleData": {
+          "simple": {
+            "title": "simple work report",
+            "description": "simple sample of a work report",
+            "data": {}
+          }
+        }
+      }
+    ]
   }
 }
