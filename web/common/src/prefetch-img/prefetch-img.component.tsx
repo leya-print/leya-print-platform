@@ -105,6 +105,11 @@ export class ImageFetchTpl {
         return `${templateServiceBaseUrl}/tpl-contents/${tplPackage}`;
     }
 
+    private async _tplProxyUrl() {
+        const { templateServiceBaseUrl } = await env;
+        return `${templateServiceBaseUrl}/tpl/proxy`;
+    }
+
     private async _tplBaseUrl() {
         const { templateServiceBaseUrl } = await env;
 
