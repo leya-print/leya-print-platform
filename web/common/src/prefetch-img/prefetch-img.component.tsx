@@ -9,14 +9,19 @@ import { env } from '../env';
   export class ImageFetchTpl{
     @Prop() imgSrc: string;
     @Prop() imgAlt: string;
+    @Prop() externalUrl: boolean;
 
     private convertedImg: string;
 
     async fetchImage(url: string) {
-        const response = await fetch(url, { mode: 'no-cors' });
-        const blob = await response.blob();
-        
-        return blob;
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            
+            return blob;    
+        } catch (error) {
+            return error
+        }        
     }
       
     async blobToBase64(blob: Blob): Promise<string | ArrayBuffer | FileReader> {
@@ -28,18 +33,34 @@ import { env } from '../env';
         });
     }
       
-    async loadImage(): Promise<string> {
-        // if (this.imgSrc.includes('http')) {            
-        //     const imageBlob = await this.fetchImage(this.imgSrc);
-        //     const imageBase64 = await this.blobToBase64(imageBlob);
-        //     return imageBase64 as string;
-        // }
+    async loadImage(): Promise<string> {       
+
+        if (this.imgSrc.includes('http') && this.externalUrl) {
+            const tplUrl = await this._tplProxyUrl();
+            const externaltplUrl = `${tplUrl}?url=${this.imgSrc}`;
+            const imageBlob = await this.fetchImage(externaltplUrl);
+            const imageBase64 = await this.blobToBase64(imageBlob);
+            return imageBase64 as string;
+        }
+
+        if (this.imgSrc.includes('http')) {
+            const imageBlob = await this.fetchImage(this.imgSrc);
+            const imageBase64 = await this.blobToBase64(imageBlob);
+            return imageBase64 as string;
+        }
 
         const assetPath = this.imgSrc.split('/').slice(-2);
         console.log(assetPath);
         
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
-        await this.assetExists(assetPath[1])
+
+        // await this.assetExists(assetPath[1])
+
+        // if (!assetExists)
+        // {
+        //     return ''
+        // }
+
         const tplUrl = await this._tplBaseUrl()
         const imageUrl = tplUrl + assetUrl
 
@@ -72,6 +93,11 @@ import { env } from '../env';
         if (tplPackage.startsWith('http')) return tplPackage;
 
         return `${templateServiceBaseUrl}/tpl-contents/${tplPackage}`;
+    }
+
+    private async _tplProxyUrl() {
+        const { templateServiceBaseUrl } = await env;
+        return `${templateServiceBaseUrl}/tpl/proxy`;
     }
 
     async componentWillRender() {

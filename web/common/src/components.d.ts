@@ -11,6 +11,7 @@ export namespace Components {
         "width": string;
     }
     interface LeyaPrintImageFetch {
+        "externalUrl": boolean;
         "imgAlt": string;
         "imgSrc": string;
     }
@@ -48,6 +49,7 @@ declare namespace LocalJSX {
         "width"?: string;
     }
     interface LeyaPrintImageFetch {
+        "externalUrl"?: boolean;
         "imgAlt"?: string;
         "imgSrc"?: string;
     }
