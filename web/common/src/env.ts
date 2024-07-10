@@ -6,15 +6,19 @@ const firstPathSegment = pathSegments[1];
 
 const host = window.location.host;
 const path = `/${firstPathSegment}/assets/env.json`;
-let protocol = 'http'
+
+let protocol = 'http:'
+// const protocol = window.location.protocol
 
 if (firstPathSegment === "dev"){
-    protocol = 'https'
+    protocol = 'https:'
 }
 
 if (firstPathSegment === "print"){
-    protocol = 'http'
+    protocol = 'http:'
 }
 
-const url = `${protocol}://${host}${path}`;
+// const url = `${protocol}//${host}${path}`;
+const url = `${protocol}//${host}${path}`;
+
 export const env: PromiseLike<Env> = fetch(url).then((response) => response.json());
