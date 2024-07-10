@@ -4,6 +4,7 @@ import express from 'express';
 import multer from 'multer';
 import http from 'node:http';
 import path from 'node:path';
+import fetch from 'cross-fetch'
 import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
@@ -46,6 +47,31 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
 
   res.status(404)
   res.send(false);
+});
+
+app.get('/tpl/proxy', async (req, res) => {  
+  
+  if (!req.query.url || typeof req.query.url !== 'string') {
+    return res.status(400).send('URL is required');
+  }
+
+  const url: URL = new URL(req.query.url);
+  
+  try {
+    const response = await fetch(url);    
+    
+    if (!response.ok || response.body === null) {
+      return res.status(response.status).send('Error fetching the resource');
+    }
+
+    response.headers.forEach((value, name) => {
+      res.setHeader(name, value);
+    });
+    
+    return response.body
+  } catch (error) {
+    res.status(500).send(`Error fetching the resource: ${error}`);
+  }
 });
 
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
