@@ -50,7 +50,6 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
 });
 
 app.get('/tpl/proxy', async (req, res) => {  
-  
   if (!req.query.url || typeof req.query.url !== 'string') {
     return res.status(400).send('URL is required');
   }
@@ -64,11 +63,12 @@ app.get('/tpl/proxy', async (req, res) => {
       return res.status(response.status).send('Error fetching the resource');
     }
 
-    response.headers.forEach((value, name) => {
-      res.setHeader(name, value);
+    const buffer = await response.arrayBuffer();
+    res.writeHead(200, {
+      'Content-Length': buffer.byteLength
     });
-    
-    return response.body
+
+    res.end(Buffer.from(buffer));
   } catch (error) {
     res.status(500).send(`Error fetching the resource: ${error}`);
   }

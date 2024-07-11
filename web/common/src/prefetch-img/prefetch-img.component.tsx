@@ -49,9 +49,7 @@ import { env } from '../env';
             return imageBase64 as string;
         }
 
-        const assetPath = this.imgSrc.split('/').slice(-2);
-        console.log(assetPath);
-        
+        const assetPath = this.imgSrc.split('/').slice(-2);       
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
 
         // await this.assetExists(assetPath[1])
@@ -103,7 +101,7 @@ import { env } from '../env';
     async componentWillRender() {
         const convertedImg = await this.loadImage();
         this.convertedImg = convertedImg;
-    }    
+    }
 
     render() {        
         return (<div class="prefetch-img-size">
