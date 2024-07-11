@@ -1,12 +1,12 @@
-import { Component,  h, Prop } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { env } from '../env';
 
 @Component({
     tag: 'leya-print-image-fetch',
     styleUrl: 'prefetch-img.component.scss',
-  })
+})
 
-  export class ImageFetchTpl{
+export class ImageFetchTpl {
     @Prop() imgSrc: string;
     @Prop() imgAlt: string;
     @Prop() externalUrl: boolean;
@@ -17,34 +17,52 @@ import { env } from '../env';
         try {
             const response = await fetch(url);
             const blob = await response.blob();
-            
-            return blob;    
+
+            return blob;
         } catch (error) {
             return error
-        }        
+        }
     }
-      
+
+    async fetchImageExternal(proxyServerUrl: string, externalImageLink: string) {
+        try {
+            const response = await fetch(proxyServerUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({externalUrl: externalImageLink})
+            });
+            const blob = await response.blob();
+
+            return blob;
+        } catch (error) {
+            return error
+        }
+    }
+
     async blobToBase64(blob: Blob): Promise<string | ArrayBuffer | FileReader> {
         return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = (err) => reject(err);
-          reader.readAsDataURL(blob);
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (err) => reject(err);
+            reader.readAsDataURL(blob);
         });
     }
-      
-    async loadImage(): Promise<string> {       
+
+    async loadImage(): Promise<string> {
         if (this.imgSrc.includes('http') && this.externalUrl) {
-            const tplUrl = await this._tplProxyUrl();
-            const externaltplUrl = `${tplUrl}?url=${this.imgSrc}`;
-            const imageBlob = await this.fetchImage(externaltplUrl);
+            const tplUrl = await this._tplProxyUrl();            
+            const imageBlob = await this.fetchImageExternal(tplUrl, this.imgSrc);
             const imageBase64 = await this.blobToBase64(imageBlob);
+
             return imageBase64 as string;
         }
 
         if (this.imgSrc.includes('http')) {
             const imageBlob = await this.fetchImage(this.imgSrc);
             const imageBase64 = await this.blobToBase64(imageBlob);
+
             return imageBase64 as string;
         }
 
@@ -64,7 +82,7 @@ import { env } from '../env';
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const tplPackage = urlParams.get('tplPackage')        
+        const tplPackage = urlParams.get('tplPackage')
 
         if (tplPackage.startsWith('http')) return tplPackage;
 
@@ -75,15 +93,15 @@ import { env } from '../env';
         const { templateServiceBaseUrl } = await env;
         return `${templateServiceBaseUrl}/tpl/proxy`;
     }
-    
+
     async componentWillLoad() {
         const convertedImg = await this.loadImage();
         this.convertedImg = convertedImg;
     }
 
-    render() {        
+    render() {
         return (<div class="prefetch-img-size">
-            <img src={this.convertedImg} alt={this.imgAlt} class="prefetch-img-size"/> 
+            <img src={this.convertedImg} alt={this.imgAlt} class="prefetch-img-size" />
         </div>)
     }
 }
