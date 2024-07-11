@@ -1,4 +1,4 @@
-import { Component,  h, Prop, getAssetPath } from '@stencil/core';
+import { Component,  h, Prop } from '@stencil/core';
 import { env } from '../env';
 
 @Component({
@@ -34,7 +34,6 @@ import { env } from '../env';
     }
       
     async loadImage(): Promise<string> {       
-
         if (this.imgSrc.includes('http') && this.externalUrl) {
             const tplUrl = await this._tplProxyUrl();
             const externaltplUrl = `${tplUrl}?url=${this.imgSrc}`;
@@ -49,15 +48,8 @@ import { env } from '../env';
             return imageBase64 as string;
         }
 
-        const assetPath = this.imgSrc.split('/').slice(-2);       
+        const assetPath = this.imgSrc.split('/').slice(-2);
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
-
-        // await this.assetExists(assetPath[1])
-
-        // if (!assetExists)
-        // {
-        //     return ''
-        // }
 
         const tplUrl = await this._tplBaseUrl()
         const imageUrl = tplUrl + assetUrl
@@ -65,20 +57,6 @@ import { env } from '../env';
         const imageBlob = await this.fetchImage(imageUrl);
         const imageBase64 = await this.blobToBase64(imageBlob);
         return imageBase64 as string;
-    }
-
-    async assetExists(assetName: string): Promise<boolean> {
-        try {
-            const res = await fetch(getAssetPath(assetName), {mode: 'no-cors'});
-            
-            if (res.ok){
-                return true;
-            }
-
-            return false
-        } catch (error) {
-            return false;
-        }
     }
 
     private async _tplBaseUrl() {
@@ -97,8 +75,8 @@ import { env } from '../env';
         const { templateServiceBaseUrl } = await env;
         return `${templateServiceBaseUrl}/tpl/proxy`;
     }
-
-    async componentWillRender() {
+    
+    async componentWillLoad() {
         const convertedImg = await this.loadImage();
         this.convertedImg = convertedImg;
     }
