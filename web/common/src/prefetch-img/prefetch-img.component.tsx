@@ -66,7 +66,7 @@ export class ImageFetchTpl {
             return imageBase64 as string;
         }
 
-        const assetPath = this.imgSrc.split('/').slice(-2);       
+        const assetPath = this.imgSrc.split('/').slice(-2);
         const assetUrl = `/dist/${assetPath[0]}/${assetPath[1]}`;
 
         const tplUrl = await this._tplBaseUrl()
@@ -75,20 +75,6 @@ export class ImageFetchTpl {
         const imageBlob = await this.fetchImage(imageUrl);
         const imageBase64 = await this.blobToBase64(imageBlob);
         return imageBase64 as string;
-    }
-
-    async assetExists(assetName: string): Promise<boolean> {
-        try {
-            const res = await fetch(getAssetPath(assetName), {mode: 'no-cors'});
-            
-            if (res.ok){
-                return true;
-            }
-
-            return false
-        } catch (error) {
-            return false;
-        }
     }
 
     private async _tplBaseUrl() {
