@@ -58,6 +58,7 @@ const isImageUrl = async (url: URL) => {
   }
 };
 
+// TODO: move this endpoint to designer
 app.post('/tpl/proxy', bodyParser.json(), async (req, res) => {
   const { externalUrl } = req.body;
 
