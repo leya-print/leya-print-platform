@@ -15,9 +15,7 @@ export class TemplatePackageServiceImpl {
     try {
       const templatePackage: TemplatePackage = tplPackage.startsWith('http')
         ? (await import(tplBaseUrl)).templatePackage
-        : (await import(`${tplBaseUrl}/` + await this.getEntryPointFile(tplBaseUrl))).templatePackage;
-
-      console.log('templatePackage', templatePackage);
+        : (await import(`${tplBaseUrl}/` + await this.getEntryPointFile(tplBaseUrl))).templatePackage;      
 
       const templateInfo = templatePackage.templates.find((tplInfo) => tplInfo.ident === tplName);
       return templateInfo
@@ -77,7 +75,6 @@ export class TemplatePackageServiceImpl {
   private async getEntryPointFile(tplBaseUrl) {
     const packageRequest = await fetch(tplBaseUrl + '/package.json');
     const packageData = await packageRequest.json();
-    console.log('jsonData packageData', packageData);
 
     return packageData.module 
     ?? packageData.next 
@@ -86,26 +83,7 @@ export class TemplatePackageServiceImpl {
     ?? packageData.es2017 
     ?? packageData.es2015 
     ?? packageData.main;
-
-    // if (packageData.module !== undefined)
-    //   return packageData.module
-
-    // if (packageData.next !== undefined)
-    //   return packageData.next
-
-    // if (packageData.es2022 !== undefined)
-    //   return packageData.es2022
-
-    // if (packageData.es2020 !== undefined)
-    //   return packageData.es2020
-
-    // if (packageData.es2017 !== undefined)
-    //   return packageData.es2017
-
-    // if (packageData.es2015 !== undefined)
-    //   return packageData.es2015
-
-    // return packageData.main
+    
   }
 }
 
