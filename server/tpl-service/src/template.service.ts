@@ -42,7 +42,7 @@ export class TemplateService extends CrudService<StoredTemplatePackage, Template
           const packageJson = JSON.parse(fs.readFileSync(path.join(extractedDirname, 'package.json'), 'utf-8'));
           const mainFilename = packageJson.main;
 
-          // create sandbox execute in sandbox
+          //TODO: create sandbox execute in sandbox
           // get from sandbox template
           const uploadedModule = await import(path.join(extractedDirname, mainFilename));
           const templatePackageData: TemplatePackage = uploadedModule.templatePackage;
@@ -51,7 +51,9 @@ export class TemplateService extends CrudService<StoredTemplatePackage, Template
           }
 
           const templatePackage = await this.create(templatePackageData);
-          // const srcFolder = path.join(extractedDirname, 'dist/esm'); // take everything not just dist/esm // look into package json to find the right index
+          // take all assets from template root not just dist/esm 
+          // looks into package.json to find the right starting point
+          // const srcFolder = path.join(extractedDirname, 'dist/esm');
           const srcFolder = extractedDirname;
           const dstFolder = path.join(this.tplRoot, templatePackage.id);
           await copy(srcFolder, dstFolder);

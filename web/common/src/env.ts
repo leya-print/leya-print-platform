@@ -12,6 +12,8 @@ const path = `/${firstPathSegment}/assets/env.json`;
 
 let protocol = 'http:'
 
+// if localhost http if not https
+// TODO: select protocol based on env by default
 if (firstPathSegment === "dev"){
     protocol = 'https:'
 }
