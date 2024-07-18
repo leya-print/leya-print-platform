@@ -5,7 +5,7 @@ import { workReportTemplateInfo } from './components/templates/work-report/work-
 
 export const templatePackage: TemplatePackage = {
   ident: 'max-hardware-templates',
-  version: '1.0.1',
+  version: '1.0.0',
   templates: [
     templateDemoTemplateInfo,
     invoiceTemplateInfo,

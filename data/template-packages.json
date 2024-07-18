@@ -1,26 +1,9 @@
 {
-  "06949b10-c4d3-48ae-9074-f09ec36ba8a1": {
-    "id": "06949b10-c4d3-48ae-9074-f09ec36ba8a1",
+  "79332bee-d016-4f57-9fdf-40a3a77d1693": {
+    "id": "79332bee-d016-4f57-9fdf-40a3a77d1693",
     "ident": "max-hardware-templates",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "templates": [
-      {
-        "ident": "template-demo",
-        "title": "Template Demo",
-        "description": "shows the different parts of a template",
-        "components": {
-          "header": "tpl-template-demo-header",
-          "content": "tpl-template-demo-content",
-          "footer": "tpl-template-demo-footer"
-        },
-        "sampleData": {
-          "sample-contents": {
-            "title": "Simple Sample Contents",
-            "description": "simple sample contents",
-            "data": {}
-          }
-        }
-      },
       {
         "ident": "invoice",
         "title": "Invoice",
@@ -81,23 +64,6 @@
                 }
               ]
             }
-          }
-        }
-      },
-      {
-        "ident": "work-report",
-        "title": "Work Report",
-        "description": "work log of hours and tasks",
-        "components": {
-          "header": "tpl-work-report-header",
-          "content": "tpl-work-report-content",
-          "footer": "tpl-work-report-footer"
-        },
-        "sampleData": {
-          "simple": {
-            "title": "simple work report",
-            "description": "simple sample of a work report",
-            "data": {}
           }
         }
       }
