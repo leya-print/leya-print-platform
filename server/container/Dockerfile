@@ -10,7 +10,6 @@ FROM … AS web-print
 FROM … AS sample-data
 
 FROM mcr.microsoft.com/playwright:next-focal
-RUN npm install
 RUN npx playwright@1.33 install chromium
 
 RUN apt update && \
