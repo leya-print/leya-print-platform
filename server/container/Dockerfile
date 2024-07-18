@@ -9,8 +9,8 @@ FROM … AS web-designer
 FROM … AS web-print
 FROM … AS sample-data
 
-FROM mcr.microsoft.com/playwright:next-focal
-RUN npx playwright@1.33 install chromium
+FROM mcr.microsoft.com/playwright:v1.44.0-focal
+RUN npx playwright@1.44 install chromium
 
 RUN apt update && \
     apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring && \
