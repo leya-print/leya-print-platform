@@ -9,7 +9,7 @@ FROM … AS web-designer
 FROM … AS web-print
 FROM … AS sample-data
 
-FROM mcr.microsoft.com/playwright:focal
+FROM mcr.microsoft.com/playwright:latest
 RUN npx playwright@1.33 install chromium
 
 RUN apt update && \
