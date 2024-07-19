@@ -4,23 +4,9 @@ const pathname = window.location.pathname;
 const pathSegments = pathname.split('/');
 const firstPathSegment = pathSegments[1];
 
+const protocol = window.location.protocol;
 const host = window.location.host;
 const path = `/${firstPathSegment}/assets/env.json`;
-
-// TODO: currently must set protocol manually because PDF Service will return error if protocol is not https
-// const protocol = window.location.protocol
-
-let protocol = 'http:'
-
-// if localhost http if not https
-// TODO: select protocol based on env by default
-if (firstPathSegment === "dev"){
-    protocol = 'https:'
-}
-
-if (firstPathSegment === "print"){
-    protocol = 'http:'
-}
 
 const url = `${protocol}//${host}${path}`;
 
