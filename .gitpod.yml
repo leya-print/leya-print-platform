@@ -6,7 +6,7 @@ ports:
     visibility: public
     name: Templates
     onOpen: ignore
-  - port: 6000
+  - port: 6005
     visibility: public
     name: Pdf-Service
     onOpen: ignore
