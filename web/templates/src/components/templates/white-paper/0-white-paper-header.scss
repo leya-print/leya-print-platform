@@ -1,0 +1,10 @@
+@import 'white-paper.global';
+@import 'white-paper.variables';
+
+tpl-white-paper-header {
+  display: block;
+  min-height: 3cm;
+  box-sizing: border-box;
+  border: 1mm solid purple;
+  padding: $var__page__margin;
+}
