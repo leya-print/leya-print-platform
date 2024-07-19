@@ -1,0 +1,8 @@
+@mixin whitePaperTheme {
+    font-size: 14pt;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
+body {
+    @include whitePaperTheme;
+}

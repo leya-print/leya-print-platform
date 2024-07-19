@@ -1,0 +1,7 @@
+@import 'white-paper.variables';
+tpl-white-paper-footer {
+    display: block;
+    box-sizing: border-box;
+    border: 1mm solid blue;
+    padding: $var__page__margin;
+}
