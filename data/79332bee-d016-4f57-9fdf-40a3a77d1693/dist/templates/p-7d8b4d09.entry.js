@@ -1,0 +1,1 @@
+import{r,h as o,H as t}from"./p-a972b1aa.js";const e=class{constructor(o){r(this,o)}render(){return o(t,null,"work report footer")}};e.style="tpl-work-report-footer{display:block;box-sizing:border-box;border:1mm solid blue;padding:1cm}";export{e as tpl_work_report_footer}

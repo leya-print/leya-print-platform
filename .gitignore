@@ -2,3 +2,5 @@
 tmp
 dist
 node_modules
+!data/*/dist/
+!data/*/dist/dist

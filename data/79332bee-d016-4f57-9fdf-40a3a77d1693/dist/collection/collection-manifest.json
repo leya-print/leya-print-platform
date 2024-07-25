@@ -1,0 +1,23 @@
+{
+  "entries": [
+    "./components/my-component/my-component.js",
+    "./components/template-blocks/address/address-line.component.js",
+    "./components/template-blocks/address/address.component.js",
+    "./components/templates/invoice/0-invoice-header.js",
+    "./components/templates/invoice/1-invoice-content.js",
+    "./components/templates/invoice/2-invoice-footer.js",
+    "./components/templates/template-demo/0-template-demo-header.js",
+    "./components/templates/template-demo/1-template-demo-content.js",
+    "./components/templates/template-demo/2-template-demo-footer.js",
+    "./components/templates/work-report/0-work-report-header.js",
+    "./components/templates/work-report/1-work-report-content.js",
+    "./components/templates/work-report/2-work-report-footer.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.22.3",
+    "typescriptVersion": "4.9.4"
+  },
+  "collections": [],
+  "bundles": []
+}

@@ -1,0 +1,1 @@
+import{r as t,h as s}from"./p-a972b1aa.js";const o=class{constructor(s){t(this,s),this.first=void 0,this.middle=void 0,this.last=void 0}getText(){return(this.first||"")+((t=this.middle)?` ${t}`:"")+((s=this.last)?` ${s}`:"");var t,s}render(){return s("div",null,"Hello, World! I'm ",this.getText())}};o.style=":host{display:block}";export{o as my_component}
