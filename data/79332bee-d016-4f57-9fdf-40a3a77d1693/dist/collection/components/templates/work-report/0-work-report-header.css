@@ -1,0 +1,12 @@
+body {
+  font-size: 14pt;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif !important;
+}
+
+tpl-work-report-header {
+  display: block;
+  min-height: 3cm;
+  box-sizing: border-box;
+  border: 1mm solid purple;
+  padding: 1cm;
+}

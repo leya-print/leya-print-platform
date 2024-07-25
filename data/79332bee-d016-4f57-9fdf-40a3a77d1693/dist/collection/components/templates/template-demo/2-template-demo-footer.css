@@ -1,0 +1,6 @@
+tpl-template-demo-footer {
+  display: block;
+  box-sizing: border-box;
+  border: 1mm solid blue;
+  padding: 1cm;
+}
