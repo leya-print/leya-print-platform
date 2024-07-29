@@ -12,5 +12,5 @@ docker run \
     --env CI=$CI \
     --network host \
     -it \
-    mcr.microsoft.com/playwright:v1.37.0-jammy \
+    mcr.microsoft.com/playwright:v1.44.0-focal \
     bash start-xvfb.sh
