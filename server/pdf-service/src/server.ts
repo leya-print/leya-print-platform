@@ -91,7 +91,7 @@ app.post('/sign/:certificateId', upload.single('pdf'), async (req, res) => {
   }
 });
 
-const port = 6005;
+const port = 6000;
 
 http.createServer(app).listen(port, undefined, undefined, () => {
     const ownUrl = process.env.GITPOD_WORKSPACE_URL
