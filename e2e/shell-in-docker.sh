@@ -11,5 +11,5 @@ docker run \
     --env LEYA_E2E_BASE_URL=$LEYA_E2E_BASE_URL \
     --network host \
     -it \
-    mcr.microsoft.com/playwright:v1.37.0-jammy \
+    mcr.microsoft.com/playwright:v1.44.0-focal \
     bash
