@@ -82,7 +82,7 @@ npm run dev:watch # Single thread dev server in watch mode
 ```
 
 Now you should be able to access the service.  
-Try out the alive endpoint: `curl localhost:6000/pdf/alive` (you should see the text "Ok" and get a response code 200). This alive endpoint will also check connections for the tpl-server and the print web app.
+Try out the alive endpoint: `curl localhost:6005/pdf/alive` (you should see the text "Ok" and get a response code 200). This alive endpoint will also check connections for the tpl-server and the print web app.
 
 ### web/designer (Remote Template Development Tool)
 This tool helps you see a list of deployed templates, deploy new ones, and test templates with different payload data.
