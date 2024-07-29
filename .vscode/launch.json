@@ -19,6 +19,20 @@
             "type": "node"
         },
         {
+            "name": "Tpl Endpoint",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "dev"
+            ],
+            "cwd": "${workspaceFolder}/server/tpl-service",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "name": "Attach to Chrome",
             "port": 9222,
             "request": "attach",

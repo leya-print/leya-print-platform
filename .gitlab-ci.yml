@@ -217,7 +217,7 @@ deploy to dev:
     - wget --post-data '' `echo $triggerLeyaPrintDemoUpdate | base64 -d`
 
 check-status:
-  image:  mcr.microsoft.com/playwright:v1.37.0-jammy
+  image: mcr.microsoft.com/playwright:v1.44.0-focal
   stage: check-status
   variables:
     LEYA_E2E_BASE_URL: $DEV_ENV_URL
