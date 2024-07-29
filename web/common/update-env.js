@@ -28,7 +28,7 @@ async function updateEnv() {
             gitpodUrl.replace('https://', `https://${port}-`);
         fs.writeFileSync(envFile, JSON.stringify({
             title: 'updated env from designer',
-            pdfServiceBaseUrl: createSubUrl(6005),
+            pdfServiceBaseUrl: createSubUrl(6000),
             templateServiceBaseUrl: createSubUrl(6001),
             templateBaseUrl: createSubUrl(3333),
         }, null, 2));
