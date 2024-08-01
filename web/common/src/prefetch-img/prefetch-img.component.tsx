@@ -94,23 +94,6 @@ export class ImageFetchTpl {
         return `${templateServiceBaseUrl}/tpl/proxy`;
     }
 
-    private async _tplBaseUrl() {
-        const { templateServiceBaseUrl } = await env;
-
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const tplPackage = urlParams.get('tplPackage')
-
-        if (tplPackage.startsWith('http')) return tplPackage;
-
-        return `${templateServiceBaseUrl}/tpl-contents/${tplPackage}`;
-    }
-
-    private async _tplProxyUrl() {
-        const { templateServiceBaseUrl } = await env;
-        return `${templateServiceBaseUrl}/tpl/proxy`;
-    }
-
     async componentWillLoad() {
         const convertedImg = await this.loadImage();
         this.convertedImg = convertedImg;
