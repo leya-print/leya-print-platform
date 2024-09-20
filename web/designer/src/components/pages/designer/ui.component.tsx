@@ -97,7 +97,7 @@ export class DesignerUiComponent {
         {/* <div><input type="checkbox" onChange={this.toggleRaster} checked={this.raster} /> Raster</div> */}
         <div>Watermark: <input onKeyUp={this.updateLeyaPrintWatermark} value={this.leyaPrintWatermark} /></div>
         {
-          url.searchParams?.get("tplPackage")?.includes("http") ?  <div class={"alert-text"}>Preview is not available for live templates</div> : <button class="button" type="submit">preview</button>
+          url.searchParams?.get("tplPackage")?.includes("http") ?  <div class={"alert-text"}>Preview is not available for live templates</div> : <button class="button" name="preview" type="submit">preview</button>
         }
       </form>
     </Host>

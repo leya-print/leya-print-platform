@@ -35,6 +35,10 @@ export class PdfFactory {
 
       let urlStr = String(urlWithParams);
 
+      // get template id check in templates the const template definition
+      // if the definition has wait event
+      // use here
+
       console.log('open urlStr: ' + urlStr);
       console.log('data: ' + JSON.stringify(providedData, null, 2));
 

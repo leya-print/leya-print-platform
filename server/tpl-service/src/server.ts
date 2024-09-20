@@ -4,6 +4,8 @@ import express from 'express';
 import multer from 'multer';
 import http from 'node:http';
 import path from 'node:path';
+import fetch from 'cross-fetch';
+import bodyParser from 'body-parser';
 import { JsonStorageService } from './storage/json-storage.service';
 import { MockedStorageService } from './storage/mocked-storage.service';
 import { TemplateService } from './template.service';
@@ -17,7 +19,7 @@ const storage = useJsonStorage ? new JsonStorageService(env.storageLocation) : n
 const templateService = new TemplateService(storage, env.storageLocation);
 
 const app = express();
-const corsOptions: cors.CorsOptions = { 
+const corsOptions: cors.CorsOptions = {
   origin: '*'
 };
 
@@ -48,6 +50,46 @@ app.get('/tpl/:templateId/exists', async (_req, res) => {
   res.send(false);
 });
 
+const isImageUrl = async (url: URL) => {  
+  try {
+    return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(url.href);
+  } catch (error) {
+    return false;
+  }
+};
+
+// TODO: move this endpoint to designer
+app.post('/tpl/proxy', bodyParser.json(), async (req, res) => {
+  const { externalUrl } = req.body;
+
+  if (!externalUrl || typeof externalUrl !== 'string') {
+    return res.status(400).send('URL is required');
+  }
+
+  const imageUrl: URL = new URL(externalUrl);
+
+  if (!(await isImageUrl(imageUrl))) {
+    return res.status(400).send('URL does not point to an image');
+  }
+
+  try {
+    const response = await fetch(imageUrl);
+
+    if (!response.ok || response.body === null) {
+      return res.status(response.status).send('Error fetching the resource');
+    }
+
+    const buffer = await response.arrayBuffer();
+    res.writeHead(200, {
+      'Content-Length': buffer.byteLength
+    });
+
+    res.end(Buffer.from(buffer));
+  } catch (error) {
+    res.status(500).send(`Error fetching the resource: ${error}`);
+  }
+});
+
 app.use('/tpl', (req, res, next) => cors(corsOptions)(req, res, next));
 
 app.post('/tpl', multer().array('tplPackage'), (req, res) => {
@@ -58,7 +100,7 @@ app.post('/tpl', multer().array('tplPackage'), (req, res) => {
     (results) => res.send(results),
     (error) => {
       console.error(error);
-      sendError(res, 500, error?.type, 'Tpl add templates error', error);      
+      sendError(res, 500, error?.type, 'Tpl add templates error', error);
     },
   );
 });

@@ -6,7 +6,27 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader',
+      esmLoaderPath: 'dist',
+    },
+    {
+      type: 'dist-custom-elements',
+      copy: [
+        {
+          src: '**/*.{jpg,png}',
+          dest: 'dist/assets',
+          warn: true,
+        }
+      ]
+    },
+    {
+      type: 'dist-custom-elements',
+      copy: [
+        {
+          src: '**/*.{jpg,png}',
+          dest: 'www/build/assets',
+          warn: true,
+        }
+      ]
     },
     {
       type: 'dist-custom-elements',

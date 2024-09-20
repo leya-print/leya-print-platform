@@ -1,12 +1,13 @@
 import { Component, Fragment, h, Host, Listen, Prop, State, VNode } from '@stencil/core';
-import { templatePackageService } from 'src/components/lib/template/template-package.service';
+import { TemplateInfo } from '@leya-print/template-api';
+import { templatePackageService } from '@leya-print/web-common';
 
 @Component({
   tag: 'designer-page',
   styleUrl: 'designer.page.scss',
   shadow: true,
 })
-export class AppHome {
+export class DesignerPage {
   @Prop() tplName = 'invoice';
   @Prop() tplPackage?: string;
 
@@ -30,9 +31,14 @@ export class AppHome {
   }
 
   async componentWillLoad() {
-    const templateInfo = await templatePackageService.templateInfo(this.tplPackage, this.tplName);
-
-    this.sampleData = Object.values(templateInfo.sampleData)[0].data;
+    try {
+      const templateInfo: TemplateInfo = await templatePackageService.templateInfo(this.tplPackage, this.tplName);
+      const sampleInfoData = Object.values(templateInfo.sampleData)[0];
+      this.sampleData = sampleInfoData.data
+    } catch (error) {
+      console.log('error while mounting component', error);
+    }
+                
     await templatePackageService.defineCustomElements(this.tplPackage);
   }
 
