@@ -251,16 +251,16 @@ jobs:
 
       - name: Start Container for Tests
         working-directory: e2e
-        run: docker-compose up -d leya-print
+        run: docker compose up -d leya-print
 
       - name: Run E2E Tests in Docker
         working-directory: e2e
-        run: docker-compose run e2e-test
+        run: docker compose run e2e-test
 
       - name: Strop Container for Tests
         if: always()
         working-directory: e2e
-        run: docker-compose down
+        run: docker compose down
 
       - name: Check if E2E Test Report exists
         id: check-report
