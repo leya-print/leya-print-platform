@@ -17,6 +17,9 @@ export namespace Components {
     }
     interface LeyaPrintWatermark {
     }
+    interface LeyaPrintWhitepaper {
+        "markup": string;
+    }
 }
 declare global {
     interface HTMLLeyaPrintGraphPaperElement extends Components.LeyaPrintGraphPaper, HTMLStencilElement {
@@ -37,10 +40,17 @@ declare global {
         prototype: HTMLLeyaPrintWatermarkElement;
         new (): HTMLLeyaPrintWatermarkElement;
     };
+    interface HTMLLeyaPrintWhitepaperElement extends Components.LeyaPrintWhitepaper, HTMLStencilElement {
+    }
+    var HTMLLeyaPrintWhitepaperElement: {
+        prototype: HTMLLeyaPrintWhitepaperElement;
+        new (): HTMLLeyaPrintWhitepaperElement;
+    };
     interface HTMLElementTagNameMap {
         "leya-print-graph-paper": HTMLLeyaPrintGraphPaperElement;
         "leya-print-image-fetch": HTMLLeyaPrintImageFetchElement;
         "leya-print-watermark": HTMLLeyaPrintWatermarkElement;
+        "leya-print-whitepaper": HTMLLeyaPrintWhitepaperElement;
     }
 }
 declare namespace LocalJSX {
@@ -55,10 +65,14 @@ declare namespace LocalJSX {
     }
     interface LeyaPrintWatermark {
     }
+    interface LeyaPrintWhitepaper {
+        "markup"?: string;
+    }
     interface IntrinsicElements {
         "leya-print-graph-paper": LeyaPrintGraphPaper;
         "leya-print-image-fetch": LeyaPrintImageFetch;
         "leya-print-watermark": LeyaPrintWatermark;
+        "leya-print-whitepaper": LeyaPrintWhitepaper;
     }
 }
 export { LocalJSX as JSX };
@@ -68,6 +82,7 @@ declare module "@stencil/core" {
             "leya-print-graph-paper": LocalJSX.LeyaPrintGraphPaper & JSXBase.HTMLAttributes<HTMLLeyaPrintGraphPaperElement>;
             "leya-print-image-fetch": LocalJSX.LeyaPrintImageFetch & JSXBase.HTMLAttributes<HTMLLeyaPrintImageFetchElement>;
             "leya-print-watermark": LocalJSX.LeyaPrintWatermark & JSXBase.HTMLAttributes<HTMLLeyaPrintWatermarkElement>;
+            "leya-print-whitepaper": LocalJSX.LeyaPrintWhitepaper & JSXBase.HTMLAttributes<HTMLLeyaPrintWhitepaperElement>;
         }
     }
 }
