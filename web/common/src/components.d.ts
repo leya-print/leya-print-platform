@@ -18,7 +18,6 @@ export namespace Components {
     interface LeyaPrintWatermark {
     }
     interface LeyaPrintWhitepaper {
-        "markup": string;
     }
 }
 declare global {
@@ -66,7 +65,6 @@ declare namespace LocalJSX {
     interface LeyaPrintWatermark {
     }
     interface LeyaPrintWhitepaper {
-        "markup"?: string;
     }
     interface IntrinsicElements {
         "leya-print-graph-paper": LeyaPrintGraphPaper;
