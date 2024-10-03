@@ -2,23 +2,37 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
+    "version": "0.2.0",    
     "configurations": [
-        {
-            "name": "Pdf Endpoint",
-            "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "dev"
-            ],
-            "cwd": "${workspaceFolder}/server/pdf-service",
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
+      {
+        "name": "Pdf Service",
+        "request": "launch",
+        "runtimeArgs": [
+            "run-script",
+            "dev"
+        ],
+        "cwd": "${workspaceFolder}/server/pdf-service",
+        "runtimeExecutable": "npm",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+    },
+    {
+        "name": "Tpl Service",
+        "request": "launch",
+        "runtimeArgs": [
+            "run-script",
+            "dev"
+        ],
+        "cwd": "${workspaceFolder}/server/tpl-service",
+        "runtimeExecutable": "npm",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+  },
+{
             "name": "Attach to Chrome",
             "port": 9222,
             "request": "attach",
