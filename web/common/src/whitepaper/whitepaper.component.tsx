@@ -13,7 +13,16 @@ export class Whitepaper {
     @State() pages: string[] = [];
 
     @Element() el: HTMLElement;
-    private pageHeight = 800;
+    private pageHeight = 2280;
+
+    exportToHTML() {
+        const content = this.el.shadowRoot.querySelector('#whitepaper-content').innerHTML;
+        const blob = new Blob([content], { type: 'text/html' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'whitepaper.html';
+        link.click();
+    }
 
     handleFileUpload(event: Event) {
         const input = event.target as HTMLInputElement;
@@ -55,22 +64,26 @@ export class Whitepaper {
         let currentHeight = 0;
         
         const children = Array.from(container.children);
-    
+        console.log('container.children', container.children);
+            
         children.forEach((child: HTMLElement) => {
-        const childHeight = child.offsetHeight;
-        if (currentHeight + childHeight > pageHeight) {
-            pages.push(currentPageHTML);
-            currentPageHTML = '';
-            currentHeight = 0;
-        }
-        currentPageHTML += child.outerHTML;
-        currentHeight += childHeight;
+            const childHeight = Math.ceil(child.textContent.length / 20) * 16;
+         
+            if (currentHeight + childHeight > pageHeight) {
+                pages.push(currentPageHTML);
+                currentPageHTML = '';
+                currentHeight = 0;
+            }
+            currentPageHTML += child.outerHTML;
+            currentHeight += childHeight;
         });
 
         if (currentPageHTML) {
-        pages.push(currentPageHTML);
+            pages.push(currentPageHTML);
         }
 
+        console.log('pages',  pages);
+        
         this.pages = pages;
     }
 
@@ -83,19 +96,21 @@ export class Whitepaper {
             </div>            
             <div id="content-container" class="content-container"></div>
 
-            { this.markdown == '' ? '' :
+            { this.markdown == '' ? '' :             
             <div>
-                <header class="header">
-                    <img src="/assets/logo.png" alt="Logo" class="logo" />
-                </header>
-
-                <section class="pages">
+                <button onClick={() => this.exportToHTML()}>Save as HTML</button>
+                <section id="whitepaper-content" class="pages">
                     {this.pages.map((page, index) => (
-                        <div class="page" innerHTML={page}>
+                    <div>
+                        <header class="header">
+                            <img src="/assets/logo.png" alt="Logo" class="logo" />
+                        </header>
+                        <div class="page" innerHTML={page}>                              
                         <footer class="footer">
                             <span class="page-number">Page {index + 1}</span>
                         </footer>
                         </div>
+                    </div>
                     ))}
                     </section>
             </div>
