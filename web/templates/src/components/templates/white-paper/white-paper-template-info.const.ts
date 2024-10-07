@@ -3,7 +3,7 @@ import { TemplateInfo } from '@leya-print/template-api';
 export const whitePaperTemplateInfo: TemplateInfo = {
   ident: 'white-paper',
   title: 'White Paper',
-  description: 'white paper for template packages of Leya Print Platform',
+  description: 'Whitepaper about the template packages feature of the Leya Print Platform',
   components: {
     header: 'tpl-white-paper-header',
     content: 'tpl-white-paper-content',
