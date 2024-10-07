@@ -22,42 +22,19 @@ leya-print-whitepaper {
   margin-top: 10px;
 }
 
-.header {
-  padding: 10px;
-  background-color: #f4f4f4;
+.button {
   display: flex;
   justify-content: center;
+  border: none;
+  background-color: #316bff;
+  color: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer; 
 }
 
-.logo {
-  height: 50px;
-}
-
-.pages {
+.markdown-div {
   display: flex;
   flex-direction: column;
-}
-
-.page {
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin-bottom: 50px; /* Optional space between pages */
-  border: 1px solid #ccc;
-  padding: 20px;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  background-color: #f4f4f4;
-  padding: 10px;
-}
-
-.page-number {
-  font-size: 12px;
-}
-
-.content-container {
-  display: none;
+  justify-content: center;
 }
