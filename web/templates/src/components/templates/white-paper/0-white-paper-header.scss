@@ -4,17 +4,15 @@
 tpl-white-paper-header {
   display: block;
   min-height: 3cm;
-  box-sizing: border-box;
-  border: 1mm solid purple;
   padding: $var__page__margin;
 
   .invoice-header__img {
     display: flex;
-    justify-content: start;
+    justify-content: center;
   }
 
   .invoice-header__img-size {
     width: 110px;
-    height: 70px;
+    height: 80px;
   }
 }

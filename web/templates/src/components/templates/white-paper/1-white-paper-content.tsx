@@ -13,6 +13,33 @@ export class WhitePaperContentTpl {
       <div id="content">
         <h1>White Paper: Solving PDF Generation Challenges with Leya-Print</h1>
         <h3>Version 1.0 - June 28, 2024</h3>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <h2>Executive Summary</h2>
         <p>In today's rapidly evolving business environment, generating PDF templates for large enterprises is often complex, cumbersome, and prone to errors. Leya-Print offers a scalable, secure, and efficient platform for on-demand PDF creation, addressing challenges such as template management, uniformity, and data integration. This white paper provides a comprehensive overview of Leya-Print's template package feature, detailing its benefits and technical specifications, and includes case studies demonstrating its effectiveness in real-world scenarios.</p>
         <h2>About this White Paper</h2>
@@ -23,52 +50,52 @@ export class WhitePaperContentTpl {
         <h3>Copyright</h3>
         <p>Copyright © 2023-present Leya IT Solutions GmbH. All rights reserved. Leya-Print is a registered trademark of Leya IT Solutions GmbH. All brand, product, service names, and logos are trademarks and/or registered trademarks of their respective owners and are hereby recognized and acknowledged. Leya IT Solutions GmbH believes the information in this document is accurate as of its publication date. The information is subject to change without notice.</p>
         <h3>We value your feedback</h3>
-        <p>Leya IT Solutions GmbH and the authors of this document welcome your feedback on this document. Contact the Leya team by <a href="info@leya-it-solutions.de">email</a>.</p>
+        <p>Leya IT Solutions GmbH and the authors of this document welcome your feedback on this document. Contact the Leya team by <a href="mailto:info@leya-it-solutions.de">info@leya-it-solutions.de</a>.</p>
         <h2>Table of Contents</h2>
         <ol>
-          <li><a href="#introduction">Introduction</a></li>
+          <li>Introduction</li>
           <li>
-            <a href="#problem-statement">Problem Statement</a>
+            Problem Statement
             <ul>
-              <li><a href="#complexity-in-managing-pdf-templates">Complexity in Managing PDF Templates</a></li>
-              <li><a href="#lack-of-uniformity">Lack of Uniformity</a></li>
-              <li><a href="#integration-challenges">Integration Challenges</a></li>
+              <li>Complexity in Managing PDF Templates</li>
+              <li>Lack of Uniformity</li>
+              <li>Integration Challenges</li>
             </ul>
           </li>
           <li>
-            <a href="#transforming-pdf-generation-with-leya-prints-innovative-template-packages">Transforming PDF Generation with Leya-Print's Innovative Template Packages</a>
+           Transforming PDF Generation with Leya-Print's Innovative Template Packages
             <ul>
-              <li><a href="#simplified-template-management">Simplified Template Management</a></li>
-              <li><a href="#ensuring-uniformity">Ensuring Uniformity</a></li>
-              <li><a href="#seamless-data-integration">Seamless Data Integration</a></li>
+              <li>Simplified Template Management</li>
+              <li>Ensuring Uniformity</li>
+              <li>Seamless Data Integration</li>
             </ul>
           </li>
           <li>
-            <a href="#technical-specifications">Technical Specifications</a>
+            Technical Specifications
             <ul>
-              <li><a href="#template-package-structure">Template Package Structure</a></li>
-              <li><a href="#integration-into-leya-print">Integration into Leya-Print</a></li>
+              <li>Template Package Structure</li>
+              <li>Integration into Leya-Print</li>
             </ul>
           </li>
-          <li><a href="#best-practices">Best Practices</a></li>
-          <li><a href="#benefits-of-using-leya-prints-template-package-feature">Benefits of Using Leya-Print's Template Package Feature</a></li>
+          <li>Best Practices</li>
+          <li>Benefits of Using Leya-Print's Template Package Feature</li>
           <li>
-            <a href="#case-studies">Case Studies</a>
+            Case Studies
             <ul>
-              <li><a href="#case-study-1-enterprise-implementation">Case Study 1: Enterprise Implementation</a></li>
+              <li>Case Study 1: Enterprise Implementation</li>
             </ul>
           </li>
           <li>
-            <a href="#future-developments">Future Developments</a>
+            Future Developments
             <ul>
-              <li><a href="#signatures-and-compliance">Signatures and Compliance</a></li>
-              <li><a href="#enhanced-processing">Enhanced Processing</a></li>
-              <li><a href="#ai-and-automation">AI and Automation</a></li>
-              <li><a href="#integrations">Integrations</a></li>
+              <li>Signatures and Compliance</li>
+              <li>Enhanced Processing</li>
+              <li>AI and Automation</li>
+              <li>Integrations</li>
             </ul>
           </li>
-          <li><a href="#conclusion">Conclusion</a></li>
-          <li><a href="#resources">Resources</a></li>
+          <li>Conclusion</li>
+          <li>Resources</li>
         </ol>
         <h2>Introduction</h2>
         <p>In today's rapidly evolving business environment, generating PDF templates for large enterprises is often complex, cumbersome, and prone to errors. Managing a myriad of templates, ensuring uniformity, and integrating dynamic data can become a daunting task. Traditional solutions require intricate template configurations, making them challenging to manage at scale.</p>

@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'tpl-white-paper-footer',
@@ -6,6 +6,10 @@ import { Component, h, Host } from '@stencil/core';
 })
 export class WhitePaperFooterTpl {
   render() {
-    return <Host>White Paper footer</Host>
+    return (
+      <div class="page_number">
+        Page <span class="pageNumber"></span> of <span class="totalPages"></span>
+      </div>
+    )
   }
 }
