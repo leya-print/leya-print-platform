@@ -47,8 +47,7 @@ export class AppHome {
         }        
         <h2>Live templates</h2>
         <template-live templates={this.templates}></template-live>
-        <template-upload></template-upload>        
-        <leya-print-markdown-converter></leya-print-markdown-converter>
+        <template-upload></template-upload>
       </Host>
     );
   }
