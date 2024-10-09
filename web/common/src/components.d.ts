@@ -15,9 +15,9 @@ export namespace Components {
         "imgAlt": string;
         "imgSrc": string;
     }
-    interface LeyaPrintWatermark {
+    interface LeyaPrintMarkdownConverter {
     }
-    interface LeyaPrintWhitepaper {
+    interface LeyaPrintWatermark {
     }
 }
 declare global {
@@ -33,23 +33,23 @@ declare global {
         prototype: HTMLLeyaPrintImageFetchElement;
         new (): HTMLLeyaPrintImageFetchElement;
     };
+    interface HTMLLeyaPrintMarkdownConverterElement extends Components.LeyaPrintMarkdownConverter, HTMLStencilElement {
+    }
+    var HTMLLeyaPrintMarkdownConverterElement: {
+        prototype: HTMLLeyaPrintMarkdownConverterElement;
+        new (): HTMLLeyaPrintMarkdownConverterElement;
+    };
     interface HTMLLeyaPrintWatermarkElement extends Components.LeyaPrintWatermark, HTMLStencilElement {
     }
     var HTMLLeyaPrintWatermarkElement: {
         prototype: HTMLLeyaPrintWatermarkElement;
         new (): HTMLLeyaPrintWatermarkElement;
     };
-    interface HTMLLeyaPrintWhitepaperElement extends Components.LeyaPrintWhitepaper, HTMLStencilElement {
-    }
-    var HTMLLeyaPrintWhitepaperElement: {
-        prototype: HTMLLeyaPrintWhitepaperElement;
-        new (): HTMLLeyaPrintWhitepaperElement;
-    };
     interface HTMLElementTagNameMap {
         "leya-print-graph-paper": HTMLLeyaPrintGraphPaperElement;
         "leya-print-image-fetch": HTMLLeyaPrintImageFetchElement;
+        "leya-print-markdown-converter": HTMLLeyaPrintMarkdownConverterElement;
         "leya-print-watermark": HTMLLeyaPrintWatermarkElement;
-        "leya-print-whitepaper": HTMLLeyaPrintWhitepaperElement;
     }
 }
 declare namespace LocalJSX {
@@ -62,15 +62,15 @@ declare namespace LocalJSX {
         "imgAlt"?: string;
         "imgSrc"?: string;
     }
-    interface LeyaPrintWatermark {
+    interface LeyaPrintMarkdownConverter {
     }
-    interface LeyaPrintWhitepaper {
+    interface LeyaPrintWatermark {
     }
     interface IntrinsicElements {
         "leya-print-graph-paper": LeyaPrintGraphPaper;
         "leya-print-image-fetch": LeyaPrintImageFetch;
+        "leya-print-markdown-converter": LeyaPrintMarkdownConverter;
         "leya-print-watermark": LeyaPrintWatermark;
-        "leya-print-whitepaper": LeyaPrintWhitepaper;
     }
 }
 export { LocalJSX as JSX };
@@ -79,8 +79,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "leya-print-graph-paper": LocalJSX.LeyaPrintGraphPaper & JSXBase.HTMLAttributes<HTMLLeyaPrintGraphPaperElement>;
             "leya-print-image-fetch": LocalJSX.LeyaPrintImageFetch & JSXBase.HTMLAttributes<HTMLLeyaPrintImageFetchElement>;
+            "leya-print-markdown-converter": LocalJSX.LeyaPrintMarkdownConverter & JSXBase.HTMLAttributes<HTMLLeyaPrintMarkdownConverterElement>;
             "leya-print-watermark": LocalJSX.LeyaPrintWatermark & JSXBase.HTMLAttributes<HTMLLeyaPrintWatermarkElement>;
-            "leya-print-whitepaper": LocalJSX.LeyaPrintWhitepaper & JSXBase.HTMLAttributes<HTMLLeyaPrintWhitepaperElement>;
         }
     }
 }
