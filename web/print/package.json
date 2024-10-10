@@ -34,6 +34,7 @@
         "@leya-print/template-api": "^1.0.0-beta",
         "@leya-print/web-common": "file:../common/leya-print-web-common-1.0.0.tgz",
         "@stencil/sass": "^1.5.2",
-        "puppeteer": "^19.2.0"
+        "puppeteer": "^19.2.0",
+        "ws": "^8.18.0"
     }
 }

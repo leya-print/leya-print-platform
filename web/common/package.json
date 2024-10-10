@@ -30,7 +30,8 @@
   "author": "emanuel.hein@code-better.it",
   "dependencies": {
     "@leya-print/template-api": "^1.0.0-beta",
-    "@stencil/core": "^4.3.0"
+    "@stencil/core": "^4.3.0",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@stencil/sass": "^3.0.5",
