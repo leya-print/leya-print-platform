@@ -1,0 +1,22 @@
+@import 'white-paper.global';
+@import 'white-paper.variables';
+tpl-white-paper-content {
+    display: block;
+    padding: 0 $var__page__margin;
+}
+
+@media print {
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}
+
+.white-paper__content-end {
+    text-align: center;
+    border: 1px solid white;
+}
+
+.white-paper__content__spacer {
+    margin: $var__innerPadding 0;
+    padding: $var__innerPadding;
+}

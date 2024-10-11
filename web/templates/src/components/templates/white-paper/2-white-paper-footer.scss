@@ -1,0 +1,12 @@
+@import 'white-paper.variables';
+tpl-white-paper-footer {
+    display: block;
+    padding: $var__page__margin;
+
+    .page_number {
+        font-size: 10px; 
+        width: 100%; 
+        text-align: center; 
+        padding: 10px 0;
+    }
+}

@@ -44,7 +44,7 @@ export class AppHome {
               </ul>
             </li>)}
           </ul> : 'loading templates...'
-        }
+        }        
         <h2>Live templates</h2>
         <template-live templates={this.templates}></template-live>
         <template-upload></template-upload>

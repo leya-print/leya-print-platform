@@ -58,8 +58,9 @@ export class DesignerUiComponent {
    // this.raster = !!url.searchParams.get('raster');
     this.leyaPrintWatermark = url.searchParams.get('watermark') || undefined;
     this.previewUrl = (await env).pdfServiceBaseUrl + '/pdf';
+    this.enqueueUpdate();
   }
-  
+
   private readonly updateLeyaPrintWatermark = (event: Event) => {
     const input = event.target as HTMLInputElement;
     const leyaPrintWatermark = input.value;
@@ -86,7 +87,7 @@ export class DesignerUiComponent {
   }
 
   render() {
-    const url = new URL(location.href);    
+    const url = new URL(location.href);
 
     return <Host>
       <form method="POST" action={`${this.previewUrl}/${this.tplName}/test.pdf${location.search}`} target='_blank'>

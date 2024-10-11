@@ -27,12 +27,16 @@
   "dependencies": {
     "@leya-print/template-api": "^1.0.0-beta",
     "@stencil/core": "^2.13.0",
-    "@stencil/sass": "^1.5.2"
+    "@stencil/sass": "^1.5.2",
+    "dompurify": "^3.1.6",
+    "marked": "^13.0.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
+    "@types/marked": "^6.0.0",
     "jest": "^27.4.5",
-    "jest-cli": "^27.4.5"
+    "jest-cli": "^27.4.5",
+    "pupeteer": "^0.0.1"
   },
   "license": "MIT"
 }

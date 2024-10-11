@@ -1,0 +1,40 @@
+input[type="file"] {
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.file-upload {
+    margin-bottom: 20px;
+    text-align: center;
+    }
+
+leya-print-markdown-converter {
+    width: inherit;
+    height: inherit; 
+}
+
+.converter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  border: none;
+  background-color: #316bff;
+  color: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer; 
+}
+
+.markdown-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

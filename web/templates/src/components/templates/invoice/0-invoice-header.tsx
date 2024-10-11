@@ -12,10 +12,10 @@ export class InvoiceHeaderTpl {
   @State() invoice: Invoice = (window as any).providedData || invoiceSamples['invoice-001'];
   render() {
     const invoice = this.invoice;
-    const image = getAssetPath(`assets/leya.png`);    
+    const image = getAssetPath(`assets/leya-print-platform-logo.png`);    
 
     return <Host>
-      <div class="invoice-header__img"><div class="invoice-header__img-size"><leya-print-image-fetch imgSrc={image} class="leya-print-image" imgAlt="Company Logo" /></div></div>      
+      <div class="invoice-header__img"><div class="invoice-header__img-size"><leya-print-image-fetch imgSrc={image} class="leya-print-image" imgAlt="Leya Print Platform Logo" /></div></div>      
       <div class="invoice-header__address-box">
         <div class="invoice-header__sender">
           <tplb-address-line address={invoice.sender.address}></tplb-address-line>

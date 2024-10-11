@@ -33,6 +33,12 @@ export namespace Components {
     }
     interface TplTemplateDemoHeader {
     }
+    interface TplWhitePaperContent {
+    }
+    interface TplWhitePaperFooter {
+    }
+    interface TplWhitePaperHeader {
+    }
     interface TplWorkReportContent {
     }
     interface TplWorkReportFooter {
@@ -89,6 +95,24 @@ declare global {
         prototype: HTMLTplTemplateDemoHeaderElement;
         new (): HTMLTplTemplateDemoHeaderElement;
     };
+    interface HTMLTplWhitePaperContentElement extends Components.TplWhitePaperContent, HTMLStencilElement {
+    }
+    var HTMLTplWhitePaperContentElement: {
+        prototype: HTMLTplWhitePaperContentElement;
+        new (): HTMLTplWhitePaperContentElement;
+    };
+    interface HTMLTplWhitePaperFooterElement extends Components.TplWhitePaperFooter, HTMLStencilElement {
+    }
+    var HTMLTplWhitePaperFooterElement: {
+        prototype: HTMLTplWhitePaperFooterElement;
+        new (): HTMLTplWhitePaperFooterElement;
+    };
+    interface HTMLTplWhitePaperHeaderElement extends Components.TplWhitePaperHeader, HTMLStencilElement {
+    }
+    var HTMLTplWhitePaperHeaderElement: {
+        prototype: HTMLTplWhitePaperHeaderElement;
+        new (): HTMLTplWhitePaperHeaderElement;
+    };
     interface HTMLTplWorkReportContentElement extends Components.TplWorkReportContent, HTMLStencilElement {
     }
     var HTMLTplWorkReportContentElement: {
@@ -127,6 +151,9 @@ declare global {
         "tpl-template-demo-content": HTMLTplTemplateDemoContentElement;
         "tpl-template-demo-footer": HTMLTplTemplateDemoFooterElement;
         "tpl-template-demo-header": HTMLTplTemplateDemoHeaderElement;
+        "tpl-white-paper-content": HTMLTplWhitePaperContentElement;
+        "tpl-white-paper-footer": HTMLTplWhitePaperFooterElement;
+        "tpl-white-paper-header": HTMLTplWhitePaperHeaderElement;
         "tpl-work-report-content": HTMLTplWorkReportContentElement;
         "tpl-work-report-footer": HTMLTplWorkReportFooterElement;
         "tpl-work-report-header": HTMLTplWorkReportHeaderElement;
@@ -161,6 +188,12 @@ declare namespace LocalJSX {
     }
     interface TplTemplateDemoHeader {
     }
+    interface TplWhitePaperContent {
+    }
+    interface TplWhitePaperFooter {
+    }
+    interface TplWhitePaperHeader {
+    }
     interface TplWorkReportContent {
     }
     interface TplWorkReportFooter {
@@ -181,6 +214,9 @@ declare namespace LocalJSX {
         "tpl-template-demo-content": TplTemplateDemoContent;
         "tpl-template-demo-footer": TplTemplateDemoFooter;
         "tpl-template-demo-header": TplTemplateDemoHeader;
+        "tpl-white-paper-content": TplWhitePaperContent;
+        "tpl-white-paper-footer": TplWhitePaperFooter;
+        "tpl-white-paper-header": TplWhitePaperHeader;
         "tpl-work-report-content": TplWorkReportContent;
         "tpl-work-report-footer": TplWorkReportFooter;
         "tpl-work-report-header": TplWorkReportHeader;
@@ -199,6 +235,9 @@ declare module "@stencil/core" {
             "tpl-template-demo-content": LocalJSX.TplTemplateDemoContent & JSXBase.HTMLAttributes<HTMLTplTemplateDemoContentElement>;
             "tpl-template-demo-footer": LocalJSX.TplTemplateDemoFooter & JSXBase.HTMLAttributes<HTMLTplTemplateDemoFooterElement>;
             "tpl-template-demo-header": LocalJSX.TplTemplateDemoHeader & JSXBase.HTMLAttributes<HTMLTplTemplateDemoHeaderElement>;
+            "tpl-white-paper-content": LocalJSX.TplWhitePaperContent & JSXBase.HTMLAttributes<HTMLTplWhitePaperContentElement>;
+            "tpl-white-paper-footer": LocalJSX.TplWhitePaperFooter & JSXBase.HTMLAttributes<HTMLTplWhitePaperFooterElement>;
+            "tpl-white-paper-header": LocalJSX.TplWhitePaperHeader & JSXBase.HTMLAttributes<HTMLTplWhitePaperHeaderElement>;
             "tpl-work-report-content": LocalJSX.TplWorkReportContent & JSXBase.HTMLAttributes<HTMLTplWorkReportContentElement>;
             "tpl-work-report-footer": LocalJSX.TplWorkReportFooter & JSXBase.HTMLAttributes<HTMLTplWorkReportFooterElement>;
             "tpl-work-report-header": LocalJSX.TplWorkReportHeader & JSXBase.HTMLAttributes<HTMLTplWorkReportHeaderElement>;
