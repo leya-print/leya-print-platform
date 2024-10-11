@@ -1,6 +1,8 @@
 import { TemplateInfo } from '@leya-print/template-api';
+import { WhitePaper } from './white-paper-model';
+import sampleData from './white-paper.json';
 
-export const whitePaperTemplateInfo: TemplateInfo = {
+export const whitePaperTemplateInfo: TemplateInfo<WhitePaper> = {
   ident: 'white-paper',
   title: 'White Paper',
   description: 'Whitepaper about the template packages feature of the Leya Print Platform',
@@ -12,8 +14,8 @@ export const whitePaperTemplateInfo: TemplateInfo = {
   sampleData: {
     'simple': {
       title: 'White Paper for Leya Print Platform',
-      description: 'Simple sample of a white paper',
-      data: {},
+      description: 'A simple white paper',
+      data: sampleData,
     },
   },
 };

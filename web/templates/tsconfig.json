@@ -10,11 +10,13 @@
     ],
     "moduleResolution": "node",
     "module": "esnext",
-    "target": "es2017",
+    "skipLibCheck": true,
+    "target": "esnext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "resolveJsonModule": true
   },
   "include": [
     "src"
