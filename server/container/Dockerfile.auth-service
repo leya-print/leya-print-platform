@@ -1,0 +1,5 @@
+# syntax=docker/dockerfile:1
+FROM ...
+COPY . /leya-print/server/auth-service
+WORKDIR /leya-print/server/auth-service
+RUN npm install

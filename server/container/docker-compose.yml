@@ -1,0 +1,64 @@
+services:
+  server-common:
+    build:
+      context: .
+      dockerfile: Dockerfile.server-common
+
+  pdf-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.pdf-service
+    depends_on:
+      - server-common
+
+  tpl-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.tpl-service
+    depends_on:
+      - server-common
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.auth-service
+    depends_on:
+      - server-common
+
+  web-common:
+    build:
+      context: .
+      dockerfile: Dockerfile.web-common
+
+  web-designer:
+    build:
+      context: .
+      dockerfile: Dockerfile.web-designer
+    depends_on:
+      - web-common
+
+  web-print:
+    build:
+      context: .
+      dockerfile: Dockerfile.web-print
+    depends_on:
+      - web-common
+
+  sample-data:
+    build:
+      context: .
+      dockerfile: Dockerfile.sample-data
+
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile.main
+    depends_on:
+      - pdf-service
+      - tpl-service
+      - auth-service
+      - web-designer
+      - web-print
+      - sample-data
+    ports:
+      - "8080:8080"
