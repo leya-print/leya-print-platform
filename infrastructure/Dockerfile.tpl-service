@@ -1,0 +1,6 @@
+# syntax=docker/dockerfile:1
+FROM mcr.microsoft.com/playwright:v1.44.0-focal AS tpl-service
+
+COPY ../server/tpl-service /leya-print/server/tpl-service
+WORKDIR /leya-print/server/tpl-service
+RUN npm install

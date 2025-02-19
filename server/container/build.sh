@@ -1,14 +1,16 @@
 #!/bin/bash
-docker buildx build \
-  --build-context server-common=../common \
-  --build-context pdf-service=../pdf-service \
-  --build-context tpl-service=../tpl-service \
-  --build-context auth-service=../auth-service \
-  \
-  --build-context web-common=../../web/common \
-  --build-context web-designer=../../web/designer \
-  --build-context web-print=../../web/print \
-  --build-context sample-data=../../data \
-  --load \
-  -t local.local/leya \
-  .
+# docker buildx build \
+#   --build-context server-common=../common \
+#   --build-context pdf-service=../pdf-service \
+#   --build-context tpl-service=../tpl-service \
+#   --build-context auth-service=../auth-service \
+#   \
+#   --build-context web-common=../../web/common \
+#   --build-context web-designer=../../web/designer \
+#   --build-context web-print=../../web/print \
+#   --build-context sample-data=../../data \
+#   --load \
+#   -t local.local/leya \
+#   .
+
+docker build -f ../common -t server-common ..

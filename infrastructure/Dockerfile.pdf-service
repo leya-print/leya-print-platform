@@ -1,0 +1,6 @@
+# syntax=docker/dockerfile:1
+FROM mcr.microsoft.com/playwright:v1.44.0-focal AS pdf-service
+
+COPY ../server/pdf-service /leya-print/server/pdf-service
+WORKDIR /leya-print/server/pdf-service
+RUN npm install

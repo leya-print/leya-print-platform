@@ -1,0 +1,4 @@
+# syntax=docker/dockerfile:1
+FROM mcr.microsoft.com/playwright:v1.44.0-focal AS web-common
+
+COPY ../web/common /leya-print/web/common

@@ -1,53 +1,53 @@
 services:
   server-common:
     build:
-      context: .
-      dockerfile: Dockerfile.server-common
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.server-common
 
   pdf-service:
     build:
-      context: .
-      dockerfile: Dockerfile.pdf-service
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.pdf-service
     depends_on:
       - server-common
 
   tpl-service:
     build:
-      context: .
-      dockerfile: Dockerfile.tpl-service
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.tpl-service
     depends_on:
       - server-common
 
   auth-service:
     build:
-      context: .
-      dockerfile: Dockerfile.auth-service
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.auth-service
     depends_on:
       - server-common
 
   web-common:
     build:
-      context: .
-      dockerfile: Dockerfile.web-common
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.web-common
 
   web-designer:
     build:
-      context: .
-      dockerfile: Dockerfile.web-designer
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.web-designer
     depends_on:
       - web-common
 
   web-print:
     build:
-      context: .
-      dockerfile: Dockerfile.web-print
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.web-print
     depends_on:
       - web-common
 
   sample-data:
     build:
-      context: .
-      dockerfile: Dockerfile.sample-data
+      context: ../../
+      dockerfile: ././infrastructure/Dockerfile.sample-data
 
   main:
     build:

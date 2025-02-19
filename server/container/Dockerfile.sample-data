@@ -1,3 +1,0 @@
-# syntax=docker/dockerfile:1
-FROM ...
-COPY . /leya-print/data
