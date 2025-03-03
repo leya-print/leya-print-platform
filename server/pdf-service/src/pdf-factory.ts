@@ -40,7 +40,7 @@ export class PdfFactory {
       // use here
 
       console.log('open urlStr: ' + urlStr);
-      console.log('data: ' + JSON.stringify(providedData, null, 2));
+      // console.log('data: ' + JSON.stringify(providedData, null, 2));
 
       await Promise.all([
         page.goto(urlStr),
@@ -49,7 +49,14 @@ export class PdfFactory {
             // TODO: Use page.EvaluateAsync with async/await
             // after migration to a newer Playwright release
             await page.evaluate((data) => {
-              (window as any).providedData = JSON.parse(data);
+              if (typeof data === 'string') {
+                (window as any).providedData = JSON.parse(data);
+                console.log('providedData - parsed as JSON', (window as any).providedData);
+              }
+              else{
+                (window as any).providedData = data;
+                console.log('providedData', (window as any).providedData);
+              }              
 
               const areImagesLoaded = () => [...document.images].every(image => image.complete);
 

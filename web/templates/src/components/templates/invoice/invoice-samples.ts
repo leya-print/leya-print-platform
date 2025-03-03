@@ -35,6 +35,7 @@ export const invoiceSamples: { [id: string]: Invoice } = {
     sender: maxHardware,
     recipient: customer,
     date: '2022-07-08T15:55:34.315Z',
+    dueDate: '2022-07-08T15:55:34.315Z',
     positions: [
       {
         title: 'Big Hammer',

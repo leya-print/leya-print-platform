@@ -27,5 +27,6 @@ export interface Invoice {
     invoiceNo: string,
     customerReference?: string,
     date: string;
+    dueDate: string;
     positions: InvoicePosition[],
 }

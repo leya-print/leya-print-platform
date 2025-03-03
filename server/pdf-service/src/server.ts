@@ -24,6 +24,7 @@ const pdfService = new PdfService();
 const pdfFactory = new PdfFactory(env.printEndpoint);
 const pdfSigner = new PdfSigner(env.certificatesPath);
 const app = express();
+app.use(bodyParser.json({ limit: '50mb' }));
 
 const corsOptions: cors.CorsOptions = { 
   origin: '*'

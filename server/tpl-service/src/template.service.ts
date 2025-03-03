@@ -42,6 +42,10 @@ export class TemplateService extends CrudService<StoredTemplatePackage, Template
           const packageJson = JSON.parse(fs.readFileSync(path.join(extractedDirname, 'package.json'), 'utf-8'));
           const mainFilename = packageJson.main;
 
+          if (!packageJson) {
+            throw new Error('no template package main path found! Uploaded template has to have a main path in package.json');
+          }
+
           //TODO: create sandbox execute in sandbox
           // get from sandbox template
           const uploadedModule = await import(path.join(extractedDirname, mainFilename));
